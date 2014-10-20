@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/news' => 'pages#news', as: 'news'
   get '/usage' => 'pages#usage', as: 'usage'
 
+  resources :applications
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
