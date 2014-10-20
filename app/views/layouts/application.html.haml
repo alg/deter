@@ -8,7 +8,11 @@
 
   %body
     = render "layouts/header"
-    = yield
+    .container
+      .row
+        .col-sm-9= yield
+        .col-sm-3#sidebar= render "layouts/sidebar"
+
     = render "layouts/footer"
 
     = javascript_include_tag 'application'
