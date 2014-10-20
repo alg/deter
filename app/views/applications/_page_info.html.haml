@@ -1,34 +1,22 @@
 #page-info.page
   .page-header
-    %h1 Start Using DeterLab: New Project Application Form
+    %h1= t "page_info.title"
 
-  %h2 Get Started in Deterlab
+  = raw t "page_info.info"
 
-  %p
-    To start using DeterLab, you need to apply for a user account using a web form that you can start just below.
-    But first, please read our Usage Guide to the basic concepts of DeterLab usage - #{link_to "Get Started in DeterLab", "http://info.deterlab.net/get_started_deterlab"} -
-    which will help you identify which type of DeterLab access you should apply for.
-    Also please read the #{link_to "DeterLab Usage Policy", "https://trac.deterlab.net/wiki/Policy"} to ensure
-    that your plans match the appropriate uses of DeterLab. Then when you're ready click "Next" button below
-    and you'll be guided through the application process.
-
-  %p
-    If you already have a DeterLab account, and want to apply for additional DeterLab resources, please login
-    and then follow one of the options described here: Extend Your Usage of DeterLab.
-
-  %p
-    Please note that your application requires an organization-affiliated email address, for DeterLab staff to
-    be able to contact you to conclude the application process. Other email addresses (Gmail, Hotmail, email addresses from ISPs) will not be accepted.
-
-
-  %p
-    #{check_box_tag "apply", "1", false, data: { bind: "checked: infoApply" }} I would like to apply for an account to use DeterLab<br/>
-    #{check_box_tag "accept", "1", false, data: { bind: "checked: infoAccept" }} I have read the Usage Policy and Usage Guide
+  .checkbox
+    %label
+      = check_box_tag "apply", "1", false, data: { bind: "checked: infoApply" }
+      = raw t "page_info.options.apply"
+  .checkbox
+    %label
+      = check_box_tag "accept", "1", false, data: { bind: "checked: infoAccept" }
+      = raw t "page_info.options.accept"
 
   .panel.panel-default
     .panel-body
       .row
-        .col-xs-6= link_to "Cancel", :root, class: "btn btn-primary"
+        .col-xs-6= link_to t("page_info.back_button"), :root, class: "btn btn-primary"
         .col-xs-6
           %span.next-btn.pull-right
-            = link_to "Next", "#", class: "btn btn-primary", data: { bind: "click: showUserTypePage, css: { disabled: infoPageInvalid }" }
+            = link_to t("page_info.next_button"), "#", class: "btn btn-primary", data: { bind: "click: showUserTypePage, css: { disabled: infoPageInvalid }" }

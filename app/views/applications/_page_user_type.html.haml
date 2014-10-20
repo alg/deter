@@ -1,15 +1,38 @@
 #page-user-type.page
   .page-header
-    %h1 Start Using DeterLab: New Project Application Form
+    %h1= t "page_user_type.title"
 
-  %h2 Tell Us About Yourself
+  = raw t "page_user_type.info"
 
-  %p Blah blah
+  .radio
+    %label
+      = radio_button_tag "user_type", "project_leader", false, data: { bind: "checked: userType" }
+      = raw t "page_user_type.options.project_leader"
+
+  .radio
+    %label
+      = radio_button_tag "user_type", "member", false, data: { bind: "checked: userType" }
+      = raw t "page_user_type.options.member"
+
+  .radio
+    %label
+      = radio_button_tag "user_type", "research_advisor", false, data: { bind: "checked: userType" }
+      = raw t "page_user_type.options.research_advisor"
+
+  .radio
+    %label
+      = radio_button_tag "user_type", "student", false, data: { bind: "checked: userType" }
+      = raw t "page_user_type.options.student"
+
+  .radio
+    %label
+      = radio_button_tag "user_type", "faculty", false, data: { bind: "checked: userType" }
+      = raw t "page_user_type.options.faculty"
 
   .panel.panel-default
     .panel-body
       .row
-        .col-xs-6= link_to "Back", "#", class: "btn btn-primary", data: { bind: "click: showInfoPage" }
+        .col-xs-6= link_to t("page_user_type.back_button"), "#", class: "btn btn-primary", data: { bind: "click: showInfoPage" }
         .col-xs-6
           %span.next-btn.pull-right
-            = link_to "Next", "#", class: "btn btn-primary"
+            = link_to t("page_user_type.next_button"), "#", class: "btn btn-primary", data: { bind: "click: showUserDetailsPage, css: { disabled: userTypePageInvalid }" }

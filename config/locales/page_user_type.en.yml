@@ -1,0 +1,38 @@
+en:
+  page_user_type:
+    title: "Start Using DeterLab: New Project Application Form"
+    info: >
+      <h2>Tell Us About Yourself</h2>
+
+      <p>
+        Please select from the options below that best describe the type of usage
+        you are applying for, based on the <a href="https://trac.deterlab.net/wiki/Policy">DeterLab Usage Guide</a>.
+        If none of the options fits your case, please <a href="http://info.deterlab.net/contact_deterlab">contact us</a>
+        to get assistance with the application process.
+      </p>
+    back_button: Back
+    next_button: Continue
+  
+    options:
+      project_leader: 
+        "I am a research group leader, and I want to sign up for a DeterLab
+        workspace for my research project team members."
+      member:
+        "I am a member of a research project team that is already using DeterLab,
+        and I want to get access to my team's workspace."
+      research_advisor:
+        "I am an academic or research advisor of a student, and I would like to
+        sponsor the student's individual research work in DeterLab."
+      student:
+        "I am a student doing my own research, with an academic or research
+        advisor who has already sponsored my work in DeterLab."
+      faculty: >
+        I am university faculty or staff or who would like to start using
+        DeterLab's <a href="http://www.deter-project.org/deterlab-cyber-security-education">educational facilities</a>
+        to teach a course at my educational institution.
+
+
+
+
+    errors:
+      user_type: Please choose the type of account.

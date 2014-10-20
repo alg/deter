@@ -1,0 +1,22 @@
+en:
+  page_user_details:
+    title: "Start Using DeterLab: New Project Application Form"
+    back_button: Back
+    next_button: Continue Application
+
+    project_leader:
+      info: >
+        <h2>Project Leader Info</h2>
+
+        <p>
+          As a Principal Investigator (PI) or project leader, you’ll be responsible
+          for managing the shared workspace for your team. Please start by providing
+          some information about yourself, and then continue to the next step to
+          describe the project.
+        </p>
+
+        <p>
+          If you already have a DeterLab account, but want to
+          create a new project, please start by logging in:
+          <a href="/login">Login and Continue Application</a>
+        </p>

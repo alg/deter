@@ -1,3 +1,5 @@
 #new_application
-  = render 'page_info'
-  = render 'page_user_type'
+  = form_tag :applications, method: 'post' do
+    = render 'page_info'
+    = render 'page_user_type'
+    = render 'page_user_details'

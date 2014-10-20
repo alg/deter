@@ -2,6 +2,7 @@ class ApplicationForm
   constructor: ->
     @initInfoPage()
     @initUserTypePage()
+    @initUserDetailsPage()
 
   # Info page
 
@@ -25,12 +26,39 @@ class ApplicationForm
   # User type page
 
   initUserTypePage: ->
-    console.log "utp"
+    @userType = ko.observable(null)
+
+    @userTypePageErrors = ko.computed =>
+      errors = []
+      errors.push(I18n.t("page_user_type.errors.user_type")) if !@userType()
+      errors
+
+    @userTypePageInvalid = ko.computed =>
+      @userTypePageErrors().length > 0
+
+    new Popover('#page-user-type .next-btn', @userTypePageErrors)
+
+
+  # User details page
+
+  initUserDetailsPage: ->
+    @userDetailsPageErrors = ko.computed =>
+      errors = []
+      errors
+
+    @userDetailsPageInvalid = ko.computed =>
+      @userDetailsPageErrors().length > 0
+
+    new Popover('#page-user-details .next-btn', @userDetailsPageErrors)
+
+
 
   # Navigation
 
-  showInfoPage:     (e) => @showPage "page-info", e
-  showUserTypePage: (e) => @showPage "page-user-type", e
+  showInfoPage:        (e) => @showPage "page-info", e
+  showUserTypePage:    (e) => @showPage "page-user-type", e
+  showUserDetailsPage: (e) => @showPage "page-user-details", e
+  showProjectInfoPage: (e) => @showPage "page-project-info", e
 
   showPage: (page_id, e) ->
     return if e && $(e.target).hasClass('disabled')
