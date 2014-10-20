@@ -9,15 +9,26 @@ class ApplicationForm
     @infoApply  = ko.observable(false)
     @infoAccept = ko.observable(false)
 
-  infoPageErrors: ->
-    errors = []
-    errors
+    @infoPageErrors = ko.computed =>
+      errors = []
+      errors.push(I18n.t("page_info.errors.apply")) if !@infoApply()
+      errors.push(I18n.t("page_info.errors.accept")) if !@infoAccept()
+      errors
 
-  infoPageValid: => @infoPageErrors().length == 0
+    @infoPageInvalid = ko.computed =>
+      @infoPageErrors().length > 0
 
+    new Popover('#page-info .next-btn', @infoPageErrors)
+
+
+
+  # User type page
+
+  initUserTypePage: ->
+    console.log "utp"
 
   # Navigation
-  
+
   showInfoPage:     (e) => @showPage "page-info", e
   showUserTypePage: (e) => @showPage "page-user-type", e
 

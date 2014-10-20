@@ -22,11 +22,13 @@
 
 
   %p
-    #{check_box_tag "apply"} I would like to apply for an account to use DeterLab<br/>
-    #{check_box_tag "accept"} I have read the Usage Policy and Usage Guide
+    #{check_box_tag "apply", "1", false, data: { bind: "checked: infoApply" }} I would like to apply for an account to use DeterLab<br/>
+    #{check_box_tag "accept", "1", false, data: { bind: "checked: infoAccept" }} I have read the Usage Policy and Usage Guide
 
   .panel.panel-default
     .panel-body
       .row
         .col-sm-6= link_to "Cancel", :root, class: "btn btn-primary"
-        .col-sm-6= link_to "Next", "#", class: "btn btn-primary pull-right", data: { bind: "click: showUserTypePage, css: { disabled: !infoPageValid() }" }
+        .col-sm-6
+          %span.next-btn.pull-right
+            = link_to "Next", "#", class: "btn btn-primary", data: { bind: "click: showUserTypePage, css: { disabled: infoPageInvalid }" }

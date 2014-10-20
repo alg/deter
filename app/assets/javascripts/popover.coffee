@@ -1,0 +1,20 @@
+class window.Popover
+  constructor: (id, errors) ->
+    @errors = errors
+    @el = $(id).popover(content: @popoverContent, title: 'Please review', html: true, trigger: 'hover')
+    @po = @el.data()['bs.popover']
+
+    errors.subscribe @update
+    @update()
+
+  update: =>
+    console.log "updating popup: #{@errors().length}"
+    @po.enabled = @errors().length > 0
+
+  popoverContent: =>
+    items = @errors()
+    if items.length > 0
+      "<ul>#{('<li>' + i + '</li>' for i in items).join('')}</ul>"
+    else
+      null
+

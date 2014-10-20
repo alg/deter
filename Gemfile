@@ -17,3 +17,4 @@ gem 'bootstrap-sass', :git => 'https://github.com/twbs/bootstrap-sass.git', :bra
 gem 'quiet_assets'
 gem 'better_errors'
 gem 'binding_of_caller'
+gem 'i18n-js'

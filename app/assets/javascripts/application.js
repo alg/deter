@@ -14,4 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require knockoutjs-3.2.0
+//= require i18n
+//= require i18n/translations
 //= require_tree .
