@@ -2,8 +2,9 @@
 %html
   %head
     %title DETERLAB Beginner Interface
-    = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   %body
+    = render "layouts/header"
     = yield
     = javascript_include_tag 'application'
