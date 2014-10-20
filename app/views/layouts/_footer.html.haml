@@ -1,0 +1,25 @@
+.container
+  #footer
+    .row
+      .col-md-2.visible-md.visible-lg
+        = link_to "https://www.isi.deterlab.net/" do
+          = image_tag "logo.png", class: 'logo'
+
+      .col-md-8
+        .row.text-center
+          .col-sm-12
+            %ul.menu
+              %li= link_to "DETER PROJECT", "http://deter-project.org/"
+              %li= link_to "PRIVACY POLICY", "http://info.deterlab.net/privacy"
+              %li= link_to "USAGE POLICY", "https://trac.deterlab.net/wiki/Policy"
+              %li= link_to "CONTACT US", "http://info.deterlab.net/contact_deterlab"
+              %li.last= link_to "DETERLAB V0.2/0.0", "http://deter-project.org/"
+
+          .col-sm-12.copyright
+            Copyright &copy; 2000-2012 USC Information Sciences Institute and University of Utah
+
+
+      .col-md-2.visible-md.visible-lg
+        = link_to "http://www.emulab.net/", class: 'pull-right' do
+          = image_tag "emulab.png", class: 'emulab'
+

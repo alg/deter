@@ -1,0 +1,35 @@
+#footer {
+  margin-top: 20px;
+  background-color: #000;
+  color: #666;
+  padding: 10px;
+
+  .logo { height: 40px; }
+  .emulab { height: 40px; }
+
+  ul.menu {
+    padding: 0;
+    margin-bottom: 0;
+
+    a {
+      color: #999;
+      font-size: 9pt;
+    }
+
+    li {
+      display: inline;
+    }
+
+    li:after {
+      content: " | ";
+    }
+
+    li.last:after {
+      content: "";
+    }
+  }
+
+  .copyright {
+    font-size: 11px;
+  }
+}
