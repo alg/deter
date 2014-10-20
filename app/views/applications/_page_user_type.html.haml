@@ -9,5 +9,7 @@
   .panel.panel-default
     .panel-body
       .row
-        .col-sm-6= link_to "Back", "#", class: "btn btn-primary", data: { bind: "click: showInfoPage" }
-        .col-sm-6= link_to "Next", "#", class: "btn btn-primary pull-right"
+        .col-xs-6= link_to "Back", "#", class: "btn btn-primary", data: { bind: "click: showInfoPage" }
+        .col-xs-6
+          %span.next-btn.pull-right
+            = link_to "Next", "#", class: "btn btn-primary"
