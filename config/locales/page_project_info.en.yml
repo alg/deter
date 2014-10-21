@@ -11,13 +11,13 @@ en:
       </p>
 
     back_button: Back
-    next_button: Submit
+    next_button: Submit Application
 
     project_name:
       label: Project Name
       help:  "Your project's name or brief description"
     project_plan:
-      label: Project Plan
+      label: Project Description
       help:  "Briefly describe your project's goals, and how you plan to use DeterLab"
     project_id:
       label: Project ID
@@ -40,8 +40,9 @@ en:
       options: [ "Government Research Grant", "Other Govnerment Contract", "Academic Institution Support", "Corporate Funding", "Private Funding", "Other" ]
     project_listing:
       label: Project Listing
-      help:  "Include your project on the public list of DeterLab projects"
+      help:  "Include your project on the <a href='https://www.isi.deterlab.net/projectlist.php'>public list</a> of DeterLab projects"
       options: [ "Yes", "No" ]
+      default: "Yes"
 
     errors:
       all_fields: All fields are required

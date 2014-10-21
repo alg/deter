@@ -93,10 +93,14 @@ class ApplicationForm
     @project_funding        = ko.observable()
     @project_listing        = ko.observable()
 
+    @omitProjectId = ko.computed =>
+      @userType() == 'project_leader'
+
     @pir = new I18nErrors("page_project_info.errors")
     @projectInfoPageErrors = ko.computed =>
       errors = []
-      if !filled(@project_name()) or !filled(@project_plan()) or !filled(@project_id()) or
+      if !filled(@project_name()) or !filled(@project_plan()) or
+         (!@omitProjectId() and !filled(@project_id())) or
          !filled(@project_website()) or !filled(@project_org_type()) or !filled(@project_research_focus()) or
          !filled(@project_funding()) or !filled(@project_listing())
         errors.push(@pir.t("all_fields"))

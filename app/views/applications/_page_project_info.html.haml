@@ -8,12 +8,14 @@
   %fieldset
     = form_text_field base, :project_name
     = form_text_area  base, :project_plan
+    <!-- ko ifnot: omitProjectId -->
     = form_text_field base, :project_id
+    <!-- /ko -->
     = form_text_field base, :project_website
     = form_select     base, :project_org_type
     = form_select     base, :project_research_focus
     = form_select     base, :project_funding
-    = form_select     base, :project_listing
+    = form_select     base, :project_listing, field_options: { include_blank: false }
 
 
   .panel.panel-default

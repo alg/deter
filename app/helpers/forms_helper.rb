@@ -19,8 +19,10 @@ module FormsHelper
 
     attrs = field_attrs(base, name)
 
-    field_attrs = { class: "form-control", data: { bind: "value: #{name}" } }
+    field_attrs = { class: "form-control", data: { bind: "valueWithInit: #{name}" } }
     field_attrs[:placeholder] = attrs[:placeholder] if attrs[:placeholder]
+    field_attrs = field_attrs.merge(options[:field_options] || {})
+
     field = send("#{field_type}_tag", name, attrs[:default] || "", field_attrs)
 
     wrap_field(name, field, attrs, options)
@@ -46,8 +48,8 @@ module FormsHelper
     opts = attrs[:options]
     opts = opts.invert if opts.kind_of? Hash
 
-    field_attrs = { class: "form-control", data: { bind: "value: #{name}" }, include_blank: true }
-    field = select_tag(name, options_for_select(opts), field_attrs)
+    field_attrs = { class: "form-control", data: { bind: "valueWithInit: #{name}" }, include_blank: true }.merge(options[:field_options] || {})
+    field = select_tag(name, options_for_select(opts, attrs[:default]), field_attrs)
 
     wrap_field(name, field, attrs, options)
   end
@@ -59,7 +61,7 @@ module FormsHelper
   end
 
   def help_block(text)
-    content_tag(:span, text, class: "help-block")
+    content_tag(:span, text.html_safe, class: "help-block")
   end
 
   def field_attrs(base, name)
