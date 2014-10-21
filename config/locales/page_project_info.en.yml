@@ -1,3 +1,15 @@
 en:
-  project_info:
-    errors: placeholder
+  page_project_info:
+    title: Project Info
+    info: >
+      To complete your application, please provide some information about the
+      research project that your team will be using DeterLab for. The project name
+      that you choose will be required when your team members sign up for their
+      individual DeterLab accounts. The project description, type, and focus all help
+      DeterLab staff understand what type of support your team may need.
+
+    back_button: Back
+    next_button: Submit
+
+    errors:
+      all_fields: All fields are required

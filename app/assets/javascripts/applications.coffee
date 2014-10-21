@@ -9,6 +9,7 @@ class ApplicationForm
     @initInfoPage()
     @initUserTypePage()
     @initNewUserPage()
+    @initProjectInfoPage()
 
   # Info page
 
@@ -23,8 +24,7 @@ class ApplicationForm
       errors.push(@ipe.t("accept")) if !@infoAccept()
       errors
 
-    @infoPageInvalid = ko.computed =>
-      @infoPageErrors().length > 0
+    @infoPageInvalid = ko.computed => @infoPageErrors().length > 0
 
     new Popover('#page-info .next-btn', @infoPageErrors)
 
@@ -41,8 +41,7 @@ class ApplicationForm
       errors.push(@utr.t("user_type")) if !@userType()
       errors
 
-    @userTypePageInvalid = ko.computed =>
-      @userTypePageErrors().length > 0
+    @userTypePageInvalid = ko.computed => @userTypePageErrors().length > 0
 
     new Popover('#page-user-type .next-btn', @userTypePageErrors)
 
@@ -68,40 +67,62 @@ class ApplicationForm
     @zip       = ko.observable()
     @country   = ko.observable()
 
-    @udr = new I18nErrors("page_new_user.project_leader.errors")
+    @nur = new I18nErrors("page_new_user.project_leader.errors")
     @newUserPageErrors = ko.computed =>
       errors = []
-      errors.push(@udr.t("full_name")) if !filled(@full_name())
-      errors.push(@udr.t("email")) if !filled(@email())
-      errors.push(@udr.t("phone")) if !filled(@phone())
-      errors.push(@udr.t("position")) if !filled(@position())
-      errors.push(@udr.t("affiliate")) if !filled(@affiliate())
-      errors.push(@udr.t("abbrev")) if !filled(@abbrev())
-      errors.push(@udr.t("website")) if !filled(@website())
-      errors.push(@udr.t("username")) if !filled(@username())
-      errors.push(@udr.t("password")) if !filled(@password())
-      errors.push(@udr.t("password_confirmation")) if !filled(@password_confirmation()) or @password() != @password_confirmation()
-      errors.push(@udr.t("postal_address")) if !filled(@address_1()) or !filled(@address_2()) or !filled(@city()) or !filled(@state()) or !filled(@zip) or !filled(@country)
+      if !filled(@full_name()) or !filled(@email()) or !filled(@phone()) or !filled(@position()) or !filled(@affiliate()) or !filled(@abbrev()) or !filled(@website()) or
+         !filled(@username()) or !filled(@password()) or !filled(@password_confirmation()) or @password() != @password_confirmation() or
+         !filled(@address_1()) or !filled(@address_2()) or !filled(@city()) or !filled(@state()) or !filled(@zip) or !filled(@country)
+        errors.push(@nur.t("all_fields"))
       errors
 
-    @newUserPageInvalid = ko.computed =>
-      @newUserPageErrors().length > 0
+    @newUserPageInvalid = ko.computed => @newUserPageErrors().length > 0
 
     new Popover('#page-new-user .next-btn', @newUserPageErrors)
 
 
+  initProjectInfoPage: ->
+    @pir = new I18nErrors("page_project_info.errors")
+    @projectInfoPageErrors = ko.computed =>
+      errors = []
+      errors.push(@pir.t("all_fields"))
+      errors
+
+    @projectInfoPageInvalid = ko.computed => @projectInfoPageErrors().length > 0
+    new Popover('#page-project-info .next-btn', @projectInfoPageErrors)
 
   # Navigation
+  #
+  # Info -> User Type -> New User     -> Project Info -> (submit) -> Thanks
+  #                                   -> Course Info  ->
+  #                   -> Join Project ----------------->
 
-  showInfoPage:        (e) => @showPage "page-info", e
-  showUserTypePage:    (e) => @showPage "page-user-type", e
-  showNewUserPage:     (e) => @showPage "page-new-user", e
+  showInfoPage: (e) => @showPage "page-info", e
+  showUserTypePage: (e) => @showPage "page-user-type", e
+  nextFromUserTypePage: (e) =>
+    page = switch @userType()
+      when 'project_leader', 'sponsor', 'educator'
+        "page-new-user"
+      else
+        "page-join"
+
+    @showPage page, e
+        
+
   showProjectInfoPage: (e) => @showPage "page-project-info", e
+  backFromProjectInfoPage: (e) => @showPage "page-new-user", e
 
   showPage: (page_id, e) ->
     return if e && $(e.target).hasClass('disabled')
     $(".page").hide()
     $("##{page_id}").show()
+
+  
+
+  # Submission
+  
+  submitData: (e) =>
+    console.log "Submission"
 
 $ ->
   return if $("#new_application").length == 0

@@ -8,7 +8,6 @@ class window.Popover
     @update()
 
   update: =>
-    console.log "updating popup: #{@errors().length}"
     @po.enabled = @errors().length > 0
 
   popoverContent: =>

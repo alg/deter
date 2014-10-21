@@ -13,4 +13,4 @@
         .col-xs-6= link_to t("page_new_user.back_button"), "#", class: "btn btn-primary", data: { bind: "click: showUserTypePage" }
         .col-xs-6
           %span.next-btn.pull-right
-            = link_to t("page_new_user.next_button"), "#", class: "btn btn-primary", data: { bind: "click: showProjectInfoPage, css: { disabled: userDetailsPageInvalid}" }
+            = link_to t("page_new_user.next_button"), "#", class: "btn btn-primary", data: { bind: "click: showProjectInfoPage, css: { disabled: newUserPageInvalid}" }

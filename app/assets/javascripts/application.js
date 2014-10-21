@@ -15,5 +15,5 @@
 //= require jquery_ujs
 //= require knockoutjs-3.2.0
 //= require i18n
-//= require i18n/translations
+//= require i18n/errors
 //= require_tree .

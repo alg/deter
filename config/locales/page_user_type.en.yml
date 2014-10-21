@@ -20,19 +20,16 @@ en:
       member:
         "I am a member of a research project team that is already using DeterLab,
         and I want to get access to my team's workspace."
-      research_advisor:
+      sponsor:
         "I am an academic or research advisor of a student, and I would like to
         sponsor the student's individual research work in DeterLab."
-      student:
+      sponsored_student:
         "I am a student doing my own research, with an academic or research
         advisor who has already sponsored my work in DeterLab."
-      faculty: >
+      educator: >
         I am university faculty or staff or who would like to start using
         DeterLab's <a href="http://www.deter-project.org/deterlab-cyber-security-education">educational facilities</a>
         to teach a course at my educational institution.
-
-
-
 
     errors:
       user_type: Please choose the type of account.

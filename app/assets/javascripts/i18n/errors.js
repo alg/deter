@@ -1,0 +1,2 @@
+var I18n = I18n || {};
+I18n.translations = {"en":{"page_info":{"errors":{"apply":"Please confirm you are applying for a new project","accept":"Please accept terms and conditions"}},"page_user_type":{"errors":{"user_type":"Please choose the type of account."}},"page_new_user":{"project_leader":{"errors":{"all_fields":"All fields are required"}}},"page_project_info":{"errors":{"all_fields":"All fields are required"}}}};

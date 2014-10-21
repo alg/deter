@@ -16,18 +16,18 @@
 
   .radio
     %label
-      = radio_button_tag "user_type", "research_advisor", false, data: { bind: "checked: userType" }
-      = raw t "page_user_type.options.research_advisor"
+      = radio_button_tag "user_type", "sponsor", false, data: { bind: "checked: userType" }
+      = raw t "page_user_type.options.sponsor"
 
   .radio
     %label
-      = radio_button_tag "user_type", "student", false, data: { bind: "checked: userType" }
-      = raw t "page_user_type.options.student"
+      = radio_button_tag "user_type", "sponsored_student", false, data: { bind: "checked: userType" }
+      = raw t "page_user_type.options.sponsored_student"
 
   .radio
     %label
-      = radio_button_tag "user_type", "faculty", false, data: { bind: "checked: userType" }
-      = raw t "page_user_type.options.faculty"
+      = radio_button_tag "user_type", "educator", false, data: { bind: "checked: userType" }
+      = raw t "page_user_type.options.educator"
 
   .panel.panel-default
     .panel-body
@@ -35,4 +35,4 @@
         .col-xs-6= link_to t("page_user_type.back_button"), "#", class: "btn btn-primary", data: { bind: "click: showInfoPage" }
         .col-xs-6
           %span.next-btn.pull-right
-            = link_to t("page_user_type.next_button"), "#", class: "btn btn-primary", data: { bind: "click: showUserDetailsPage, css: { disabled: userTypePageInvalid }" }
+            = link_to t("page_user_type.next_button"), "#", class: "btn btn-primary", data: { bind: "click: nextFromUserTypePage, css: { disabled: userTypePageInvalid }" }
