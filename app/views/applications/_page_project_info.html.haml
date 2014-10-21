@@ -1,0 +1,13 @@
+#page-info.page
+  .page-header
+    %h1= t "page_project_info.title"
+
+  = raw t "page_project_info.info"
+
+  .panel.panel-default
+    .panel-body
+      .row
+        .col-xs-6= link_to t("page_project_info.back_button"), :root, class: "btn btn-primary"
+        .col-xs-6
+          %span.next-btn.pull-right
+            = link_to t("page_project_info.next_button"), "#", class: "btn btn-primary", data: { bind: "click: showNewUserPage, css: { disabled: projectInfoPageInvalid }" }

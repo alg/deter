@@ -1,5 +1,6 @@
 #new_application
-  = form_tag :applications, method: 'post' do
+  = form_tag :applications, method: 'post', class: 'form-horizontal' do
     = render 'page_info'
     = render 'page_user_type'
-    = render 'page_user_details'
+    = render 'page_new_user'
+    = render 'page_project_info'

@@ -29,4 +29,4 @@
 
 translations:
   - file: "app/assets/javascripts/i18n/translations.js"
-    only: [ "*.page_info", "*.page_user_type" ]
+    only: [ "*.page_info.errors", "*.page_user_type.errors", "*.page_new_user.project_leader.errors" ]

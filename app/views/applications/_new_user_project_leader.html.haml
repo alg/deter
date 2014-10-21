@@ -1,0 +1,27 @@
+= raw t "page_new_user.project_leader.info"
+
+- details_base = "page_new_user.project_leader"
+%fieldset
+  = form_text_field details_base, :full_name
+  = form_text_field details_base, :email
+  = form_text_field details_base, :phone
+  = form_text_field details_base, :position
+  = form_text_field details_base, :affiliate
+  = form_text_field details_base, :abbrev
+  = form_text_field details_base, :website
+  = form_text_field details_base, :username
+  = form_password_field details_base, :password
+  = form_password_field details_base, :password_confirmation
+
+- address_base = "page_new_user.project_leader.postal_address"
+%fieldset
+  %h4= t "#{address_base}.label"
+  %span.help-block= t "#{address_base}.help"
+
+  = form_text_field address_base, :address_1
+  = form_text_field address_base, :address_2
+  = form_text_field address_base, :city
+  = form_text_field address_base, :state
+  = form_text_field address_base, :zip
+  = form_text_field address_base, :country
+
