@@ -15,8 +15,6 @@ gem 'haml-rails'
 gem 'bootstrap-sass', :git => 'https://github.com/twbs/bootstrap-sass.git', :branch => 'next'
 
 gem 'quiet_assets'
-gem 'better_errors'
-gem 'binding_of_caller'
 gem 'i18n-js'
 
 gem 'capistrano-rails'
