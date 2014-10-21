@@ -18,3 +18,5 @@ gem 'quiet_assets'
 gem 'better_errors'
 gem 'binding_of_caller'
 gem 'i18n-js'
+
+gem 'capistrano-rails'
