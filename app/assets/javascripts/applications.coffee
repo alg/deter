@@ -6,10 +6,55 @@ class I18nErrors
 # Application form
 class ApplicationForm
   constructor: ->
+    @initUserFields()
+    @initProjectFields()
+    @initCourseFields()
+
     @initInfoPage()
     @initUserTypePage()
     @initNewUserPage()
     @initProjectInfoPage()
+    @initJoinProjectPage()
+    @initCourseInfoPage()
+
+    @initHelpers()
+
+
+  # Form fields
+
+  initUserFields: ->
+    @userType               = ko.observable()
+    @full_name              = ko.observable()
+    @email                  = ko.observable()
+    @phone                  = ko.observable()
+    @position               = ko.observable()
+    @affiliate              = ko.observable()
+    @abbrev                 = ko.observable()
+    @website                = ko.observable()
+    @username               = ko.observable()
+    @password               = ko.observable()
+    @password_confirmation  = ko.observable()
+    @address_1              = ko.observable()
+    @address_2              = ko.observable()
+    @city                   = ko.observable()
+    @state                  = ko.observable()
+    @zip                    = ko.observable()
+    @country                = ko.observable()
+
+  initProjectFields: ->
+    @project_name           = ko.observable()
+    @project_plan           = ko.observable()
+    @project_id             = ko.observable()
+    @project_website        = ko.observable()
+    @project_org_type       = ko.observable()
+    @project_research_focus = ko.observable()
+    @project_funding        = ko.observable()
+    @project_listing        = ko.observable()
+
+  initCourseFields: ->
+    @course_name            = ko.observable()
+    @course_description     = ko.observable()
+    @course_focus           = ko.observable()
 
   # Info page
 
@@ -33,8 +78,6 @@ class ApplicationForm
   # User type page
 
   initUserTypePage: ->
-    @userType = ko.observable(null)
-
     @utr = new I18nErrors("page_user_type.errors")
     @userTypePageErrors = ko.computed =>
       errors = []
@@ -49,30 +92,12 @@ class ApplicationForm
   # New user page
 
   initNewUserPage: ->
-    @full_name = ko.observable()
-    @email     = ko.observable()
-    @phone     = ko.observable()
-    @position  = ko.observable()
-    @affiliate = ko.observable()
-    @abbrev    = ko.observable()
-    @website   = ko.observable()
-    @username  = ko.observable()
-    @password  = ko.observable()
-    @password_confirmation = ko.observable()
-
-    @address_1 = ko.observable()
-    @address_2 = ko.observable()
-    @city      = ko.observable()
-    @state     = ko.observable()
-    @zip       = ko.observable()
-    @country   = ko.observable()
-
-    @nur = new I18nErrors("page_new_user.project_leader.errors")
+    @nur = new I18nErrors("page_new_user.errors")
     @newUserPageErrors = ko.computed =>
       errors = []
       if !filled(@full_name()) or !filled(@email()) or !filled(@phone()) or !filled(@position()) or !filled(@affiliate()) or !filled(@abbrev()) or !filled(@website()) or
          !filled(@username()) or !filled(@password()) or !filled(@password_confirmation()) or @password() != @password_confirmation() or
-         !filled(@address_1()) or !filled(@address_2()) or !filled(@city()) or !filled(@state()) or !filled(@zip) or !filled(@country)
+         !filled(@address_1()) or !filled(@address_2()) or !filled(@city()) or !filled(@state()) or !filled(@zip()) or !filled(@country())
         errors.push(@nur.t("all_fields"))
       errors
 
@@ -84,17 +109,9 @@ class ApplicationForm
   # Project info page
 
   initProjectInfoPage: ->
-    @project_name           = ko.observable()
-    @project_plan           = ko.observable()
-    @project_id             = ko.observable()
-    @project_website        = ko.observable()
-    @project_org_type       = ko.observable()
-    @project_research_focus = ko.observable()
-    @project_funding        = ko.observable()
-    @project_listing        = ko.observable()
-
     @omitProjectId = ko.computed =>
-      @userType() == 'project_leader'
+      @userType() == 'project_leader' or
+      @userType() == 'sponsor'
 
     @pir = new I18nErrors("page_project_info.errors")
     @projectInfoPageErrors = ko.computed =>
@@ -110,6 +127,56 @@ class ApplicationForm
     new Popover('#page-project-info .next-btn', @projectInfoPageErrors)
 
 
+  # Join project page
+
+  initJoinProjectPage: ->
+    @jpp = new I18nErrors("page_join_project.errors")
+    @joinProjectPageErrors = ko.computed =>
+      errors = []
+      if !filled(@project_name()) or
+         !filled(@full_name()) or !filled(@email()) or !filled(@phone()) or !filled(@position()) or !filled(@affiliate()) or !filled(@abbrev()) or !filled(@website()) or
+         !filled(@username()) or !filled(@password()) or !filled(@password_confirmation()) or @password() != @password_confirmation() or
+         !filled(@address_1()) or !filled(@address_2()) or !filled(@city()) or !filled(@state()) or !filled(@zip()) or !filled(@country())
+        errors.push(@jpp.t("all_fields"))
+      errors
+
+    @joinProjectPageInvalid = ko.computed => @joinProjectPageErrors().length > 0
+
+    new Popover('#page-join-project .next-btn', @joinProjectPageErrors)
+
+
+  # Course info page
+  
+  initCourseInfoPage: ->
+    @cip = new I18nErrors("page_course_info.errors")
+    @courseInfoPageErrors = ko.computed =>
+      errors = []
+      errors.push(@cip.t("all_fields")) if !filled(@course_name()) || !filled(@course_description()) || !filled(@course_focus())
+      errors
+
+    @courseInfoPageInvalid = ko.computed => @courseInfoPageErrors().length > 0
+    new Popover('#page-course-info .next-btn', @courseInfoPageErrors)
+
+
+  # Helpers
+
+  initHelpers: ->
+    @creatingProject = ko.computed =>
+      @userType() == 'project_leader' or
+      @userType() == 'sponsor'
+
+    @creatingCourse = ko.computed =>
+      @userType() == 'educator'
+
+    @creatingNewUser = ko.computed =>
+      @userType() == 'project_leader' or
+      @userType() == 'sponsor' or
+      @userType() == 'educator'
+
+    @joiningProject = ko.computed =>
+      !@creatingProject() and
+      !@creatingCourse()
+
   # Navigation
   #
   # Info -> User Type -> New User     -> Project Info -> (submit) -> Thanks
@@ -119,29 +186,30 @@ class ApplicationForm
   showInfoPage: (e) => @showPage "page-info", e
   showUserTypePage: (e) => @showPage "page-user-type", e
   nextFromUserTypePage: (e) =>
-    page = switch @userType()
-      when 'project_leader', 'sponsor', 'educator'
-        "page-new-user"
-      else
-        "page-join"
-
+    page = if @creatingNewUser() then "page-new-user" else "page-join-project"
     @showPage page, e
-        
 
-  showProjectInfoPage: (e) => @showPage "page-project-info", e
+  nextFromNewUserPage: (e) =>
+    page = if @creatingProject() then "page-project-info" else "page-course-info"
+    @showPage page, e
+
   backFromProjectInfoPage: (e) => @showPage "page-new-user", e
+
+  backFromJoinProjectPage: (e) => @showPage "page-user-type", e
+  backFromCourseInfoPage:  (e) => @showPage "page-new-user", e
 
   showPage: (page_id, e) ->
     return if e && $(e.target).hasClass('disabled')
     $(".page").hide()
-    $("##{page_id}").show()
+    $("##{page_id}").show 0, ->
+      window.scrollTo(0, 0)
 
   
 
   # Submission
   
   submitData: (e) =>
-    console.log "Submission"
+    alert("Submission goes here")
 
 $ ->
   return if $("#new_application").length == 0

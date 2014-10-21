@@ -1,0 +1,24 @@
+#page-join-project.page
+  .page-header
+    %h1= t "page_join_project.title"
+
+  <!-- ko if: userType() == "member" -->
+  = raw t "page_join_project.member.info"
+  <!-- /ko -->
+  <!-- ko if: userType() == "sponsored_student" -->
+  = raw t "page_join_project.sponsored_student.info"
+  <!-- /ko -->
+
+  - base = "page_project_info"
+  %fieldset
+    = form_text_field base, :project_name
+
+  = render partial: 'user_form'
+
+  .panel.panel-default
+    .panel-body
+      .row
+        .col-xs-6= link_to t("page_join_project.back_button"), "#", class: "btn btn-primary", data: { bind: "click: backFromJoinProjectPage" }
+        .col-xs-6
+          %span.next-btn.pull-right
+            = link_to t("page_join_project.next_button"), "#", class: "btn btn-primary", data: { bind: "click: submitData, css: { disabled: joinProjectPageInvalid }" }

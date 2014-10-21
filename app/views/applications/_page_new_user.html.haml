@@ -3,8 +3,16 @@
     %h1= t "page_new_user.title"
 
   <!-- ko if: userType() == "project_leader" -->
-  = render 'new_user_project_leader'
+  = raw t "page_new_user.project_leader.info"
   <!-- /ko -->
+  <!-- ko if: userType() == "sponsor" -->
+  = raw t "page_new_user.sponsor.info"
+  <!-- /ko -->
+  <!-- ko if: userType() == "educator" -->
+  = raw t "page_new_user.educator.info"
+  <!-- /ko -->
+
+  = render partial: 'user_form'
 
 
   .panel.panel-default
@@ -13,4 +21,4 @@
         .col-xs-6= link_to t("page_new_user.back_button"), "#", class: "btn btn-primary", data: { bind: "click: showUserTypePage" }
         .col-xs-6
           %span.next-btn.pull-right
-            = link_to t("page_new_user.next_button"), "#", class: "btn btn-primary", data: { bind: "click: showProjectInfoPage, css: { disabled: newUserPageInvalid}" }
+            = link_to t("page_new_user.next_button"), "#", class: "btn btn-primary", data: { bind: "click: nextFromNewUserPage, css: { disabled: newUserPageInvalid}" }

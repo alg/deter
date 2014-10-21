@@ -1,0 +1,19 @@
+#page-course-info.page
+  .page-header
+    %h1= t "page_course_info.title"
+
+  = raw t "page_course_info.info"
+
+  - base = "page_course_info"
+  %fieldset
+    = form_text_field base, :course_name
+    = form_text_area  base, :course_description
+    = form_select     base, :course_focus
+
+  .panel.panel-default
+    .panel-body
+      .row
+        .col-xs-6= link_to t("page_course_info.back_button"), "#", class: "btn btn-primary", data: { bind: "click: backFromCourseInfoPage" }
+        .col-xs-6
+          %span.next-btn.pull-right
+            = link_to t("page_course_info.next_button"), "#", class: "btn btn-primary", data: { bind: "click: submitData, css: { disabled: courseInfoPageInvalid }" }

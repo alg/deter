@@ -1,0 +1,41 @@
+en:
+  user_form:
+    full_name:
+      label: Full Name
+      help: Your full name including title
+    email:
+      label: Email Address
+      help: The e-mail address that is most appropriate for communication with the DeterLab team, including notification of approval of your project, and of the project leader account at DeterLab
+    phone:
+      label: Phone Number
+      help: The phone number that the DeterLab team can use to contact you
+    position:
+      label: Position, Title, or Job Description
+      help: "Your position at your employer, e.g. Associate Professor, Research Director, or Director of Engineering"
+    affiliate:
+      label: Full Name of Employer or Affiliated Institution
+      help: A corporation, academic institution, government organization, or NGO that you are employed by or affiliated with
+    abbrev:
+      label: Institution Abbreviation
+      help:  'The short name or abbreviation of your institution, for example: "CalTech" or "NIST"'
+    website:
+      label: "Institution's Web Site"
+      help:  "The main page of the web site of your corporation, academic institution, government organization, or NGO"
+      placeholder: "http://"
+    postal_address:
+      label: "Postal Address"
+      help:  "Your postal address at your afflilated institution."
+      address_1: Address 1
+      address_2: Address 2
+      city:      City
+      state:     State/Province
+      zip:       ZIP/Postal Code
+      country:
+        label: Country
+        default: USA
+
+    username:
+      label: Username
+      help:  "A 6-to-8-character username-- numbers and letters only-- that will be used a user-id for your login to DeterLab"
+    password: Password
+    password_confirmation: Retype Password
