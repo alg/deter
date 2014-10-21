@@ -1,18 +1,20 @@
 module FormsHelper
 
   def form_password_field(base, name, options = nil)
-    form_textual_field(base, name, { field_type: 'password_field' })
+    form_textual_field(base, name, { field_type: 'password_field' }.merge(options || {}))
   end
 
   def form_text_field(base, name, options = nil)
-    form_textual_field(base, name, { field_type: 'text_field' })
+    form_textual_field(base, name, { field_type: 'text_field' }.merge(options || {}))
+  end
+
+  def form_text_area(base, name, options = nil)
+    form_textual_field(base, name, { field_type: 'text_area' }.merge(options || {}))
   end
 
   def form_textual_field(base, name, options = nil)
     options ||= {}
 
-    label_cols = options[:label_cols] || 3
-    field_cols = options[:field_cols] || (12 - label_cols)
     field_type = options[:field_type] || 'text_field'
 
     attrs = field_attrs(base, name)
@@ -21,6 +23,13 @@ module FormsHelper
     field_attrs[:placeholder] = attrs[:placeholder] if attrs[:placeholder]
     field = send("#{field_type}_tag", name, attrs[:default] || "", field_attrs)
 
+    wrap_field(name, field, attrs, options)
+  end
+
+  def wrap_field(name, field, attrs, options)
+    label_cols = options[:label_cols] || 3
+    field_cols = options[:field_cols] || (12 - label_cols)
+
     field_section = [ field ]
     field_section << help_block(attrs[:help]) if attrs[:help]
 
@@ -28,6 +37,19 @@ module FormsHelper
       label_tag(name, attrs[:label], class: "col-sm-#{label_cols} control-label"),
       content_tag(:div, field_section.join.html_safe, class: "col-sm-#{field_cols}")
     ].join.html_safe)
+  end
+
+  def form_select(base, name, options = nil)
+    options ||= {}
+
+    attrs = field_attrs(base, name)
+    opts = attrs[:options]
+    opts = opts.invert if opts.kind_of? Hash
+
+    field_attrs = { class: "form-control", data: { bind: "value: #{name}" }, include_blank: true }
+    field = select_tag(name, options_for_select(opts), field_attrs)
+
+    wrap_field(name, field, attrs, options)
   end
 
   private
@@ -52,6 +74,7 @@ module FormsHelper
       attrs[:placeholder] = data[:placeholder]
       attrs[:default]     = data[:default]
       attrs[:help]        = data[:help]
+      attrs[:options]     = data[:options]
     end
 
     attrs

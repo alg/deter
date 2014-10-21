@@ -46,7 +46,7 @@ class ApplicationForm
     new Popover('#page-user-type .next-btn', @userTypePageErrors)
 
 
-  # User details page
+  # New user page
 
   initNewUserPage: ->
     @full_name = ko.observable()
@@ -81,15 +81,30 @@ class ApplicationForm
     new Popover('#page-new-user .next-btn', @newUserPageErrors)
 
 
+  # Project info page
+
   initProjectInfoPage: ->
+    @project_name           = ko.observable()
+    @project_plan           = ko.observable()
+    @project_id             = ko.observable()
+    @project_website        = ko.observable()
+    @project_org_type       = ko.observable()
+    @project_research_focus = ko.observable()
+    @project_funding        = ko.observable()
+    @project_listing        = ko.observable()
+
     @pir = new I18nErrors("page_project_info.errors")
     @projectInfoPageErrors = ko.computed =>
       errors = []
-      errors.push(@pir.t("all_fields"))
+      if !filled(@project_name()) or !filled(@project_plan()) or !filled(@project_id()) or
+         !filled(@project_website()) or !filled(@project_org_type()) or !filled(@project_research_focus()) or
+         !filled(@project_funding()) or !filled(@project_listing())
+        errors.push(@pir.t("all_fields"))
       errors
 
     @projectInfoPageInvalid = ko.computed => @projectInfoPageErrors().length > 0
     new Popover('#page-project-info .next-btn', @projectInfoPageErrors)
+
 
   # Navigation
   #

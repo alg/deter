@@ -2,14 +2,46 @@ en:
   page_project_info:
     title: Project Info
     info: >
-      To complete your application, please provide some information about the
-      research project that your team will be using DeterLab for. The project name
-      that you choose will be required when your team members sign up for their
-      individual DeterLab accounts. The project description, type, and focus all help
-      DeterLab staff understand what type of support your team may need.
+      <p>
+        To complete your application, please provide some information about the
+        research project that your team will be using DeterLab for. The project name
+        that you choose will be required when your team members sign up for their
+        individual DeterLab accounts. The project description, type, and focus all help
+        DeterLab staff understand what type of support your team may need.
+      </p>
 
     back_button: Back
     next_button: Submit
+
+    project_name:
+      label: Project Name
+      help:  "Your project's name or brief description"
+    project_plan:
+      label: Project Plan
+      help:  "Briefly describe your project's goals, and how you plan to use DeterLab"
+    project_id:
+      label: Project ID
+      help:  "A 6-to-12-character identifier-- numbers and letters only-- that will be used a group-id name for members of your project"
+    project_website:
+      label: Project Web Site
+      help:  "A page in a web site about your project, or your sponsoring organization"
+      placeholder: "http://"
+    project_org_type:
+      label: Project Organization Type
+      help:  "Select one broad category that best fits your project"
+      options: [ "Academic", "Industry", "Government", "Internal" ]
+    project_research_focus:
+      label: Project Research Focus
+      help:  "Select one reaserch area that best fits your project"
+      options: [ "Architecture", "Botnets", "Class", "Comprehensive", "Congestion", "DDoS", "DNS", "Evaluation", "Forensics", "Infrastructure", "Internal", "Intrusions", "Malware", "Metrics", "Monitoring", "Multicast", "Overlays", "Privacy", "Routing", "Scanning", "Spam", "Spoofing", "Testbeds", "Traceback", "Trust", "Watermarking", "Wireless", "Worms", "Other" ]
+    project_funding:
+      label: Project Funding or Support
+      help:  "Select one type of funding or support that best fits your project"
+      options: [ "Government Research Grant", "Other Govnerment Contract", "Academic Institution Support", "Corporate Funding", "Private Funding", "Other" ]
+    project_listing:
+      label: Project Listing
+      help:  "Include your project on the public list of DeterLab projects"
+      options: [ "Yes", "No" ]
 
     errors:
       all_fields: All fields are required

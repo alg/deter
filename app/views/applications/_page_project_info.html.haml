@@ -4,6 +4,18 @@
 
   = raw t "page_project_info.info"
 
+  - base = "page_project_info"
+  %fieldset
+    = form_text_field base, :project_name
+    = form_text_area  base, :project_plan
+    = form_text_field base, :project_id
+    = form_text_field base, :project_website
+    = form_select     base, :project_org_type
+    = form_select     base, :project_research_focus
+    = form_select     base, :project_funding
+    = form_select     base, :project_listing
+
+
   .panel.panel-default
     .panel-body
       .row
