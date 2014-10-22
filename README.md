@@ -14,7 +14,7 @@ Configuration
 * Update database.yml
 * Initialize database
 
-    $ bin/rake db:setup
+        $ bin/rake db:setup
 
 Testing
 -------
@@ -34,4 +34,4 @@ Deploying
   and update user/server
 * Run deployment:
 
-    $ cap production deploy
+        $ cap production deploy
