@@ -3,6 +3,7 @@ en:
     title: Join Project
 
     member:
+      title: Join An Existing Project
       info: >
         <p>
           As a project member, you’ll have shared access to workspace for your
@@ -12,19 +13,15 @@ en:
           <a href="#TBD">DeterLab Projects</a>.
         </p>
 
-        <p>
-          If you already have a DeterLab account, but want to join another
-          project, please start by logging in:
-          <a href="/login">Login and Continue Application</a>
-        </p>
-
     sponsored_student:
+          title: Access Your Sponsored Project
       info: >
         <p>
           As a sponsored student research user of DeterLab, you will have your
           own workspace, with shared access by your advisor. To set up you DeterLab
-          account, the first step is for your advisor to fill out the online application
-          form for sponsorship. If your sponsor has already had the application approved,
+          account, the first step is for your advisor to fill out the 
+          <a href="#TBD>online application form</a>
+          for sponsorship. If your sponsor has already had the application approved,
           then you can complete the process by filling out the form below to provide some
           personal information. For the project name, you must use the name that your
           advisor used on sponsor application.
