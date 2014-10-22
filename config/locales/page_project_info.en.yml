@@ -3,6 +3,7 @@ en:
     title: Project Information
 
     project_leader:
+      title: New Project Information
       info: >
         <p>
           To complete your application, please provide some information about the
@@ -13,6 +14,7 @@ en:
         </p>
 
     sponsor:
+      title: Student Project Information
       info: >
         <p>
           To complete your application, please provide some information about the
