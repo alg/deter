@@ -9,6 +9,9 @@ VCR.configure do |c|
   c.hook_into :webmock # or :fakeweb
 end
 
+# Mocha
+require 'mocha/mini_test'
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all

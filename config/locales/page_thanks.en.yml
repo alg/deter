@@ -1,0 +1,48 @@
+en:
+  page_thanks:
+    project_leader:
+      title: Thanks
+      info: >
+        <p>
+          Thank you for your application for access to DeterLab. You may be
+          contacted by DeterLab staff by email or phone to address any questions about
+          your application. When your application is accepted, you will be notified via
+          email, and provided with instructions for access by your research team.
+        </p>
+
+    member:
+      title: Thanks
+      info: >
+        <p>
+          Thank you for submitting your application for sponsored access to DeterLab. You
+          will be notified via email when your sponsor has approved your application, and
+          will be provided with instructions for completing the setup of your account.
+        </p>
+
+    sponsor:
+      title: Thanks
+      info: >
+        <p>
+          Thank you for submitting your application for sponsored access to DeterLab for
+          the student you are advising. You will be notified via email when the
+          application has been processed, and provided with instructions for completing
+          the student’s account.
+        </p>
+
+    sponsored_student:
+      title: Thanks
+      info: >
+        <p>
+          Thank you for submitting your application for sponsored access to DeterLab. You
+          will be notified via email when your sponsor has approved your application, and
+          will be provided with instructions for completing the setup of your account.
+        </p>
+
+    educator:
+      title: Thanks
+      info: >
+        <p>
+          Thank you for your application for educational use of DeterLab. When
+          your application is accepted, you will be notified via email, and provided with
+          instructions for setting up DeterLab access for your class.
+        </p>

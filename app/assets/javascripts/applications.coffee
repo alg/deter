@@ -6,6 +6,8 @@ class I18nErrors
 # Application form
 class ApplicationForm
   constructor: ->
+    $("form#new-application").on "submit", (e) -> e.preventDefault()
+
     @initUserFields()
     @initProjectFields()
     @initCourseFields()
@@ -208,8 +210,9 @@ class ApplicationForm
 
   # Submission
   
-  submitData: (e) =>
-    alert("Submission goes here")
+  submitData: =>
+    $("form#new-application")[0].submit()
+
 
 $ ->
   return if $("#new_application").length == 0
