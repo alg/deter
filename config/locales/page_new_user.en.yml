@@ -6,19 +6,13 @@ en:
 
     project_leader:
       info: >
-        <h2>Project Leader Info</h2>
+        <h2>Project Leader Information</h2>
 
         <p>
           As a Principal Investigator (PI) or project leader, you’ll be responsible
           for managing the shared workspace for your team. Please start by providing
           some information about yourself, and then continue to the next step to
           describe the project.
-        </p>
-
-        <p>
-          If you already have a DeterLab account, but want to
-          create a new project, please start by logging in:
-          <a href="/login">Login and Continue Application</a>
         </p>
     
     sponsor:
@@ -33,12 +27,6 @@ en:
           about the student’s project.
         </p>
 
-        <p>
-          If you already have a DeterLab account, but want to
-          create a new project, please start by logging in:
-          <a href="/login">Login and Continue Application</a>
-        </p>
-
     educator:
       info: >
         <h2>Educator Information</h2>
@@ -49,12 +37,6 @@ en:
           workspace for your class, please provide some information about your and your
           educational institution, and then some information about the course you will be
           teaching using DeterLab.
-        </p>
-
-        <p>
-          If you already have a DeterLab account, but want to
-          create a new project, please start by logging in:
-          <a href="/login">Login and Continue Application</a>
         </p>
 
     errors:
