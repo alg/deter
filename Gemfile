@@ -10,11 +10,21 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'spring', group: :development
 gem 'haml-rails'
-gem 'bootstrap-sass', :git => 'https://github.com/twbs/bootstrap-sass.git', :branch => 'next'
+gem 'bootstrap-sass', git: 'https://github.com/twbs/bootstrap-sass.git', branch: 'next'
 
-gem 'quiet_assets'
 gem 'i18n-js'
+gem 'redis-rails'
+gem 'savon'
 
-gem 'capistrano-rails'
+group :development do
+  gem 'spring'
+  gem 'capistrano-rails'
+  gem 'quiet_assets'
+  gem 'foreman'
+end
+
+group :test do
+  gem 'vcr'
+  gem 'webmock'
+end
