@@ -72,7 +72,6 @@ class ApplicationForm
       errors
 
     @infoPageInvalid = ko.computed => @infoPageErrors().length > 0
-
     new Popover('#page-info .next-btn', @infoPageErrors)
 
 
@@ -87,7 +86,6 @@ class ApplicationForm
       errors
 
     @userTypePageInvalid = ko.computed => @userTypePageErrors().length > 0
-
     new Popover('#page-user-type .next-btn', @userTypePageErrors)
 
 
@@ -104,7 +102,6 @@ class ApplicationForm
       errors
 
     @newUserPageInvalid = ko.computed => @newUserPageErrors().length > 0
-
     new Popover('#page-new-user .next-btn', @newUserPageErrors)
 
 

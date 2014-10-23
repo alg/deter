@@ -4,7 +4,7 @@ class window.Popover
     @el = $(id).popover(content: @popoverContent, title: 'Please review', html: true, trigger: 'hover')
     @po = @el.data()['bs.popover']
 
-    errors.subscribe @update
+    errors.subscribe(@update) if errors.subscribe
     @update()
 
   update: =>
