@@ -4,12 +4,7 @@
 
   <!-- ko if: userType() == "project_leader" -->
   = raw t "page_project_info.project_leader.info"
-  <!-- /ko -->
-  <!-- ko if: userType() == "sponsor" -->
-  = raw t "page_project_info.sponsor.info"
-  <!-- /ko -->
-
-  - base = "page_project_info"
+  - base = "page_project_info.project_leader"
   %fieldset
     = form_text_field base, :project_name,            highlight: "piHL"
     = form_text_area  base, :project_plan,            highlight: "piHL"
@@ -18,6 +13,20 @@
     = form_select     base, :project_research_focus,  highlight: "piHL"
     = form_select     base, :project_funding,         highlight: "piHL"
     = form_select     base, :project_listing,         highlight: "piHL", field_options: { include_blank: false }
+  <!-- /ko -->
+
+  <!-- ko if: userType() == "sponsor" -->
+  = raw t "page_project_info.sponsor.info"
+  - base = "page_project_info.sponsor"
+  %fieldset
+    = form_text_field base, :project_name,            highlight: "piHL"
+    = form_text_area  base, :project_plan,            highlight: "piHL"
+    = form_text_field base, :project_website,         highlight: "piHL"
+    = form_select     base, :project_org_type,        highlight: "piHL"
+    = form_select     base, :project_research_focus,  highlight: "piHL"
+    = form_select     base, :project_funding,         highlight: "piHL"
+    = form_select     base, :project_listing,         highlight: "piHL", field_options: { include_blank: false }
+  <!-- /ko -->
 
 
   .panel.panel-default

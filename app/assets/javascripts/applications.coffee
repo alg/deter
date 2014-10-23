@@ -53,11 +53,12 @@ class ApplicationForm
     @validatedObservable(field) for field in @courseFields
 
   initErrors: ->
-    @ipe  = new I18nErrors("page_info.errors")
-    @utpe = new I18nErrors("page_user_type.errors")
-    @ufe  = new I18nErrors("user_form.errors")
-    @pipe = new I18nErrors("page_project_info.errors")
-    @cipe = new I18nErrors("page_course_info.errors")
+    @ipe    = new I18nErrors("page_info.errors")
+    @utpe   = new I18nErrors("page_user_type.errors")
+    @ufe    = new I18nErrors("user_form.errors")
+    @pipple = new I18nErrors("page_project_info.project_leader.errors")
+    @pipspe = new I18nErrors("page_project_info.sponsor.errors")
+    @cipe   = new I18nErrors("page_course_info.errors")
 
 
 
@@ -114,8 +115,9 @@ class ApplicationForm
 
     @projectInfoPageErrors = ko.computed =>
       errors = []
+      i18ne = if @userType() == 'project_leader' then @pipple else @pipspe
       for field in @projectFields
-        errors.push(@pipe.t(field)) if @["#{field}_invalid"]() 
+        errors.push(i18ne.t(field)) if @["#{field}_invalid"]() 
       errors
 
     @projectInfoPageInvalid = ko.computed => @projectInfoPageErrors().length > 0
@@ -128,7 +130,7 @@ class ApplicationForm
     @jpHL = ko.observable(false)
     @joinProjectPageErrors = ko.computed =>
       errors = []
-      errors.push(@pipe.t("project_name")) if @project_name_invalid()
+      errors.push(@pipple.t("project_name")) if @project_name_invalid()
       for field in @userFields
         errors.push(@ufe.t(field)) if @["#{field}_invalid"]()
       errors

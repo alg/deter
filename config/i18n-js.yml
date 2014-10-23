@@ -33,6 +33,7 @@ translations:
       - "*.page_info.errors"
       - "*.page_course_info.errors"
       - "*.page_new_user.errors"
-      - "*.page_project_info.errors"
+      - "*.page_project_info.project_leader.errors"
+      - "*.page_project_info.sponsor.errors"
       - "*.page_user_type.errors"
       - "*.user_form.errors"
