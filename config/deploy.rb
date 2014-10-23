@@ -13,6 +13,9 @@ set :deploy_to, '/home/alg/sites/deter.noizeramp.com'
 # Default value for :pty is false
 # set :pty, true
 
+set :format, :pretty
+set :log_level, :info
+
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml}
 
