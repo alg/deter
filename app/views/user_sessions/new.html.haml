@@ -1,0 +1,28 @@
+.page-header
+  %h1= raw t '.title'
+
+%p= raw t '.info'
+
+= form_tag :user_sessions, method: 'post', class: 'form-horizontal' do
+  .form-group
+    = label_tag :username, t('.username'), class: 'col-sm-2 control-label'
+    .col-sm-6
+      = text_field_tag :username, "", class: "form-control"
+
+  .form-group
+    = label_tag :password, t('.password'), class: 'col-sm-2 control-label'
+    .col-sm-6
+      = password_field_tag :password, "", class: "form-control"
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = submit_tag "Login", class: "btn btn-primary"
+
+  .row
+    .col-sm-offset-2.col-sm-10
+      %p= raw t('.password_reset', url: new_password_reset_path)
+      %p= raw t(".password_reset_request", url: new_password_reset_request_path)
+
+%hr
+
+= raw t ".no_account", new_application_path: new_application_path

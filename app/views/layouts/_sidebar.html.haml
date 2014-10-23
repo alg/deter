@@ -1,5 +1,10 @@
 .box
-  Not logged in.
+  - if app_session.logged_in?
+    = raw t '.logged_in_as', user_id: app_session.current_user_id
+    %ul
+      %li= link_to "Log out", :logout
+  - else
+    = raw t '.not_logged_in'
 
 .box
   %h4 Documentation

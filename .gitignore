@@ -16,5 +16,6 @@
 /tmp
 
 config/deploy/production.rb
+config/tests-config.yml
 
 dump.rdb

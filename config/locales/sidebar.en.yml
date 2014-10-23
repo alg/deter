@@ -1,0 +1,5 @@
+en:
+  layouts:
+    sidebar:
+      not_logged_in: Not logged in
+      logged_in_as:  "Logged in as %{user_id}"

@@ -6,3 +6,7 @@ def load_config(name)
 end
 
 AppConfig = load_config('config.yml')
+
+if Rails.env.test?
+  TestsConfig = load_config('tests-config.yml')
+end

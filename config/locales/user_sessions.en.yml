@@ -1,0 +1,20 @@
+en:
+  user_sessions:
+    new:
+      title: Welcome to DeterLab
+      info: Login to access your DeterLab account
+      password_reset: "If you've received your password reset email, you can complete the reset <a href='%{url}'>here</a>."
+      password_reset_request: "Forgot password? Start reset recovery <a href='%{url}'>here</a>."
+
+      username: Username
+      password: Password
+
+      no_account: >
+        <p>
+          If you do not have a DeterLab account, then please learn more about DeterLab:
+        </p>
+
+        <ul>
+          <li><a href="http://www.isi.edu/deter/docs/DETER_Tutorial-TF-Jan2011.pdf" target="_blank">Introduction to DeterLab</a></li>
+          <li><a href="%{new_application_path}">Applying for a DeterLab Account</a></li>
+        </ul>

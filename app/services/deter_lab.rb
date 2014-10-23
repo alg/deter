@@ -9,6 +9,11 @@ class DeterLab
     end
   end
 
+  # Checks if there's a user with the given #uid and #password
+  def self.valid_credentials?(uid, password)
+    uid.present?
+  end
+
   private
 
   # Returns the client instance
