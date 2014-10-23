@@ -64,14 +64,8 @@ en:
       project_plan:
         label: Project Description
         help:  "Briefly describe your project's goals, and how you plan to use DeterLab"
-      project_website:
-        label: Project Web Site
-        help:  "A page in a web site about your project, or your sponsoring organization"
-        placeholder: "http://"
       project_org_type:
-        label: Project Organization Type
-        help:  "Select one broad category that best fits your project"
-        options: [ "Academic", "Industry", "Government", "Internal" ]
+        default: "Academic"
       project_research_focus:
         label: Project Research Focus
         help:  "Select one reaserch area that best fits your project"

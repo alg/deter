@@ -45,8 +45,9 @@ class ApplicationForm
     @validatedObservable(field) for field in @userFields
 
   initProjectFields: ->
-    @projectFields = [ "project_name", "project_plan", "project_website", "project_org_type", "project_research_focus", "project_funding", "project_listing" ]
-    @validatedObservable(field) for field in @projectFields
+    @projectLeaderProjectFields = [ "project_name", "project_plan", "project_website", "project_org_type", "project_research_focus", "project_funding", "project_listing" ]
+    @sponsorProjectFields       = [ "project_name", "project_plan", "project_research_focus", "project_funding", "project_listing" ]
+    @validatedObservable(field) for field in @projectLeaderProjectFields
 
   initCourseFields: ->
     @courseFields = [ "course_name", "course_description", "course_focus" ]
@@ -115,8 +116,15 @@ class ApplicationForm
 
     @projectInfoPageErrors = ko.computed =>
       errors = []
-      i18ne = if @userType() == 'project_leader' then @pipple else @pipspe
-      for field in @projectFields
+
+      if @userType() == 'project_leader'
+        i18ne  = @pipple
+        fields = @projectLeaderProjectFields
+      else
+        i18ne  = @pipspe
+        fields = @sponsorProjectFields
+
+      for field in fields
         errors.push(i18ne.t(field)) if @["#{field}_invalid"]() 
       errors
 
