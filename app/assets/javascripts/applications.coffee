@@ -33,9 +33,6 @@ class ApplicationForm
     @affiliate              = ko.observable()
     @abbrev                 = ko.observable()
     @website                = ko.observable()
-    @username               = ko.observable()
-    @password               = ko.observable()
-    @password_confirmation  = ko.observable()
     @address_1              = ko.observable()
     @address_2              = ko.observable()
     @city                   = ko.observable()
@@ -96,7 +93,6 @@ class ApplicationForm
     @newUserPageErrors = ko.computed =>
       errors = []
       if !filled(@full_name()) or !filled(@email()) or !filled(@phone()) or !filled(@position()) or !filled(@affiliate()) or !filled(@abbrev()) or !filled(@website()) or
-         !filled(@username()) or !filled(@password()) or !filled(@password_confirmation()) or @password() != @password_confirmation() or
          !filled(@address_1()) or !filled(@address_2()) or !filled(@city()) or !filled(@state()) or !filled(@zip()) or !filled(@country())
         errors.push(@nur.t("all_fields"))
       errors
@@ -134,7 +130,6 @@ class ApplicationForm
       errors = []
       if !filled(@project_name()) or
          !filled(@full_name()) or !filled(@email()) or !filled(@phone()) or !filled(@position()) or !filled(@affiliate()) or !filled(@abbrev()) or !filled(@website()) or
-         !filled(@username()) or !filled(@password()) or !filled(@password_confirmation()) or @password() != @password_confirmation() or
          !filled(@address_1()) or !filled(@address_2()) or !filled(@city()) or !filled(@state()) or !filled(@zip()) or !filled(@country())
         errors.push(@jpp.t("all_fields"))
       errors
