@@ -4,27 +4,27 @@
 
   = raw t "page_user_type.info"
 
-  .radio
+  .radio{ data: { bind: "css: { 'has-error': utHL() && userType_invalid() } " } }
     %label
       = radio_button_tag "user_type", "project_leader", false, data: { bind: "checked: userType" }
       = raw t "page_user_type.options.project_leader"
 
-  .radio
+  .radio{ data: { bind: "css: { 'has-error': utHL() && userType_invalid() } " } }
     %label
       = radio_button_tag "user_type", "member", false, data: { bind: "checked: userType" }
       = raw t "page_user_type.options.member"
 
-  .radio
+  .radio{ data: { bind: "css: { 'has-error': utHL() && userType_invalid() } " } }
     %label
       = radio_button_tag "user_type", "sponsor", false, data: { bind: "checked: userType" }
       = raw t "page_user_type.options.sponsor"
 
-  .radio
+  .radio{ data: { bind: "css: { 'has-error': utHL() && userType_invalid() } " } }
     %label
       = radio_button_tag "user_type", "sponsored_student", false, data: { bind: "checked: userType" }
       = raw t "page_user_type.options.sponsored_student"
 
-  .radio
+  .radio{ data: { bind: "css: { 'has-error': utHL() && userType_invalid() } " } }
     %label
       = radio_button_tag "user_type", "educator", false, data: { bind: "checked: userType" }
       = raw t "page_user_type.options.educator"

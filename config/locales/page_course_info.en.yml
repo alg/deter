@@ -21,4 +21,6 @@ en:
       options: [ "Architecture", "Botnets", "Class", "Comprehensive", "Congestion", "DDoS", "DNS", "Evaluation", "Forensics", "Infrastructure", "Internal", "Intrusions", "Malware", "Metrics", "Monitoring", "Multicast", "Overlays", "Privacy", "Routing", "Scanning", "Spam", "Spoofing", "Testbeds", "Traceback", "Trust", "Watermarking", "Wireless", "Worms", "Other" ]
 
     errors:
-      all_fields: All fields are required
+      course_name:        Course Name
+      course_description: Course Description
+      course_focus:       Course Focus

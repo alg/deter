@@ -6,9 +6,9 @@
 
   - base = "page_course_info"
   %fieldset
-    = form_text_field base, :course_name
-    = form_text_area  base, :course_description
-    = form_select     base, :course_focus
+    = form_text_field base, :course_name,        highlight: 'ciHL'
+    = form_text_area  base, :course_description, highlight: 'ciHL'
+    = form_select     base, :course_focus,       highlight: 'ciHL'
 
   .panel.panel-default
     .panel-body

@@ -1,21 +1,23 @@
+- highlight ||= nil
+
 - details_base = "user_form"
 %fieldset
-  = form_text_field details_base, :full_name
-  = form_text_field details_base, :email
-  = form_text_field details_base, :phone
-  = form_text_field details_base, :position
-  = form_text_field details_base, :affiliate
-  = form_text_field details_base, :abbrev
-  = form_text_field details_base, :website
+  = form_text_field details_base, :full_name, highlight: highlight
+  = form_text_field details_base, :email,     highlight: highlight
+  = form_text_field details_base, :phone,     highlight: highlight
+  = form_text_field details_base, :position,  highlight: highlight
+  = form_text_field details_base, :affiliate, highlight: highlight
+  = form_text_field details_base, :abbrev,    highlight: highlight
+  = form_text_field details_base, :website,   highlight: highlight
 
 - address_base = "user_form.postal_address"
 %fieldset
   %h4= t "#{address_base}.label"
   %span.help-block= t "#{address_base}.help"
 
-  = form_text_field address_base, :address_1
-  = form_text_field address_base, :address_2
-  = form_text_field address_base, :city
-  = form_text_field address_base, :state
-  = form_text_field address_base, :zip
-  = form_text_field address_base, :country
+  = form_text_field address_base, :address_1, highlight: highlight
+  = form_text_field address_base, :address_2, highlight: highlight
+  = form_text_field address_base, :city,      highlight: highlight
+  = form_text_field address_base, :state,     highlight: highlight
+  = form_text_field address_base, :zip,       highlight: highlight
+  = form_text_field address_base, :country,   highlight: highlight

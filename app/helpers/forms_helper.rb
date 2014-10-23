@@ -35,10 +35,10 @@ module FormsHelper
     field_section = [ field ]
     field_section << help_block(attrs[:help]) if attrs[:help]
 
-    form_group([
+    form_group(name, [
       label_tag(name, attrs[:label], class: "col-sm-#{label_cols} control-label"),
       content_tag(:div, field_section.join.html_safe, class: "col-sm-#{field_cols}")
-    ].join.html_safe)
+    ].join.html_safe, options)
   end
 
   def form_select(base, name, options = nil)
@@ -56,8 +56,14 @@ module FormsHelper
 
   private
 
-  def form_group(content)
-    content_tag(:div, content, class: 'form-group')
+  def form_group(name, content, options)
+    attrs = { class: 'form-group' }
+
+    if hl = options[:highlight]
+      attrs[:data] = { bind: "css: { 'has-error': #{hl}() && #{name}_invalid() }" }
+    end
+
+    content_tag(:div, content, attrs)
   end
 
   def help_block(text)

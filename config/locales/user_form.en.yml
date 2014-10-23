@@ -34,8 +34,17 @@ en:
         label: Country
         default: USA
 
-    username:
-      label: Username
-      help:  "A 6-to-8-character username-- numbers and letters only-- that will be used a user-id for your login to DeterLab"
-    password: Password
-    password_confirmation: Retype Password
+    errors:
+      full_name:  Full Name
+      email:      Email Address
+      phone:      Phone Number
+      position:   Position, Title, or Job Description
+      affiliate:  Full Name of Employer or Affiliated Institution
+      abbrev:     Institution Abbreviation
+      website:    "Institution's Web Site"
+      address_1:  First address line
+      address_2:  Second address line
+      city:       City
+      state:      State/Province
+      zip:        Zip/Postal Code
+      country:    Country

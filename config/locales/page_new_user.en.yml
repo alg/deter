@@ -38,6 +38,4 @@ en:
           educational institution, and then some information about the course you will be
           teaching using DeterLab.
         </p>
-
-    errors:
-      all_fields: All fields are required
+      

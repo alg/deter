@@ -32,7 +32,7 @@ translations:
     only:
       - "*.page_info.errors"
       - "*.page_course_info.errors"
-      - "*.page_join_project.errors"
       - "*.page_new_user.errors"
       - "*.page_project_info.errors"
       - "*.page_user_type.errors"
+      - "*.user_form.errors"

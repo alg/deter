@@ -11,16 +11,13 @@
 
   - base = "page_project_info"
   %fieldset
-    = form_text_field base, :project_name
-    = form_text_area  base, :project_plan
-    <!-- ko ifnot: omitProjectId -->
-    = form_text_field base, :project_id
-    <!-- /ko -->
-    = form_text_field base, :project_website
-    = form_select     base, :project_org_type
-    = form_select     base, :project_research_focus
-    = form_select     base, :project_funding
-    = form_select     base, :project_listing, field_options: { include_blank: false }
+    = form_text_field base, :project_name,            highlight: "piHL"
+    = form_text_area  base, :project_plan,            highlight: "piHL"
+    = form_text_field base, :project_website,         highlight: "piHL"
+    = form_select     base, :project_org_type,        highlight: "piHL"
+    = form_select     base, :project_research_focus,  highlight: "piHL"
+    = form_select     base, :project_funding,         highlight: "piHL"
+    = form_select     base, :project_listing,         highlight: "piHL", field_options: { include_blank: false }
 
 
   .panel.panel-default

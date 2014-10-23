@@ -4,13 +4,13 @@
 
   = raw t "page_info.info"
 
-  .checkbox
+  .checkbox{ data: { bind: "css: { 'has-error': iHL() && apply_invalid() } " } }
     %label
-      = check_box_tag "apply", "1", false, data: { bind: "checked: infoApply" }
+      = check_box_tag "apply", "1", false, data: { bind: "checked: apply" }
       = raw t "page_info.options.apply"
-  .checkbox
+  .checkbox{ data: { bind: "css: { 'has-error': iHL() && accept_invalid() } " } }
     %label
-      = check_box_tag "accept", "1", false, data: { bind: "checked: infoAccept" }
+      = check_box_tag "accept", "1", false, data: { bind: "checked: accept" }
       = raw t "page_info.options.accept"
 
   .panel.panel-default

@@ -1,16 +1,13 @@
-# Localized errors
-class I18nErrors
-  constructor: (base) -> @base = base
-  t: (key) -> I18n.t("#{@base}.#{key}")
-
 # Application form
 class ApplicationForm
   constructor: ->
     $("form#new-application").on "submit", (e) -> e.preventDefault()
 
+    @initInfoFields()
     @initUserFields()
     @initProjectFields()
     @initCourseFields()
+    @initErrors()
 
     @initInfoPage()
     @initUserTypePage()
@@ -21,135 +18,137 @@ class ApplicationForm
 
     @initHelpers()
 
+  # Validated field helper that creates two fields
+  # @<name> and @<name>_invalid. "_invalid" version is set to true / false
+  # depending on the validator function.
+  validatedObservable: (name, validator) ->
+    @[name]                 = ko.observable()
+    @["#{name}_invalid"]    = ko.computed =>
+      v = @[name]()
+      if validator?
+        !validator(v)
+      else
+        res = if typeof v == "string" then filled(v) else v
+        !res
+
+
 
   # Form fields
 
+  initInfoFields: ->
+    @infoFields = [ "apply", "accept" ]
+    @validatedObservable(field) for field in @infoFields
+
   initUserFields: ->
-    @userType               = ko.observable()
-    @full_name              = ko.observable()
-    @email                  = ko.observable()
-    @phone                  = ko.observable()
-    @position               = ko.observable()
-    @affiliate              = ko.observable()
-    @abbrev                 = ko.observable()
-    @website                = ko.observable()
-    @address_1              = ko.observable()
-    @address_2              = ko.observable()
-    @city                   = ko.observable()
-    @state                  = ko.observable()
-    @zip                    = ko.observable()
-    @country                = ko.observable()
+    @validatedObservable("userType")
+    @userFields = [ "full_name", "email", "phone", "position", "affiliate", "abbrev", "website", "address_1", "address_2", "city", "state", "zip", "country" ]
+    @validatedObservable(field) for field in @userFields
 
   initProjectFields: ->
-    @project_name           = ko.observable()
-    @project_plan           = ko.observable()
-    @project_id             = ko.observable()
-    @project_website        = ko.observable()
-    @project_org_type       = ko.observable()
-    @project_research_focus = ko.observable()
-    @project_funding        = ko.observable()
-    @project_listing        = ko.observable()
+    @projectFields = [ "project_name", "project_plan", "project_website", "project_org_type", "project_research_focus", "project_funding", "project_listing" ]
+    @validatedObservable(field) for field in @projectFields
 
   initCourseFields: ->
-    @course_name            = ko.observable()
-    @course_description     = ko.observable()
-    @course_focus           = ko.observable()
+    @courseFields = [ "course_name", "course_description", "course_focus" ]
+    @validatedObservable(field) for field in @courseFields
+
+  initErrors: ->
+    @ipe  = new I18nErrors("page_info.errors")
+    @utpe = new I18nErrors("page_user_type.errors")
+    @ufe  = new I18nErrors("user_form.errors")
+    @pipe = new I18nErrors("page_project_info.errors")
+    @cipe = new I18nErrors("page_course_info.errors")
+
+
 
   # Info page
 
   initInfoPage: ->
-    @infoApply  = ko.observable(false)
-    @infoAccept = ko.observable(false)
-
-    @ipe = new I18nErrors("page_info.errors")
+    @iHL = ko.observable(false)
     @infoPageErrors = ko.computed =>
       errors = []
-      errors.push(@ipe.t("apply")) if !@infoApply()
-      errors.push(@ipe.t("accept")) if !@infoAccept()
+      for field in @infoFields
+        errors.push(@ipe.t(field)) if @["#{field}_invalid"]()
       errors
 
     @infoPageInvalid = ko.computed => @infoPageErrors().length > 0
-    new Popover('#page-info .next-btn', @infoPageErrors)
+    new Popover('#page-info .next-btn', @infoPageErrors, @iHL)
 
 
 
   # User type page
 
   initUserTypePage: ->
-    @utr = new I18nErrors("page_user_type.errors")
+    @utHL = ko.observable(false)
     @userTypePageErrors = ko.computed =>
       errors = []
-      errors.push(@utr.t("user_type")) if !@userType()
+      errors.push(@utpe.t("user_type")) if @userType_invalid()
       errors
 
     @userTypePageInvalid = ko.computed => @userTypePageErrors().length > 0
-    new Popover('#page-user-type .next-btn', @userTypePageErrors)
+    new Popover('#page-user-type .next-btn', @userTypePageErrors, @utHL)
 
 
   # New user page
 
   initNewUserPage: ->
-    @nur = new I18nErrors("page_new_user.errors")
+    @nuHL = ko.observable(false)
     @newUserPageErrors = ko.computed =>
       errors = []
-      if !filled(@full_name()) or !filled(@email()) or !filled(@phone()) or !filled(@position()) or !filled(@affiliate()) or !filled(@abbrev()) or !filled(@website()) or
-         !filled(@address_1()) or !filled(@address_2()) or !filled(@city()) or !filled(@state()) or !filled(@zip()) or !filled(@country())
-        errors.push(@nur.t("all_fields"))
+      for field in @userFields
+        errors.push(@ufe.t(field)) if @["#{field}_invalid"]() 
       errors
 
     @newUserPageInvalid = ko.computed => @newUserPageErrors().length > 0
-    new Popover('#page-new-user .next-btn', @newUserPageErrors)
+    new Popover('#page-new-user .next-btn', @newUserPageErrors, @nuHL)
+
 
 
   # Project info page
 
   initProjectInfoPage: ->
+    @piHL = ko.observable(false)
     @omitProjectId = ko.computed =>
       @userType() == 'project_leader' or
       @userType() == 'sponsor'
 
-    @pir = new I18nErrors("page_project_info.errors")
     @projectInfoPageErrors = ko.computed =>
       errors = []
-      if !filled(@project_name()) or !filled(@project_plan()) or
-         (!@omitProjectId() and !filled(@project_id())) or
-         !filled(@project_website()) or !filled(@project_org_type()) or !filled(@project_research_focus()) or
-         !filled(@project_funding()) or !filled(@project_listing())
-        errors.push(@pir.t("all_fields"))
+      for field in @projectFields
+        errors.push(@pipe.t(field)) if @["#{field}_invalid"]() 
       errors
 
     @projectInfoPageInvalid = ko.computed => @projectInfoPageErrors().length > 0
-    new Popover('#page-project-info .next-btn', @projectInfoPageErrors)
+    new Popover('#page-project-info .next-btn', @projectInfoPageErrors, @piHL)
 
 
   # Join project page
 
   initJoinProjectPage: ->
-    @jpp = new I18nErrors("page_join_project.errors")
+    @jpHL = ko.observable(false)
     @joinProjectPageErrors = ko.computed =>
       errors = []
-      if !filled(@project_name()) or
-         !filled(@full_name()) or !filled(@email()) or !filled(@phone()) or !filled(@position()) or !filled(@affiliate()) or !filled(@abbrev()) or !filled(@website()) or
-         !filled(@address_1()) or !filled(@address_2()) or !filled(@city()) or !filled(@state()) or !filled(@zip()) or !filled(@country())
-        errors.push(@jpp.t("all_fields"))
+      errors.push(@pipe.t("project_name")) if @project_name_invalid()
+      for field in @userFields
+        errors.push(@ufe.t(field)) if @["#{field}_invalid"]()
       errors
 
     @joinProjectPageInvalid = ko.computed => @joinProjectPageErrors().length > 0
-
-    new Popover('#page-join-project .next-btn', @joinProjectPageErrors)
+    new Popover('#page-join-project .next-btn', @joinProjectPageErrors, @jpHL)
 
 
   # Course info page
   
   initCourseInfoPage: ->
-    @cip = new I18nErrors("page_course_info.errors")
+    @ciHL = ko.observable(false)
     @courseInfoPageErrors = ko.computed =>
       errors = []
-      errors.push(@cip.t("all_fields")) if !filled(@course_name()) || !filled(@course_description()) || !filled(@course_focus())
+      for field in @courseFields
+        errors.push(@cipe.t(field)) if @["#{field}_invalid"]()
       errors
 
     @courseInfoPageInvalid = ko.computed => @courseInfoPageErrors().length > 0
-    new Popover('#page-course-info .next-btn', @courseInfoPageErrors)
+    new Popover('#page-course-info .next-btn', @courseInfoPageErrors, @ciHL)
 
 
   # Helpers
@@ -170,6 +169,7 @@ class ApplicationForm
     @joiningProject = ko.computed =>
       !@creatingProject() and
       !@creatingCourse()
+
 
   # Navigation
   #
@@ -198,7 +198,6 @@ class ApplicationForm
     $("##{page_id}").show 0, ->
       window.scrollTo(0, 0)
 
-  
 
   # Submission
   

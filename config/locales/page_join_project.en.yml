@@ -30,6 +30,3 @@ en:
     back_button: Back
     next_button: Submit Application
 
-    errors:
-      all_fields: All fields are required
-    

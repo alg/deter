@@ -30,3 +30,9 @@ ko.bindingHandlers.checkedWithInit = {
   update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
     ko.bindingHandlers.checked.update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
 }
+#
+# Localized errors
+class window.I18nErrors
+  constructor: (base) -> @base = base
+  t: (key) -> I18n.t("#{@base}.#{key}")
+
