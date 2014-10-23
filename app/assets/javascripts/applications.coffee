@@ -207,6 +207,7 @@ class ApplicationForm
     $(".page").hide()
     $("##{page_id}").show 0, ->
       window.scrollTo(0, 0)
+      $("[data-toggle=tooltip]").tooltip(html: true)
 
 
   # Submission
@@ -219,3 +220,4 @@ $ ->
   return if $("#new_application").length == 0
 
   ko.applyBindings new ApplicationForm()
+  $("[data-toggle=tooltip]").tooltip(html: true)

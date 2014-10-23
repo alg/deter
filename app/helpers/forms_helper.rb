@@ -23,9 +23,20 @@ module FormsHelper
     field_attrs[:placeholder] = attrs[:placeholder] if attrs[:placeholder]
     field_attrs = field_attrs.merge(options[:field_options] || {})
 
+    add_help(field_attrs, attrs)
+
     field = send("#{field_type}_tag", name, attrs[:default] || "", field_attrs)
 
     wrap_field(name, field, attrs, options)
+  end
+
+  def add_help(field_attrs, attrs)
+    if attrs[:help]
+      data = field_attrs[:data]
+      data[:toggle] = "tooltip"
+      data[:placement] = "top"
+      field_attrs[:title] = attrs[:help]
+    end
   end
 
   def wrap_field(name, field, attrs, options)
@@ -33,7 +44,7 @@ module FormsHelper
     field_cols = options[:field_cols] || (12 - label_cols)
 
     field_section = [ field ]
-    field_section << help_block(attrs[:help]) if attrs[:help]
+    # field_section << help_block(attrs[:help]) if attrs[:help]
 
     form_group(name, [
       label_tag(name, attrs[:label], class: "col-sm-#{label_cols} control-label"),
@@ -49,6 +60,8 @@ module FormsHelper
     opts = opts.invert if opts.kind_of? Hash
 
     field_attrs = { class: "form-control", data: { bind: "valueWithInit: #{name}" }, include_blank: true }.merge(options[:field_options] || {})
+    add_help(field_attrs, attrs)
+
     field = select_tag(name, options_for_select(opts, attrs[:default]), field_attrs)
 
     wrap_field(name, field, attrs, options)
