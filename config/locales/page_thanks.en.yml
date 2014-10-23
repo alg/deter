@@ -10,6 +10,10 @@ en:
           email, and provided with instructions for access by your research team.
         </p>
 
+        <p>
+          <a href="http://deter-project.org/about_deterlab">Learn More about DeterLab</a>
+        </p>
+
     member:
       title: Thanks
       info: >
@@ -17,6 +21,10 @@ en:
           Thank you for submitting your application for sponsored access to DeterLab. You
           will be notified via email when your sponsor has approved your application, and
           will be provided with instructions for completing the setup of your account.
+        </p>
+
+        <p>
+          <a href="http://deter-project.org/about_deterlab">Learn More about DeterLab</a>
         </p>
 
     sponsor:
@@ -29,6 +37,10 @@ en:
           the student’s account.
         </p>
 
+        <p>
+          <a href="http://deter-project.org/about_deterlab">Learn More about DeterLab</a>
+        </p>
+
     sponsored_student:
       title: Thanks
       info: >
@@ -38,6 +50,10 @@ en:
           will be provided with instructions for completing the setup of your account.
         </p>
 
+        <p>
+          <a href="http://deter-project.org/about_deterlab">Learn More about DeterLab</a>
+        </p>
+
     educator:
       title: Thanks
       info: >
@@ -45,4 +61,8 @@ en:
           Thank you for your application for educational use of DeterLab. When
           your application is accepted, you will be notified via email, and provided with
           instructions for setting up DeterLab access for your class.
+        </p>
+
+        <p>
+          <a href="http://deter-project.org/about_deterlab">Learn More about DeterLab</a>
         </p>
