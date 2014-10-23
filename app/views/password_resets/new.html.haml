@@ -1,0 +1,29 @@
+.page-header
+  %h1= raw t '.title'
+
+= raw t '.info'
+
+= form_tag :password_resets, method: 'post', class: 'form-horizontal' do
+  .form-group
+    = label_tag :challenge, t('.challenge'), class: 'col-sm-3 control-label'
+    .col-sm-5
+      = text_field_tag :challenge, "", class: 'form-control'
+
+  .form-group
+    = label_tag :username, t('.username'), class: 'col-sm-3 control-label'
+    .col-sm-5
+      = text_field_tag :username, "", class: 'form-control'
+
+  .form-group
+    = label_tag :password, t('.password'), class: 'col-sm-3 control-label'
+    .col-sm-5
+      = password_field_tag :password, "", class: 'form-control'
+
+  .form-group
+    = label_tag :password_confirmation, t('.password_confirmation'), class: 'col-sm-3 control-label'
+    .col-sm-5
+      = password_field_tag :password_confirmation, "", class: 'form-control'
+
+  .form-group
+    .col-sm-offset-3.col-sm-5
+      = submit_tag t('.submit'), class: 'btn btn-primary'
