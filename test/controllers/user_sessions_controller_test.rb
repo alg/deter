@@ -28,6 +28,8 @@ class UserSessionsControllerTest < ActionController::TestCase
   end
 
   test "logging out" do
+    DeterLab.stubs(:log_out).returns(true)
+
     @app_session = AppSession.new(@controller.session)
     @app_session.logged_in_as "user"
 

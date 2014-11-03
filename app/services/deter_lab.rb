@@ -24,6 +24,12 @@ class DeterLab
     return false
   end
 
+  # Logs the user out
+  def self.log_out(uid)
+    cl = client("Users", uid)
+    cl.call(:logout)
+  end
+
   private
 
   # extracts certs from the challenge response and stores them for later use
@@ -62,8 +68,8 @@ class DeterLab
   end
 
   # Returns the client instance
-  def self.client(service)
-    Savon.client(
+  def self.client(service, uid = nil)
+    options = {
       wsdl:             AppConfig['deter_lab']['wsdl'] % service,
       log_level:        :debug,
       log:              !Rails.env.test?,
@@ -72,7 +78,20 @@ class DeterLab
       namespace:        'http://api.testbed.deterlab.net/xsd',
       logger:           Rails.logger,
       filters:          :password,
-      ssl_verify_mode:  :none)
+      ssl_verify_mode:  :none }
+
+    # optionally user user certs from the storage
+    if uid.present?
+      cert, key = SslKeyStorage.get(uid)
+      if cert.present? && key.present?
+        options[:ssl_cert] = OpenSSL::X509::Certificate.new(cert)
+        options[:ssl_cert_key] = OpenSSL::PKey.read(key)
+      else
+        raise Error, "Not logged in as: #{uid}"
+      end
+    end
+
+    Savon.client(options)
   end
 
 end

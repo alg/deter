@@ -1,5 +1,7 @@
 class UserSessionsController < ApplicationController
 
+  before_filter :require_login, only: [ :destroy ]
+
   def new
   end
 
@@ -14,6 +16,9 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
+    SslKeyStorage.delete(app_session.current_user_id)
+    DeterLab.log_out(app_session.current_user_id)
+
     app_session.logged_out
     redirect_to :login
   end

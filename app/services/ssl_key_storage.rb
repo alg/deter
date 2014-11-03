@@ -10,6 +10,11 @@ class SslKeyStorage
     Rails.cache.read(cache_key(uid))
   end
 
+  # Deletes the stored certs
+  def self.delete(uid)
+    Rails.cache.delete(cache_key(uid))
+  end
+
   private
 
   def self.cache_key(uid)
