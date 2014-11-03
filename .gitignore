@@ -19,3 +19,4 @@ config/deploy/production.rb
 config/tests-config.yml
 
 dump.rdb
+test/vcr_cassettes/deterlab-login-good.yml

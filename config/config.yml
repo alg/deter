@@ -1,2 +1,2 @@
 deter_lab:
-  wsdl: "https://users.isi.deterlab.net:52323/axis2/services/ApiInfo?wsdl"
+  wsdl: "https://users.isi.deterlab.net:52323/axis2/services/%s?wsdl"
