@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
 
   # Application session wrapper
   def app_session
-    Rails.logger.info session['user_id'].inspect
     @app_session ||= AppSession.new(session)
   end
   helper_method :app_session
