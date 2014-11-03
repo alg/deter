@@ -25,7 +25,7 @@ class DeterLab
   end
 
   # Logs the user out
-  def self.log_out(uid)
+  def self.logout(uid)
     cl = client("Users", uid)
     cl.call(:logout)
   end

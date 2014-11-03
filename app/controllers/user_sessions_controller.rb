@@ -17,7 +17,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     SslKeyStorage.delete(app_session.current_user_id)
-    DeterLab.log_out(app_session.current_user_id)
+    DeterLab.logout(app_session.current_user_id)
 
     app_session.logged_out
     redirect_to :login
