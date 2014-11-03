@@ -1,0 +1,22 @@
+en:
+  profile:
+    show:
+      title: Your profile
+      info: >
+        <p>
+          This is your DeterLab user profile.
+        </p>
+
+      name:     Name
+      position: Title
+      address:  Address
+      city:     City
+      state:    State
+      zip:      Postal code
+      country:  Country
+      email:    E-mail
+      url:      URL
+      phone:    Phone
+      affiliation: Affiliation
+      affiliation_abbrev: Affiliation (abbreviated)
+

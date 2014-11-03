@@ -1,0 +1,45 @@
+.page-header
+  %h1= raw t '.title'
+
+= raw t '.info'
+
+.row
+  .col-sm-6
+    %table.table.table-striped
+      %tr
+        %th= t '.name'
+        %td= @profile['name']
+      %tr
+        %th= t '.position'
+        %td= @profile['title']
+      %tr
+        %th= t '.address'
+        %td
+          = [ @profile['address1'], @profile['address2'] ].reject(&:blank?).join("<br/>").html_safe
+      %tr
+        %th= t '.city'
+        %td= @profile['city']
+      %tr
+        %th= t '.state'
+        %td= @profile['state']
+      %tr
+        %th= t '.zip'
+        %td= @profile['zip']
+      %tr
+        %th= t '.country'
+        %td= @profile['country']
+      %tr
+        %th= t '.email'
+        %td= @profile['email']
+      %tr
+        %th= t '.url'
+        %td= @profile['URL']
+      %tr
+        %th= t '.phone'
+        %td= @profile['phone']
+      %tr
+        %th= t '.affiliation'
+        %td= @profile['affiliation']
+      %tr
+        %th= t '.affiliation_abbrev'
+        %td= @profile['affiliation_abbrev']

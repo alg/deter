@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  rescue_from DeterLab::NotLoggedIn do
+    redirect_to :login
+  end
+
   # Application session wrapper
   def app_session
     Rails.logger.info session['user_id'].inspect

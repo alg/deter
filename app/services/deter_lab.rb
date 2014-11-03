@@ -3,6 +3,9 @@ class DeterLab
   # Standard DeterLab interface error
   class Error < StandardError; end
 
+  # Not logged in error
+  class NotLoggedIn < Error; end
+
   # Returns the current version of the deter lab
   def self.version
     Rails.cache.fetch('deterlab.version', expires_in: 15.minutes) do
@@ -30,7 +33,29 @@ class DeterLab
     cl.call(:logout)
   end
 
+  def self.get_user_profile(uid)
+    cl = client("Users", uid)
+    response = cl.call(:get_user_profile, "message" => { "uid" => uid })
+    raise Error unless response.success?
+
+    return response.to_hash[:get_user_profile_response][:return][:attributes].inject({}) do |memo, attr|
+      memo[attr[:name]] = attr[:value]
+      memo
+    end
+  rescue Savon::SOAPFault => e
+    process_error e
+  end
+
   private
+
+  def self.process_error(e)
+    error_code = e.to_hash[:fault][:detail].try(:[], :users_deter_fault).try(:[], :deter_fault).try(:[], :error_code)
+    if error_code == "5" # not logged in
+      raise NotLoggedIn
+    else
+      raise Error
+    end
+  end
 
   # extracts certs from the challenge response and stores them for later use
   def self.extract_and_store_certs(uid, x509s)
@@ -91,6 +116,7 @@ class DeterLab
       end
     end
 
+    Rails.logger.debug "Savon options: #{options.inspect}"
     Savon.client(options)
   end
 

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get '/logout' => 'user_sessions#destroy', as: 'logout'
   get '/dashboard' => 'dashboard#show', as: 'dashboard'
 
+  get '/profile' => 'profile#show', as: 'profile'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
