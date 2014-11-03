@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :app_session
 
+  # Returns TRUE if logged in
+  def logged_in?
+    app_session.logged_in?
+  end
+  helper_method :logged_in?
+
   def require_login
     if app_session.logged_in?
       true

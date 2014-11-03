@@ -14,3 +14,12 @@
         %li= link_to "Log in", "#login"
         %li= link_to "DETER Project", "http://deter-project.org/"
         %li= link_to "Contact", "http://info.deterlab.net/contact_deterlab"
+
+- if logged_in?
+  .container
+    %ul.submenu
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Libraries</a></li>
+      <li><a href="#">Experiments</a></li>
+      <li><a href="#">Notifications</a></li>
