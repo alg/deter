@@ -1,0 +1,20 @@
+.page-header
+  %h1= raw t '.title'
+
+= raw t '.info'
+
+.row
+  .col-sm-12
+    = form_tag(edit_profile_path, { class: 'form-horizontal' }) do
+      - ProfileFields::FORM_FIELDS.each do |f|
+        - error = @errors.try(:[], f)
+        .form-group{ class: error ? "has-error" : nil }
+          = label_tag "profile[#{f}]", t("profile.fields.#{f}"), class: "control-label col-sm-2"
+          .col-sm-4
+            = text_field_tag "profile[#{f}]", @profile[f], class: "form-control"
+            - if error
+              %span.help-block= error
+
+      .form-group
+        .col-sm-offset-2.col-sm-4
+          = submit_tag t(".submit"), class: "btn btn-default"

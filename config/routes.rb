@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   get '/dashboard' => 'dashboard#show', as: 'dashboard'
 
   get '/profile' => 'profile#show', as: 'profile'
+  get '/profile/edit' => 'profile#edit', as: 'edit_profile'
+  post '/profile/edit' => 'profile#update'
+
   resources :projects, only: [ :index ]
   resources :experiments, only: [ :index ]
 

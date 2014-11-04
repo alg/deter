@@ -8,5 +8,9 @@
     %table.table.table-striped
       - ProfileFields::DISPLAY_FIELDS.each do |f|
         %tr
-          %th= t ".#{f}"
+          %th= t "profile.fields.#{f}"
           %td= @profile[f]
+
+.row
+  .col-sm-12
+    = link_to "Edit Profile", :edit_profile, class: 'btn btn-default'

@@ -7,15 +7,24 @@ en:
           This is your DeterLab user profile.
         </p>
 
+    edit:
+      title: Edit your profile
+      info: >
+        <p>
+          This is your DeterLab user profile.
+        </p>
+      submit: Save changes
+
+    fields:
       name:     Name
-      position: Title
+      title:    Title
       address:  Address
       city:     City
       state:    State
       zip:      Postal code
       country:  Country
       email:    E-mail
-      url:      URL
+      URL:      URL
       phone:    Phone
       affiliation: Affiliation
       affiliation_abbrev: Affiliation (abbreviated)
