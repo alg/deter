@@ -7,7 +7,7 @@ class AppSession
   # Returns TRUE if the user is currently logged in
   def logged_in?
     uid = @session['user_id']
-    uid.present? && SslKeyStorage.get(uid).present?
+    uid.present?
   end
 
   # Remembers logging in

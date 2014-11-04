@@ -1,0 +1,24 @@
+.page-header
+  %h1= raw t '.title'
+
+= raw t '.info'
+
+.row
+  .col-sm-12
+    %table.table.table-striped
+      %thead
+        %tr
+          %th= t '.project_id'
+          %th= t '.owner'
+          %th= t '.members'
+      %tbody
+        - if @projects.blank?
+          %tr
+            %td{ colspan: 3 }= t '.nothing'
+        - else
+          - @projects.each do |p|
+            %tr
+              %td= p.project_id
+              %td= p.owner
+              %td= members_list p.members
+

@@ -28,4 +28,5 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'mocha'
+  gem 'guard-minitest'
 end

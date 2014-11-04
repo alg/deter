@@ -1,0 +1,15 @@
+en:
+  projects:
+    index:
+      title: Your projects
+      info: >
+        <p>
+          The list of your DeterLab projects.
+        </p>
+
+      project_id: Project ID
+      owner: Owner
+      members: Members 
+
+      member: member
+      nothing: There are no projects yet

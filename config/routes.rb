@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get '/dashboard' => 'dashboard#show', as: 'dashboard'
 
   get '/profile' => 'profile#show', as: 'profile'
+  resources :projects
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

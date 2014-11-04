@@ -33,6 +33,7 @@ class DeterLab
     cl.call(:logout)
   end
 
+  # Returns complete user profile in key-value form
   def self.get_user_profile(uid)
     cl = client("Users", uid)
     response = cl.call(:get_user_profile, "message" => { "uid" => uid })
@@ -46,10 +47,32 @@ class DeterLab
     process_error e
   end
 
+  # Returns the list of user projects
+  def self.get_user_projects(uid)
+    cl = client("Projects", uid)
+    response = cl.call(:view_projects, "message" => { "uid" => uid })
+    raise Error unless response.success?
+
+    return response.to_hash[:view_projects_response][:return].map do |p|
+      members = p[:members].map do |m|
+        ProjectMember.new(m[:uid], m[:permissions])
+      end
+
+      Project.new(p[:project_id], p[:owner], p[:approved], members)
+    end
+  rescue Savon::SOAPFault => e
+    process_error e
+  end
+
   private
 
   def self.process_error(e)
     error_code = e.to_hash[:fault][:detail].try(:[], :users_deter_fault).try(:[], :deter_fault).try(:[], :error_code)
+
+    if Rails.env.test?
+      puts e.to_hash.inspect
+    end
+
     if error_code == "5" # not logged in
       raise NotLoggedIn
     else
@@ -117,6 +140,7 @@ class DeterLab
     end
 
     Rails.logger.debug "Savon options: #{options.inspect}"
+
     Savon.client(options)
   end
 
