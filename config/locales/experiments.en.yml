@@ -1,0 +1,13 @@
+en:
+  experiments:
+    index:
+      title: Your experiments
+      info: >
+        <p>
+          The list of your DeterLab experiments.
+        </p>
+
+      name: Experiment
+      owner: Owner
+
+      nothing: There are no experiments yet

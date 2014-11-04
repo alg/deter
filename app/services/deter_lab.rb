@@ -53,12 +53,25 @@ class DeterLab
     response = cl.call(:view_projects, "message" => { "uid" => uid })
     raise Error unless response.success?
 
-    return response.to_hash[:view_projects_response][:return].map do |p|
+    return (response.to_hash[:view_projects_response][:return] || []).map do |p|
       members = p[:members].map do |m|
         ProjectMember.new(m[:uid], m[:permissions])
       end
 
       Project.new(p[:project_id], p[:owner], p[:approved], members)
+    end
+  rescue Savon::SOAPFault => e
+    process_error e
+  end
+
+  # Returns the list of user experiments
+  def self.get_user_experiments(uid)
+    cl = client("Experiments", uid)
+    response = cl.call(:view_experiments, "message" => { "uid" => uid, "listOnly" => true })
+    raise Error unless response.success?
+
+    return (response.to_hash[:view_experiments_response][:return] || []).map do |e|
+      e
     end
   rescue Savon::SOAPFault => e
     process_error e

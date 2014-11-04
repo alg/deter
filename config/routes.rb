@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   get '/dashboard' => 'dashboard#show', as: 'dashboard'
 
   get '/profile' => 'profile#show', as: 'profile'
-  resources :projects
+  resources :projects, only: [ :index ]
+  resources :experiments, only: [ :index ]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

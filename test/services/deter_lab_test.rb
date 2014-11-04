@@ -58,6 +58,16 @@ class DeterLabTest < ActiveSupport::TestCase
     end
   end
 
+  # -------------------------------------------------------------------------------------
+
+  test "getting experiments" do
+    VCR.use_cassette "deterlab-confidential-user-experiments" do
+      login
+      list = DeterLab.get_user_experiments(@username)
+      assert list
+    end
+  end
+
   private
 
   def login
