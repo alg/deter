@@ -28,6 +28,14 @@ class DeterLabTest < ActiveSupport::TestCase
 
   # -------------------------------------------------------------------------------------
 
+  test "getting profile description" do
+    VCR.use_cassette "deterlab-profile-description" do
+      fields = DeterLab.get_profile_description
+      assert_equal fields["URL"], ProfileField.new("URL", "string", true, "READ_WRITE", "URL", nil, nil, "0", nil)
+      assert_equal fields["phone"], ProfileField.new("phone", "string", false, "READ_WRITE", "Phone", "[0-9-\\s\\.\\(\\)\\+]+", "Numbers, whitespace, parens, and dots or dashes", "15", nil)
+    end
+  end
+
   test "getting user profile" do
     VCR.use_cassette "deterlab-confidential-user-profile" do
       login
@@ -67,6 +75,9 @@ class DeterLabTest < ActiveSupport::TestCase
       assert list
     end
   end
+
+  # -------------------------------------------------------------------------------------
+
 
   private
 

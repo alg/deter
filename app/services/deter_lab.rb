@@ -8,7 +8,7 @@ class DeterLab
 
   # Returns the current version of the deter lab
   def self.version
-    Rails.cache.fetch('deterlab.version', expires_in: 15.minutes) do
+    Rails.cache.fetch('deter:version', expires_in: 15.minutes) do
       response = client("ApiInfo").call(:get_version)
       data = response.to_hash[:get_version_response][:return]
       "#{data[:version]}/#{data[:patch_level]}"
@@ -33,13 +33,28 @@ class DeterLab
     cl.call(:logout)
   end
 
+  # Returns the profile description
+  def self.get_profile_description
+    Rails.cache.fetch("deter:profile_description", expires_in: 1.day) do
+      cl = client("Users")
+      response = cl.call(:get_profile_description)
+      raise Error unless response.success?
+
+      fields = response.to_hash[:get_profile_description_response][:return][:attributes].map do |f|
+        ProfileField.new(f[:name], f[:data_type], f[:optional], f[:access], f[:description], f[:format], f[:format_description], f[:length_hint], f[:value])
+      end
+
+      ProfileFields.new(fields)
+    end
+  end
+
   # Returns complete user profile in key-value form
   def self.get_user_profile(uid)
     cl = client("Users", uid)
     response = cl.call(:get_user_profile, "message" => { "uid" => uid })
     raise Error unless response.success?
 
-    return response.to_hash[:get_user_profile_response][:return][:attributes].inject({}) do |memo, attr|
+    return response.to_hash[:get_user_profile_response][:return][:attributes].inject(Profile.new) do |memo, attr|
       memo[attr[:name]] = attr[:value]
       memo
     end
