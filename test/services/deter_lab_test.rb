@@ -31,8 +31,8 @@ class DeterLabTest < ActiveSupport::TestCase
   test "getting profile description" do
     VCR.use_cassette "deterlab-profile-description" do
       fields = DeterLab.get_profile_description
-      assert_equal fields["URL"], ProfileField.new("URL", "string", true, "READ_WRITE", "URL", nil, nil, "0", nil)
-      assert_equal fields["phone"], ProfileField.new("phone", "string", false, "READ_WRITE", "Phone", "[0-9-\\s\\.\\(\\)\\+]+", "Numbers, whitespace, parens, and dots or dashes", "15", nil)
+      assert_equal ProfileField.new("URL", "string", true, "READ_WRITE", "URL", nil, nil, "0", nil), fields["URL"]
+      assert_equal ProfileField.new("phone", "string", false, "READ_WRITE", "Phone", "[0-9-\\s\\.\\(\\)\\+]+", "Numbers, whitespace, parens, and dots or dashes", "15", nil), fields["phone"]
     end
   end
 
@@ -40,7 +40,23 @@ class DeterLabTest < ActiveSupport::TestCase
     VCR.use_cassette "deterlab-confidential-user-profile" do
       login
       profile = DeterLab.get_user_profile(@username)
-      assert_equal profile['zip'], '06405'
+      assert_equal '06405', profile['zip']
+    end
+  end
+
+  test "updating user profile" do
+    VCR.use_cassette "deterlab-confidential-change-profile-success" do
+      login
+      errors = DeterLab.change_user_profile(@username, state: "CT", country: "United States")
+      assert_equal({}, errors)
+    end
+  end
+
+  test "failing to update the profile" do
+    VCR.use_cassette "deterlab-confidential-change-profile-failure" do
+      login
+      errors = DeterLab.change_user_profile(@username, phone: "")
+      assert_equal({ "phone" => "Misformatted attribute. Expected Numbers, whitespace, parens, and dots or dashes" }, errors)
     end
   end
 
@@ -51,18 +67,18 @@ class DeterLabTest < ActiveSupport::TestCase
       login
       projects = DeterLab.get_user_projects(@username)
 
-      assert_equal projects,
-        [ Project.new("admin", "deterboss", true,
-            [ ProjectMember.new("deterboss", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
-              ProjectMember.new("bfdh", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
-              ProjectMember.new("faber", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"])
-            ]),
-          Project.new("SPIdev", "faber", true,
-            [ ProjectMember.new("bfdh", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
-              ProjectMember.new("jsebes", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
-              ProjectMember.new("faber", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"])
-            ])
-        ]
+      assert_equal [
+        Project.new("admin", "deterboss", true,
+          [ ProjectMember.new("deterboss", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
+            ProjectMember.new("bfdh", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
+            ProjectMember.new("faber", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"])
+          ]),
+        Project.new("SPIdev", "faber", true,
+          [ ProjectMember.new("bfdh", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
+            ProjectMember.new("jsebes", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
+            ProjectMember.new("faber", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"])
+          ])
+        ], projects
     end
   end
 

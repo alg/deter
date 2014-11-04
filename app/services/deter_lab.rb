@@ -62,6 +62,24 @@ class DeterLab
     process_error e
   end
 
+  # Changes user profile and returns the list of issues as a hash of field names with error messages.
+  def self.change_user_profile(uid, fields)
+    changes = fields.map do |k, v|
+      { "name" => k, "value" => v, "delete" => 0 }
+    end
+
+    cl = client("Users", uid)
+    response = cl.call(:change_user_profile, "message" => { "uid" => uid, "changes" => changes })
+    raise Error unless response.success?
+
+    return [ response.to_hash[:change_user_profile_response][:return] ].flatten.inject({}) do |m, f|
+      m[f[:name]] = f[:reason] if !f[:success]
+      m
+    end
+  rescue Savon::SOAPFault => e
+    process_error e
+  end
+
   # Returns the list of user projects
   def self.get_user_projects(uid)
     cl = client("Projects", uid)
