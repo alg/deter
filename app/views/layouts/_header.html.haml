@@ -16,10 +16,11 @@
         %li= link_to "Contact", "http://info.deterlab.net/contact_deterlab"
 
 - if logged_in?
-  .container
-    %ul.submenu
-      %li= link_to "Profile", :profile
-      %li= link_to "Projects", :projects
-      <li><a href="#">Libraries</a></li>
-      %li= link_to "Experiments", :experiments
-      <li><a href="#">Notifications</a></li>
+  .submenu
+    .container
+      %ul
+        = submenu_item :profile, "Profile", profile_path
+        = submenu_item :projects, "Projects", projects_path
+        <li><a href="#">Libraries</a></li>
+        = submenu_item :experiments, "Experiments", experiments_path
+        <li><a href="#">Notifications</a></li>
