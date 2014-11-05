@@ -80,6 +80,16 @@ class DeterLab
     process_error e
   end
 
+  def self.change_password(uid, new_password)
+    cl = client("Users", uid)
+    response = cl.call(:change_password, "message" => { "uid" => uid, "newPass" => new_password })
+    raise Error unless response.success?
+
+    response.to_hash[:change_password_response][:return]
+  rescue Savon::SOAPFault => e
+    process_error e
+  end
+
   # Returns the list of user projects
   def self.get_user_projects(uid)
     cl = client("Projects", uid)

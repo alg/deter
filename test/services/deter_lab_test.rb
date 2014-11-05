@@ -94,6 +94,14 @@ class DeterLabTest < ActiveSupport::TestCase
 
   # -------------------------------------------------------------------------------------
 
+  test "changing password successfully" do
+    VCR.use_cassette "deterlab-confidential-change-password-successfully" do
+      login
+      assert DeterLab.change_password(@username, @password)
+    end
+  end
+
+  # -------------------------------------------------------------------------------------
 
   private
 

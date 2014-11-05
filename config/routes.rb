@@ -17,9 +17,11 @@ Rails.application.routes.draw do
   get '/logout' => 'user_sessions#destroy', as: 'logout'
   get '/dashboard' => 'dashboard#show', as: 'dashboard'
 
-  get '/profile' => 'profile#show', as: 'profile'
-  get '/profile/edit' => 'profile#edit', as: 'edit_profile'
+  get  '/profile' => 'profile#show', as: 'profile'
+  get  '/profile/edit' => 'profile#edit', as: 'edit_profile'
   post '/profile/edit' => 'profile#update'
+  get  '/password/change' => 'password#edit', as: 'change_password'
+  post '/password/change' => 'password#update'
 
   resources :projects, only: [ :index ]
   resources :experiments, only: [ :index ]
