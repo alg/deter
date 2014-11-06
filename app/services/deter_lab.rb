@@ -131,7 +131,7 @@ class DeterLab
       puts e.to_hash.inspect
     end
 
-    if error_code == "5" # not logged in
+    if error_code == "5" or error_code == "2" # not logged in
       raise NotLoggedIn
     else
       raise Error
