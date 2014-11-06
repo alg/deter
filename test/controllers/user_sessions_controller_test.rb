@@ -2,10 +2,6 @@ require 'test_helper'
 
 class UserSessionsControllerTest < ActionController::TestCase
 
-  def setup
-    DeterLab.stubs(:version).returns("1.0/0.0")
-  end
-
   test "shows login page" do
     get :new
     assert_select 'h1', 'Welcome to DeterLab'

@@ -3,10 +3,6 @@ require 'test_helper'
 class ApplicationControllerTest < ActionController::TestCase
   tests ApplicationsController
 
-  def setup
-    DeterLab.stubs(:version).returns("1.0/0.0")
-  end
-
   test "thanks page for project leader" do
     assert_page_for 'project_leader', /Thank you for your application for access to DeterLab/
   end

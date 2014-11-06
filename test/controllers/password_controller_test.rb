@@ -3,7 +3,6 @@ require 'test_helper'
 class PasswordControllerTest < ActionController::TestCase
 
   def setup
-    DeterLab.stubs(:version).returns("1.0/0.0")
     AppSession.new(@controller.session).logged_in_as "mark"
   end
 
