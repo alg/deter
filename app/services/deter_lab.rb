@@ -31,6 +31,8 @@ class DeterLab
   def self.logout(uid)
     cl = client("Users", uid)
     cl.call(:logout)
+  rescue Savon::SOAPFault => e
+    process_error e
   end
 
   # Returns the profile description

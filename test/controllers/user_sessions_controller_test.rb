@@ -39,4 +39,15 @@ class UserSessionsControllerTest < ActionController::TestCase
     assert !@app_session.logged_in?
   end
 
+  test "logging out when session is lost" do
+    DeterLab.expects(:logout).raises(DeterLab::NotLoggedIn)
+
+    @app_session = AppSession.new(@controller.session)
+    @app_session.logged_in_as "user"
+
+    delete :destroy
+    assert_redirected_to :login
+
+    assert !@app_session.logged_in?
+  end
 end
