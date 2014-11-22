@@ -103,6 +103,34 @@ class DeterLabTest < ActiveSupport::TestCase
 
   # -------------------------------------------------------------------------------------
 
+  test "requesting password reset" do
+    VCR.use_cassette "deterlab-request-password-reset" do
+      assert DeterLab.request_password_reset(@username, "http://localhost:3000/reset_password/")
+    end
+  end
+
+  test "requesting password reset for empty username" do
+    VCR.use_cassette "deterlab-request-password-reset-empty" do
+      assert !DeterLab.request_password_reset("", "http://localhost:3000/reset_password/")
+    end
+  end
+
+  test "requesting password reset for unknown user" do
+    VCR.use_cassette "deterlab-request-password-reset-unknown" do
+      assert !DeterLab.request_password_reset("unknown", "http://localhost:3000/reset_password/")
+    end
+  end
+
+  # -------------------------------------------------------------------------------------
+
+  test "changing password via challenge" do
+    VCR.use_cassette "deterlab-change-password-challenge-bad" do
+      assert !DeterLab.change_password_challenge("challenge", "new_pass")
+    end
+  end
+
+  # -------------------------------------------------------------------------------------
+
   private
 
   def login

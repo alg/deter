@@ -3,13 +3,25 @@ require 'test_helper'
 class PasswordResetsControllerTest < ActionController::TestCase
 
   test "showing form" do
-    get :new
+    get :new, challenge: "some-code"
     assert_response :success
   end
 
   test "resetting password" do
-    post :create, challenge: "code", username: "user", password: "pass", password_confirmation: "pass"
+    DeterLab.expects(:change_password_challenge).with("code", "pass").returns(true)
+    post :create, challenge: "code", password: "pass", password_confirmation: "pass"
     assert_redirected_to :root
   end
 
+  test "failed password reset" do
+    DeterLab.expects(:change_password_challenge).returns(false)
+    post :create, challenge: "code", password: "pass", password_confirmation: "pass"
+    assert_template :new
+  end
+
+  test "non-matching passwords" do
+    DeterLab.expects(:change_password_challenge).never
+    post :create, challenge: "code", password: "1", password_confirmation: "2"
+    assert_template :new
+  end
 end

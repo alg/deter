@@ -3,11 +3,11 @@
 
 = raw t '.info'
 
-= form_tag :password_resets, method: 'post', class: 'form-horizontal' do
+= form_tag :password_reset, method: 'post', class: 'form-horizontal' do
   .form-group
     = label_tag :challenge, t('.challenge'), class: 'col-sm-3 control-label'
     .col-sm-5
-      = text_field_tag :challenge, "", class: 'form-control'
+      = text_field_tag :challenge, params[:challenge], class: 'form-control'
 
   .form-group
     = label_tag :username, t('.username'), class: 'col-sm-3 control-label'

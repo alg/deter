@@ -10,8 +10,11 @@ Rails.application.routes.draw do
 
   resources :applications
   resources :user_sessions, only: [ :new, :create, :destroy ]
+
   resources :password_reset_requests, only: [ :new, :create ]
-  resources :password_resets, only: [ :new, :create ]
+  get  '/password_reset' => 'password_resets#new', as: 'new_password_reset'
+  get  '/password_reset/:challenge' => 'password_resets#new'
+  post '/password_reset' => 'password_resets#create', as: 'password_reset'
 
   get '/login' => 'user_sessions#new', as: 'login'
   get '/logout' => 'user_sessions#destroy', as: 'logout'

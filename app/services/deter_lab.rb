@@ -92,6 +92,27 @@ class DeterLab
     process_error e
   end
 
+  # Requests the reset of user password. The challenge is sent to the user
+  # email address.
+  def self.request_password_reset(uid, url_prefix)
+    cl = client("Users")
+    response = cl.call(:request_password_reset, "message" => { "uid" => uid, "urlPrefix" => url_prefix })
+    raise Error unless response.success?
+
+    response.to_hash[:request_password_reset_response][:return]
+  rescue Savon::SOAPFault => e
+    false
+  end
+
+  def self.change_password_challenge(challenge, new_pass)
+    cl = client("Users")
+    response = cl.call(:change_password_challenge, "message" => { "challengeID" => challenge, "newPass" => new_pass })
+    raise Error unless response.success?
+
+    response.to_hash[:change_password_challenge_response][:return].inspect
+  rescue Savon::SOAPFault => e
+    false
+  end
   # Returns the list of user projects
   def self.get_user_projects(uid)
     cl = client("Projects", uid)
