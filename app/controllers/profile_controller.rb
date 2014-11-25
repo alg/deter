@@ -15,9 +15,10 @@ class ProfileController < ApplicationController
     @errors = DeterLab.change_user_profile(app_session.current_user_id, form_fields)
     if @errors.blank?
       invalidate_cache
-      redirect_to :profile
+      redirect_to :profile, notice: t(".success")
     else
       @profile = get_profile
+      flash.now[:alert] = t(".failure")
       render :edit
     end
   end

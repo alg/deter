@@ -1,0 +1,8 @@
+- if flash.alert
+  .alert.alert-error
+    %span.glyphicon.glyphicon-minus-sign
+    .msg= flash.alert
+- if flash.notice
+  .alert
+    %span.glyphicon.glyphicon-info-sign
+    .msg= flash.notice

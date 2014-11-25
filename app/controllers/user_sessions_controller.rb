@@ -4,12 +4,15 @@ class UserSessionsController < ApplicationController
 
   # Logs the user in
   def create
-    if DeterLab.valid_credentials?(params[:username], params[:password])
-      app_session.logged_in_as(params[:username])
+    username = params[:username]
+    password = params[:password]
 
-      redirect_to :dashboard
+    if username.present? && password.present? && DeterLab.valid_credentials?(username, password)
+      app_session.logged_in_as(params[:username])
+      redirect_to :dashboard, notice: t(".success")
     else
-      redirect_to :login
+      flash.now[:alert] = t(".failure")
+      render :new
     end
   end
 
@@ -22,7 +25,7 @@ class UserSessionsController < ApplicationController
   rescue DeterLab::NotLoggedIn
     # That's ok. We are logging out anyway
   ensure
-    redirect_to :login
+    redirect_to :login, notice: t(".success")
   end
 
 end

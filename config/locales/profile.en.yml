@@ -15,6 +15,10 @@ en:
         </p>
       submit: Save changes
 
+    update:
+      success: Profile updated successfully
+      failure: Failed to update profile
+
     fields:
       name:     Name
       title:    Title

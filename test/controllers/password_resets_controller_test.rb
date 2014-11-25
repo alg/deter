@@ -11,12 +11,14 @@ class PasswordResetsControllerTest < ActionController::TestCase
     DeterLab.expects(:change_password_challenge).with("code", "pass").returns(true)
     post :create, challenge: "code", password: "pass", password_confirmation: "pass"
     assert_redirected_to :root
+    assert_equal I18n.t("password_resets.create.success"), flash.notice
   end
 
   test "failed password reset" do
     DeterLab.expects(:change_password_challenge).returns(false)
     post :create, challenge: "code", password: "pass", password_confirmation: "pass"
     assert_template :new
+    assert_equal I18n.t("password_resets.create.failure"), flash.now[:alert]
   end
 
   test "non-matching passwords" do

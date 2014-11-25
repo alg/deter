@@ -9,8 +9,9 @@ class PasswordResetsController < ApplicationController
     if password == params[:password_confirmation] &&
        password.present? && challenge.present? &&
        DeterLab.change_password_challenge(challenge, password)
-      redirect_to :root
+      redirect_to :root, notice: t(".success")
     else
+      flash.now[:alert] = t(".failure")
       render :new
     end
   end

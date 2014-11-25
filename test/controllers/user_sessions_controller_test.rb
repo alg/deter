@@ -13,6 +13,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 
     post :create, username: 'user_id', password: 'pass'
     assert_redirected_to :dashboard
+    assert_equal I18n.t("user_sessions.create.success"), flash.notice
     assert @app_session.logged_in?
   end
 
@@ -20,7 +21,8 @@ class UserSessionsControllerTest < ActionController::TestCase
     DeterLab.stubs(:valid_credentials?).returns(false)
 
     post :create, uid: 'user_id', password: 'pass'
-    assert_redirected_to :login
+    assert_equal I18n.t("user_sessions.create.failure"), flash.now[:alert]
+    assert_template :new
   end
 
   test "logging out" do
@@ -30,6 +32,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     @app_session.logged_in_as "user"
 
     delete :destroy
+    assert_equal I18n.t("user_sessions.destroy.success"), flash.notice
     assert_redirected_to :login
 
     assert !@app_session.logged_in?

@@ -18,3 +18,10 @@ en:
           <li><a href="http://www.isi.edu/deter/docs/DETER_Tutorial-TF-Jan2011.pdf" target="_blank">Introduction to DeterLab</a></li>
           <li><a href="%{new_application_path}">Applying for a DeterLab Account</a></li>
         </ul>
+
+    create:
+      failure: Failed to log in
+      success: Logged in successfully
+
+    destroy:
+      success: Logged out successfully
