@@ -28,9 +28,27 @@ class DeterLabTest < ActiveSupport::TestCase
 
   # -------------------------------------------------------------------------------------
 
-  test "getting profile description" do
-    VCR.use_cassette "deterlab-profile-description" do
-      fields = DeterLab.get_profile_description
+  test "getting project profile description" do
+    VCR.use_cassette "deterlab-project-profile-description" do
+      fields = DeterLab.get_project_profile_description
+
+      # <struct ProfileField name="URL",         data_type="string", optional=true,  access="READ_WRITE",
+      #   description="URL", format=nil, format_description=nil, length_hint="0", value=nil>,
+      # <struct ProfileField name="affiliation", data_type="string", optional=true,  access="READ_WRITE",
+      #   description="Affiliation", format=nil, format_description=nil, length_hint="0", value=nil>
+      # <struct ProfileField name="description", data_type="string", optional=false, access="READ_WRITE",
+      #   description="Description", format=nil, format_description=nil, length_hint="0", value=nil>
+      # <struct ProfileField name="funders",     data_type="string", optional=true,  access="READ_WRITE",
+      #   description="Funders", format=nil, format_description=nil, length_hint="0", value=nil>]
+
+      assert_equal ProfileField.new("URL", "string", true, "READ_WRITE", "URL", nil, nil, "0", nil), fields["URL"]
+      assert_equal ProfileField.new("funders", "string", true, "READ_WRITE", "Funders", nil, nil, "0", nil), fields["funders"]
+    end
+  end
+
+  test "getting user profile description" do
+    VCR.use_cassette "deterlab-user-profile-description" do
+      fields = DeterLab.get_user_profile_description
       assert_equal ProfileField.new("URL", "string", true, "READ_WRITE", "URL", nil, nil, "0", nil), fields["URL"]
       assert_equal ProfileField.new("phone", "string", false, "READ_WRITE", "Phone", "[0-9-\\s\\.\\(\\)\\+]+", "Numbers, whitespace, parens, and dots or dashes", "15", nil), fields["phone"]
     end
