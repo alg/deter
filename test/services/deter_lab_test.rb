@@ -100,6 +100,17 @@ class DeterLabTest < ActiveSupport::TestCase
     end
   end
 
+  test "creating a project successfully" do
+    VCR.use_cassette "deterlab-confidential-create-project" do
+      login
+      assert DeterLab.create_project(@username, "unit-test-project", { description: "Unit test project" })
+    end
+  end
+
+  test "failing to create a project" do
+    skip "pending"
+  end
+
   # -------------------------------------------------------------------------------------
 
   test "getting experiments" do

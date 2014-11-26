@@ -6,7 +6,7 @@
 
 .row
   .col-sm-12
-    = form_tag(edit_profile_path, { class: 'form-horizontal' }) do
+    = form_tag edit_profile_path, { class: 'form-horizontal' } do
       - ProfileFields::FORM_FIELDS.each do |f|
         - error = @errors.try(:[], f)
         .form-group{ class: error ? "has-error" : nil }

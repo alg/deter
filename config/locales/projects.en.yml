@@ -13,3 +13,13 @@ en:
 
       member: member
       nothing: There are no projects yet
+
+      new_project: New project
+
+    new:
+      title: Create project
+      info: >
+        <p>
+          Fill in the new project form.
+        </p>
+      submit: Create project

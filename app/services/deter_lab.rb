@@ -119,6 +119,7 @@ class DeterLab
     false
   end
 
+  # Exchange password challenge to change password
   def self.change_password_challenge(challenge, new_pass)
     cl = client("Users")
     response = cl.call(:change_password_challenge, "message" => { "challengeID" => challenge, "newPass" => new_pass })
@@ -128,6 +129,7 @@ class DeterLab
   rescue Savon::SOAPFault => e
     false
   end
+
   # Returns the list of user projects
   def self.get_user_projects(uid)
     cl = client("Projects", uid)
@@ -141,6 +143,24 @@ class DeterLab
 
       Project.new(p[:project_id], p[:owner], p[:approved], members)
     end
+  rescue Savon::SOAPFault => e
+    process_error e
+  end
+
+  # Creates a project with the given profile for approval.
+  # Returns #true if created, or #false if not.
+  def self.create_project(uid, name, project_profile)
+    cl = client("Projects", uid)
+    response = cl.call(:create_project, message: {
+      uid: uid,
+      projectId: name,
+      owner: uid,
+      profile: project_profile.map { |f, v| { "Name" => f, "StringValue" => v.to_s } }
+    })
+
+    raise Error unless response.success?
+
+    return response.to_hash[:create_project_response][:return]
   rescue Savon::SOAPFault => e
     process_error e
   end
