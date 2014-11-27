@@ -15,11 +15,28 @@ class ProjectsController < ApplicationController
     @profile_descr = Rails.cache.fetch("deter:project_profile_details", expires_in: Rails.env.test? ? 1.second : 1.day) do
       DeterLab.get_project_profile_description
     end
+
+    render :new
   end
 
   # Creates new project
   def create
-    # TODO invalidate deter:user_projects:#{app_session.current_user_id}
+    pp = project_params
+    if pp[:name].blank?
+      raise DeterLab::RequestError, t(".name_required")
+    end
+
+    DeterLab.create_project(app_session.current_user_id, pp.delete(:name), pp)
+    Rails.cache.delete("deter:user_projects:#{app_session.current_user_id}")
+    redirect_to :projects, notice: t(".success")
+  rescue DeterLab::RequestError => e
+    flash.now[:alert] = t(".failure", error: e.message).html_safe
+    new
   end
 
+  private
+
+  def project_params
+    params[:project]
+  end
 end

@@ -103,12 +103,17 @@ class DeterLabTest < ActiveSupport::TestCase
   test "creating a project successfully" do
     VCR.use_cassette "deterlab-confidential-create-project" do
       login
-      assert DeterLab.create_project(@username, "unit-test-project", { description: "Unit test project" })
+      assert DeterLab.create_project(@username, "unit-test-project-3", { description: "Unit test project", URL: "http://sample.com/" })
     end
   end
 
   test "failing to create a project" do
-    skip "pending"
+    VCR.use_cassette "deterlab-confidential-create-project-failure" do
+      login
+      assert_raises DeterLab::RequestError do
+        DeterLab.create_project(@username, "unit-test-project-failure", { description: "" })
+      end
+    end
   end
 
   # -------------------------------------------------------------------------------------

@@ -23,3 +23,8 @@ en:
           Fill in the new project form.
         </p>
       submit: Create project
+
+    create:
+      name_required: Project name is required
+      success: Created the project successfully
+      failure: Failed to create the project:<br/>%{error}

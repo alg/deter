@@ -6,6 +6,11 @@
 
 .row
   = form_tag projects_path, { class: 'form-horizontal' } do
+    .form-group
+      = label_tag "project[name]", t(".name"), class: 'control-label col-sm-2'
+      .col-sm-4
+        = text_field_tag "project[name]", params[:project].try(:[], :name), class: 'form-control'
+
     - @profile_descr.each do |pf|
       - name = "project[#{pf.name}]"
       - disabled = %w{ READ_ONLY NO_ACCESS }.include?(pf.access)

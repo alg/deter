@@ -6,6 +6,9 @@ class DeterLab
   # Not logged in error
   class NotLoggedIn < Error; end
 
+  # General request error (see the message)
+  class RequestError < Error; end
+
   # Returns the current version of the deter lab
   def self.version
     Rails.cache.fetch('deter:version', expires_in: 15.minutes) do
@@ -152,10 +155,11 @@ class DeterLab
   def self.create_project(uid, name, project_profile)
     cl = client("Projects", uid)
     response = cl.call(:create_project, message: {
-      uid: uid,
-      projectId: name,
+      projectid: name,
       owner: uid,
-      profile: project_profile.map { |f, v| { "Name" => f, "StringValue" => v.to_s } }
+      profile: project_profile.map { |f, v| {
+        name:  f,
+        value: v.to_s } }
     })
 
     raise Error unless response.success?
@@ -181,17 +185,34 @@ class DeterLab
   private
 
   def self.process_error(e)
-    error_code = e.to_hash[:fault][:detail].try(:[], :users_deter_fault).try(:[], :deter_fault).try(:[], :error_code)
+    code = error_code(e)
 
-    if Rails.env.test?
-      puts e.to_hash.inspect
-    end
-
-    if error_code == "5" or error_code == "2" # not logged in
+    if code == "5"
       raise NotLoggedIn
+    elsif code == "2"
+      raise RequestError, detail_message(e)
     else
+      if Rails.env.test?
+        puts e.to_hash.inspect
+      end
+
       raise Error
     end
+  end
+
+  def self.error_code(e)
+    deter_fault(e).try(:[], :error_code)
+  end
+
+  def self.detail_message(e)
+    deter_fault(e).try(:[], :detail_message)
+  end
+
+  def self.deter_fault(e)
+    detail  = e.to_hash[:fault][:detail]
+    fault   = detail.try(:[], :users_deter_fault)
+    fault ||= detail.try(:[], :projects_deter_fault)
+    fault.try(:[], :deter_fault)
   end
 
   # extracts certs from the challenge response and stores them for later use
