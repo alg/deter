@@ -12,6 +12,7 @@
           %th= t '.project_id'
           %th= t '.owner'
           %th= t '.members'
+          %th= t '.approved'
       %tbody
         - if @projects.blank?
           %tr
@@ -22,6 +23,7 @@
               %td= p.project_id
               %td= p.owner
               %td= members_list p.members
+              %td= p.approved ? 'Yes' : 'No'
 
 .row
   .col-sm-12

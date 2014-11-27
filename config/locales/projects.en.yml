@@ -9,7 +9,8 @@ en:
 
       project_id: Project ID
       owner: Owner
-      members: Members 
+      members: Members
+      approved: Approved
 
       member: member
       nothing: There are no projects yet

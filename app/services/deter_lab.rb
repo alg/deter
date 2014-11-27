@@ -140,7 +140,7 @@ class DeterLab
     raise Error unless response.success?
 
     return (response.to_hash[:view_projects_response][:return] || []).map do |p|
-      members = p[:members].map do |m|
+      members = [ p[:members] ].flatten.map do |m|
         ProjectMember.new(m[:uid], m[:permissions])
       end
 
