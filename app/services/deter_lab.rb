@@ -202,7 +202,12 @@ class DeterLab
     if code == "5"
       raise NotLoggedIn
     elsif code == "2"
-      raise RequestError, detail_message(e)
+      msg = detail_message(e)
+      if msg =~ /not logged in/i
+        raise NotLoggedIn
+      else
+        raise RequestError, msg
+      end
     else
       if Rails.env.test?
         puts e.to_hash.inspect
