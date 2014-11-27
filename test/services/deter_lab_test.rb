@@ -116,6 +116,25 @@ class DeterLabTest < ActiveSupport::TestCase
     end
   end
 
+  test "deleting a project" do
+    VCR.use_cassette "deterlab-confidential-delete-project" do
+      login
+      assert DeterLab.create_project(@username, "unit-test-delete", { description: "Project for unit test deletion" })
+      assert DeterLab.remove_project(@username, "unit-test-delete")
+    end
+  end
+
+  test "failed deleting of a project" do
+    VCR.use_cassette "deterlab-confidential-delete-project-failure" do
+      login
+      err = assert_raises DeterLab::RequestError do
+        DeterLab.remove_project(@username, "missing")
+      end
+
+      assert_equal "Invalid projectid", err.message
+    end
+  end
+
   # -------------------------------------------------------------------------------------
 
   test "getting experiments" do

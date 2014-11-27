@@ -11,6 +11,8 @@ en:
       owner: Owner
       members: Members
       approved: Approved
+      actions: Actions
+      delete: Delete
 
       member: member
       nothing: There are no projects yet
@@ -29,3 +31,7 @@ en:
       name_required: Project name is required
       success: Created the project successfully
       failure: Failed to create the project:<br/>%{error}
+
+    destroy:
+      success: Deleted the project successfully
+      failure: Failed to delete the project:<br/>%{error}

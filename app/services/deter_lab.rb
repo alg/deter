@@ -169,6 +169,18 @@ class DeterLab
     process_error e
   end
 
+  # Deletes the project
+  def self.remove_project(uid, project_id)
+    cl = client("Projects", uid)
+    response = cl.call(:remove_project, message: {
+      projectid: project_id
+    })
+
+    return response.to_hash[:remove_project_response][:return]
+  rescue Savon::SOAPFault => e
+    process_error e
+  end
+
   # Returns the list of user experiments
   def self.get_user_experiments(uid)
     cl = client("Experiments", uid)

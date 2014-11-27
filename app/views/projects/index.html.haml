@@ -13,6 +13,7 @@
           %th= t '.owner'
           %th= t '.members'
           %th= t '.approved'
+          %th= t '.actions'
       %tbody
         - if @projects.blank?
           %tr
@@ -24,6 +25,7 @@
               %td= p.owner
               %td= members_list p.members
               %td= p.approved ? 'Yes' : 'No'
+              %td= link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: "Are you sure to delete this project?" }
 
 .row
   .col-sm-12

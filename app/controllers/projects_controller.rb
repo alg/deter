@@ -27,11 +27,20 @@ class ProjectsController < ApplicationController
     end
 
     DeterLab.create_project(app_session.current_user_id, pp.delete(:name), pp)
-    Rails.cache.delete("deter:user_projects:#{app_session.current_user_id}")
+    invalidate_projects_cache
     redirect_to :projects, notice: t(".success")
   rescue DeterLab::RequestError => e
     flash.now[:alert] = t(".failure", error: e.message).html_safe
     new
+  end
+
+  # Deletes the project
+  def destroy
+    DeterLab.remove_project(app_session.current_user_id, params[:id])
+    invalidate_projects_cache
+    redirect_to :projects, notice: t(".success")
+  rescue DeterLab::RequestError => e
+    redirect_to :projects, alert: t(".failure", error: e.message).html_safe
   end
 
   private
@@ -39,4 +48,9 @@ class ProjectsController < ApplicationController
   def project_params
     params[:project]
   end
+
+  def invalidate_projects_cache
+    Rails.cache.delete("deter:user_projects:#{app_session.current_user_id}")
+  end
+
 end

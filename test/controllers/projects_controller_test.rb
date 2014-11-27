@@ -34,9 +34,25 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal I18n.t("projects.create.failure", error: "error message"), flash.now[:alert]
   end
 
-  test "no name" do
+  test "creating without name" do
     post :create, project: { name: "" }
     assert_template :new
     assert_equal I18n.t("projects.create.failure", error: I18n.t("projects.create.name_required")), flash.now[:alert]
   end
+
+  test "deleting" do
+    DeterLab.expects(:remove_project).with("mark", "projectid").returns(true)
+    delete :destroy, id: "projectid"
+    assert_redirected_to :projects
+    assert_equal I18n.t("projects.destroy.success"), flash.notice
+  end
+
+  test "failed deleting" do
+    error = "Invalid projectid"
+    DeterLab.expects(:remove_project).with("mark", "projectid").raises(DeterLab::RequestError.new(error))
+    delete :destroy, id: "projectid"
+    assert_redirected_to :projects
+    assert_equal I18n.t("projects.destroy.failure", error: error), flash.alert
+  end
+
 end
