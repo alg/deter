@@ -95,15 +95,17 @@ class DeterLabTest < ActiveSupport::TestCase
           [ ProjectMember.new("bfdh", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
             ProjectMember.new("jsebes", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]),
             ProjectMember.new("faber", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"])
-          ])
-        ], projects
+          ]),
+        Project.new("Megaproj", "bfdh", true,
+          [ ProjectMember.new("bfdh", ["CREATE_EXPERIMENT", "CREATE_LIBRARY", "REMOVE_USER", "CREATE_CIRCLE", "ADD_USER"]) ])
+      ], projects
     end
   end
 
   test "creating a project successfully" do
     VCR.use_cassette "deterlab-confidential-create-project" do
       login
-      assert DeterLab.create_project(@username, "unit-test-project-3", { description: "Unit test project", URL: "http://sample.com/" })
+      assert DeterLab.create_project(@username, "unit-test-project-3", { description: "Unit test project", URL: "http://sample.com/", "test-open" => "test" })
     end
   end
 
@@ -119,7 +121,7 @@ class DeterLabTest < ActiveSupport::TestCase
   test "deleting a project" do
     VCR.use_cassette "deterlab-confidential-delete-project" do
       login
-      assert DeterLab.create_project(@username, "unit-test-delete", { description: "Project for unit test deletion" })
+      assert DeterLab.create_project(@username, "unit-test-delete", { "description" => "Project for unit test deletion", "test-open" => "test" })
       assert DeterLab.remove_project(@username, "unit-test-delete")
     end
   end

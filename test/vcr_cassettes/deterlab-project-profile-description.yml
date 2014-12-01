@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://users.isi.deterlab.net:52323/axis2/services/Projects?wsdl
+    uri: https://128.9.160.249:52323/axis2/services/Projects?wsdl
     body:
       encoding: US-ASCII
       string: ''
@@ -25,7 +25,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 25 Nov 2014 07:44:07 GMT
+      - Mon, 01 Dec 2014 16:44:15 GMT
     body:
       encoding: UTF-8
       string: |
@@ -254,6 +254,77 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
+                    <xs:element name="createProjectAttribute">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
+                                <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="formatdescription" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="order" type="xs:int"/>
+                                <xs:element minOccurs="0" name="length" type="xs:int"/>
+                                <xs:element minOccurs="0" name="def" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="createProjectAttributeResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="modifyProjectAttribute">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
+                                <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="formatdescription" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="order" type="xs:int"/>
+                                <xs:element minOccurs="0" name="length" type="xs:int"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="modifyProjectAttributeResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="removeProjectAttribute">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="removeProjectAttributeResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProfileDescription">
+                        <xs:complexType>
+                            <xs:sequence/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProfileDescriptionResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
                     <xs:element name="addUsers">
                         <xs:complexType>
                             <xs:sequence>
@@ -340,77 +411,6 @@ http_interactions:
                         <xs:complexType>
                             <xs:sequence>
                                 <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ns:ProjectUserResult"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="getProfileDescription">
-                        <xs:complexType>
-                            <xs:sequence/>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="getProfileDescriptionResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="createProjectAttribute">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
-                                <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="formatdescription" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="order" type="xs:int"/>
-                                <xs:element minOccurs="0" name="length" type="xs:int"/>
-                                <xs:element minOccurs="0" name="def" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="createProjectAttributeResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="modifyProjectAttribute">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
-                                <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="formatdescription" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="order" type="xs:int"/>
-                                <xs:element minOccurs="0" name="length" type="xs:int"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="modifyProjectAttributeResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="removeProjectAttribute">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="removeProjectAttributeResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
@@ -1224,21 +1224,21 @@ http_interactions:
             </wsdl:binding>
             <wsdl:service name="Projects">
                 <wsdl:port name="ProjectsHttpsSoap11Endpoint" binding="tns:ProjectsSoap11Binding">
-                    <soap:address location="https://users.isi.deterlab.net:52323/axis2/services/Projects.ProjectsHttpsSoap11Endpoint/"/>
+                    <soap:address location="https://128.9.160.249:52323/axis2/services/Projects.ProjectsHttpsSoap11Endpoint/"/>
                 </wsdl:port>
                 <wsdl:port name="ProjectsHttpsSoap12Endpoint" binding="tns:ProjectsSoap12Binding">
-                    <soap12:address location="https://users.isi.deterlab.net:52323/axis2/services/Projects.ProjectsHttpsSoap12Endpoint/"/>
+                    <soap12:address location="https://128.9.160.249:52323/axis2/services/Projects.ProjectsHttpsSoap12Endpoint/"/>
                 </wsdl:port>
                 <wsdl:port name="ProjectsHttpsEndpoint" binding="tns:ProjectsHttpBinding">
-                    <http:address location="https://users.isi.deterlab.net:52323/axis2/services/Projects.ProjectsHttpsEndpoint/"/>
+                    <http:address location="https://128.9.160.249:52323/axis2/services/Projects.ProjectsHttpsEndpoint/"/>
                 </wsdl:port>
             </wsdl:service>
         </wsdl:definitions>
     http_version: 
-  recorded_at: Tue, 25 Nov 2014 07:44:00 GMT
+  recorded_at: Mon, 01 Dec 2014 16:40:16 GMT
 - request:
     method: post
-    uri: https://users.isi.deterlab.net:52323/axis2/services/Projects.ProjectsHttpsSoap11Endpoint/
+    uri: https://128.9.160.249:52323/axis2/services/Projects.ProjectsHttpsSoap11Endpoint/
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -1269,7 +1269,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 25 Nov 2014 07:44:09 GMT
+      - Mon, 01 Dec 2014 16:44:17 GMT
     body:
       encoding: UTF-8
       string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:getProfileDescriptionResponse
@@ -1282,7 +1282,14 @@ http_interactions:
         xsi:nil="true" /><ns:formatDescription xsi:nil="true" /><ns:lengthHint>0</ns:lengthHint><ns:name>description</ns:name><ns:optional>false</ns:optional><ns:orderingHint>200</ns:orderingHint><ns:value
         xsi:nil="true" /></ns:attributes><ns:attributes xsi:type="ns:Attribute"><ns:access>READ_WRITE</ns:access><ns:dataType>string</ns:dataType><ns:description>Funders</ns:description><ns:format
         xsi:nil="true" /><ns:formatDescription xsi:nil="true" /><ns:lengthHint>0</ns:lengthHint><ns:name>funders</ns:name><ns:optional>true</ns:optional><ns:orderingHint>400</ns:orderingHint><ns:value
+        xsi:nil="true" /></ns:attributes><ns:attributes xsi:type="ns:Attribute"><ns:access>READ_WRITE</ns:access><ns:dataType>string</ns:dataType><ns:description>non-required
+        writable test attr</ns:description><ns:format>^[0-9]+$</ns:format><ns:formatDescription>Digits
+        only</ns:formatDescription><ns:lengthHint>0</ns:lengthHint><ns:name>test-format</ns:name><ns:optional>true</ns:optional><ns:orderingHint>12000</ns:orderingHint><ns:value
+        xsi:nil="true" /></ns:attributes><ns:attributes xsi:type="ns:Attribute"><ns:access>READ_WRITE</ns:access><ns:dataType>string</ns:dataType><ns:description>required
+        writable test attr</ns:description><ns:format></ns:format><ns:formatDescription>None</ns:formatDescription><ns:lengthHint>0</ns:lengthHint><ns:name>test-open</ns:name><ns:optional>false</ns:optional><ns:orderingHint>12000</ns:orderingHint><ns:value
+        xsi:nil="true" /></ns:attributes><ns:attributes xsi:type="ns:Attribute"><ns:access>READ_ONLY</ns:access><ns:dataType>string</ns:dataType><ns:description>non-required
+        read-only test attr</ns:description><ns:format></ns:format><ns:formatDescription>None</ns:formatDescription><ns:lengthHint>0</ns:lengthHint><ns:name>test-readonly</ns:name><ns:optional>true</ns:optional><ns:orderingHint>12000</ns:orderingHint><ns:value
         xsi:nil="true" /></ns:attributes><ns:id xsi:nil="true" /></ns:return></ns:getProfileDescriptionResponse></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Tue, 25 Nov 2014 07:44:01 GMT
+  recorded_at: Mon, 01 Dec 2014 16:40:17 GMT
 recorded_with: VCR 2.9.3

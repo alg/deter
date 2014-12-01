@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://users.isi.deterlab.net:52323/axis2/services/ApiInfo?wsdl
+    uri: https://128.9.160.249:52323/axis2/services/ApiInfo?wsdl
     body:
       encoding: US-ASCII
       string: ''
@@ -25,7 +25,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 04 Nov 2014 11:49:51 GMT
+      - Mon, 01 Dec 2014 16:44:51 GMT
     body:
       encoding: UTF-8
       string: |
@@ -156,21 +156,21 @@ http_interactions:
             </wsdl:binding>
             <wsdl:service name="ApiInfo">
                 <wsdl:port name="ApiInfoHttpsSoap11Endpoint" binding="tns:ApiInfoSoap11Binding">
-                    <soap:address location="https://users.isi.deterlab.net:52323/axis2/services/ApiInfo.ApiInfoHttpsSoap11Endpoint/"/>
+                    <soap:address location="https://128.9.160.249:52323/axis2/services/ApiInfo.ApiInfoHttpsSoap11Endpoint/"/>
                 </wsdl:port>
                 <wsdl:port name="ApiInfoHttpsSoap12Endpoint" binding="tns:ApiInfoSoap12Binding">
-                    <soap12:address location="https://users.isi.deterlab.net:52323/axis2/services/ApiInfo.ApiInfoHttpsSoap12Endpoint/"/>
+                    <soap12:address location="https://128.9.160.249:52323/axis2/services/ApiInfo.ApiInfoHttpsSoap12Endpoint/"/>
                 </wsdl:port>
                 <wsdl:port name="ApiInfoHttpsEndpoint" binding="tns:ApiInfoHttpBinding">
-                    <http:address location="https://users.isi.deterlab.net:52323/axis2/services/ApiInfo.ApiInfoHttpsEndpoint/"/>
+                    <http:address location="https://128.9.160.249:52323/axis2/services/ApiInfo.ApiInfoHttpsEndpoint/"/>
                 </wsdl:port>
             </wsdl:service>
         </wsdl:definitions>
     http_version: 
-  recorded_at: Tue, 04 Nov 2014 11:49:45 GMT
+  recorded_at: Mon, 01 Dec 2014 16:40:52 GMT
 - request:
     method: post
-    uri: https://users.isi.deterlab.net:52323/axis2/services/ApiInfo.ApiInfoHttpsSoap11Endpoint/
+    uri: https://128.9.160.249:52323/axis2/services/ApiInfo.ApiInfoHttpsSoap11Endpoint/
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -201,12 +201,12 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 04 Nov 2014 11:49:52 GMT
+      - Mon, 01 Dec 2014 16:44:53 GMT
     body:
       encoding: UTF-8
       string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:getVersionResponse
         xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:type="ns:ApiInfo_VersionResponse"><ns:keyID xsi:nil="true" /><ns:patchLevel>0.0</ns:patchLevel><ns:version>0.2</ns:version></ns:return></ns:getVersionResponse></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Tue, 04 Nov 2014 11:49:47 GMT
+  recorded_at: Mon, 01 Dec 2014 16:40:53 GMT
 recorded_with: VCR 2.9.3
