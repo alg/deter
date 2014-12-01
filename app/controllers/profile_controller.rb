@@ -14,7 +14,7 @@ class ProfileController < ApplicationController
   def update
     @errors = DeterLab.change_user_profile(app_session.current_user_id, form_fields)
     if @errors.blank?
-      invalidate_cache
+      deter_cache.delete "user_profile"
       redirect_to :profile, notice: t(".success")
     else
       @profile = get_profile
@@ -25,18 +25,10 @@ class ProfileController < ApplicationController
 
   private
 
-  def cache_key
-    "deter:user_profile:#{app_session.current_user_id}""deter:user_profile:#{app_session.current_user_id}"
-  end
-
   def get_profile
-    Rails.cache.fetch(cache_key, expires_in: 30.seconds) do
+    deter_cache.fetch "user_profile", 30.seconds do
       DeterLab.get_user_profile(app_session.current_user_id)
     end
-  end
-
-  def invalidate_cache
-    Rails.cache.delete(cache_key)
   end
 
   def form_fields

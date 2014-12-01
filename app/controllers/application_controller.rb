@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Returns the instance of cache configured for the current user
+  def deter_cache
+    @deter_cache ||= DeterCache.new(app_session.current_user_id)
+  end
 end

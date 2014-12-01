@@ -4,15 +4,15 @@ class ProjectsController < ApplicationController
 
   # Projects list
   def index
-    @projects = Rails.cache.fetch("deter:user_projects:#{app_session.current_user_id}", expires_in: Rails.env.development? ? 30.minutes : 30.seconds) do
+    @projects = deter_cache.fetch "user_projects", 30.minutes do
       DeterLab.get_user_projects(app_session.current_user_id)
     end
   end
 
   # New projects form
   def new
-    Rails.cache.delete("deter:project_profile_details")
-    @profile_descr = Rails.cache.fetch("deter:project_profile_details", expires_in: Rails.env.test? ? 1.second : 1.day) do
+    # deter_cache.delete_global "project_profile_description"
+    @profile_descr = deter_cache.fetch_global "project_profile_description", 1.day do
       DeterLab.get_project_profile_description
     end
 
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
     end
 
     DeterLab.create_project(app_session.current_user_id, pp.delete(:name), pp)
-    invalidate_projects_cache
+    deter_cache.delete "user_projects"
     redirect_to :projects, notice: t(".success")
   rescue DeterLab::RequestError => e
     flash.now[:alert] = t(".failure", error: e.message).html_safe
@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
   # Deletes the project
   def destroy
     DeterLab.remove_project(app_session.current_user_id, params[:id])
-    invalidate_projects_cache
+    deter_cache.delete "user_projects"
     redirect_to :projects, notice: t(".success")
   rescue DeterLab::RequestError => e
     redirect_to :projects, alert: t(".failure", error: e.message).html_safe
@@ -47,10 +47,6 @@ class ProjectsController < ApplicationController
 
   def project_params
     params[:project]
-  end
-
-  def invalidate_projects_cache
-    Rails.cache.delete("deter:user_projects:#{app_session.current_user_id}")
   end
 
 end
