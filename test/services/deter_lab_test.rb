@@ -143,7 +143,12 @@ class DeterLabTest < ActiveSupport::TestCase
     VCR.use_cassette "deterlab-confidential-user-experiments" do
       login
       list = DeterLab.get_user_experiments(@username)
-      assert list
+      assert_equal [
+        Experiment.new("Megaproj:One", "bfdh", [
+          ExperimentACL.new("Megaproj:Megaproj", [ "MODIFY_EXPERIMENT_ACCESS", "MODIFY_EXPERIMENT", "READ_EXPERIMENT" ]),
+          ExperimentACL.new("bfdh:bfdh", [ "MODIFY_EXPERIMENT_ACCESS", "MODIFY_EXPERIMENT", "READ_EXPERIMENT" ])
+        ])
+      ], list
     end
   end
 

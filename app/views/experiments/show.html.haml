@@ -1,0 +1,20 @@
+- @submenu = :experiments
+.page-header
+  %h1= raw t '.title', name: @experiment.name
+
+= raw t '.info', owner: @experiment.owner
+
+.row
+  .col-sm-12
+    %h4= t ".acl"
+    %table.table
+      %thead
+        %tr
+          %th= t ".circle"
+          %th= t ".permissions"
+      - @experiment.acl.each do |acl|
+        %tr
+          %th= acl.circle_id
+          %td= acl.permissions.join("<br/>").html_safe
+
+

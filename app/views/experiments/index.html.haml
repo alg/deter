@@ -12,12 +12,12 @@
           %th= t '.name'
           %th= t '.owner'
       %tbody
-        - if @projects.blank?
+        - if @experiments.blank?
           %tr
             %td{ colspan: 2 }= t '.nothing'
         - else
           - @experiments.each do |p|
             %tr
-              %td= p.name
+              %td= link_to p.name, experiment_path(p.name)
               %td= p.owner
 

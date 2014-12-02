@@ -11,3 +11,16 @@ en:
       owner: Owner
 
       nothing: There are no experiments yet
+
+    show:
+      title: "Experiment: %{name}"
+      info: >
+        <p>
+          Experiment owner: %{owner}
+        </p>
+
+      acl: Access control list
+      circle: Circle
+      permissins: Permissions
+
+      not_found: Experiment is missing
