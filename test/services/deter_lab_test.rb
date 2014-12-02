@@ -152,6 +152,21 @@ class DeterLabTest < ActiveSupport::TestCase
     end
   end
 
+  test "creating experiments" do
+    VCR.use_cassette "deterlab-confidential-create-experiment" do
+      login
+
+      pid   = "Megaproj"
+      ename = "Test"
+      eid   = "#{pid}:#{ename}"
+
+      assert DeterLab.create_experiment(pid, ename, @username, "Custom description"), "Could not create an experiment"
+      experiment = DeterLab.get_user_experiments(@username).find { |e| e.name == eid }
+      assert DeterLab.delete_experiment(eid, @username), "Could not delete the experiment"
+      assert experiment, "Experiment was added, but was not found"
+    end
+  end
+
   # -------------------------------------------------------------------------------------
 
   test "changing password successfully" do

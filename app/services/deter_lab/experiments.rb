@@ -18,5 +18,37 @@ module DeterLab
       process_error e
     end
 
+    # creates an experiment
+    def create_experiment(project_id, name, uid, description, owner = uid)
+      cl = client("Experiments", uid)
+      response = cl.call(:create_experiment, message: {
+        eid: "#{project_id}:#{name}",
+        owner: owner,
+        accessLists: [
+          { circleId: "#{project_id}:#{project_id}", permissions: 'ALL_PERMS' },
+          { circleId: "#{owner}:#{owner}", permissions: 'ALL_PERMS' }
+        ],
+        profile: [
+          { name: 'description', value: description }
+        ]
+      })
+
+      return response.to_hash[:create_experiment_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
+    # deletes an experiment
+    def delete_experiment(name, uid)
+      cl = client("Experiments", uid)
+      response = cl.call(:remove_experiment, message: {
+        eid: name
+      })
+
+      return response.to_hash[:remove_experiment_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
   end
 end
