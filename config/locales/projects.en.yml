@@ -23,15 +23,15 @@ en:
       title: Create project
       info: >
         <p>
-          Fill in the new project form.
+          Fill the new project form.
         </p>
       submit: Create project
 
     create:
       name_required: Project name is required
       success: Created the project successfully
-      failure: Failed to create the project:<br/>%{error}
+      failure: "Failed to create the project:<br/>%{error}"
 
     destroy:
       success: Deleted the project successfully
-      failure: Failed to delete the project:<br/>%{error}
+      failure: "Failed to delete the project:<br/>%{error}"

@@ -24,7 +24,7 @@ module DeterLab
     end
 
     # creates an experiment
-    def create_experiment(project_id, name, uid, description, owner = uid)
+    def create_experiment(uid, project_id, name, profile, owner = uid)
       cl = client("Experiments", uid)
       response = cl.call(:create_experiment, message: {
         eid: "#{project_id}:#{name}",
@@ -33,9 +33,7 @@ module DeterLab
           { circleId: "#{project_id}:#{project_id}", permissions: 'ALL_PERMS' },
           { circleId: "#{owner}:#{owner}", permissions: 'ALL_PERMS' }
         ],
-        profile: [
-          { name: 'description', value: description }
-        ]
+        profile: profile.map { |n, v| { name: n, value: v } }
       })
 
       return response.to_hash[:create_experiment_response][:return]
@@ -44,11 +42,9 @@ module DeterLab
     end
 
     # deletes an experiment
-    def delete_experiment(name, uid)
+    def remove_experiment(uid, eid)
       cl = client("Experiments", uid)
-      response = cl.call(:remove_experiment, message: {
-        eid: name
-      })
+      response = cl.call(:remove_experiment, message: { eid: eid })
 
       return response.to_hash[:remove_experiment_response][:return]
     rescue Savon::SOAPFault => e

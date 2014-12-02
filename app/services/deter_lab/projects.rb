@@ -10,10 +10,8 @@ module DeterLab
     def get_user_projects(uid)
       cl = client("Projects", uid)
       response = cl.call(:view_projects, "message" => { "uid" => uid })
-      raise Error unless response.success?
 
       return [response.to_hash[:view_projects_response][:return] || []].flatten.map do |p|
-        Rails.logger.info p.inspect
         members = [ p[:members] ].flatten.map do |m|
           ProjectMember.new(m[:uid], m[:permissions])
         end

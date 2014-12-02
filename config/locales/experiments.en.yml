@@ -24,3 +24,24 @@ en:
       permissins: Permissions
 
       not_found: Experiment is missing
+
+    new:
+      title: New experiment
+      info: >
+        <p>
+          Fill the new experiment form
+        </p>
+
+      project: Project
+      name: Name
+
+      submit: Create experiment
+
+    create:
+      project_id_required: Project is required
+      success: Created the experiment successfully
+      failure: "Failed to create the experiment:<br/>%{error}"
+
+    destroy:
+      success: Deleted the experiment successfully
+      failure: "Failed to delete the experiment:<br/>%{error}"

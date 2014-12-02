@@ -29,4 +29,44 @@ class ExperimentsControllerTest < ActionController::TestCase
     assert_redirected_to :experiments
   end
 
+  test "new" do
+    DeterLab.expects(:get_experiment_profile_description).returns([])
+    DeterLab.expects(:get_user_projects).returns([])
+    get :new
+    assert_equal [], assigns[:profile_descr]
+    assert_equal [], assigns[:projects]
+    assert_template :new
+  end
+
+  test "creating" do
+    DeterLab.expects(:create_experiment).with("mark", "pid", "Test", { "description" => "Descr" }).returns(true)
+    DeterCache.any_instance.expects(:delete).with("user_experiments")
+    post :create, project_id: "pid", experiment: { name: "Test", description: "Descr" }
+    assert_redirected_to :experiments
+    assert_equal I18n.t("experiments.create.success"), flash.notice
+  end
+
+  test "failed creating" do
+    DeterLab.expects(:create_experiment).raises(DeterLab::RequestError.new("error message"))
+    DeterLab.expects(:get_experiment_profile_description).returns([])
+    DeterLab.expects(:get_user_projects).returns([])
+    post :create, project_id: "pid", experiment: { }
+    assert_template :new
+    assert_equal I18n.t("experiments.create.failure", error: "error message"), flash.now[:alert]
+  end
+
+  test "deleting" do
+    DeterLab.expects(:remove_experiment).with("mark", "eid").returns(true)
+    delete :destroy, id: "eid"
+    assert_redirected_to :experiments
+    assert_equal I18n.t("experiments.destroy.success"), flash.notice
+  end
+
+  test "failed deleting" do
+    error = "some error"
+    DeterLab.expects(:remove_experiment).raises(DeterLab::RequestError.new(error))
+    delete :destroy, id: "eid"
+    assert_redirected_to :experiments
+    assert_equal I18n.t("experiments.destroy.failure", error: error), flash.alert
+  end
 end

@@ -160,9 +160,9 @@ class DeterLabTest < ActiveSupport::TestCase
       ename = "Test"
       eid   = "#{pid}:#{ename}"
 
-      assert DeterLab.create_experiment(pid, ename, @username, "Custom description"), "Could not create an experiment"
+      assert DeterLab.create_experiment(@username, pid, ename, { description: "Custom description" }), "Could not create an experiment"
       experiment = DeterLab.get_user_experiments(@username).find { |e| e.name == eid }
-      assert DeterLab.delete_experiment(eid, @username), "Could not delete the experiment"
+      assert DeterLab.remove_experiment(@username, eid), "Could not delete the experiment"
       assert experiment, "Experiment was added, but was not found"
     end
   end

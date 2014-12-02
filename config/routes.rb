@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   resources :projects,    only: [ :index, :new, :create, :destroy ]
   resources :circles,     only: [ :index, :new, :create, :destroy ]
-  resources :experiments, only: [ :index, :show ]
+  resources :experiments, only: [ :index, :new, :create, :destroy, :show ]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

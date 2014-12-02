@@ -68,20 +68,19 @@ module DeterLab
       detail  = e.to_hash[:fault][:detail]
       fault   = detail.try(:[], :users_deter_fault)
       fault ||= detail.try(:[], :projects_deter_fault)
+      fault ||= detail.try(:[], :experiments_deter_fault)
       fault.try(:[], :deter_fault)
     end
 
     def get_profile_description(entity)
-      Rails.cache.fetch("deter:#{entity.downcase}_profile_description", expires_in: 1.day) do
-        cl = client(entity)
-        response = cl.call(:get_profile_description)
+      cl = client(entity)
+      response = cl.call(:get_profile_description)
 
-        fields = [ response.to_hash[:get_profile_description_response][:return][:attributes] ].flatten.map do |f|
-          ProfileField.new(f[:name], f[:data_type], f[:optional], f[:access], f[:description], f[:format], f[:format_description], f[:length_hint], f[:value])
-        end
-
-        ProfileFields.new(fields)
+      fields = [ response.to_hash[:get_profile_description_response][:return][:attributes] ].flatten.map do |f|
+        ProfileField.new(f[:name], f[:data_type], f[:optional], f[:access], f[:description], f[:format], f[:format_description], f[:length_hint], f[:value])
       end
+
+      ProfileFields.new(fields)
     end
 
   end

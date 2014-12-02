@@ -29,12 +29,14 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "failed create" do
     DeterLab.expects(:create_project).with("mark", "test", { 'description' => "" }).raises(DeterLab::RequestError.new("error message"))
+    DeterLab.expects(:get_project_profile_description).returns([])
     post :create, project: { name: "test", description: "" }
     assert_template :new
     assert_equal I18n.t("projects.create.failure", error: "error message"), flash.now[:alert]
   end
 
   test "creating without name" do
+    DeterLab.expects(:get_project_profile_description).returns([])
     post :create, project: { name: "" }
     assert_template :new
     assert_equal I18n.t("projects.create.failure", error: I18n.t("projects.create.name_required")), flash.now[:alert]
