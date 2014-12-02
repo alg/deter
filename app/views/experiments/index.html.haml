@@ -23,3 +23,6 @@
               %td= e.owner
               %td= link_to t(".delete"), experiment_path(e.name), method: :delete, data: { confirm: t(".confirm_delete") }
 
+.row
+  .col-sm-12
+    = link_to t(".new_experiment"), :new_experiment, class: "btn btn-default"
