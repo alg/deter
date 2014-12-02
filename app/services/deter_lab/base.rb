@@ -21,7 +21,7 @@ module DeterLab
           options[:ssl_cert] = OpenSSL::X509::Certificate.new(cert)
           options[:ssl_cert_key] = OpenSSL::PKey.read(key)
         else
-          raise Error, "Not logged in as: #{uid}"
+          raise NotLoggedIn, "Not logged in as: #{uid}"
         end
       end
 
