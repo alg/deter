@@ -23,17 +23,7 @@ module DeterLab
 
     # Returns a user profile description
     def get_user_profile_description
-      Rails.cache.fetch("deter:user_profile_description", expires_in: 1.day) do
-        cl = client("Users")
-        response = cl.call(:get_profile_description)
-        raise Error unless response.success?
-
-        fields = response.to_hash[:get_profile_description_response][:return][:attributes].map do |f|
-          ProfileField.new(f[:name], f[:data_type], f[:optional], f[:access], f[:description], f[:format], f[:format_description], f[:length_hint], f[:value])
-        end
-
-        ProfileFields.new(fields)
-      end
+      get_profile_description("Users")
     end
 
     # Returns complete user profile in key-value form

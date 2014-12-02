@@ -167,6 +167,13 @@ class DeterLabTest < ActiveSupport::TestCase
     end
   end
 
+  test "getting experiments profile description" do
+    VCR.use_cassette "deterlab-experiment-profile-description" do
+      fields = DeterLab.get_experiment_profile_description
+      assert_equal [ ProfileField.new("description", "string", false, "READ_WRITE", "Description", nil, nil, "0", nil) ], fields
+    end
+  end
+
   # -------------------------------------------------------------------------------------
 
   test "changing password successfully" do

@@ -1,6 +1,11 @@
 module DeterLab
   module Experiments
 
+    # Returns a experiment profile description
+    def get_experiment_profile_description
+      get_profile_description("Experiments")
+    end
+
     # Returns the list of user experiments
     def get_user_experiments(uid)
       cl = client("Experiments", uid)

@@ -3,17 +3,7 @@ module DeterLab
 
     # Returns a project profile description
     def get_project_profile_description
-      Rails.cache.fetch("deter:project_profile_description", expires_in: 1.day) do
-        cl = client("Projects")
-        response = cl.call(:get_profile_description)
-        raise Error unless response.success?
-
-        fields = response.to_hash[:get_profile_description_response][:return][:attributes].map do |f|
-          ProfileField.new(f[:name], f[:data_type], f[:optional], f[:access], f[:description], f[:format], f[:format_description], f[:length_hint], f[:value])
-        end
-
-        ProfileFields.new(fields)
-      end
+      get_profile_description("Projects")
     end
 
     # Returns the list of user projects
