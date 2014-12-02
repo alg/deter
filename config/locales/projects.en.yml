@@ -13,6 +13,7 @@ en:
       approved: Approved
       actions: Actions
       delete: Delete
+      confirm_delete: Are you sure to delete this project?
 
       member: member
       nothing: There are no projects yet

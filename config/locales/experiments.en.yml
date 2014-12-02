@@ -9,6 +9,9 @@ en:
 
       name: Experiment
       owner: Owner
+      actions: Actions
+      delete: Delete
+      confirm_delete: Are you sure to delete this experiment?
 
       nothing: There are no experiments yet
 

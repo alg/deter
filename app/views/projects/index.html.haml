@@ -25,7 +25,7 @@
               %td= p.owner
               %td= members_list p.members
               %td= p.approved ? 'Yes' : 'No'
-              %td= link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: "Are you sure to delete this project?" }
+              %td= link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: t(".confirm_delete") }
 
 .row
   .col-sm-12

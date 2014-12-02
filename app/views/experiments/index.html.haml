@@ -11,13 +11,15 @@
         %tr
           %th= t '.name'
           %th= t '.owner'
+          %th= t '.actions'
       %tbody
         - if @experiments.blank?
           %tr
             %td{ colspan: 2 }= t '.nothing'
         - else
-          - @experiments.each do |p|
+          - @experiments.each do |e|
             %tr
-              %td= link_to p.name, experiment_path(p.name)
-              %td= p.owner
+              %td= link_to e.name, experiment_path(e.name)
+              %td= e.owner
+              %td= link_to t(".delete"), experiment_path(e.name), method: :delete, data: { confirm: t(".confirm_delete") }
 
