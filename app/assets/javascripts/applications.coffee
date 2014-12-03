@@ -45,8 +45,8 @@ class ApplicationForm
     @validatedObservable(field) for field in @userFields
 
   initProjectFields: ->
-    @projectLeaderProjectFields = [ "project_name", "project_plan", "project_website", "project_org_type", "project_research_focus", "project_funding", "project_listing" ]
-    @sponsorProjectFields       = [ "project_name", "project_plan", "project_research_focus", "project_funding", "project_listing" ]
+    @projectLeaderProjectFields = [ "project_name", "project_description", "project_website", "project_org_type", "project_research_focus", "project_funding", "project_listing" ]
+    @sponsorProjectFields       = [ "project_name", "project_description", "project_research_focus", "project_funding", "project_listing" ]
     @validatedObservable(field) for field in @projectLeaderProjectFields
 
   initCourseFields: ->

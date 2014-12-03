@@ -7,7 +7,7 @@
   - base = "page_project_info.project_leader"
   %fieldset
     = form_text_field base, :project_name,            highlight: "piHL"
-    = form_text_area  base, :project_plan,            highlight: "piHL"
+    = form_text_area  base, :project_description,     highlight: "piHL"
     = form_text_field base, :project_website,         highlight: "piHL"
     = form_select     base, :project_org_type,        highlight: "piHL"
     = form_select     base, :project_research_focus,  highlight: "piHL"
@@ -21,7 +21,7 @@
   %fieldset
     = hidden_field_tag :project_org_type, t("#{base}.project_org_type.default")
     = form_text_field base, :project_name,            highlight: "piHL"
-    = form_text_area  base, :project_plan,            highlight: "piHL"
+    = form_text_area  base, :project_description,     highlight: "piHL"
     = form_select     base, :project_research_focus,  highlight: "piHL"
     = form_select     base, :project_funding,         highlight: "piHL"
     = form_select     base, :project_listing,         highlight: "piHL", field_options: { include_blank: false }

@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
       raise DeterLab::RequestError, t(".name_required")
     end
 
-    DeterLab.create_project(app_session.current_user_id, pp.delete(:name), pp)
+    DeterLab.create_project(app_session.current_user_id, pp[:name], pp.except(:name))
     deter_cache.delete "user_projects"
     redirect_to :projects, notice: t(".success")
   rescue DeterLab::RequestError => e

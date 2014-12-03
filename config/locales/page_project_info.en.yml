@@ -15,7 +15,7 @@ en:
       project_name:
         label: Project Name
         help:  "Your project's name or brief description"
-      project_plan:
+      project_description:
         label: Project Description
         help:  "Briefly describe your project's goals, and how you plan to use DeterLab"
       project_website:
@@ -41,7 +41,7 @@ en:
         default: "Yes"
       errors:
         project_name: Project Name
-        project_plan: Project Description
+        project_description: Project Description
         project_website: Project Web Site
         project_org_type: Project Organization Type
         project_research_focus: Project Research Focus
@@ -61,7 +61,7 @@ en:
       project_name:
         label: Student Project Name
         help:  "Name or brief description of your student's project"
-      project_plan:
+      project_description:
         label: Project Description
         help:  "Briefly describe your project's goals, and how you plan to use DeterLab"
       project_org_type:
@@ -82,7 +82,7 @@ en:
 
       errors:
         project_name: Student Project Name
-        project_plan: Project Description
+        project_description: Project Description
         project_website: Project Web Site
         project_org_type: Project Organization Type
         project_research_focus: Project Research Focus

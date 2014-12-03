@@ -15,17 +15,18 @@ module FormsHelper
   def form_textual_field(base, name, options = nil)
     options ||= {}
 
+    id = idize(name)
     field_type = options[:field_type] || 'text_field'
 
-    attrs = field_attrs(base, name)
+    attrs = field_attrs(base, id)
 
-    field_attrs = { class: "form-control", data: { bind: "valueWithInit: #{name}" } }
+    field_attrs = { class: "form-control", data: { bind: "valueWithInit: #{id}" } }
     field_attrs[:placeholder] = attrs[:placeholder] if attrs[:placeholder]
     field_attrs = field_attrs.merge(options[:field_options] || {})
 
     add_help(field_attrs, attrs)
 
-    field = send("#{field_type}_tag", name, attrs[:default] || "", field_attrs)
+    field = send("#{field_type}_tag", name, options[:value] || attrs[:default] || "", field_attrs)
 
     wrap_field(name, field, attrs, options)
   end
@@ -55,25 +56,31 @@ module FormsHelper
   def form_select(base, name, options = nil)
     options ||= {}
 
-    attrs = field_attrs(base, name)
+    id = idize(name)
+
+    attrs = field_attrs(base, id)
     opts = attrs[:options]
     opts = opts.invert if opts.kind_of? Hash
 
-    field_attrs = { class: "form-control", data: { bind: "valueWithInit: #{name}" }, include_blank: true }.merge(options[:field_options] || {})
+    field_attrs = { class: "form-control", data: { bind: "valueWithInit: #{id}" }, include_blank: true }.merge(options[:field_options] || {})
     add_help(field_attrs, attrs)
 
-    field = select_tag(name, options_for_select(opts, attrs[:default]), field_attrs)
+    field = select_tag(name, options_for_select(opts, options[:value] || attrs[:default]), field_attrs)
 
     wrap_field(name, field, attrs, options)
   end
 
   private
 
+  def idize(name)
+    name.gsub(/[\[\]]/, '_').gsub(/_+$/, '')
+  end
+
   def form_group(name, content, options)
     attrs = { class: 'form-group' }
 
     if hl = options[:highlight]
-      attrs[:data] = { bind: "css: { 'has-error': #{hl}() && #{name}_invalid() }" }
+      attrs[:data] = { bind: "css: { 'has-error': #{hl}() && #{idize(name)}_invalid() }" }
     end
 
     content_tag(:div, content, attrs)

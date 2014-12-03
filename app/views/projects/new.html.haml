@@ -6,21 +6,16 @@
 
 .row
   = form_tag projects_path, { class: 'form-horizontal' } do
-    .form-group
-      = label_tag "project[name]", t(".name"), class: 'control-label col-sm-2'
-      .col-sm-4
-        = text_field_tag "project[name]", params[:project].try(:[], :name), class: 'form-control'
-
-    - @profile_descr.each do |pf|
-      - name = "project[#{pf.name}]"
-      - disabled = %w{ READ_ONLY NO_ACCESS }.include?(pf.access)
-      - required = !pf.optional
-      .form-group
-        = label_tag name, pf.description, class: 'control-label col-sm-2'
-        .col-sm-4
-          - if pf.data_type == 'string'
-            = text_field_tag name, pf.value, disabled: disabled, required: required, class: 'form-control'
+    - base = "page_project_info.project_leader"
+    - pp   = params[:project] || {}
+    = form_text_field base, "project[name]",            value: pp[:name]
+    = form_text_area  base, "project[description]",     value: pp[:description]
+    = form_text_field base, "project[website]",         value: pp[:website]
+    = form_select     base, "project[org_type]",        value: pp[:org_type]
+    = form_select     base, "project[research_focus]",  value: pp[:research_focus]
+    = form_select     base, "project[funding]",         value: pp[:funding]
+    = form_select     base, "project[listing]",         value: pp[:listing], field_options: { include_blank: false }
 
     .form-group
-      .col-sm-offset-2.col-sm-4
+      .col-sm-offset-3.col-sm-4
         = submit_tag t(".submit"), class: "btn btn-default"
