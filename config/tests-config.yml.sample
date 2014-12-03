@@ -1,3 +1,9 @@
-# Tests configuration
-username:
-password:
+# general purpose user for tests
+general_user:
+  username:
+  password:
+
+# user with experiment with aspects
+user_with_aspects:
+  username:
+  password:

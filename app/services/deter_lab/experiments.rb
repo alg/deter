@@ -10,7 +10,8 @@ module DeterLab
     def get_user_experiments(uid)
       cl = client("Experiments", uid)
       response = cl.call(:view_experiments, "message" => { "uid" => uid, "listOnly" => true })
-      raise Error unless response.success?
+
+      # puts response.to_hash[:view_experiments_response][:return].inspect
 
       return [response.to_hash[:view_experiments_response][:return] || []].flatten.map do |ex|
         acl = [ex[:acl] || []].flatten.map do |a|
