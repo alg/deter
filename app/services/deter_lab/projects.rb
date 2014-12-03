@@ -7,7 +7,7 @@ module DeterLab
     end
 
     # Returns the list of user projects
-    def get_user_projects(uid)
+    def view_projects(uid)
       cl = client("Projects", uid)
       response = cl.call(:view_projects, "message" => { "uid" => uid })
 

@@ -7,3 +7,8 @@ general_user:
 user_with_aspects:
   username:
   password:
+
+# user with multiple projects
+user_with_multiple_projects:
+  username:
+  password:

@@ -17,7 +17,7 @@ en:
       new_experiment: New experiment
 
     show:
-      title: "Experiment: %{name}"
+      title: "Experiment: %{id}"
       info: >
         <p>
           Experiment owner: %{owner}

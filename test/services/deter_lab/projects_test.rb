@@ -14,7 +14,7 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
   test "getting user projects" do
     VCR.use_cassette "deterlab/projects/view-projects" do
       login
-      projects = DeterLab.get_user_projects(@username)
+      projects = DeterLab.view_projects(@username)
 
       assert_equal [
         Project.new("admin", "deterboss", true,

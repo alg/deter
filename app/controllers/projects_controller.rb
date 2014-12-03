@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # Projects list
   def index
     @projects = deter_cache.fetch "user_projects", 30.minutes do
-      DeterLab.get_user_projects(app_session.current_user_id)
+      DeterLab.view_projects(app_session.current_user_id)
     end
   end
 

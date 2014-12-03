@@ -19,9 +19,9 @@
         - else
           - @experiments.each do |e|
             %tr
-              %td= link_to e.name, experiment_path(e.name)
+              %td= link_to e.id, experiment_path(e.id)
               %td= e.owner
-              %td= link_to t(".delete"), experiment_path(e.name), method: :delete, data: { confirm: t(".confirm_delete") }
+              %td= link_to t(".delete"), experiment_path(e.id), method: :delete, data: { confirm: t(".confirm_delete") }
 
 .row
   .col-sm-12

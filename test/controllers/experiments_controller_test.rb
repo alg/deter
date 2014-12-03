@@ -7,7 +7,7 @@ class ExperimentsControllerTest < ActionController::TestCase
   end
 
   test "index" do
-    DeterLab.expects(:get_user_experiments).returns([])
+    DeterLab.expects(:view_experiments).returns([])
     get :index
     assert_not_nil assigns(:experiments)
     assert_template :index
@@ -16,14 +16,16 @@ class ExperimentsControllerTest < ActionController::TestCase
   test "show" do
     ex1 = Experiment.new("id1", "owner", [])
     ex2 = Experiment.new("id2", "owner", [])
-    DeterLab.expects(:get_user_experiments).returns([ ex1, ex2 ])
-    get :show, id: ex1.name
+    DeterLab.expects(:view_experiments).returns([ ex1, ex2 ])
+    DeterLab.expects(:experiment_profile).with(ex1.id).returns({})
+    get :show, id: ex1.id
     assert_equal ex1, assigns(:experiment)
+    assert_equal({}, assigns(:profile))
     assert_template :show
   end
 
   test "show missing experiment" do
-    DeterLab.expects(:get_user_experiments).returns([])
+    DeterLab.expects(:view_experiments).returns([])
     get :show, id: 'missing'
     assert_equal I18n.t("experiments.show.not_found"), flash.alert
     assert_redirected_to :experiments
@@ -31,7 +33,7 @@ class ExperimentsControllerTest < ActionController::TestCase
 
   test "new" do
     DeterLab.expects(:get_experiment_profile_description).returns([])
-    DeterLab.expects(:get_user_projects).returns([])
+    DeterLab.expects(:view_projects).returns([])
     get :new
     assert_equal [], assigns[:profile_descr]
     assert_equal [], assigns[:projects]
@@ -49,7 +51,7 @@ class ExperimentsControllerTest < ActionController::TestCase
   test "failed creating" do
     DeterLab.expects(:create_experiment).raises(DeterLab::RequestError.new("error message"))
     DeterLab.expects(:get_experiment_profile_description).returns([])
-    DeterLab.expects(:get_user_projects).returns([])
+    DeterLab.expects(:view_projects).returns([])
     post :create, project_id: "pid", experiment: { }
     assert_template :new
     assert_equal I18n.t("experiments.create.failure", error: "error message"), flash.now[:alert]

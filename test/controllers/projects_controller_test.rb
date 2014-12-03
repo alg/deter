@@ -7,7 +7,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "index" do
-    DeterLab.expects(:get_user_projects).returns([])
+    DeterLab.expects(:view_projects).returns([])
     get :index
     assert_not_nil assigns[:projects]
     assert_template :index

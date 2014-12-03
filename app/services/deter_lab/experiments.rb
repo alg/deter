@@ -7,11 +7,11 @@ module DeterLab
     end
 
     # Returns the list of user experiments
-    def get_user_experiments(uid)
+    def view_experiments(uid, project_id = nil)
       cl = client("Experiments", uid)
-      response = cl.call(:view_experiments, "message" => { "uid" => uid, "listOnly" => true })
-
-      # puts response.to_hash[:view_experiments_response][:return].inspect
+      message = { uid: uid, listOnly: true }
+      message[:regex] = "#{project_id}:.*" if project_id.present?
+      response = cl.call(:view_experiments, message: message)
 
       return [response.to_hash[:view_experiments_response][:return] || []].flatten.map do |ex|
         acl = [ex[:acl] || []].flatten.map do |a|
@@ -52,5 +52,14 @@ module DeterLab
       process_error e
     end
 
+    # returns the experiment profile
+    def get_experiment_profile(uid, eid)
+      cl = client("Experiments", uid)
+      response = cl.call(:get_experiment_profile, message: { eid: eid })
+
+      return response.to_hash[:get_experiment_profile_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
   end
 end
