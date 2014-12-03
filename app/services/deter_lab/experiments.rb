@@ -7,10 +7,15 @@ module DeterLab
     end
 
     # Returns the list of user experiments
-    def view_experiments(uid, project_id = nil)
-      cl = client("Experiments", uid)
-      message = { uid: uid, listOnly: true }
+    def view_experiments(uid, options = nil)
+      options ||= {}
+      project_id = options[:project_id]
+      list_only  = options.has_key?(:list_only) ? options[:list_only] : true
+
+      message = { uid: uid, listOnly: list_only }
       message[:regex] = "#{project_id}:.*" if project_id.present?
+
+      cl = client("Experiments", uid)
       response = cl.call(:view_experiments, message: message)
 
       return [response.to_hash[:view_experiments_response][:return] || []].flatten.map do |ex|
