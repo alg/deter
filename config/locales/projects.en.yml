@@ -20,6 +20,20 @@ en:
 
       new_project: New project
 
+    show:
+      title: "Project: %{id}"
+      info: >
+        <p>
+          Project owner: %{owner}
+        </p>
+
+      field: Field
+      value: Value
+
+      not_found: Project is missing
+      delete: Delete
+      confirm_delete: Are you sure to delete this project?
+
     new:
       title: Create project
       info: >

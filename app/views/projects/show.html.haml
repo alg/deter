@@ -1,0 +1,24 @@
+- @submenu = :projects
+.page-header
+  %h1= raw t '.title', id: @project.project_id
+
+= raw t '.info', owner: @project.owner
+
+.row
+  .col-sm-12
+    %table.table
+      %thead
+        %tr
+          %th= t ".field"
+          %th= t ".value"
+      - @profile.each do |f|
+        - k = f.name
+        - next unless Project::PROFILE_FIELDS.include?(k)
+        - v = f.value
+        %tr
+          %td= t "page_project_info.project_leader.project_#{k}.label"
+          %td= v
+
+.row
+  .col-sm-12
+    = link_to t(".delete"), project_path(@project.project_id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-danger'

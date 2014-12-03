@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get  '/password/change' => 'password#edit', as: 'change_password'
   post '/password/change' => 'password#update'
 
-  resources :projects,    only: [ :index, :new, :create, :destroy ]
+  resources :projects,    only: [ :index, :new, :create, :destroy, :show ]
   resources :circles,     only: [ :index, :new, :create, :destroy ]
   resources :experiments, only: [ :index, :new, :create, :destroy, :show ]
 

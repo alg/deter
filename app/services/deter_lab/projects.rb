@@ -22,6 +22,19 @@ module DeterLab
       process_error e
     end
 
+    # returns the project profile
+    def get_project_profile(uid, pid)
+      cl = client("Projects", uid)
+      response = cl.call(:get_project_profile, message: { projectid: pid })
+
+      fields = [ response.to_hash[:get_project_profile_response][:return][:attributes] ].flatten.map do |f|
+        ProfileField.new(f[:name], f[:data_type], f[:optional], f[:access], f[:description], f[:format], f[:format_description], f[:length_hint], f[:value])
+      end
+
+      return ProfileFields.new(fields)
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
     # Creates a project with the given profile for approval.
     # Returns #true if created, or #false if not.
     def create_project(uid, name, project_profile)

@@ -4,8 +4,20 @@ class ProjectsController < ApplicationController
 
   # Projects list
   def index
-    @projects = deter_cache.fetch "user_projects", 30.minutes do
-      DeterLab.view_projects(app_session.current_user_id)
+    @projects = get_projects
+  end
+
+  # project details
+  def show
+    pid = params[:id]
+    @project = get_projects.find { |p| p.project_id == pid }
+    if @project.nil?
+      redirect_to :projects, alert: t(".not_found")
+      return
+    end
+
+    @profile = deter_cache.fetch "project_profile:#{@project.project_id}" do
+      DeterLab.get_project_profile(app_session.current_user_id, @project.project_id)
     end
   end
 
@@ -47,6 +59,12 @@ class ProjectsController < ApplicationController
 
   def project_params
     params[:project]
+  end
+
+  def get_projects
+    deter_cache.fetch "user_projects", 30.minutes do
+      DeterLab.view_projects(app_session.current_user_id)
+    end
   end
 
 end

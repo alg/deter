@@ -13,6 +13,17 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_template :index
   end
 
+  test "show" do
+    pid = "project_id"
+    pr = Project.new(pid, "mark", true, [])
+    DeterLab.expects(:view_projects).returns([ pr ])
+    DeterLab.expects(:get_project_profile).with("mark", pid).returns({})
+    get :show, id: pid
+    assert_not_nil assigns[:project]
+    assert_not_nil assigns[:profile]
+    assert_template :show
+  end
+
   test "new" do
     DeterLab.expects(:get_project_profile_description).returns([])
     get :new

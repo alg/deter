@@ -11,6 +11,14 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
     end
   end
 
+  test "getting project profile" do
+    VCR.use_cassette "deterlab/projects/project-profile" do
+      login
+      profile = DeterLab.get_project_profile(@username, "Megaproj")
+      assert_equal "Automatically created project 'Megaproj'", profile['description'].value
+    end
+  end
+
   test "getting user projects" do
     VCR.use_cassette "deterlab/projects/view-projects" do
       login

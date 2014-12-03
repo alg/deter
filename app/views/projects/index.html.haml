@@ -21,7 +21,7 @@
         - else
           - @projects.each do |p|
             %tr
-              %td= p.project_id
+              %td= link_to p.project_id, project_path(p.project_id)
               %td= p.owner
               %td= members_list p.members
               %td= p.approved ? 'Yes' : 'No'
