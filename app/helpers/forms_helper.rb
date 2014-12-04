@@ -73,7 +73,7 @@ module FormsHelper
   private
 
   def idize(name)
-    name.gsub(/[\[\]]/, '_').gsub(/_+$/, '')
+    name.to_s.gsub(/[\[\]]/, '_').gsub(/_+$/, '')
   end
 
   def form_group(name, content, options)
