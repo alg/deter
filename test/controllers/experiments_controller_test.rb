@@ -17,10 +17,10 @@ class ExperimentsControllerTest < ActionController::TestCase
     ex1 = Experiment.new("id1", "owner", [])
     ex2 = Experiment.new("id2", "owner", [])
     DeterLab.expects(:view_experiments).returns([ ex1, ex2 ])
-    DeterLab.expects(:experiment_profile).with(ex1.id).returns({})
+    # DeterLab.expects(:experiment_profile).with(ex1.id).returns({})
     get :show, id: ex1.id
     assert_equal ex1, assigns(:experiment)
-    assert_equal({}, assigns(:profile))
+    # assert_equal({}, assigns(:profile))
     assert_template :show
   end
 

@@ -1,23 +1,24 @@
 - highlight ||= nil
 
 - details_base = "user_form"
+- up = params[:user] || {}
 %fieldset
-  = form_text_field details_base, :full_name, highlight: highlight
-  = form_text_field details_base, :email,     highlight: highlight
-  = form_text_field details_base, :phone,     highlight: highlight
-  = form_text_field details_base, :position,  highlight: highlight
-  = form_text_field details_base, :affiliate, highlight: highlight
-  = form_text_field details_base, :abbrev,    highlight: highlight
-  = form_text_field details_base, :website,   highlight: highlight
+  = form_text_field details_base, "user[name]",        highlight: highlight, value: up[:name]
+  = form_text_field details_base, "user[email]",       highlight: highlight, value: up[:email]
+  = form_text_field details_base, "user[phone]",       highlight: highlight, value: up[:phone]
+  = form_text_field details_base, "user[title]",       highlight: highlight, value: up[:title]
+  = form_text_field details_base, "user[affiliation]", highlight: highlight, value: up[:affiliation]
+  = form_text_field details_base, "user[affiliation_abbrev]",    highlight: highlight, value: up[:affiliation_abbrev]
+  = form_text_field details_base, "user[URL]",         highlight: highlight, value: up[:URL]
 
 - address_base = "user_form.postal_address"
 %fieldset
   %h4= t "#{address_base}.label"
   %span.help-block= t "#{address_base}.help"
 
-  = form_text_field address_base, :address_1, highlight: highlight
-  = form_text_field address_base, :address_2, highlight: highlight
-  = form_text_field address_base, :city,      highlight: highlight
-  = form_text_field address_base, :state,     highlight: highlight
-  = form_text_field address_base, :zip,       highlight: highlight
-  = form_text_field address_base, :country,   highlight: highlight
+  = form_text_field address_base, "user[address1]",  highlight: highlight, value: up[:address1]
+  = form_text_field address_base, "user[address2]",  highlight: highlight, value: up[:address2]
+  = form_text_field address_base, "user[city]",      highlight: highlight, value: up[:city]
+  = form_text_field address_base, "user[state]",     highlight: highlight, value: up[:state]
+  = form_text_field address_base, "user[zip]",       highlight: highlight, value: up[:zip]
+  = form_text_field address_base, "user[country]",   highlight: highlight, value: up[:country]

@@ -2,17 +2,18 @@
   .page-header
     %h1= t "page_project_info.title"
 
+  - pp = params[:project] || {}
   <!-- ko if: userType() == "project_leader" -->
   = raw t "page_project_info.project_leader.info"
   - base = "page_project_info.project_leader"
   %fieldset
-    = form_text_field base, :project_name,            highlight: "piHL"
-    = form_text_area  base, :project_description,     highlight: "piHL"
-    = form_text_field base, :project_website,         highlight: "piHL"
-    = form_select     base, :project_org_type,        highlight: "piHL"
-    = form_select     base, :project_research_focus,  highlight: "piHL"
-    = form_select     base, :project_funding,         highlight: "piHL"
-    = form_select     base, :project_listing,         highlight: "piHL", field_options: { include_blank: false }
+    = form_text_field base, "project[name]",            highlight: "piHL", value: pp[:name]
+    = form_text_area  base, "project[description]",     highlight: "piHL", value: pp[:description]
+    = form_text_field base, "project[website]",         highlight: "piHL", value: pp[:website]
+    = form_select     base, "project[org_type]",        highlight: "piHL", value: pp[:org_type]
+    = form_select     base, "project[research_focus]",  highlight: "piHL", value: pp[:research_focus]
+    = form_select     base, "project[funding]",         highlight: "piHL", value: pp[:funding]
+    = form_select     base, "project[listing]",         highlight: "piHL", field_options: { include_blank: false }, value: pp[:listing]
   <!-- /ko -->
 
   <!-- ko if: userType() == "sponsor" -->
@@ -20,11 +21,11 @@
   - base = "page_project_info.sponsor"
   %fieldset
     = hidden_field_tag :project_org_type, t("#{base}.project_org_type.default")
-    = form_text_field base, :project_name,            highlight: "piHL"
-    = form_text_area  base, :project_description,     highlight: "piHL"
-    = form_select     base, :project_research_focus,  highlight: "piHL"
-    = form_select     base, :project_funding,         highlight: "piHL"
-    = form_select     base, :project_listing,         highlight: "piHL", field_options: { include_blank: false }
+    = form_text_field base, "project[name]",            highlight: "piHL", value: pp[:name]
+    = form_text_area  base, "project[description]",     highlight: "piHL", value: pp[:description]
+    = form_select     base, "project[research_focus]",  highlight: "piHL", value: pp[:research_focus]
+    = form_select     base, "project[funding]",         highlight: "piHL", value: pp[:funding]
+    = form_select     base, "project[listing]",         highlight: "piHL", field_options: { include_blank: false }, value: pp[:listing]
   <!-- /ko -->
 
 

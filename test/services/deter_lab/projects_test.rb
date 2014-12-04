@@ -44,7 +44,7 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
   test "creating a project successfully" do
     VCR.use_cassette "deterlab/projects/create-project" do
       login
-      assert DeterLab.create_project(@username, "unit-test-project-3", { description: "Unit test project", URL: "http://sample.com/", "test-open" => "test" })
+      assert DeterLab.create_project(@username, "unit-test-project-3", @username, { description: "Unit test project", URL: "http://sample.com/", "test-open" => "test" })
     end
   end
 
@@ -52,7 +52,7 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
     VCR.use_cassette "deterlab/projects/create-project-failure" do
       login
       assert_raises DeterLab::RequestError do
-        DeterLab.create_project(@username, "unit-test-project-failure", { description: "" })
+        DeterLab.create_project(@username, "unit-test-project-failure", @username, { description: "" })
       end
     end
   end
@@ -60,7 +60,7 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
   test "deleting a project" do
     VCR.use_cassette "deterlab/projects/delete-project" do
       login
-      assert DeterLab.create_project(@username, "unit-test-delete", { "description" => "Project for unit test deletion", "test-open" => "test" })
+      assert DeterLab.create_project(@username, "unit-test-delete", @username, { "description" => "Project for unit test deletion", "test-open" => "test" })
       assert DeterLab.remove_project(@username, "unit-test-delete")
     end
   end

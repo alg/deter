@@ -32,14 +32,14 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "successful create" do
-    DeterLab.expects(:create_project).with("mark", "test", { 'description' => "descr" }).returns(true)
+    DeterLab.expects(:create_project).with("mark", "test", "mark", { 'description' => "descr" }).returns(true)
     post :create, project: { name: "test", description: "descr" }
     assert_redirected_to :projects
     assert_equal I18n.t("projects.create.success"), flash.notice
   end
 
   test "failed create" do
-    DeterLab.expects(:create_project).with("mark", "test", { 'description' => "" }).raises(DeterLab::RequestError.new("error message"))
+    DeterLab.expects(:create_project).with("mark", "test", "mark", { 'description' => "" }).raises(DeterLab::RequestError.new("error message"))
     DeterLab.expects(:get_project_profile_description).returns([])
     post :create, project: { name: "test", description: "" }
     assert_template :new

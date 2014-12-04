@@ -84,11 +84,21 @@ module DeterLab
     def change_password_challenge(challenge, new_pass)
       cl = client("Users")
       response = cl.call(:change_password_challenge, "message" => { "challengeID" => challenge, "newPass" => new_pass })
-      raise Error unless response.success?
 
-      response.to_hash[:change_password_challenge_response][:return].inspect
+      response.to_hash[:change_password_challenge_response][:return]
     rescue Savon::SOAPFault => e
       false
+    end
+
+    # creates a user and returns the userid
+    def create_user(profile)
+      cl = client("Users")
+      response = cl.call(:create_user, message: {
+        profile: profile.map { |k, v| { name: k, value: v.to_s } }
+      })
+      return response.to_hash[:create_user_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
     end
 
     private

@@ -37,14 +37,12 @@ module DeterLab
     end
     # Creates a project with the given profile for approval.
     # Returns #true if created, or #false if not.
-    def create_project(uid, name, project_profile)
+    def create_project(uid, name, owner, project_profile)
       cl = client("Projects", uid)
       response = cl.call(:create_project, message: {
         projectid: name,
-        owner: uid,
-        profile: project_profile.map { |f, v| {
-          name:  f,
-          value: v.to_s } }
+        owner: owner,
+        profile: project_profile.map { |f, v| { name: f, value: v.to_s } }
       })
 
       raise Error unless response.success?

@@ -78,4 +78,37 @@ class DeterLab::UsersTest < DeterLab::AbstractTest
     end
   end
 
+  test "creating user successfully" do
+    VCR.use_cassette "deterlab/users/create-user" do
+      assert DeterLab.create_user(user_profile)
+    end
+  end
+
+  test "creating invalid user" do
+    VCR.use_cassette "deterlab/users/create-user-failure" do
+      ex = assert_raise DeterLab::RequestError do
+        DeterLab.create_user({})
+      end
+      assert ex.message =~ /Required attribute .* not present/
+    end
+  end
+
+  private
+
+  def user_profile
+    { name: "Mark Smith",
+      email: "mark@smith.com",
+      phone: "1234567891",
+      title: "Mr",
+      affiliation: "X Corp",
+      affiliation_abbrev: "XC",
+      URL: "http://xcorp.org",
+      address1: "1 Main st.",
+      address2: "",
+      city: "Carrum",
+      state: "Vic",
+      zip: "3127",
+      country: "Australia" }
+  end
+
 end

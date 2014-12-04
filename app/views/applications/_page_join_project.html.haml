@@ -9,9 +9,10 @@
   = raw t "page_join_project.sponsored_student.info"
   <!-- /ko -->
 
+  - pp = params[:project] || {}
   - base = "page_project_info"
   %fieldset
-    = form_text_field base, :project_name, highlight: 'jpHL'
+    = form_text_field base, "project[name]", highlight: 'jpHL', value: pp[:name]
 
   = render partial: 'user_form', locals: { highlight: 'jpHL' }
 

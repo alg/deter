@@ -26,6 +26,7 @@ class ApplicationControllerTest < ActionController::TestCase
   private
 
   def assert_page_for(user_type, match)
+    ApplyForAccount.expects(:perform).returns(true)
     post :create, user_type: user_type
     assert_response :success
     assert_select 'p', match

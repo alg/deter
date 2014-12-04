@@ -1,50 +1,50 @@
 en:
   user_form:
-    full_name:
+    user_name:
       label: Full Name
       help: Your full name including title
-    email:
+    user_email:
       label: Email Address
       help: The e-mail address that is most appropriate for communication with the DeterLab team, including notification of approval of your project, and of the project leader account at DeterLab
-    phone:
+    user_phone:
       label: Phone Number
       help: The phone number that the DeterLab team can use to contact you
-    position:
+    user_title:
       label: Position, Title, or Job Description
       help: "Your position at your employer, e.g. Associate Professor, Research Director, or Director of Engineering"
-    affiliate:
+    user_affiliation:
       label: Full Name of Employer or Affiliated Institution
       help: A corporation, academic institution, government organization, or NGO that you are employed by or affiliated with
-    abbrev:
+    user_affiliation_abbrev:
       label: Institution Abbreviation
       help:  'The short name or abbreviation of your institution, for example: "CalTech" or "NIST"'
-    website:
+    user_URL:
       label: "Institution's Web Site"
       help:  "The main page of the web site of your corporation, academic institution, government organization, or NGO"
       placeholder: "http://"
     postal_address:
       label: "Postal Address"
       help:  "Your postal address at your afflilated institution."
-      address_1: Address 1
-      address_2: Address 2
-      city:      City
-      state:     State/Province
-      zip:       ZIP/Postal Code
-      country:
+      user_address1: Address 1
+      user_address2: Address 2
+      user_city:      City
+      user_state:     State/Province
+      user_zip:       ZIP/Postal Code
+      user_country:
         label: Country
         default: USA
 
     errors:
-      full_name:  Full Name
-      email:      Email Address
-      phone:      Phone Number
-      position:   Position, Title, or Job Description
-      affiliate:  Full Name of Employer or Affiliated Institution
-      abbrev:     Institution Abbreviation
-      website:    "Institution's Web Site"
-      address_1:  First address line
-      address_2:  Second address line
-      city:       City
-      state:      State/Province
-      zip:        Zip/Postal Code
-      country:    Country
+      user_name:         Full Name
+      user_email:        Email Address
+      user_phone:        Phone Number
+      user_title:        Position, Title, or Job Description
+      user_affiliation:  Full Name of Employer or Affiliated Institution
+      user_affiliation_abbrev:     Institution Abbreviation
+      user_URL:          "Institution's Web Site"
+      user_address1:     First address line
+      user_address2:     Second address line
+      user_city:         City
+      user_state:        State/Province
+      user_zip:          Zip/Postal Code
+      user_country:      Country

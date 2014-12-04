@@ -16,6 +16,7 @@ gem 'bootstrap-sass', git: 'https://github.com/twbs/bootstrap-sass.git', branch:
 gem 'i18n-js'
 gem 'redis-rails'
 gem 'savon'
+gem 'gon'
 
 group :development do
   gem 'spring'

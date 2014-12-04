@@ -1,0 +1,5 @@
+en:
+  applications:
+    create:
+      failure: "Failed to register your application:<br/>%{error}"
+      unknown_failure: "Please review your forms"

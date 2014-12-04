@@ -18,6 +18,10 @@ class ApplicationForm
 
     @initHelpers()
 
+    if gon.userType?
+      @userType(gon.userType)
+      @nextFromUserTypePage()
+
   # Validated field helper that creates two fields
   # @<name> and @<name>_invalid. "_invalid" version is set to true / false
   # depending on the validator function.
@@ -41,7 +45,7 @@ class ApplicationForm
 
   initUserFields: ->
     @validatedObservable("userType")
-    @userFields = [ "full_name", "email", "phone", "position", "affiliate", "abbrev", "website", "address_1", "address_2", "city", "state", "zip", "country" ]
+    @userFields = [ "user_name", "user_email", "user_phone", "user_title", "user_affiliation", "user_affiliation_abbrev", "user_URL", "user_address1", "user_address2", "user_city", "user_state", "user_zip", "user_country" ]
     @validatedObservable(field) for field in @userFields
 
   initProjectFields: ->
