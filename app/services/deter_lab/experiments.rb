@@ -12,8 +12,14 @@ module DeterLab
       project_id = options[:project_id]
       list_only  = options.has_key?(:list_only) ? options[:list_only] : true
 
+      order = [ :uid ]
       message = { uid: uid, listOnly: list_only }
-      message[:regex] = "#{project_id}:.*" if project_id.present?
+      if project_id.present?
+        message[:regex] = "^#{project_id}:.*"
+        order << :regex
+      end
+      order << :listOnly
+      message[:order!] = order
 
       cl = client("Experiments", uid)
       response = cl.call(:view_experiments, message: message)

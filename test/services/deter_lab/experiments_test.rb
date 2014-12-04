@@ -25,7 +25,7 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
   # end
 
   test "getting experiments for a certain project" do
-    VCR.use_cassette "deterlab/experiments/view-experiments-for-project", record: :all do
+    VCR.use_cassette "deterlab/experiments/view-experiments-for-project" do
       login 'user_with_multiple_projects'
       list = DeterLab.view_experiments(@username, project_id: "Bravo")
       assert_equal [ 'Bravo:BCone' ], list.map(&:id), "No filtering by experiment name"
