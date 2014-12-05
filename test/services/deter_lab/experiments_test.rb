@@ -15,14 +15,15 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
     end
   end
 
-  # test "experiment profile" do
-  #   VCR.use_cassette "deterlab/experiments/experiment-profile", record: :all do
-  #     login
-  #     profile = DeterLab.get_experiment_profile(@username, "Megaproj:One")
-  #     puts profile.inspect
-  #     assert profile
-  #   end
-  # end
+  test "experiment profile" do
+    skip "access denied failure being investigated"
+    # VCR.use_cassette "deterlab/experiments/experiment-profile", record: :all do
+    #   login
+    #   profile = DeterLab.get_experiment_profile(@username, "Megaproj:One")
+    #   puts profile.inspect
+    #   assert profile
+    # end
+  end
 
   test "getting experiments for a certain project" do
     VCR.use_cassette "deterlab/experiments/view-experiments-for-project" do
