@@ -5,51 +5,59 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
   test "getting experiments" do
     VCR.use_cassette "deterlab/experiments/view-experiments" do
       login
-      list = DeterLab.view_experiments(@username)
+
+      create_experiment
+      list = view_experiments
+      remove_experiment
+
       assert_equal [
-        Experiment.new("Megaproj:One", "bfdh", [
-          ExperimentACL.new("Megaproj:Megaproj", [ "MODIFY_EXPERIMENT_ACCESS", "MODIFY_EXPERIMENT", "READ_EXPERIMENT" ]),
-          ExperimentACL.new("bfdh:bfdh", [ "MODIFY_EXPERIMENT_ACCESS", "MODIFY_EXPERIMENT", "READ_EXPERIMENT" ])
+        Experiment.new("SPIdev:Test", @username, [
+          ExperimentACL.new("SPIdev:SPIdev", [ "MODIFY_EXPERIMENT_ACCESS", "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ]),
+          ExperimentACL.new("bfdh:bfdh", [ "MODIFY_EXPERIMENT_ACCESS", "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ])
         ])
       ], list
     end
   end
 
   test "experiment profile" do
-    skip "access denied failure being investigated"
-    # VCR.use_cassette "deterlab/experiments/experiment-profile", record: :all do
-    #   login
-    #   profile = DeterLab.get_experiment_profile(@username, "Megaproj:One")
-    #   puts profile.inspect
-    #   assert profile
-    # end
-  end
+    VCR.use_cassette "deterlab/experiments/experiment-profile" do
+      login
 
-  test "getting experiments for a certain project" do
-    VCR.use_cassette "deterlab/experiments/view-experiments-for-project" do
-      login 'user_with_multiple_projects'
-      list = DeterLab.view_experiments(@username, project_id: "Bravo")
-      assert_equal [ 'Bravo:BCone' ], list.map(&:id), "No filtering by experiment name"
+      create_experiment
+      profile = DeterLab.get_experiment_profile(@username, "SPIdev:Test")
+      remove_experiment
+
+      assert_equal [
+        ProfileField.new("description", "string", false, "READ_WRITE", "Description", nil, nil, "0", "Custom description")
+      ], profile
     end
   end
 
-  test "getting experiment with aspects" do
-    VCR.use_cassette "deterlab/experiments/view-experiment-aspects" do
-      login 'user_with_aspects'
-    end
-  end
+  # test "getting experiments for a certain project" do
+  #   VCR.use_cassette "deterlab/experiments/view-experiments-for-project" do
+  #     login 'user_with_multiple_projects'
+  #     list = view_experiments("Bravo")
+  #     assert_equal [ 'Bravo:BCone' ], list.map(&:id), "No filtering by experiment name"
+  #   end
+  # end
+
+  # test "getting experiment with aspects" do
+  #   VCR.use_cassette "deterlab/experiments/view-experiment-aspects" do
+  #     login 'user_with_aspects'
+  #   end
+  # end
 
   test "creating experiments" do
     VCR.use_cassette "deterlab/experiments/create-experiment" do
       login
 
-      pid   = "Megaproj"
+      pid   = "SPIdev"
       ename = "Test"
       eid   = "#{pid}:#{ename}"
 
-      assert DeterLab.create_experiment(@username, pid, ename, { description: "Custom description" }), "Could not create an experiment"
-      experiment = DeterLab.view_experiments(@username).find { |e| e.id == eid }
-      assert DeterLab.remove_experiment(@username, eid), "Could not delete the experiment"
+      assert create_experiment(pid, ename), "Could not create an experiment"
+      experiment = view_experiments(pid).find { |e| e.id == eid }
+      assert remove_experiment(pid, ename), "Could not delete the experiment"
       assert experiment, "Experiment was added, but was not found"
     end
   end
@@ -59,6 +67,20 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
       fields = DeterLab.get_experiment_profile_description
       assert_equal [ ProfileField.new("description", "string", false, "READ_WRITE", "Description", nil, nil, "0", nil) ], fields
     end
+  end
+
+  private
+
+  def create_experiment(pid = "SPIdev", eid = "Test")
+    DeterLab.create_experiment(@username, pid, eid, { description: "Custom description" })
+  end
+
+  def remove_experiment(pid = "SPIdev", eid = "Test")
+    DeterLab.remove_experiment(@username, "#{pid}:#{eid}")
+  end
+
+  def view_experiments(pid = "SPIdev")
+    DeterLab.view_experiments(@username, project_id: "SPIdev")
   end
 
 end

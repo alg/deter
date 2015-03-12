@@ -68,7 +68,11 @@ module DeterLab
       cl = client("Experiments", uid)
       response = cl.call(:get_experiment_profile, message: { eid: eid })
 
-      return response.to_hash[:get_experiment_profile_response][:return]
+      fields = [ response.to_hash[:get_experiment_profile_response][:return][:attributes] ].flatten.map do |f|
+        ProfileField.new(f[:name], f[:data_type], f[:optional], f[:access], f[:description], f[:format], f[:format_description], f[:length_hint], f[:value])
+      end
+
+      return ProfileFields.new(fields)
     rescue Savon::SOAPFault => e
       process_error e
     end

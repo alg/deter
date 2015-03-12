@@ -15,5 +15,6 @@ module DeterLab
   extend DeterLab::Projects
   extend DeterLab::Circles
   extend DeterLab::Experiments
+  extend DeterLab::Libraries
 
 end

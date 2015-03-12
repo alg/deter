@@ -35,6 +35,7 @@ module DeterLab
     rescue Savon::SOAPFault => e
       process_error e
     end
+
     # Creates a project with the given profile for approval.
     # Returns #true if created, or #false if not.
     def create_project(uid, name, owner, project_profile)
