@@ -74,7 +74,25 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
 
   test "creating project anonymously" do
     VCR.use_cassette "deterlab/projects/create-project-anon" do
-      assert DeterLab.create_project(nil, "unit-test-anon", @username, { description: "descr" })
+      user_id = DeterLab.create_user(user_profile)
+      assert DeterLab.create_project(user_id, "unit-test-anon", user_id, { description: "descr" })
     end
   end
+
+  def user_profile
+    { name: "Mark Smith",
+      email: "mark@smith.com",
+      phone: "1234567891",
+      title: "Mr",
+      affiliation: "X Corp",
+      affiliation_abbrev: "XC",
+      URL: "http://xcorp.org",
+      address1: "1 Main st.",
+      address2: "",
+      city: "Carrum",
+      state: "Vic",
+      zip: "3127",
+      country: "Australia" }
+  end
+
 end

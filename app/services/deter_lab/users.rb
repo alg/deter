@@ -96,7 +96,10 @@ module DeterLab
       response = cl.call(:create_user, message: {
         profile: profile.map { |k, v| { name: k, value: v.to_s } }
       })
-      return response.to_hash[:create_user_response][:return]
+
+      res = response.to_hash[:create_user_response][:return]
+      extract_and_store_certs(res[:uid], Base64.decode64(res[:identity]))
+      return res[:uid]
     rescue Savon::SOAPFault => e
       process_error e
     end
