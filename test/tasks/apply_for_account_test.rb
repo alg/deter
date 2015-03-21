@@ -4,7 +4,7 @@ class ApplyForAccountTest < ActiveSupport::TestCase
 
   test "applying for research group leader account" do
     DeterLab.expects(:create_user).with(:up).returns("mark")
-    DeterLab.expects(:create_project).with(nil, "name", "mark", {}).returns(true)
+    DeterLab.expects(:create_project).with("mark", "name", "mark", {}).returns(true)
 
     assert ApplyForAccount.perform({
       user_type:  'project_leader',

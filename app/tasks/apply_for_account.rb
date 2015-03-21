@@ -19,7 +19,4 @@ class ApplyForAccount
     return DeterLab.create_project(user_id, name, user_id, pp.except(:name))
   end
 
-  # returns user ID or raises an exception
-  def self.create_user(user_params)
-  end
 end
