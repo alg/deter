@@ -53,6 +53,23 @@ module DeterLab
       process_error e
     end
 
+    # Creates the request to join the project.
+    # Returns TRUE if the request was sent.
+    def join_project(uid, project_id, url_prefix = nil)
+      # alg self-note: url_prefix is for prepending to the challenge id in notificaiton and is visible only to
+      # those approving the membership. Ignoring for now.
+      cl = client("Projects", uid)
+      response = cl.call(:join_project, message: {
+        uid: uid,
+        projectid: project_id,
+        urlPrefix: url_prefix
+      })
+
+      return response.to_hash[:join_project_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
     # Deletes the project
     def remove_project(uid, project_id)
       cl = client("Projects", uid)

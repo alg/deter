@@ -79,6 +79,13 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
     end
   end
 
+  test "join project" do
+    VCR.use_cassette "deterlab/projects/join-project", record: :all do
+      user_id = DeterLab.create_user(user_profile)
+      assert DeterLab.join_project(user_id, "SPIdev")
+    end
+  end
+
   def user_profile
     { name: "Mark Smith",
       email: "mark@smith.com",
