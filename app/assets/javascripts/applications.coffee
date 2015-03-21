@@ -54,7 +54,7 @@ class ApplicationForm
     @validatedObservable(field) for field in @projectLeaderProjectFields
 
   initCourseFields: ->
-    @courseFields = [ "course_name", "course_description", "course_focus" ]
+    @courseFields = [ "project_name", "project_description", "project_research_focus" ]
     @validatedObservable(field) for field in @courseFields
 
   initErrors: ->

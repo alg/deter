@@ -4,11 +4,12 @@
 
   = raw t "page_course_info.info"
 
+  - pp = params[:project] || {}
   - base = "page_course_info"
   %fieldset
-    = form_text_field base, :course_name,        highlight: 'ciHL'
-    = form_text_area  base, :course_description, highlight: 'ciHL'
-    = form_select     base, :course_focus,       highlight: 'ciHL'
+    = form_text_field base, 'project[name]',            highlight: 'ciHL', value: pp[:name]
+    = form_text_area  base, 'project[description]',     highlight: 'ciHL', value: pp[:description]
+    = form_select     base, 'project[research_focus]',  highlight: 'ciHL', value: pp[:research_focus]
 
   .panel.panel-default
     .panel-body

@@ -9,13 +9,13 @@ en:
     back_button: Back
     next_button: Submit Application
 
-    course_name:
+    project_name:
       label: Course Name
       help:  "Your course name or brief description"
-    course_description:
+    project_description:
       label: Course Description
       help:  "Briefly describe your course goals, and how you plan to use DeterLab"
-    course_focus:
+    project_research_focus:
       label: Course Focus
       help:  "Select one reaserch area that best fits your course"
       options: [ "Architecture", "Botnets", "Class", "Comprehensive", "Congestion", "DDoS", "DNS", "Evaluation", "Forensics", "Infrastructure", "Internal", "Intrusions", "Malware", "Metrics", "Monitoring", "Multicast", "Overlays", "Privacy", "Routing", "Scanning", "Spam", "Spoofing", "Testbeds", "Traceback", "Trust", "Watermarking", "Wireless", "Worms", "Other" ]
