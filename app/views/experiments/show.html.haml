@@ -1,8 +1,7 @@
 - @submenu = :experiments
 .page-header
   %h1= raw t '.title', id: @experiment.id
-
-= raw t '.info', owner: @experiment.owner
+  = raw t '.info', owner: @experiment.owner
 
 .row
   .col-sm-12

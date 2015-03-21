@@ -1,0 +1,13 @@
+en:
+  project_joins:
+    new:
+      title:  Submit join project request
+      info:   In order to join a project you submit a request. An authorised project member needs to approve it and assign permissions.
+      form:
+        project_id: Project Name
+      submit: Submit request
+
+    create:
+      success: Your request to join the project has been submitted
+      failure: "Failed to submit your request:<br/>%{error}"
+      unknown_failure: Please review your project id

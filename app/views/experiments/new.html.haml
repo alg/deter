@@ -1,8 +1,7 @@
 - @submenu = :experiments
 .page-header
   %h1= raw t '.title'
-
-= raw t '.info'
+  = raw t '.info'
 
 .row
   = form_tag experiments_path, { class: 'form-horizontal' } do

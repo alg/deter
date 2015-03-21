@@ -1,7 +1,6 @@
 .page-header
   %h1= raw t '.title'
-
-= raw t '.info'
+  = raw t '.info'
 
 = form_tag :password_reset, method: 'post', class: 'form-horizontal' do
   .form-group

@@ -1,0 +1,16 @@
+- @submenu = :projects
+.page-header
+  %h1= raw t '.title'
+  = raw t '.info'
+
+.row
+  .col-sm-12
+    = form_tag project_joins_path, { class: 'form-horizontal' } do
+      .form-group
+        = label_tag "project_id", t(".form.project_id"), class: "control-label col-sm-2"
+        .col-sm-4
+          = text_field_tag "project_id", params[:project_id], class: "form-control"
+
+      .form-group
+        .col-sm-offset-2.col-sm-4
+          = submit_tag t(".submit"), class: "btn btn-default"
