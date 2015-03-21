@@ -4,7 +4,6 @@
 
   = raw t "page_user_type.info"
 
-  = debug params
   .radio{ data: { bind: "css: { 'has-error': utHL() && userType_invalid() } " } }
     %label
       = radio_button_tag "user_type", "project_leader", false, data: { bind: "checked: userType" }

@@ -16,7 +16,7 @@ class ApplyForAccount
 
     pp = params[:project]
     name = pp[:name]
-    return DeterLab.create_project(nil, name, user_id, pp.except(:name))
+    return DeterLab.create_project(user_id, name, user_id, pp.except(:name))
   end
 
   # returns user ID or raises an exception

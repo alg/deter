@@ -2,6 +2,7 @@ class ApplicationsController < ApplicationController
 
   # new application form
   def new
+    gon.userType = nil
   end
 
   # submits the application and renders thanks page
