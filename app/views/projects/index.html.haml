@@ -5,13 +5,11 @@
 
 .row
   .col-sm-12
-    %table.table.table-striped
+    %table.table
       %thead
         %tr
           %th= t '.project_id'
           %th= t '.owner'
-          %th= t '.members'
-          %th= t '.approved'
           %th= t '.actions'
       %tbody
         - if @projects.blank?
@@ -22,9 +20,21 @@
             %tr
               %td= link_to p.project_id, project_path(p.project_id)
               %td= p.owner
-              %td= members_list p.members
-              %td= p.approved ? 'Yes' : 'No'
-              %td= link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: t(".confirm_delete") }
+              %td
+                = link_to t(".more"), "#", data: { pid: p.project_id }, class: 'more'
+                = link_to t(".less"), "#", data: { pid: p.project_id }, class: 'less hide'
+            %tr{ data: { more_pid: p.project_id }, class: 'hide' }
+              %td{ colspan: 3 }
+                %table.table
+                  %tr
+                    %th.col-sm-2 Approved:
+                    %td #{p.approved ? 'Yes' : 'No'}
+                  %tr
+                    %th Members:
+                    %td #{p.members.map(&:uid).join(', ')}
+                  %tr
+                    %td{ colspan: 2 }
+                      = link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'
 
 .row
   .col-sm-12

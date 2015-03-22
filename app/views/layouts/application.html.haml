@@ -6,7 +6,7 @@
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
 
-  %body
+  %body{ id: "#{params[:controller]}_#{params[:action]}" }
     = render "layouts/header"
     = render "layouts/messages"
     .container

@@ -19,6 +19,8 @@ en:
       nothing: There are no projects yet
 
       new_project: New project
+      more: More info
+      less: Less info
 
     show:
       title: "Project: %{id}"
