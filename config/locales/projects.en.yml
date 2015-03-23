@@ -21,6 +21,7 @@ en:
       new_project: New project
       more: More info
       less: Less info
+      view: View
 
     show:
       title: "Project: %{id}"

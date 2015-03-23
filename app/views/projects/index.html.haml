@@ -26,7 +26,9 @@
             %tr{ data: { more_id: p.project_id }, class: 'hide' }
               %td{ colspan: 3 }
                 .data-cell
-                %p= link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'
+                %p
+                  = link_to t(".view"), project_path(p.project_id), class: 'btn btn-xs btn-info'
+                  = link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'
 
 .row
   .col-sm-12

@@ -9,8 +9,8 @@
       %thead
         %tr
           %th= t '.name'
-          %th= t '.owner'
-          %th= t '.actions'
+          %th.col-sm-2= t '.owner'
+          %th.col-sm-2.text-right= t '.actions'
       %tbody
         - if @experiments.blank?
           %tr
@@ -20,7 +20,15 @@
             %tr
               %td= link_to e.id, experiment_path(e.id)
               %td= e.owner
-              %td= link_to t(".delete"), experiment_path(e.id), method: :delete, data: { confirm: t(".confirm_delete") }
+              %td.text-right
+                = link_to t(".more"), "#", data: { id: e.id }, class: 'more'
+                = link_to t(".less"), "#", data: { id: e.id }, class: 'less hide'
+            %tr{ data: { more_id: e.id }, class: 'hide' }
+              %td{ colspan: 3 }
+                .data-cell
+                %p
+                  = link_to t(".view"), experiment_path(e.id), class: 'btn btn-xs btn-info'
+                  = link_to t(".delete"), experiment_path(e.id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'
 
 .row
   .col-sm-12

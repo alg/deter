@@ -16,6 +16,10 @@ en:
       nothing: There are no experiments yet
       new_experiment: New experiment
 
+      more: More info
+      less: Less info
+      view: View
+
     show:
       title: "Experiment: %{id}"
       info: >
