@@ -1,3 +1,17 @@
 tr[data-more-pid] table {
   td, th { border: 0; }
 }
+
+.data-cell {
+  &.loading {
+    text-align: center;
+  }
+  .spinner {
+    display: inline-block;
+    margin-bottom: 3px;
+  }
+
+  th {
+    width: 200px;
+  }
+}

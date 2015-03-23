@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
   # Projects list
   def index
     @projects = get_projects
+    gon.getProfileUrl = profile_project_path(':id')
   end
 
   # project details
@@ -19,6 +20,11 @@ class ProjectsController < ApplicationController
     @profile = deter_cache.fetch "project_profile:#{@project.project_id}" do
       DeterLab.get_project_profile(app_session.current_user_id, @project.project_id)
     end
+  end
+
+  # returns project profile
+  def profile
+    @profile = get_project_profile(params[:id])
   end
 
   # New projects form
@@ -65,6 +71,12 @@ class ProjectsController < ApplicationController
   def get_projects
     deter_cache.fetch "user_projects", 30.minutes do
       DeterLab.view_projects(app_session.current_user_id)
+    end
+  end
+
+  def get_project_profile(pid)
+    deter_cache.fetch "project_profile:#{pid}:#{app_session.current_user_id}", 30.minutes do
+      DeterLab.get_project_profile(app_session.current_user_id, pid)
     end
   end
 
