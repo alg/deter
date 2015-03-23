@@ -1,3 +1,6 @@
+profilesCache = {}
+profilesLoading = {}
+
 insertSpinner = (cell) ->
   $("<div/>").addClass("spinner").appendTo(cell)
 
@@ -18,16 +21,16 @@ renderProperties = (cell, profile) ->
 
 loadData = (cell, pid) ->
   cell.addClass("loading")
+  profilesLoading[pid] = true
   $.getJSON gon.getProfileUrl.replace(':id', pid), (data) ->
+    profilesCache[pid] = data
+    profilesLoading[pid] = false
     renderProperties(cell, data)
     removeSpinner(cell)
 
 
 $ ->
   return if $("body#projects_index").length == 0
-
-  profilesCache = {}
-  profilesLoading = {}
 
   $("a.more").on "click", (e) ->
     e.preventDefault()
