@@ -13,6 +13,18 @@ class ExperimentsControllerTest < ActionController::TestCase
     assert_template :index
   end
 
+  test "sorting of experiments in index" do
+    ExperimentsController.any_instance.stubs(:get_experiments).returns([
+      Experiment.new("member-b", "john", []),
+      Experiment.new("owner-b", "mark", []),
+      Experiment.new("owner-a", "mark", []),
+      Experiment.new("member-a", "john", [])
+    ])
+    get :index
+    es = assigns[:experiments]
+    assert_equal %w( owner-a owner-b member-a member-b ), es.map(&:id)
+  end
+
   test "show" do
     ex1 = Experiment.new("id1", "owner", [])
     ex2 = Experiment.new("id2", "owner", [])

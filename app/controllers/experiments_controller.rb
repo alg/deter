@@ -4,7 +4,20 @@ class ExperimentsController < ApplicationController
 
   # lists all user experiments
   def index
-    @experiments = get_experiments
+    uid = app_session.current_user_id
+    @experiments = get_experiments.sort do |e1, e2|
+      o1 = e1.owner == uid
+      o2 = e2.owner == uid
+      if o1 == o2
+        e1.id <=> e2.id
+      elsif o1
+        -1
+      else
+        1
+      end
+    end
+
+    gon.getProfileUrl = profile_experiment_path(':id')
   end
 
   # shows experiment details
@@ -18,6 +31,12 @@ class ExperimentsController < ApplicationController
     # @profile = deter_cache.fetch "experiment_profile:#{@experiment.id}" do
     #   DeterLab.experiment_profile(@app_session.current_user_id, experiment.id)
     # end
+  end
+
+  # returns experiment profile
+  def profile
+    @profile = get_experiment_profile(params[:id])
+    render 'shared/profile'
   end
 
   # showing the new experiment form
@@ -62,6 +81,12 @@ class ExperimentsController < ApplicationController
   def get_experiments
     return deter_cache.fetch "user_experiments", 30.minutes do
       DeterLab.view_experiments(app_session.current_user_id)
+    end
+  end
+
+  def get_experiment_profile(id)
+    deter_cache.fetch "experiment_profile:#{id}:#{app_session.current_user_id}", 30.minutes do
+      DeterLab.get_experiment_profile(app_session.current_user_id, id)
     end
   end
 

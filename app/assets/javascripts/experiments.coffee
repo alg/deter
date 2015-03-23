@@ -1,5 +1,5 @@
 $ ->
-  return if $("body#projects_index").length == 0
+  return if $("body#experiments_index").length == 0
 
   profileLoader = new ProfileLoader(gon.getProfileUrl)
   moreLess = new MoreLess null, (id, row) ->

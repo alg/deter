@@ -21,9 +21,9 @@
               %td= link_to p.project_id, project_path(p.project_id)
               %td= p.owner
               %td.text-right
-                = link_to t(".more"), "#", data: { pid: p.project_id }, class: 'more'
-                = link_to t(".less"), "#", data: { pid: p.project_id }, class: 'less hide'
-            %tr{ data: { more_pid: p.project_id }, class: 'hide' }
+                = link_to t(".more"), "#", data: { id: p.project_id }, class: 'more'
+                = link_to t(".less"), "#", data: { id: p.project_id }, class: 'less hide'
+            %tr{ data: { more_id: p.project_id }, class: 'hide' }
               %td{ colspan: 3 }
                 .data-cell
                 %p= link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'

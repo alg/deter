@@ -38,6 +38,7 @@ class ProjectsController < ApplicationController
   # returns project profile
   def profile
     @profile = get_project_profile(params[:id])
+    render 'shared/profile'
   end
 
   # New projects form

@@ -33,7 +33,11 @@ Rails.application.routes.draw do
   end
   resources :project_joins, only: [ :new, :create ]
   resources :circles,     only: [ :index, :new, :create, :destroy ]
-  resources :experiments, only: [ :index, :new, :create, :destroy, :show ]
+  resources :experiments, only: [ :index, :new, :create, :destroy, :show ] do
+    member do
+      get :profile
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
