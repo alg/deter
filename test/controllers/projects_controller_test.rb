@@ -13,6 +13,21 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_template :index
   end
 
+  test "sorting of projects in index" do
+    ProjectsController.any_instance.stubs(:get_projects).returns([
+      Project.new("member-b", "john", true, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ]),
+      Project.new("owner-b", "mark", true, []),
+      Project.new("owner-a", "mark", true, []),
+      Project.new("member-a", "john", true, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ])
+    ])
+    get :index
+    ps = assigns[:projects]
+    assert_equal ps[0].project_id, "owner-a"
+    assert_equal ps[1].project_id, "owner-b"
+    assert_equal ps[2].project_id, "member-a"
+    assert_equal ps[3].project_id, "member-b"
+  end
+
   test "show" do
     pid = "project_id"
     pr = Project.new(pid, "mark", true, [])

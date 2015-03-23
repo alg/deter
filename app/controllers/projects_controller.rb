@@ -4,7 +4,20 @@ class ProjectsController < ApplicationController
 
   # Projects list
   def index
-    @projects = get_projects
+    uid = app_session.current_user_id
+    @projects = get_projects.sort do |p1, p2|
+      o1 = p1.owner == uid
+      o2 = p2.owner == uid
+
+      if o1 == o2
+        p1.project_id <=> p2.project_id
+      elsif o1
+        -1
+      else
+        1
+      end
+    end
+
     gon.getProfileUrl = profile_project_path(':id')
   end
 
