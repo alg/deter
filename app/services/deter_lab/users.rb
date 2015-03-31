@@ -104,6 +104,20 @@ module DeterLab
       process_error e
     end
 
+    # creates a user without confirmation
+    def create_user_no_confirm(uid, password, profile)
+      cl = client("Users", uid)
+      response = cl.call(:create_user_no_confirm, message: {
+        profile: profile.map { |k, v| { name: k, value: v.to_s } },
+        clearpassword: password
+      })
+
+      res = response.to_hash[:create_user_no_confirm_response][:return]
+      return res
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
     private
 
     # extracts certs from the challenge response and stores them for later use

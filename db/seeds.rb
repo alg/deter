@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+@username = ENV['ADMIN_USERNAME']
+@password = ENV['ADMIN_PASSWORD']
+
+seeder = SeedTestData.new(@username, @password)
+seeder.perform

@@ -12,3 +12,8 @@ user_with_aspects:
 user_with_multiple_projects:
   username:
   password:
+
+# admin user for seeding tests
+admin_user:
+  username:
+  password:

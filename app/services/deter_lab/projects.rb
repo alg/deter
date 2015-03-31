@@ -6,10 +6,30 @@ module DeterLab
       get_profile_description("Projects")
     end
 
+    def create_project_attribute(uid, name, type, optional, access, description, ordering_hint, format = "", format_description = "", length_hint = 0, default = "")
+      cl = client("Projects", uid)
+      response = cl.call(:create_project_attribute, message: {
+        name:               name,
+        type:               type,
+        optional:           optional,
+        access:             access,
+        description:        description,
+        format:             format,
+        formatdescription:  format_description,
+        order:              ordering_hint,
+        length:             length_hint,
+        def:                default
+      })
+
+      return response.to_hash[:create_project_attribute_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
     # Returns the list of user projects
     def view_projects(uid)
       cl = client("Projects", uid)
-      response = cl.call(:view_projects, "message" => { "uid" => uid })
+      response = cl.call(:view_projects, message: { uid: uid })
 
       return [response.to_hash[:view_projects_response][:return] || []].flatten.map do |p|
         members = [ p[:members] ].flatten.map do |m|
@@ -66,6 +86,30 @@ module DeterLab
       })
 
       return response.to_hash[:join_project_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
+    # Approves the project
+    def approve_project(admin_uid, project_id)
+      cl = client("Projects", admin_uid)
+      response = cl.call(:approve_project, message: {
+        projectid: project_id,
+        approved: true
+      })
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
+    # Adds users to the project without confirmation
+    def add_users_no_confirm(admin_uid, project_id, uids)
+      cl = client("Projects", admin_uid)
+      response = cl.call(:add_users_no_confirm, message: {
+        projectid: project_id,
+        uids: uids
+      })
+
+      return response.to_hash[:add_users_no_confirm_response][:return]
     rescue Savon::SOAPFault => e
       process_error e
     end

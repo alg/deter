@@ -11,6 +11,23 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
     end
   end
 
+  test "creating project attribute" do
+    VCR.use_cassette "deterlab/projects/create-project-attribute" do
+      login 'admin_user'
+      assert DeterLab.create_project_attribute(@username, "org_type", "STRING", true, "READ_WRITE", "Project Organization Type", 200)
+    end
+  end
+
+  test "creating duplicate project attribute" do
+    VCR.use_cassette "deterlab/projects/create-project-attribute-dup" do
+      login 'admin_user'
+      ex = assert_raises(DeterLab::RequestError) {
+        DeterLab.create_project_attribute(@username, "description", "STRING", true, "READ_WRITE", "Description", 100)
+      }
+      assert_equal "Attribute description exists cannot create it", ex.message
+    end
+  end
+
   test "getting project profile" do
     VCR.use_cassette "deterlab/projects/project-profile" do
       login
@@ -80,9 +97,28 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
   end
 
   test "join project" do
-    VCR.use_cassette "deterlab/projects/join-project", record: :all do
+    VCR.use_cassette "deterlab/projects/join-project" do
       user_id = DeterLab.create_user(user_profile)
       assert DeterLab.join_project(user_id, "SPIdev")
+    end
+  end
+
+  test "approve project" do
+    VCR.use_cassette "deterlab/projects/approve" do
+      login 'admin_user'
+      project_id = DeterLab.create_project(@username, "unit-test-approve", @username, { description: "descr" })
+      DeterLab.approve_project(@username, "unit-test-approve")
+    end
+  end
+
+  test "add users no confirm" do
+    VCR.use_cassette "deterlab/projects/add-users-no-confirm" do
+      login 'admin_user'
+      pid = "unit-test-add-user-nc"
+      user_id = DeterLab.create_user(user_profile)
+      DeterLab.create_project(@username, pid, @username, { description: "descr" })
+      DeterLab.approve_project(@username, pid)
+      assert DeterLab.add_users_no_confirm(@username, pid, [ user_id ])
     end
   end
 
