@@ -39,6 +39,17 @@ class SeedTestDataTest < ActiveSupport::TestCase
     end
   end
 
+  # test 'user should create experiments' do
+  #   VCR.use_cassette "seeding/create-experiment" do
+  #     user_id = @res[:user_ids]['Abigail Adams']
+  #     assert DeterLab.valid_credentials?(user_id, 'Abigail')
+
+  #     experiment = DeterLab.view_experiments(user_id, project_id: "Alfa-Romeo").select { |e| e.id == "Alfa-Romeo:HelloWorld" }.first
+  #     assert_not_nil experiment
+  #     assert_equal user_id, experiment.owner
+  #   end
+  # end
+
   private
 
   def load_user(name)

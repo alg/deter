@@ -76,5 +76,18 @@ module DeterLab
     rescue Savon::SOAPFault => e
       process_error e
     end
+
+    # adds aspects to an experiment
+    def add_experiment_aspects(uid, eid, aspects)
+      cl = client("Experiments", uid)
+      response = cl.call(:add_experiment_aspects, message: {
+        eid: eid,
+        aspects: aspects
+      })
+
+      return response.to_hash[:add_experiment_aspects_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
   end
 end

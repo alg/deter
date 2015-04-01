@@ -102,11 +102,13 @@ module DeterLab
     end
 
     # Adds users to the project without confirmation
-    def add_users_no_confirm(admin_uid, project_id, uids)
+    def add_users_no_confirm(admin_uid, project_id, uids, perms = nil)
+      perms ||= []
       cl = client("Projects", admin_uid)
       response = cl.call(:add_users_no_confirm, message: {
         projectid: project_id,
-        uids: uids
+        uids: uids,
+        perms: perms
       })
 
       return response.to_hash[:add_users_no_confirm_response][:return]
