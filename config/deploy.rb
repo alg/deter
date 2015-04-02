@@ -55,8 +55,10 @@ namespace :deter do
   task :seed do
     on roles(:app) do
       within current_path do
-        with rails_env: :production, admin: ENV['admin'], pass: ENV['pass'] do
-          puts capture :rake, 'deter:seed'
+        with rails_env: :production do
+          puts "Seeding database. Please wait..."
+          c = capture :rake, 'deter:seed', "ADMIN=\"#{ENV['admin']}\" PASS=\"#{ENV['pass']}\""
+          puts c.gsub(/^D,.*net_http\)$\n/, '')
         end
       end
     end
