@@ -54,9 +54,10 @@ namespace :deter do
 
   task :seed do
     on roles(:app) do
-      puts "#{ENV['admin']} / #{ENV['pass']}"
-      with admin: 'test' do
-        execute :rake, 'deter:seed'
+      within current_path do
+        with rails_env: :production, admin: ENV['admin'], pass: ENV['pass'] do
+          puts capture :rake, 'deter:seed'
+        end
       end
     end
   end
