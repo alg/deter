@@ -167,6 +167,8 @@ class SeedTestData
         created = true
       rescue DeterLab::RequestError => ex
         raise ex unless ex.message =~ /exists/
+        DeterLab.remove_experiment(@admin_user, "#{e[:project]}:#{e[:name]}")
+        DeterLab.create_experiment(user_id, e[:project], e[:name], { description: "Custom experiment" })
       end
       puts " - New experiment #{e[:project]}:#{e[:name]} by #{user_id}"
 

@@ -10,12 +10,16 @@ module DeterLab
     def view_experiments(uid, options = nil)
       options ||= {}
       project_id = options[:project_id]
+      regex      = options[:regex]
       list_only  = options.has_key?(:list_only) ? options[:list_only] : true
 
       order = [ :uid ]
       message = { uid: uid, listOnly: list_only }
       if project_id.present?
         message[:regex] = "^#{project_id}:.*"
+        order << :regex
+      elsif regex.present?
+        message[:regex] = regex
         order << :regex
       end
       order << :listOnly
