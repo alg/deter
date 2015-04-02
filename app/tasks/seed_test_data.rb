@@ -89,9 +89,16 @@ class SeedTestData
 
     ensure_project_profile_attributes
 
+    puts "Creating users and projects:"
     USERS.each { |u| create_user(u) }
+
+    puts "Joining projects:"
     PROJECT_USERS.each { |project_id, users| join_project(project_id, users) }
+
+    puts "Creating experiments:"
     USER_EXPERIMENTS.each { |user_name, experiments| create_experiments(@user_ids[user_name], user_name.split(' ')[0], experiments) }
+
+    create_requests
 
     return {
       user_ids: @user_ids
@@ -106,8 +113,8 @@ class SeedTestData
     PROJECT_PROFILE_ATTRS.each do |attr|
       next if present_attrs.include?(attr[:name])
 
-      puts "  Creating project attribute: #{attr.inspect}"
       DeterLab.create_project_attribute(@admin_user, attr[:name], attr[:type], attr[:optional], attr[:access], attr[:description], attr[:sequence])
+      puts "  - New project attribute: #{attr.inspect}"
     end
   end
 
@@ -120,18 +127,17 @@ class SeedTestData
   end
 
   def create_user(up)
-    puts "Creating user #{up[:name]}"
     user_id = DeterLab.create_user_no_confirm(@admin_user, up[:password], USER_DEFAULTS.merge(name: up[:name], email: up[:email]))
+    puts "  - New user #{up[:name]} (#{user_id})"
     @user_ids[up[:name]] = user_id
 
     up[:owns_projects].each do |project_id|
       pp = PROJECTS[project_id] or raise("Project attributes for #{project_id} not found")
-      puts "Creating project #{project_id} for #{user_id}"
+      puts "  - New project #{project_id} for #{user_id}"
       begin
         create_project(user_id, project_id, pp)
       rescue DeterLab::RequestError => e
         if e.message =~ /name conflict/
-          puts "  ... exists. Recreating for our new user"
           DeterLab.remove_project(@admin_user, project_id)
           create_project(user_id, project_id, pp)
         else
@@ -149,22 +155,61 @@ class SeedTestData
   def join_project(project_id, users)
     uids = users.map { |name| @user_ids[name] }
     DeterLab.add_users_no_confirm(@admin_user, project_id, uids, [ "ALL_PERMS" ])
+    puts "  - Added users #{uids.inspect} to #{project_id}"
   end
 
   def create_experiments(user_id, password, experiments)
-    puts "Creating experiments for: #{user_id}"
     DeterLab.valid_credentials?(user_id, password)
     experiments.each do |e|
+      created = false
       begin
-        puts " - #{e[:project]}:#{e[:name]} - #{!e[:layout].nil?}"
         DeterLab.create_experiment(user_id, e[:project], e[:name], { description: "Custom experiment" })
+        created = true
       rescue DeterLab::RequestError => ex
         raise ex unless ex.message =~ /exists/
       end
+      puts " - New experiment #{e[:project]}:#{e[:name]} by #{user_id}"
 
-      unless e[:layout].nil?
-        puts "   - adding layout aspect"
+      if created && !e[:layout].nil?
+        puts "    - Adding layout aspect"
         DeterLab.add_experiment_aspects(@admin_user, "#{e[:project]}:#{e[:name]}", [ { type: 'layout', data: e[:layout] } ])
+      end
+    end
+  end
+
+  def create_requests
+    puts "Creating requests:"
+    # The following are unauthenticated requests (not made in the context of a user session)
+    # * New account request for Dirk Pitt, dpitt@uso.edu, same other attributes as users above
+    dirk = DeterLab.create_user(USER_DEFAULTS.merge(name: 'Dirk Pitt', email: 'dpitt@uso.edu'))
+
+    # * New project request with owner uid being that returned from the Dirk Pitt create-user call; project name Delta-Blues summary "Get down, get funky", same attributes as above projects
+    ensure_create_project(dirk, "Delta-Blues", "Get down, get funky")
+    puts "  - New project Delta-Blues request by Dirk Pitt (#{dirk})"
+
+    # * New account request for Andreas Ackermann, aackermann@uso.edu, same other attributes as users above
+    andreas = DeterLab.create_user(USER_DEFAULTS.merge(name: 'Andreas Ackermann', email: 'aackermann@uso.edu'))
+
+    # * Join project request with owner uid being that returned from the Andreas Ackermann create-user call; request to join project Alfa-Romeo
+    DeterLab.join_project(andreas, 'Alfa-Romeo')
+    puts "  - Project Alfa-Romeo join request by Andreas Ackermann (#{andreas})"
+
+    # In addition, there should be a create-project request in a login session of Ambrose Bierce, to create a new project Devils-Dictionary "Compile a corpus of clever snark", same ofher project attributes as above.
+    ambrose = @user_ids['Ambrose Bierce']
+    DeterLab.valid_credentials?(ambrose, 'Ambrose')
+    ensure_create_project(ambrose, "Devils-Dictionary", "Compile a corpus of clever snark")
+    puts "  - New project Devils-Dictionary request by Ambrose Bierce (#{ambrose})"
+  end
+
+  def ensure_create_project(uid, pid, descr)
+    begin
+      DeterLab.create_project(uid, pid, uid, PROJECT_DEFAULTS.merge(description: descr))
+    rescue DeterLab::RequestError => e
+      if e.message =~ /name conflict/
+        DeterLab.remove_project(@admin_user, pid)
+        DeterLab.create_project(uid, pid, uid, PROJECT_DEFAULTS.merge(description: descr))
+      else
+        raise e
       end
     end
   end
