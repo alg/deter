@@ -49,3 +49,16 @@ namespace :deploy do
   end
 
 end
+
+namespace :deter do
+
+  task :seed do
+    on roles(:app) do
+      puts "#{ENV['admin']} / #{ENV['pass']}"
+      with admin: 'test' do
+        execute :rake, 'deter:seed'
+      end
+    end
+  end
+
+end
