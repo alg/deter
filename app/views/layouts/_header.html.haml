@@ -24,10 +24,9 @@
       .navbar.navbar-inverse{ role: 'navigation' }
         %ul.nav.navbar-nav
           = submenu_item :profile, "Profile", profile_path
-          %li.dropdown{ class: @submenu == :projects ? 'active' : nil }
-            = link_to t("submenu.projects"), "#", class: "dropdown-toggle", data: { toggle: 'dropdown' }, role: 'button', 'aria-expanded' => 'false'
-            %ul.dropdown-menu{ role: 'menu' }
-              = submenu_item :projects, t("submenu.my_projects"), projects_path
+          = dropdown_submenu_item [ :projects ], t("submenu.projects") do
+            = submenu_item :projects, t("submenu.my_projects"), projects_path
           <li><a href="#">Libraries</a></li>
-          = submenu_item :experiments, "Experiments", experiments_path
+          = dropdown_submenu_item [ :experiments ], t("submenu.experiments") do
+            = submenu_item :experiments, t("submenu.my_experiments"), experiments_path
           <li><a href="#">Notifications</a></li>

@@ -2,3 +2,6 @@ en:
   submenu:
     projects: Projects
     my_projects: My Projects
+
+    experiments: Experiments
+    my_experiments: My Experiments
