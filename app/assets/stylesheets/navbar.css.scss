@@ -5,3 +5,8 @@
 .navbar-inverse {
   background-color: #000;
 }
+
+.submenu .navbar {
+  min-height: inherit;
+  margin-bottom: 0;
+}

@@ -33,4 +33,18 @@
       }
     }
   }
+
+  ul.dropdown-menu {
+    background-color: #000;
+
+    li {
+      display: block;
+    }
+
+    a {
+      border-radius: 0;
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+    }
+  }
 }
