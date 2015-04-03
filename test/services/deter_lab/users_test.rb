@@ -1,4 +1,5 @@
 require 'services/deter_lab/abstract_test'
+require 'webmock/minitest'
 
 class DeterLab::UsersTest < DeterLab::AbstractTest
 

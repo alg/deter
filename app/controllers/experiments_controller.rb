@@ -29,9 +29,9 @@ class ExperimentsController < ApplicationController
       return
     end
 
-    # @profile = deter_cache.fetch "experiment_profile:#{@experiment.id}" do
-    #   DeterLab.experiment_profile(@app_session.current_user_id, experiment.id)
-    # end
+    @profile = deter_cache.fetch "experiment_profile:#{@experiment.id}" do
+      DeterLab.get_experiment_profile(@app_session.current_user_id, @experiment.id)
+    end
   end
 
   # returns experiment profile

@@ -9,24 +9,39 @@
     %table.table
       %thead
         %tr
-          %th= t ".circle"
-          %th= t ".permissions"
+          %th.col-sm-3= t ".circle"
+          %th.col-sm-9= t ".permissions"
       - @experiment.acl.each do |acl|
         %tr
           %th= acl.circle_id
           %td= acl.permissions.join("<br/>").html_safe
 
-    %h4= t ".aspects"
-    %table.table
-      %thead
-        %tr
-          %th.col-sm-1= t ".name"
-          %th.col-sm-2= t ".type"
-          %th.col-sm-9= t ".data"
-      - @experiment.aspects.each do |a|
-        %tr
-          %td= a.name
-          %td #{a.type} / #{a.sub_type}
-          %td
-            %pre= a.formatted_data
+    - unless @profile.blank?
+      %h4= t ".profile"
+      %table.table
+        %thead
+          %tr
+            %th.col-sm-3= t ".field"
+            %th.col-sm-9= t ".value"
+        - @profile.each do |f|
+          - k = f.name
+          - v = f.value
+          %tr
+            %td= k.capitalize
+            %td= v
+
+    - unless @experiment.aspects.blank?
+      %h4= t ".aspects"
+      %table.table
+        %thead
+          %tr
+            %th.col-sm-1= t ".name"
+            %th.col-sm-2= t ".type"
+            %th.col-sm-9= t ".data"
+        - @experiment.aspects.each do |a|
+          %tr
+            %td= a.name
+            %td #{a.type} / #{a.sub_type}
+            %td
+              %pre= a.formatted_data
 

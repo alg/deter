@@ -33,6 +33,13 @@ en:
 
       not_found: Experiment is missing
 
+      field: Field
+      value: Value
+
+      name: Name
+      type: Type
+      date: Date
+
     new:
       title: New experiment
       info: >
