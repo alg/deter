@@ -22,7 +22,8 @@ class ExperimentsController < ApplicationController
 
   # shows experiment details
   def show
-    @experiment = get_experiments.find { |ex| ex.id == params[:id] }
+    # @experiment = get_experiments.find { |ex| ex.id == params[:id] }
+    @experiment = get_experiment(params[:id])
     if @experiment.nil?
       redirect_to :experiments, alert: t(".not_found")
       return
@@ -81,6 +82,12 @@ class ExperimentsController < ApplicationController
   def get_experiments
     return deter_cache.fetch "user_experiments", 30.minutes do
       DeterLab.view_experiments(app_session.current_user_id)
+    end
+  end
+
+  def get_experiment(id)
+    return deter_cache.fetch "experiment:#{id}", 30.minutes do
+      DeterLab.view_experiments(app_session.current_user_id, list_only: false, regex: id, query_aspects: { }).first
     end
   end
 

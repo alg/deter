@@ -12,6 +12,7 @@ module DeterLab
       project_id = options[:project_id]
       regex      = options[:regex]
       list_only  = options.has_key?(:list_only) ? options[:list_only] : true
+      query_aspects = options[:query_aspects]
 
       order = [ :uid ]
       message = { uid: uid, listOnly: list_only }
@@ -21,6 +22,10 @@ module DeterLab
       elsif regex.present?
         message[:regex] = regex
         order << :regex
+      end
+      if query_aspects.present?
+        message[:query_aspects] = query_aspects
+        order << :query_aspects
       end
       order << :listOnly
       message[:order!] = order
@@ -33,7 +38,11 @@ module DeterLab
           ExperimentACL.new(a[:circle_id], a[:permissions])
         end
 
-        Experiment.new(ex[:experiment_id], ex[:owner], acl)
+        aspects = [ex[:aspects] || []].flatten.map do |a|
+          ExperimentAspect.new(a[:name], a[:type], a[:sub_type], a[:data], a[:data_reference])
+        end
+
+        Experiment.new(ex[:experiment_id], ex[:owner], acl, aspects)
       end
     rescue Savon::SOAPFault => e
       process_error e

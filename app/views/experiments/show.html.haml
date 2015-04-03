@@ -16,4 +16,17 @@
           %th= acl.circle_id
           %td= acl.permissions.join("<br/>").html_safe
 
+    %h4= t ".aspects"
+    %table.table
+      %thead
+        %tr
+          %th.col-sm-1= t ".name"
+          %th.col-sm-2= t ".type"
+          %th.col-sm-9= t ".data"
+      - @experiment.aspects.each do |a|
+        %tr
+          %td= a.name
+          %td #{a.type} / #{a.sub_type}
+          %td
+            %pre= a.formatted_data
 

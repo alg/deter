@@ -1,2 +1,2 @@
-class Experiment < Struct.new(:id, :owner, :acl)
+class Experiment < Struct.new(:id, :owner, :acl, :aspects)
 end
