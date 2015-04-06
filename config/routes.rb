@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :experiments, only: [ :index, :new, :create, :destroy, :show ] do
     member do
       get :profile
+      post :run
     end
   end
 

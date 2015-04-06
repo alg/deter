@@ -19,6 +19,11 @@ en:
       more: More info
       less: Less info
       view: View
+      run: Run
+
+    run:
+      success: Started the experiment successfully
+      failure: "Failed to start the experiment:<br/>%{error}"
 
     show:
       title: "Experiment: %{id}"

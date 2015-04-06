@@ -27,6 +27,7 @@
               %td{ colspan: 3 }
                 .data-cell
                 %p
+                  -# = link_to t(".run"), run_experiment_path(e.id), method: :post, class: 'btn btn-xs btn-success'
                   = link_to t(".view"), experiment_path(e.id), class: 'btn btn-xs btn-info'
                   = link_to t(".delete"), experiment_path(e.id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'
 

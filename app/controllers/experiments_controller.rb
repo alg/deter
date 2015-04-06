@@ -40,6 +40,15 @@ class ExperimentsController < ApplicationController
     render 'shared/profile'
   end
 
+  # runs the experiment
+  def run
+    uid = @app_session.current_user_id
+    DeterLab.realize_experiment(uid, uid, params[:id])
+    redirect_to :experiments, notice: t(".success")
+  rescue DeterLab::RequestError => e
+    redirect_to :experiments, alert: t(".failure", error: e.message)
+  end
+
   # showing the new experiment form
   def new
     @profile_descr = deter_cache.fetch_global "experiment_profile_description", 1.day do

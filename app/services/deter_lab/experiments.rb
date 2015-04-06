@@ -90,6 +90,16 @@ module DeterLab
       process_error e
     end
 
+    # realizes the experiment
+    def realize_experiment(uid, owner, eid)
+      cl = client("Experiments", uid)
+      response = cl.call(:realize_experiment, message: { owner: uid, eid: eid })
+
+      return response.to_hash[:realize_experiment_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
     # adds aspects to an experiment
     def add_experiment_aspects(uid, eid, aspects)
       cl = client("Experiments", uid)
