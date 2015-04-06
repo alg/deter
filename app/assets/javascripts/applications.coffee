@@ -45,7 +45,8 @@ class ApplicationForm
 
   initUserFields: ->
     @validatedObservable("userType")
-    @userFields = [ "user_name", "user_email", "user_phone", "user_title", "user_affiliation", "user_affiliation_abbrev", "user_URL", "user_address1", "user_address2", "user_city", "user_state", "user_zip", "user_country" ]
+    @userFields = [ "user_name", "user_email", "user_phone", "user_title", "user_affiliation", "user_affiliation_abbrev", "user_URL", "user_address1", "user_city", "user_state", "user_zip", "user_country" ]
+    @["user_address2"] = ko.observable()
     @validatedObservable(field) for field in @userFields
 
   initProjectFields: ->
