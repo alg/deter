@@ -45,6 +45,10 @@ en:
       type: Type
       date: Date
 
+      view: View
+      hide: Hide
+      modify: Modify
+
     new:
       title: New experiment
       info: >

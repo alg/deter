@@ -35,13 +35,18 @@
       %table.table
         %thead
           %tr
-            %th.col-sm-1= t ".name"
-            %th.col-sm-2= t ".type"
-            %th.col-sm-9= t ".data"
-        - @experiment.aspects.each do |a|
+            %th.col-sm-7= t ".name"
+            %th.col-sm-3= t ".type"
+            %th.col-sm-2.text-right= t ".value"
+        - @experiment.aspects.each_with_index do |a, i|
           %tr
             %td= a.name
             %td #{a.type} / #{a.sub_type}
-            %td
+            %td.text-right
+              = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-default more'
+              = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-default less hide'
+              = link_to t(".modify"), "#", class: 'btn btn-xs btn-default'
+          %tr{ data: { more_id: i }, class: 'hide' }
+            %td{ colspan: 3 }
               %pre= a.formatted_data
 

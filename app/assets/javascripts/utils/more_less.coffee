@@ -6,7 +6,7 @@ class window.MoreLess
       id = el.data('id')
       row = $("tr[data-more-id='#{id}']", scope)
       row.removeClass('hide')
-      $("a.less[data-pid='#{id}']", scope).removeClass('hide')
+      $("a.less[data-id='#{id}']", scope).removeClass('hide')
       el.addClass('hide')
       moreCallback(id, row) if moreCallback
 
@@ -15,6 +15,6 @@ class window.MoreLess
       e.preventDefault()
       el = $(this)
       id = el.data('id')
-      $("tr[data-more-pid='#{id}']", scope).addClass('hide')
-      $("a.more[data-pid='#{id}']", scope).removeClass('hide')
+      $("tr[data-more-id='#{id}']", scope).addClass('hide')
+      $("a.more[data-id='#{id}']", scope).removeClass('hide')
       el.addClass('hide')
