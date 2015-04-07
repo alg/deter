@@ -13,7 +13,8 @@ en:
         <p>
           This is your DeterLab user profile.
         </p>
-      submit: Save changes
+      submit: Save Changes
+      cancel: Cancel
 
     update:
       success: Profile updated successfully

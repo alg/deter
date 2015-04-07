@@ -21,4 +21,5 @@
 
       .form-group
         .col-sm-offset-2.col-sm-6
-          = submit_tag "Change password", class: "btn btn-default"
+          = submit_tag t(".submit"), class: "btn btn-default"
+          = link_to t(".cancel"), :profile, class: "btn btn-default"
