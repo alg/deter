@@ -96,6 +96,8 @@ module DeterLab
       response = cl.call(:realize_experiment, message: { owner: uid, eid: eid })
 
       return response.to_hash[:realize_experiment_response][:return]
+    rescue Savon::UnknownOperationError => e
+      raise RequestError, "Unimplemented"
     rescue Savon::SOAPFault => e
       process_error e
     end

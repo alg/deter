@@ -25,7 +25,7 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
         Experiment.new("SPIdev:Test", @username, [
           ExperimentACL.new("SPIdev:SPIdev", [ "MODIFY_EXPERIMENT_ACCESS", "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ]),
           ExperimentACL.new("bfdh:bfdh", [ "MODIFY_EXPERIMENT_ACCESS", "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ])
-        ])
+        ], [])
       ], list
     end
   end
@@ -92,10 +92,10 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
   test "run experiment" do
     VCR.use_cassette "deterlab/experiments/run-experiment" do
       login
-      assert create_experiment("SPIdev", "TestAspects4"), "Could not create an experiment"
-      DeterLab.add_experiment_aspects(@username, "SPIdev:TestAspects4", [ { type: 'layout', data: LAYOUT } ])
 
-      DeterLab.realize_experiment(@username, @username, "SPIdev:TestAspects4")
+      assert_raise DeterLab::RequestError do
+        DeterLab.realize_experiment(@username, @username, "SPIdev:TestAspects4")
+      end
     end
   end
 

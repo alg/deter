@@ -46,7 +46,7 @@ class ExperimentsController < ApplicationController
     DeterLab.realize_experiment(uid, uid, params[:id])
     redirect_to :experiments, notice: t(".success")
   rescue DeterLab::RequestError => e
-    redirect_to :experiments, alert: t(".failure", error: e.message)
+    redirect_to :experiments, alert: t(".failure", error: e.message).html_safe
   end
 
   # showing the new experiment form
