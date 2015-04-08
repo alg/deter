@@ -2,7 +2,7 @@ en:
   submenu:
     projects:         Projects
     my_projects:      My Projects
-    new_project:      Require a New Project
+    new_project:      Request a New Project
     join_project:     Request to Join a Project
     manage_projects:  Manage Projects
     manage_project:   "Manage %{id}"
