@@ -37,6 +37,9 @@ en:
       delete: Delete
       confirm_delete: Are you sure to delete this project?
 
+    manage:
+      title: "Manage Project %{id} TBD"
+
     new:
       title: Create project
       info: >

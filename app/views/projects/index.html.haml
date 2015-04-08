@@ -1,4 +1,4 @@
-- @submenu = :projects
+- @submenu = :my_projects
 .page-header
   %h1= raw t '.title'
   = raw t '.info'
@@ -27,6 +27,8 @@
               %td{ colspan: 3 }
                 .data-cell
                 %p
+                  - if p.owner == @app_session.current_user_id
+                    = link_to t(".manage"), manage_project_path(p.project_id), class: 'btn btn-xs btn-info'
                   = link_to t(".view"), project_path(p.project_id), class: 'btn btn-xs btn-info'
                   = link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'
 

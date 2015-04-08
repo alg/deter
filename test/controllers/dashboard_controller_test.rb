@@ -9,6 +9,7 @@ class DashboardControllerTest < ActionController::TestCase
 
   test "rendering for logged in users" do
     AppSession.new(@controller.session).logged_in_as "mark"
+    CachedDeterLab.any_instance.stubs(:get_managed_projects).returns([])
 
     get :show
     assert_response :success

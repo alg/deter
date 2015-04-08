@@ -32,4 +32,10 @@ class ApplicationController < ActionController::Base
   def deter_cache
     @deter_cache ||= DeterCache.new(app_session.current_user_id)
   end
+
+  # returns the cached deter lab access layer
+  def deter_lab
+    @deter_lab ||= CachedDeterLab.new(deter_cache, app_session.current_user_id)
+  end
+  helper_method :deter_lab
 end

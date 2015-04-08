@@ -7,14 +7,14 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "index" do
-    DeterLab.expects(:view_projects).returns([])
+    DeterLab.expects(:view_projects).twice.returns([])
     get :index
     assert_not_nil assigns[:projects]
     assert_template :index
   end
 
   test "sorting of projects in index" do
-    ProjectsController.any_instance.stubs(:get_projects).returns([
+    CachedDeterLab.any_instance.stubs(:get_projects).returns([
       Project.new("member-b", "john", true, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ]),
       Project.new("owner-b", "mark", true, []),
       Project.new("owner-a", "mark", true, []),
@@ -31,7 +31,7 @@ class ProjectsControllerTest < ActionController::TestCase
   test "show" do
     pid = "project_id"
     pr = Project.new(pid, "mark", true, [])
-    DeterLab.expects(:view_projects).returns([ pr ])
+    DeterLab.expects(:view_projects).twice.returns([ pr ])
     DeterLab.expects(:get_project_profile).with("mark", pid).returns({})
     get :show, id: pid
     assert_not_nil assigns[:project]

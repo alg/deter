@@ -95,7 +95,7 @@ class DeterLab::UsersTest < DeterLab::AbstractTest
   end
 
   test "create user no confirm" do
-    VCR.use_cassette "deterlab/users/create-user-no-confirm", record: :all do
+    VCR.use_cassette "deterlab/users/create-user-no-confirm" do
       login
       assert DeterLab.create_user_no_confirm(@username, 'Mark', user_profile)
     end

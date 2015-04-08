@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # Projects list
   def index
     uid = app_session.current_user_id
-    @projects = get_projects.sort do |p1, p2|
+    @projects = deter_lab.get_projects.sort do |p1, p2|
       o1 = p1.owner == uid
       o2 = p2.owner == uid
 
@@ -24,30 +24,28 @@ class ProjectsController < ApplicationController
   # project details
   def show
     pid = params[:id]
-    @project = get_projects.find { |p| p.project_id == pid }
+    @project = get_project(pid)
     if @project.nil?
       redirect_to :projects, alert: t(".not_found")
       return
     end
 
-    @profile = deter_cache.fetch "project_profile:#{@project.project_id}" do
-      DeterLab.get_project_profile(app_session.current_user_id, @project.project_id)
-    end
+    @profile = deter_lab.get_project_profile(@project.project_id)
+  end
+
+  def manage
+    @project = get_project(params[:id])
   end
 
   # returns project profile
   def profile
-    @profile = get_project_profile(params[:id])
+    @profile = deter_lab.get_project_profile(params[:id])
     render 'shared/profile'
   end
 
   # New projects form
   def new
-    # deter_cache.delete_global "project_profile_description"
-    @profile_descr = deter_cache.fetch_global "project_profile_description", 1.day do
-      DeterLab.get_project_profile_description
-    end
-
+    @profile_descr = deter_lab.get_project_profile_description
     render :new
   end
 
@@ -60,7 +58,7 @@ class ProjectsController < ApplicationController
 
     uid = app_session.current_user_id
     DeterLab.create_project(uid, pp[:name], uid, pp.except(:name))
-    deter_cache.delete "user_projects"
+    deter_lab.invalidate_projects
     redirect_to :projects, notice: t(".success")
   rescue DeterLab::RequestError => e
     flash.now[:alert] = t(".failure", error: e.message).html_safe
@@ -70,7 +68,7 @@ class ProjectsController < ApplicationController
   # Deletes the project
   def destroy
     DeterLab.remove_project(app_session.current_user_id, params[:id])
-    deter_cache.delete "user_projects"
+    deter_lab.invalidate_projects
     redirect_to :projects, notice: t(".success")
   rescue DeterLab::RequestError => e
     redirect_to :projects, alert: t(".failure", error: e.message).html_safe
@@ -82,16 +80,8 @@ class ProjectsController < ApplicationController
     params[:project]
   end
 
-  def get_projects
-    deter_cache.fetch "user_projects", 30.minutes do
-      DeterLab.view_projects(app_session.current_user_id)
-    end
-  end
-
-  def get_project_profile(pid)
-    deter_cache.fetch "project_profile:#{pid}:#{app_session.current_user_id}", 30.minutes do
-      DeterLab.get_project_profile(app_session.current_user_id, pid)
-    end
+  def get_project(pid)
+    deter_lab.get_projects.find { |p| p.project_id == pid }
   end
 
 end
