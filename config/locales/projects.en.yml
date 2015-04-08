@@ -22,6 +22,7 @@ en:
       more: More info
       less: Less info
       view: View
+      manage: Manage
 
     show:
       title: "Project: %{id}"

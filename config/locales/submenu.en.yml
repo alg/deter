@@ -1,7 +1,13 @@
 en:
   submenu:
-    projects: Projects
-    my_projects: My Projects
+    projects:         Projects
+    my_projects:      My Projects
+    new_project:      Require a New Project
+    join_project:     Request to Join a Project
+    manage_projects:  Manage Projects
+    manage_project:   "Manage %{id}"
+    no_managed_projects: "Nothing to manage"
 
-    experiments: Experiments
-    my_experiments: My Experiments
+    experiments:      Experiments
+    my_experiments:   My Experiments
+    new_experiment:   Create New Experiment

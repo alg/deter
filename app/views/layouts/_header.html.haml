@@ -24,20 +24,23 @@
       .navbar.navbar-inverse{ role: 'navigation' }
         %ul.nav.navbar-nav
           = submenu_item :profile, "Profile", profile_path
-          = dropdown_submenu_item [ :my_projects, :manage_project ], t("submenu.projects") do
+          = dropdown_submenu_item [ :my_projects, :new_project, :join_project, :manage_project ], t("submenu.projects") do
             = submenu_item :my_projects, t("submenu.my_projects"), projects_path
+            = submenu_item :new_project, t("submenu.new_project"), new_project_path
+            = submenu_item :join_project, t("submenu.join_project"), new_project_join_path
             %li.dropdown-submenu{ class: @submenu == :manage_project ? 'active' : nil }
               = link_to t("submenu.manage_projects"), "#", tabindex: -1
               %ul.dropdown-menu
                 - projects = deter_lab.get_managed_projects
                 - if projects.blank?
-                  %li= link_to t(".no_managed_projects"), "#"
+                  %li= link_to t("submenu.no_managed_projects"), "#"
                 - else
                   - projects.each do |p|
                     %li{ class: p.project_id == params[:id] ? 'active' : nil }
-                      = link_to "Manage #{p.project_id}", manage_project_path(p.project_id)
+                      = link_to t("submenu.manage_project", id: p.project_id), manage_project_path(p.project_id)
 
           <li><a href="#">Libraries</a></li>
-          = dropdown_submenu_item [ :experiments ], t("submenu.experiments") do
-            = submenu_item :experiments, t("submenu.my_experiments"), experiments_path
+          = dropdown_submenu_item [ :my_experiments, :new_experiment ], t("submenu.experiments") do
+            = submenu_item :my_experiments, t("submenu.my_experiments"), experiments_path
+            = submenu_item :new_experiment, t("submenu.new_experiment"), new_experiment_path
           <li><a href="#">Notifications</a></li>
