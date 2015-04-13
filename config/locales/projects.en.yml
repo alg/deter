@@ -24,6 +24,8 @@ en:
       view: View
       manage: Manage
 
+      unapproved_projects: "Your DeterLab project requests that have not yet been approved"
+
     show:
       title: "Project: %{id}"
       info: >

@@ -5,7 +5,9 @@ class ProjectsController < ApplicationController
   # Projects list
   def index
     uid = app_session.current_user_id
-    @projects = deter_lab.get_projects.sort do |p1, p2|
+    projects = deter_lab.get_projects
+
+    @approved = projects.select { |p| p.approved }.sort do |p1, p2|
       o1 = p1.owner == uid
       o2 = p2.owner == uid
 
@@ -17,6 +19,8 @@ class ProjectsController < ApplicationController
         1
       end
     end
+
+    @unapproved = projects.select { |p| !p.approved && p.owner == uid }
 
     gon.getProfileUrl = profile_project_path(':id')
   end

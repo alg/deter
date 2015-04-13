@@ -9,8 +9,25 @@ class ProjectsControllerTest < ActionController::TestCase
   test "index" do
     DeterLab.expects(:view_projects).twice.returns([])
     get :index
-    assert_not_nil assigns[:projects]
+    assert_not_nil assigns[:approved]
+    assert_not_nil assigns[:unapproved]
     assert_template :index
+  end
+
+  test "separating approved from unapproved" do
+    CachedDeterLab.any_instance.stubs(:get_projects).returns([
+      Project.new("member-b", "john", true, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ]),
+      Project.new("owner-b",  "mark", false, []),
+      Project.new("owner-a",  "mark", true, []),
+      Project.new("member-a", "john", false, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ])
+    ])
+
+    get :index
+    approved = assigns[:approved].map(&:project_id)
+    assert_equal ["owner-a", "member-b"], approved
+
+    unapproved = assigns[:unapproved].map(&:project_id)
+    assert_equal ["owner-b"], unapproved
   end
 
   test "sorting of projects in index" do
@@ -21,11 +38,8 @@ class ProjectsControllerTest < ActionController::TestCase
       Project.new("member-a", "john", true, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ])
     ])
     get :index
-    ps = assigns[:projects]
-    assert_equal ps[0].project_id, "owner-a"
-    assert_equal ps[1].project_id, "owner-b"
-    assert_equal ps[2].project_id, "member-a"
-    assert_equal ps[3].project_id, "member-b"
+    assert_equal ["owner-a", "owner-b", "member-a", "member-b"], assigns[:approved].map(&:project_id)
+    assert_equal [], assigns[:unapproved]
   end
 
   test "show" do

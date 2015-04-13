@@ -5,32 +5,11 @@
 
 .row
   .col-sm-12
-    %table.table.projects
-      %thead
-        %tr
-          %th= t '.project_id'
-          %th.col-sm-2= t '.owner'
-          %th.col-sm-2.text-right= t '.actions'
-      %tbody
-        - if @projects.blank?
-          %tr
-            %td{ colspan: 3 }= t '.nothing'
-        - else
-          - @projects.each do |p|
-            %tr
-              %td= link_to p.project_id, project_path(p.project_id)
-              %td= p.owner
-              %td.text-right
-                = link_to t(".more"), "#", data: { id: p.project_id }, class: 'more'
-                = link_to t(".less"), "#", data: { id: p.project_id }, class: 'less hide'
-            %tr{ data: { more_id: p.project_id }, class: 'hide' }
-              %td{ colspan: 3 }
-                .data-cell
-                %p
-                  - if p.owner == @app_session.current_user_id
-                    = link_to t(".manage"), manage_project_path(p.project_id), class: 'btn btn-xs btn-info'
-                  = link_to t(".view"), project_path(p.project_id), class: 'btn btn-xs btn-info'
-                  = link_to t(".delete"), project_path(p.project_id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'
+    = render partial: 'projects_table', object: @approved
+
+    - if @unapproved.any?
+      %h3= t ".unapproved_projects"
+      = render partial: 'projects_table', object: @unapproved
 
 .row
   .col-sm-12
