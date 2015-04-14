@@ -15,30 +15,30 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "separating approved from unapproved" do
-    CachedDeterLab.any_instance.stubs(:get_projects).returns([
-      Project.new("member-b", "john", true, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ]),
-      Project.new("owner-b",  "mark", false, []),
-      Project.new("owner-a",  "mark", true, []),
-      Project.new("member-a", "john", false, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ])
+    ProjectSummaryLoader.stubs(:load).returns([
+      { project_id: "member-b", approved: true,  leader: { uid: "john" } },
+      { project_id: "owner-b",  approved: false, leader: { uid: "mark" } },
+      { project_id: "owner-a",  approved: true,  leader: { uid: "mark" } },
+      { project_id: "member-a", approved: false, leader: { uid: "john" } }
     ])
 
     get :index
-    approved = assigns[:approved].map(&:project_id)
+    approved = assigns[:approved].map { |p| p[:project_id] }
     assert_equal ["owner-a", "member-b"], approved
 
-    unapproved = assigns[:unapproved].map(&:project_id)
+    unapproved = assigns[:unapproved].map { |p| p[:project_id] }
     assert_equal ["owner-b"], unapproved
   end
 
   test "sorting of projects in index" do
-    CachedDeterLab.any_instance.stubs(:get_projects).returns([
-      Project.new("member-b", "john", true, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ]),
-      Project.new("owner-b", "mark", true, []),
-      Project.new("owner-a", "mark", true, []),
-      Project.new("member-a", "john", true, [ ProjectMember.new("john", []), ProjectMember.new("mark", []) ])
+    ProjectSummaryLoader.stubs(:load).returns([
+      { project_id: "member-b", approved: true, leader: { uid: "john" } },
+      { project_id: "owner-b",  approved: true, leader: { uid: "mark" } },
+      { project_id: "owner-a",  approved: true, leader: { uid: "mark" } },
+      { project_id: "member-a", approved: true, leader: { uid: "john" } }
     ])
     get :index
-    assert_equal ["owner-a", "owner-b", "member-a", "member-b"], assigns[:approved].map(&:project_id)
+    assert_equal ["owner-a", "owner-b", "member-a", "member-b"], assigns[:approved].map { |p| p[:project_id] }
     assert_equal [], assigns[:unapproved]
   end
 

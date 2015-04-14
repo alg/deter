@@ -70,8 +70,14 @@ class CachedDeterLab
   end
 
   # invalidates user experiments
-  def invalidate_experiments
+  def invalidate_experiments(project_id = nil)
     @deter_cache.delete "experiments"
+
+    if project_id.nil?
+      @deter_cache.delete_matched_global "experiments_count:*"
+    else
+      @deter_cache.delete_global "experiments_count:#{project_id}"
+    end
   end
 
   # returns experiment data

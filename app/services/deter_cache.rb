@@ -25,6 +25,11 @@ class DeterCache
     do_delete global_key(scope)
   end
 
+  # invalidates data in global cache
+  def delete_matched_global(scope)
+    do_delete_matched global_key(scope)
+  end
+
   private
 
   def do_fetch(k, expires_in, &block)
@@ -39,6 +44,10 @@ class DeterCache
 
   def do_delete(k)
     Rails.cache.delete(k)
+  end
+
+  def do_delete_matched(k)
+    Rails.cache.delete_matched(k)
   end
 
   def global_key(scope)

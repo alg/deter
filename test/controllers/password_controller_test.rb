@@ -8,7 +8,7 @@ class PasswordControllerTest < ActionController::TestCase
 
   test "showing change password form" do
     get :edit
-    assert_response :success
+    assert_template :edit
   end
 
   test "successful password change" do

@@ -61,7 +61,7 @@ class ExperimentsController < ApplicationController
     end
 
     DeterLab.create_experiment(app_session.current_user_id, project_id, ep.delete(:name), ep)
-    deter_lab.invalidate_experiments
+    deter_lab.invalidate_experiments(project_id)
     redirect_to :experiments, notice: t(".success")
   rescue DeterLab::RequestError => e
     flash.now[:alert] = t(".failure", error: e.message).html_safe

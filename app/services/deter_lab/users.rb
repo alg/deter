@@ -27,9 +27,9 @@ module DeterLab
     end
 
     # Returns complete user profile in key-value form
-    def get_user_profile(uid)
+    def get_user_profile(uid, user_id = uid)
       cl = client("Users", uid)
-      response = cl.call(:get_user_profile, "message" => { "uid" => uid })
+      response = cl.call(:get_user_profile, "message" => { "uid" => user_id })
       raise Error unless response.success?
 
       return response.to_hash[:get_user_profile_response][:return][:attributes].inject(Profile.new) do |memo, attr|
