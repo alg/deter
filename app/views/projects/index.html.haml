@@ -8,7 +8,8 @@
     = render partial: 'projects_table', object: @approved
 
     - if @unapproved.any?
-      %h3= t ".unapproved_projects"
+      %h3= t ".unapproved_projects.title"
+      %p= raw t ".unapproved_projects.info"
       = render partial: 'projects_table', object: @unapproved
 
 .row
