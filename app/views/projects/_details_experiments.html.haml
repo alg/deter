@@ -5,7 +5,7 @@
         = link_to e[:id]
     %tr
       %td
-        <strong>Owner</strong>: #{link_to e[:owner][:name], user_path(e[:id])} (#{e[:owner][:id]})
+        <strong>Owner</strong>: #{link_to (e[:owner][:name] or "<unnamed>"), user_path(e[:id])} (#{e[:owner][:id]})
     %tr
       %td
         <strong>Status</strong>: #{e[:status]}
