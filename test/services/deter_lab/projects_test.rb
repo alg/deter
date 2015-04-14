@@ -2,6 +2,15 @@ require 'services/deter_lab/abstract_test'
 
 class DeterLab::ProjectsTest < DeterLab::AbstractTest
 
+  # test "add faber" do
+  #   VCR.use_cassette "add-faber" do
+  #     login 'admin_user'
+  #     pid = "admin"
+  #     user_id = "faber"
+  #     assert DeterLab.add_users_no_confirm(@username, pid, [ user_id ])
+  #   end
+  # end
+
   test "getting project profile description" do
     VCR.use_cassette "deterlab/projects/project-profile-description" do
       fields = DeterLab.get_project_profile_description
