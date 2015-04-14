@@ -5,19 +5,50 @@
 
 .row
   .col-sm-12
-    %table.table
-      %thead
-        %tr
-          %th= t ".field"
-          %th= t ".value"
-      - @profile.each do |f|
-        - k = f.name
-        - next unless Project::PROFILE_FIELDS.include?(k)
-        - v = f.value
-        %tr
-          %td= t "page_project_info.project_leader.project_#{k}.label"
-          %td= v
 
-.row
-  .col-sm-12
-    = link_to t(".delete"), project_path(@project.project_id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-danger'
+    .row.section-row
+      .col-sm-11
+        %h4= t '.project_profile'
+      .col-sm-1.text-right
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#profile-section' }, "aria-expanded" => false, "aria-controls" => "profile-section" } Show
+
+    .row#profile-section.section.collapse
+      .col-sm-12
+        %table.table
+          - @profile.each do |f|
+            - k = f.name
+            - next unless Project::PROFILE_FIELDS.include?(k)
+            - v = f.value
+            %tr
+              %td= t "page_project_info.project_leader.project_#{k}.label"
+              %td= v
+
+    .row.section-row
+      .col-sm-11
+        %h4= t '.project_team'
+      .col-sm-1.text-right
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#team-section' }, "aria-expanded" => false, "aria-controls" => "team-section" } Show
+
+    .row.section#team-section.collapse.in
+      .col-sm-12.body
+        %span.spinner Loading. Please wait&hellip;
+
+    .row.section-row
+      .col-sm-11
+        %h4= t '.experiments'
+      .col-sm-1.text-right
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#experiments-section' }, "aria-expanded" => false, "aria-controls" => "experiments-section" } Show
+
+    .row.section#experiments-section.collapse.in
+      .col-sm-12.body
+        %span.spinner Loading. Please wait&hellip;
+
+    .row.section-row
+      .col-sm-11
+        %h4= t '.recent_activity'
+      .col-sm-1.text-right
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#activity-section' }, "aria-expanded" => false, "aria-controls" => "activity-section" } Show
+
+    .row.section#activity-section.collapse
+      .col-sm-12
+        TBD

@@ -35,6 +35,34 @@ class ProjectsController < ApplicationController
     end
 
     @profile = deter_lab.get_project_profile(@project.project_id)
+
+    gon.projectDetailsUrl = details_project_path(pid)
+  end
+
+  # renders details about project team and experiments
+  # called by JS from the projects/show page
+  def details
+    pid = params[:id]
+    project = get_project(pid)
+
+    members = {}
+    @team = project.members.map do |m|
+      profile = ProjectSummaryLoader.member_profile(deter_cache, @app_session.current_user_id, m.uid)
+      profile['uid'] = m.uid
+      members[m.uid] = profile
+      profile
+    end
+
+    @experiments = ProjectSummaryLoader.project_experiments(deter_cache, @app_session.current_user_id, pid).map do |e|
+      { id:     e.id,
+        owner:  { id: e.owner, name: members[e.owner]['name'] },
+        descr:  deter_lab.get_experiment_profile(e.id)['description'].try(:value),
+        status: 'TBD'
+      }
+    end
+    render json: {
+      team_html:        render_to_string(partial: "details_team"),
+      experiments_html: render_to_string(partial: "details_experiments") }
   end
 
   def manage

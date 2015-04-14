@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     member do
       get :profile
       get :manage
+      get :details
     end
   end
   resources :project_joins, only: [ :new, :create ]
@@ -38,8 +39,11 @@ Rails.application.routes.draw do
     member do
       get :profile
       post :run
+      get :manage
     end
   end
+
+  resources :users, only: [ :show ]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

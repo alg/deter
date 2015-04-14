@@ -74,9 +74,9 @@ class CachedDeterLab
     @deter_cache.delete "experiments"
 
     if project_id.nil?
-      @deter_cache.delete_matched_global "experiments_count:*"
+      @deter_cache.delete_matched_global "project:*:experiments"
     else
-      @deter_cache.delete_global "experiments_count:#{project_id}"
+      @deter_cache.delete_global "project:#{project_id}:experiments"
     end
   end
 

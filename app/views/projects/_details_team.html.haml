@@ -1,0 +1,3 @@
+%ul
+  - @team.each do |m|
+    %li #{link_to m['name'], user_path(m['name'])} (#{m['uid']})

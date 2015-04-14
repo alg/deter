@@ -11,15 +11,11 @@ class ProjectSummaryLoader
   def self.perform_load(uid, cache)
     DeterLab.view_projects(uid).inject([]) do |m, project|
       # owner
-      user_profile = cache.fetch_global "profile:#{project.owner}", 30.minutes do
-        DeterLab.get_user_profile(uid, project.owner)
-      end
+      user_profile = member_profile(cache, uid, project.owner)
       owner = { uid: project.owner, name: user_profile["name"] }
 
       # experiments
-      experiments_count = cache.fetch_global "experiments_count:#{project.project_id}", 30.minutes do
-        DeterLab.view_experiments(uid, project_id: project.project_id).size
-      end
+      experiments_count = project_experiments(cache, uid, project.project_id).size
 
       m << {
         project_id:   project.project_id,
@@ -32,4 +28,15 @@ class ProjectSummaryLoader
     end
   end
 
+  def self.member_profile(cache, uid, member_id)
+    cache.fetch_global "profile:#{member_id}", 30.minutes do
+      DeterLab.get_user_profile(uid, member_id)
+    end
+  end
+
+  def self.project_experiments(cache, uid, project_id)
+    cache.fetch_global "project:#{project_id}:experiments", 30.minutes do
+      DeterLab.view_experiments(uid, project_id: project_id)
+    end
+  end
 end
