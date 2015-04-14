@@ -14,7 +14,7 @@
 
     .row#profile-section.section.collapse
       .col-sm-12
-        %table.table
+        %table.table.table-bordered
           - @profile.each do |f|
             - k = f.name
             - next unless Project::PROFILE_FIELDS.include?(k)

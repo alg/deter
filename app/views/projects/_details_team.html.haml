@@ -1,3 +1,4 @@
-%ul
+%table.table.table-bordered
   - @team.each do |m|
-    %li #{link_to m['name'], user_path(m['name'])} (#{m['uid']})
+    %tr
+      %td #{link_to m['name'], user_path(m['name'])} (#{m['uid']})
