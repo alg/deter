@@ -14,7 +14,7 @@ class ProjectJoinsControllerTest < ActionController::TestCase
   test 'create' do
     DeterLab.expects(:join_project).with("mark", "project_id").returns(true)
     post :create, project_id: 'project_id'
-    assert_redirected_to :project_joins
+    assert_redirected_to :dashboard
     assert_equal I18n.t("project_joins.create.success"), flash.notice
   end
 

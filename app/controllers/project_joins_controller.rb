@@ -9,7 +9,7 @@ class ProjectJoinsController < ApplicationController
   # Submits the request to join the project
   def create
     if DeterLab.join_project(app_session.current_user_id, params[:project_id])
-      redirect_to :project_joins, notice: t(".success")
+      redirect_to :dashboard, notice: t(".success")
     else
       flash.now.alert = t(".failure")
       render :new
