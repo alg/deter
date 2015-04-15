@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       get :manage
     end
   end
+  resources :experiment_profiles, only: [ :edit, :update ]
 
   resources :users, only: [ :show ]
 

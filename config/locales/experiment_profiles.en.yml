@@ -1,0 +1,8 @@
+en:
+  experiment_profiles:
+    edit:
+      title: Edit Experiment Profile
+      info: ""
+
+      save: Save Changes
+      cancel: Cancel
