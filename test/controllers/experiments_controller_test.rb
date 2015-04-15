@@ -14,15 +14,16 @@ class ExperimentsControllerTest < ActionController::TestCase
   end
 
   test "sorting of experiments in index" do
-    CachedDeterLab.any_instance.stubs(:get_experiments).returns([
-      Experiment.new("member-b", "john", []),
-      Experiment.new("owner-b", "mark", []),
-      Experiment.new("owner-a", "mark", []),
-      Experiment.new("member-a", "john", [])
+    SummaryLoader.stubs(:user_experiments).with("mark").returns([
+      { id: "member-b", owner: { uid: "john" } },
+      { id: "owner-b",  owner: { uid: "mark" } },
+      { id: "owner-a",  owner: { uid: "mark" } },
+      { id: "member-a", owner: { uid: "john" } }
     ])
+
     get :index
     es = assigns[:experiments]
-    assert_equal %w( owner-a owner-b member-a member-b ), es.map(&:id)
+    assert_equal %w( owner-a owner-b member-a member-b ), es.map { |e| e[:id] }
   end
 
   test "show" do
@@ -55,6 +56,7 @@ class ExperimentsControllerTest < ActionController::TestCase
   test "creating" do
     DeterLab.expects(:create_experiment).with("mark", "pid", "Test", { "description" => "Descr" }).returns(true)
     DeterCache.any_instance.expects(:delete).with("experiments")
+    DeterCache.any_instance.expects(:delete).with("experiments_summary")
     post :create, project_id: "pid", experiment: { name: "Test", description: "Descr" }
     assert_redirected_to :experiments
     assert_equal I18n.t("experiments.create.success"), flash.notice

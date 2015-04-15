@@ -11,9 +11,9 @@ class CachedDeterLab
   # -----------------------------------------------------------------------------------------------
 
   # returns user profile
-  def get_profile
-    @deter_cache.fetch "profile", 30.seconds do
-      DeterLab.get_user_profile(@current_uid)
+  def get_profile(uid = @current_uid)
+    @deter_cache.fetch_global "profile:#{uid}", 30.seconds do
+      DeterLab.get_user_profile(@current_uid, uid)
     end
   end
 
@@ -41,6 +41,7 @@ class CachedDeterLab
   # invalidates the user projects cache
   def invalidate_projects
     @deter_cache.delete "projects"
+    @deter_cache.delete "projects_summary"
   end
 
   # returns the project profile
@@ -72,6 +73,7 @@ class CachedDeterLab
   # invalidates user experiments
   def invalidate_experiments(project_id = nil)
     @deter_cache.delete "experiments"
+    @deter_cache.delete "experiments_summary"
 
     if project_id.nil?
       @deter_cache.delete_matched_global "project:*:experiments"

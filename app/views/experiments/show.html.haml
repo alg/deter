@@ -1,52 +1,87 @@
+- uid = @app_session.current_user_id
+- pid = @experiment.id.split(':').first
 - @submenu = :my_experiments
 .page-header
   %h1= raw t '.title', id: @experiment.id
   = raw t '.info', owner: @experiment.owner
 
+
 .row
   .col-sm-12
-    %h4= t ".acl"
-    %table.table
-      %thead
-        %tr
-          %th.col-sm-3= t ".circle"
-          %th.col-sm-9= t ".permissions"
-      - @experiment.acl.each do |acl|
-        %tr
-          %th= acl.circle_id
-          %td= acl.permissions.join("<br/>").html_safe
 
-    - unless @profile.blank?
-      %h4= t ".profile"
-      %table.table
-        %thead
-          %tr
-            %th.col-sm-3= t ".field"
-            %th.col-sm-9= t ".value"
-        - @profile.each do |f|
-          - k = f.name
-          - v = f.value
-          %tr
-            %td= k.capitalize
-            %td= v
+    .row.section-row
+      .col-sm-11
+        %h4= t '.experiment_profile'
+      .col-sm-1.text-right
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#profile-section' }, "aria-expanded" => false, "aria-controls" => "profile-section" } Show
 
-    - unless @experiment.aspects.blank?
-      %h4= t ".aspects"
-      %table.table
-        %thead
-          %tr
-            %th.col-sm-7= t ".name"
-            %th.col-sm-3= t ".type"
-            %th.col-sm-2.text-right= t ".value"
-        - @experiment.aspects.each_with_index do |a, i|
-          %tr
-            %td= a.name
-            %td #{a.type} / #{a.sub_type}
-            %td.text-right
-              = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-default more'
-              = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-default less hide'
-              = link_to t(".modify"), "#", class: 'btn btn-xs btn-default'
-          %tr{ data: { more_id: i }, class: 'hide' }
-            %td{ colspan: 3 }
-              %pre= a.formatted_data
+    .row#profile-section.section.collapse
+      .col-sm-12
+        %table.table.table-bordered
+          - @profile.each do |f|
+            - k = f.name
+            - next unless Project::PROFILE_FIELDS.include?(k)
+            - v = f.value
+            %tr
+              %td.col-sm-4= k.capitalize
+              %td.col-sm-8= v
+
+    .row.section-row
+      .col-sm-11
+        %h4= t '.access_control'
+      .col-sm-1.text-right
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#acl-section' }, "aria-expanded" => false, "aria-controls" => "acl-section" } Show
+
+    - acl = ExperimentAclPresenter.new(@experiment.acl, @experiment.owner, pid)
+    .row#acl-section.section.collapse
+      .col-sm-12
+        %table.table.table-bordered
+          - unless acl.owner_perms.blank?
+            %tr
+              %td.col-sm-4 User:&nbsp;#{deter_lab.get_profile(@experiment.owner)['name']}
+              %td.col-sm-8= acl.owner_perms.join(", ")
+          - acl.other_users_acl.each do |acl|
+            %tr
+              %td.col-sm-4 User:&nbsp;#{deter_lab.get_profile(acl[0])['name']}
+              %td.col-sm-8= acl[1].join(", ")
+
+
+        %table.table.table-bordered
+          - unless acl.project_perms.blank?
+            %tr
+              %td.col-sm-4 Group:&nbsp;#{pid}
+              %td.col-sm-8= acl.project_perms.join(", ")
+          - acl.groups_acl.each do |acl|
+            %tr
+              %td.col-sm-4 Group:&nbsp;#{acl.circle_id}
+              %td.col-sm-8= acl.permissions.join(", ")
+
+    .row.section-row
+      .col-sm-11
+        %h4= t '.recent_activity'
+      .col-sm-1.text-right
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#activity-section' }, "aria-expanded" => false, "aria-controls" => "activity-section" } Show
+
+    .row.section#activity-section.collapse
+      .col-sm-12
+        TBD
+-#     - unless @experiment.aspects.blank?
+-#       %h4= t ".aspects"
+-#       %table.table
+-#         %thead
+-#           %tr
+-#             %th.col-sm-7= t ".name"
+-#             %th.col-sm-3= t ".type"
+-#             %th.col-sm-2.text-right= t ".value"
+-#         - @experiment.aspects.each_with_index do |a, i|
+-#           %tr
+-#             %td= a.name
+-#             %td #{a.type} / #{a.sub_type}
+-#             %td.text-right
+-#               = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-default more'
+-#               = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-default less hide'
+-#               = link_to t(".modify"), "#", class: 'btn btn-xs btn-default'
+-#           %tr{ data: { more_id: i }, class: 'hide' }
+-#             %td{ colspan: 3 }
+-#               %pre= a.formatted_data
 

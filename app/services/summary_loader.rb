@@ -1,14 +1,37 @@
-class ProjectSummaryLoader
+class SummaryLoader
 
   # Loads the summary of projects for the given user.
-  def self.load(uid)
+  def self.user_projects(uid)
     cache = DeterCache.new(uid)
     cache.fetch "projects_summary", 30.minutes do
-      perform_load(uid, cache)
+      get_user_projects(uid, cache)
     end
   end
 
-  def self.perform_load(uid, cache)
+  # Loads the summary of user experiments.
+  def self.user_experiments(uid)
+    cache = DeterCache.new(uid)
+    cache.fetch "experiments_summary", 30.minutes do
+      get_user_experiments(uid, cache)
+    end
+  end
+
+  def self.get_user_experiments(uid, cache)
+    DeterLab.view_experiments(uid).inject([]) do |m, ex|
+      user_profile = member_profile(cache, uid, ex.owner)
+      ex_profile   = DeterLab.get_experiment_profile(uid, ex.id)
+
+      m << {
+        id:    ex.id,
+        owner: { uid: ex.owner, name: user_profile["name"] },
+        description: ex_profile['description'].value
+      }
+
+      m
+    end
+  end
+
+  def self.get_user_projects(uid, cache)
     DeterLab.view_projects(uid).inject([]) do |m, project|
       # owner
       user_profile = member_profile(cache, uid, project.owner)

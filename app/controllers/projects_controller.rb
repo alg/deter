@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # Projects list
   def index
     uid = app_session.current_user_id
-    projects = ProjectSummaryLoader.load(uid)
+    projects = SummaryLoader.user_projects(uid)
 
     @approved = projects.select { |p| p[:approved] }.sort do |p1, p2|
       o1 = p1[:leader][:uid] == uid
@@ -47,13 +47,13 @@ class ProjectsController < ApplicationController
 
     members = {}
     @team = project.members.map do |m|
-      profile = ProjectSummaryLoader.member_profile(deter_cache, @app_session.current_user_id, m.uid)
+      profile = SummaryLoader.member_profile(deter_cache, @app_session.current_user_id, m.uid)
       profile['uid'] = m.uid
       members[m.uid] = profile
       profile
     end
 
-    @experiments = ProjectSummaryLoader.project_experiments(deter_cache, @app_session.current_user_id, pid).map do |e|
+    @experiments = SummaryLoader.project_experiments(deter_cache, @app_session.current_user_id, pid).map do |e|
       { id:     e.id,
         owner:  { id: e.owner, name: members[e.owner]['name'] },
         descr:  deter_lab.get_experiment_profile(e.id)['description'].try(:value),

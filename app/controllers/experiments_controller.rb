@@ -5,11 +5,13 @@ class ExperimentsController < ApplicationController
   # lists all user experiments
   def index
     uid = app_session.current_user_id
-    @experiments = deter_lab.get_experiments.sort do |e1, e2|
-      o1 = e1.owner == uid
-      o2 = e2.owner == uid
+    experiments = SummaryLoader.user_experiments(uid)
+
+    @experiments = experiments.sort do |e1, e2|
+      o1 = e1[:owner][:uid] == uid
+      o2 = e2[:owner][:uid] == uid
       if o1 == o2
-        e1.id <=> e2.id
+        e1[:id] <=> e2[:id]
       elsif o1
         -1
       else

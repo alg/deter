@@ -5,31 +5,7 @@
 
 .row
   .col-sm-12
-    %table.table.table-striped
-      %thead
-        %tr
-          %th= t '.name'
-          %th.col-sm-2= t '.owner'
-          %th.col-sm-2.text-right= t '.actions'
-      %tbody
-        - if @experiments.blank?
-          %tr
-            %td{ colspan: 2 }= t '.nothing'
-        - else
-          - @experiments.each do |e|
-            %tr
-              %td= link_to e.id, experiment_path(e.id)
-              %td= e.owner
-              %td.text-right
-                = link_to t(".more"), "#", data: { id: e.id }, class: 'more'
-                = link_to t(".less"), "#", data: { id: e.id }, class: 'less hide'
-            %tr{ data: { more_id: e.id }, class: 'hide' }
-              %td{ colspan: 3 }
-                .data-cell
-                %p
-                  = link_to t(".run"), run_experiment_path(e.id), method: :post, class: 'btn btn-xs btn-success'
-                  = link_to t(".view"), experiment_path(e.id), class: 'btn btn-xs btn-info'
-                  = link_to t(".delete"), experiment_path(e.id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'
+    = render partial: 'experiments_table', object: @experiments
 
 .row
   .col-sm-12

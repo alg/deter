@@ -15,7 +15,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "separating approved from unapproved" do
-    ProjectSummaryLoader.stubs(:load).returns([
+    SummaryLoader.stubs(:user_projects).returns([
       { project_id: "member-b", approved: true,  leader: { uid: "john" } },
       { project_id: "owner-b",  approved: false, leader: { uid: "mark" } },
       { project_id: "owner-a",  approved: true,  leader: { uid: "mark" } },
@@ -31,7 +31,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "sorting of projects in index" do
-    ProjectSummaryLoader.stubs(:load).returns([
+    SummaryLoader.stubs(:user_projects).returns([
       { project_id: "member-b", approved: true, leader: { uid: "john" } },
       { project_id: "owner-b",  approved: true, leader: { uid: "mark" } },
       { project_id: "owner-a",  approved: true, leader: { uid: "mark" } },
