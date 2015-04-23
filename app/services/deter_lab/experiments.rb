@@ -114,5 +114,26 @@ module DeterLab
     rescue Savon::SOAPFault => e
       process_error e
     end
+
+    # change experiment acl
+    def change_experiment_acl(uid, eid, acl)
+      cl = client("Experiments", uid)
+      list = acl.inject([]) do |m, l|
+        m << { circle_id: l.circle_id, permissions: l.permissions }
+        m
+      end
+
+      response = cl.call(:change_experiment_acl, message: {
+        eid: eid,
+        acl: list
+      })
+
+      return [ response.to_hash[:change_experiment_acl_response][:return] ].flatten.inject({}) do |m, change|
+        m[change[:name]] = change[:success]
+        m
+      end
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
   end
 end

@@ -99,6 +99,36 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
     end
   end
 
+  test "change experiment ACL" do
+    VCR.use_cassette "deterlab/experiments/change-experiment-acl" do
+      login
+      eid = "TestChangeACL4"
+
+      assert create_experiment("SPIdev", eid), "Could not create an experiment"
+
+      # add addams
+      assert_equal({
+        "aadams:aadams"               => true
+      }, DeterLab.change_experiment_acl(@username, "SPIdev:#{eid}", [
+        ExperimentACL.new("aadams:aadams", [ "MODIFY_EXPERIMENT_ACCESS", "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ])
+      ]))
+
+      # add bberkley, update SPIdev group, remove owner
+      assert_equal({
+        "bberkley:bberkley"           => true,
+        "SPIdev:SPIdev"               => true,
+        "#{@username}:#{@username}"   => true
+      }, DeterLab.change_experiment_acl(@username, "SPIdev:#{eid}", [
+        ExperimentACL.new("bberkley:bberkley", [ "MODIFY_EXPERIMENT_ACCESS", "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ]),
+        ExperimentACL.new("SPIdev:SPIdev", [ "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ]),
+        ExperimentACL.new("#{@username}:#{@username}", [])
+      ]))
+
+      acl = DeterLab.view_experiments(@username, regex: "^SPIdev:#{eid}$").first.acl.map(&:circle_id)
+      assert_equal [ "bberkley:bberkley", "SPIdev:SPIdev", "aadams:aadams" ], acl
+    end
+  end
+
   private
 
   def create_experiment(pid = "SPIdev", eid = "Test")
