@@ -45,21 +45,9 @@ class ProjectsController < ApplicationController
     pid = params[:id]
     project = get_project(pid)
 
-    members = {}
-    @team = project.members.map do |m|
-      profile = SummaryLoader.member_profile(deter_cache, @app_session.current_user_id, m.uid)
-      profile['uid'] = m.uid
-      members[m.uid] = profile
-      profile
-    end
+    @team, members = get_project_member_details(project)
+    @experiments   = get_project_experiments_details(pid, members)
 
-    @experiments = SummaryLoader.project_experiments(deter_cache, @app_session.current_user_id, pid).map do |e|
-      { id:     e.id,
-        owner:  { id: e.owner, name: members[e.owner]['name'] },
-        descr:  deter_lab.get_experiment_profile(e.id)['description'].try(:value),
-        status: 'TBD'
-      }
-    end
     render json: {
       team_html:        render_to_string(partial: "details_team"),
       experiments_html: render_to_string(partial: "details_experiments") }
@@ -116,4 +104,40 @@ class ProjectsController < ApplicationController
     deter_lab.get_projects.find { |p| p.project_id == pid }
   end
 
+  def get_project_experiments_details(pid, members)
+    SummaryLoader.project_experiments(deter_cache, @app_session.current_user_id, pid).map do |e|
+      { id:     e.id,
+        owner:  { id: e.owner, name: members[e.owner]['name'] },
+        descr:  deter_lab.get_experiment_profile(e.id)['description'].try(:value),
+        status: 'TBD'
+      }
+    end
+  end
+
+  def get_project_member_details(project)
+    members = {}
+
+    team = project.members.map do |m|
+      profile = SummaryLoader.member_profile(deter_cache, @app_session.current_user_id, m.uid)
+      profile['uid'] = m.uid
+      members[m.uid] = profile
+      profile
+    end
+
+    leader = project.owner
+    team.sort! do |m1, m2|
+      o1 = m1['uid'] == leader
+      o2 = m2['uid'] == leader
+
+      if o1 == o2
+        m1['name'] <=> m2['name']
+      elsif o1
+        -1
+      else
+        1
+      end
+    end
+
+    return [ team, members ]
+  end
 end

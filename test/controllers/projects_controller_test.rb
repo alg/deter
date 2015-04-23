@@ -97,4 +97,21 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal I18n.t("projects.destroy.failure", error: error), flash.alert
   end
 
+  test "members should be sorted in details" do
+    pid = "project_id"
+    members = []
+    members << ProjectMember.new("john", [])
+    members << ProjectMember.new("aleks", [])
+    members << ProjectMember.new("mark", [])
+
+    pr = Project.new(pid, "mark", true, members)
+
+    SummaryLoader.stubs(:member_profile).returns({ 'name' => 'John' }, { 'name' => 'Aleks' }, { 'name' => 'Mark' })
+    @controller.stubs(:get_project).returns(pr)
+    @controller.stubs(:get_project_experiments_details).returns([])
+
+    get :details, id: pid
+
+    assert_equal [ "mark", "aleks", "john" ], assigns[:team].map { |m| m['uid'] }
+  end
 end
