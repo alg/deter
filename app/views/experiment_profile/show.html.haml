@@ -17,5 +17,5 @@
 
 .row
   .col-sm-12
-    = link_to t('.save'), :experiments, class: 'btn btn-default'
-    = link_to t('.cancel'), :experiments, class: 'btn btn-default'
+    = link_to t('.save'), experiment_path(params[:experiment_id]), class: 'btn btn-default'
+    = link_to t('.cancel'), experiment_path(params[:experiment_id]), class: 'btn btn-default'

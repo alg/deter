@@ -1,0 +1,8 @@
+en:
+  experiment_members:
+    edit:
+      title: Edit Experiment ACL
+      info: ""
+
+      save: Save Changes
+      cancel: Cancel

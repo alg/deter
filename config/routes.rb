@@ -41,8 +41,10 @@ Rails.application.routes.draw do
       post :run
       get :manage
     end
+
+    resources :members, controller: "experiment_members", only: [ :index, :create, :destroy ]
+    resource  :profile, controller: "experiment_profile", only: [ :show, :update ]
   end
-  resources :experiment_profiles, only: [ :edit, :update ]
 
   resources :users, only: [ :show ]
 

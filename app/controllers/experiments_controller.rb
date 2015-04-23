@@ -70,6 +70,10 @@ class ExperimentsController < ApplicationController
     new
   end
 
+  # edit experiment profile form
+  def edit
+  end
+
   # deletes the experiment
   def destroy
     DeterLab.remove_experiment(app_session.current_user_id, params[:id])
