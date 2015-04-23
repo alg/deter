@@ -120,14 +120,14 @@ class ProjectsController < ApplicationController
     team = project.members.map do |m|
       profile = SummaryLoader.member_profile(deter_cache, @app_session.current_user_id, m.uid)
       profile['uid'] = m.uid
+      profile['leader'] = m.uid == project.owner
       members[m.uid] = profile
       profile
     end
 
-    leader = project.owner
     team.sort! do |m1, m2|
-      o1 = m1['uid'] == leader
-      o2 = m2['uid'] == leader
+      o1 = m1['leader']
+      o2 = m2['leader']
 
       if o1 == o2
         m1['name'] <=> m2['name']
