@@ -17,6 +17,7 @@ gem 'i18n-js'
 gem 'redis-rails'
 gem 'savon'
 gem 'gon'
+gem 'hashie'
 
 group :development do
   gem 'spring'
