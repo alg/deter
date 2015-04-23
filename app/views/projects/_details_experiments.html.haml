@@ -1,19 +1,17 @@
 - if @experiments.empty?
   %p No experiments
 - else
-  - @experiments.each do |e|
-    %table.table.table-bordered
+  %table.table.table-striped
+    - @experiments.each do |e|
+      - eid = e[:id]
       %tr
         %td
-          = link_to e[:id]
-      %tr
-        %td
-          <strong>Owner</strong>: #{link_to (e[:owner][:name] or "<unnamed>"), user_path(e[:id])} (#{e[:owner][:id]})
-      %tr
-        %td
-          <strong>Status</strong>: #{e[:status]}
-      - if e[:owner][:id] == @app_session.current_user_id
-        %tr
-          %td
-            = link_to "View", experiment_path(e[:id]), class: 'btn btn-xs btn-default'
-            = link_to "Manage", manage_experiment_path(e[:id]), class: 'btn btn-xs btn-default'
+          #{link_to eid, experiment_path(eid)}
+          %p
+            <strong>Owner</strong>: #{link_to (e[:owner][:name] or "<unnamed>"), user_path(e[:owner][:id])} (#{e[:owner][:id]})<br/>
+            <strong>Description</strong>: #{e[:descr]}<br/>
+            <strong>Status</strong>: #{e[:status]}<br/>
+          %p
+            - if e[:owner][:uid] == @app_session.current_user_id
+              = link_to t(".manage"), manage_experiment_path(eid), class: 'btn btn-xs btn-info'
+            = link_to t(".view"), experiment_path(eid), class: 'btn btn-xs btn-info'
