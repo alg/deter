@@ -1,13 +1,48 @@
 - @submenu = :my_experiments
+- pid = @experiment.id.split(':').first
 .page-header
   %h1= raw t '.title'
   = raw t '.info'
 
+- acl = ExperimentAclPresenter.new(@experiment.acl, @experiment.owner, pid)
 .row
   .col-sm-12
-    %p TBD
+    %table.table.table-bordered
+      - unless acl.owner_perms.blank?
+        %tr
+          %td.col-sm-4 User:&nbsp;#{deter_lab.get_profile(@experiment.owner)['name']}
+          %td.col-sm-7= acl.owner_perms.join(", ")
+          %td.col-sm-1 &nbsp;
+      - acl.other_users_acl.each do |acl|
+        - user_id = acl[0]
+        %tr
+          %td.col-sm-4 User:&nbsp;#{deter_lab.get_profile(user_id)['name']}
+          %td.col-sm-7= acl[1].join(", ")
+          %td.col-sm-1.text-center
+            = link_to t(".delete"), experiment_member_path(@experiment.id, user_id), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Are you sure?' }
+
+
+    %table.table.table-bordered
+      - unless acl.project_perms.blank?
+        %tr
+          %td.col-sm-4 Group:&nbsp;#{pid}
+          %td.col-sm-7= acl.project_perms.join(", ")
+          %td.col-sm-1.text-center
+            = link_to t(".delete"), experiment_member_path(@experiment.id, acl.project_cid), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Are you sure?' }
+      - acl.groups_acl.each do |acl|
+        %tr
+          %td.col-sm-4 Group:&nbsp;#{acl.circle_id.split(':').first}
+          %td.col-sm-7= acl.permissions.join(", ")
+          %td.col-sm-1.text-center
+            = link_to t(".delete"), experiment_member_path(@experiment.id, acl.circle_id), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Are you sure?' }
 
 .row
   .col-sm-12
-    = link_to t('.save'), experiment_path(params[:experiment_id]), class: 'btn btn-default'
-    = link_to t('.cancel'), experiment_path(params[:experiment_id]), class: 'btn btn-default'
+    %h4= t(".new_member")
+    = form_for @new_member, as: :member, url: experiment_members_path(@experiment.id), html: { class: 'form-horizontal' } do |f|
+      .form-group
+        = f.label :circle_id, t(".name"), class: "control-label col-sm-2"
+        .col-sm-4
+          = f.text_field :circle_id, class: "form-control"
+        .col-sm-4
+          = f.submit t(".submit"), class: "btn btn-default"

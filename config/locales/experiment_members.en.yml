@@ -1,8 +1,20 @@
 en:
   experiment_members:
-    edit:
-      title: Edit Experiment ACL
-      info: ""
+    owner_only: Experiment owners only
 
-      save: Save Changes
-      cancel: Cancel
+    index:
+      title: Experiment Members
+      info: "The list of all groups and users having access to the experiment"
+      delete: "Delete"
+
+      new_member: "New Member"
+      name: "User or Group"
+      submit: "Add Member"
+
+    create:
+      success: "Record created"
+      failure: "Failed to create the record"
+
+    destroy:
+      success: "Record deleted"
+      failure: "Failed to delete the record"

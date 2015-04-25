@@ -77,16 +77,23 @@ class CachedDeterLab
 
     if project_id.nil?
       @deter_cache.delete_matched_global "project:*:experiments"
+      @deter_cache.delete_matched_global "experiment:*"
     else
       @deter_cache.delete_global "project:#{project_id}:experiments"
+      @deter_cache.delete_matched_global "experiment:#{project_id}:*"
     end
   end
 
   # returns experiment data
   def get_experiment(eid)
-    @deter_cache.fetch "experiment:#{eid}", 30.minutes do
+    @deter_cache.fetch_global "experiment:#{eid}", 30.minutes do
       DeterLab.view_experiments(@current_uid, list_only: false, regex: eid, query_aspects: { }).first
     end
+  end
+
+  # invalidates the experiment cache
+  def invalidate_experiment(eid)
+    @deter_cache.delete_global "experiment:#{eid}"
   end
 
   # returns experiment profile

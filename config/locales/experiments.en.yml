@@ -16,10 +16,16 @@ en:
       nothing: There are no experiments yet
       new_experiment: New experiment
 
-      more: More info
-      less: Less info
+    experiments_table:
+      manage: Manage
       view: View
-      run: Run
+
+    manage:
+      title: "Manage experiment: %{id}"
+      info: >
+        <p>
+          Experiment owner: %{owner}
+        </p>
 
     run:
       success: Started the experiment successfully

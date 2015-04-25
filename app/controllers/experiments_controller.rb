@@ -33,6 +33,15 @@ class ExperimentsController < ApplicationController
     @profile = deter_lab.get_experiment_profile(@experiment.id)
   end
 
+  # opens the management page
+  def manage
+    @experiment = deter_lab.get_experiment(params[:id])
+    if @experiment.nil?
+      redirect_to :experiments, alert: t(".not_found")
+      return
+    end
+  end
+
   # returns experiment profile
   def profile
     @profile = deter_lab.get_experiment_profile(params[:id])
@@ -68,10 +77,6 @@ class ExperimentsController < ApplicationController
   rescue DeterLab::RequestError => e
     flash.now[:alert] = t(".failure", error: e.message).html_safe
     new
-  end
-
-  # edit experiment profile form
-  def edit
   end
 
   # deletes the experiment
