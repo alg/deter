@@ -1,7 +1,8 @@
 - @submenu = :profile
+- is_owner = @uid == @app_session.current_user_id
 .page-header
-  %h1= raw t '.title'
-  = raw t '.info'
+  %h1= raw t(is_owner ? '.title' : '.title_other')
+  = raw t(is_owner ? '.info' : '.info_other', uid: @uid)
 
 .row
   .col-sm-6
@@ -11,7 +12,8 @@
           %th= t "profile.fields.#{f}"
           %td= @profile[f]
 
-.row
-  .col-sm-12
-    = link_to "Edit Profile", :edit_profile, class: 'btn btn-default'
-    = link_to "Change Password", :change_password, class: 'btn btn-default'
+- if is_owner
+  .row
+    .col-sm-12
+      = link_to "Edit Profile", :edit_profile, class: 'btn btn-default'
+      = link_to "Change Password", :change_password, class: 'btn btn-default'

@@ -14,7 +14,7 @@
           %td
             #{link_to pid, project_path(pid)}
             %p
-              <strong>Project Leader</strong>: #{p[:leader][:name]} (#{p[:leader][:uid]})<br/>
+              <strong>Project Leader</strong>: #{link_to p[:leader][:name], profile_path(p[:leader][:uid])} (#{p[:leader][:uid]})<br/>
               <strong>Project Members</strong>: #{p[:members]}<br/>
               <strong>Experiments</strong>: #{p[:experiments]}<br/>
             %p

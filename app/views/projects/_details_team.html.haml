@@ -2,6 +2,6 @@
   - @team.each do |m|
     %tr
       %td
-        #{link_to (m['name'] or "<unnamed>"), user_path(m['uid'])} (#{m['uid']})
+        #{link_to (m['name'] or "<unnamed>"), profile_path(m['uid'])} (#{m['uid']})
         - if m['leader']
           \- Project Leader

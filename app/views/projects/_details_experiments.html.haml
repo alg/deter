@@ -8,7 +8,7 @@
         %td
           #{link_to eid, experiment_path(eid)}
           %p
-            <strong>Owner</strong>: #{link_to (e[:owner][:name] or "<unnamed>"), user_path(e[:owner][:id])} (#{e[:owner][:id]})<br/>
+            <strong>Owner</strong>: #{link_to (e[:owner][:name] or "<unnamed>"), profile_path(e[:owner][:id])} (#{e[:owner][:id]})<br/>
             <strong>Description</strong>: #{e[:descr]}<br/>
             <strong>Status</strong>: #{e[:status]}<br/>
           %p

@@ -2,15 +2,23 @@ class ProfileController < ApplicationController
 
   before_filter :require_login
 
-  def show
-    @profile = deter_lab.get_profile
+  # showing user pofile
+  def show_my_profile
+    show_profile
   end
 
+  # showing profile of a user
+  def show
+    show_profile(params[:id])
+  end
+
+  # editing own profile
   def edit
     @profile = deter_lab.get_profile
     @errors  = {}
   end
 
+  # updating own profile
   def update
     @errors = DeterLab.change_user_profile(app_session.current_user_id, form_fields)
     if @errors.blank?
@@ -27,6 +35,11 @@ class ProfileController < ApplicationController
 
   def form_fields
     params[:profile].permit(ProfileFields::FORM_FIELDS)
+  end
+
+  def show_profile(uid = @app_session.current_user_id)
+    @uid     = uid
+    @profile = deter_lab.get_profile(uid)
   end
 
 end

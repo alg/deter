@@ -1,10 +1,15 @@
 en:
   profile:
     show:
-      title: Your profile
+      title: Your Profile
       info: >
         <p>
           This is your DeterLab user profile.
+        </p>
+      title_other: User Profile
+      info_other: >
+        <p>
+          This is the DeterLab user profile for user %{uid}
         </p>
 
     edit:

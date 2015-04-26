@@ -12,17 +12,18 @@ Rails.application.routes.draw do
   resources :user_sessions, only: [ :new, :create, :destroy ]
 
   resources :password_reset_requests, only: [ :new, :create ]
-  get  '/password_reset' => 'password_resets#new', as: 'new_password_reset'
+  get  '/password_reset'  => 'password_resets#new', as: 'new_password_reset'
   get  '/password_reset/:challenge' => 'password_resets#new'
-  post '/password_reset' => 'password_resets#create', as: 'password_reset'
+  post '/password_reset'  => 'password_resets#create', as: 'password_reset'
 
-  get '/login' => 'user_sessions#new', as: 'login'
-  get '/logout' => 'user_sessions#destroy', as: 'logout'
-  get '/dashboard' => 'dashboard#show', as: 'dashboard'
+  get '/login'            => 'user_sessions#new', as: 'login'
+  get '/logout'           => 'user_sessions#destroy', as: 'logout'
+  get '/dashboard'        => 'dashboard#show', as: 'dashboard'
 
-  get  '/profile' => 'profile#show', as: 'profile'
-  get  '/profile/edit' => 'profile#edit', as: 'edit_profile'
-  post '/profile/edit' => 'profile#update'
+  get  '/profile'         => 'profile#show_my_profile', as: 'my_profile'
+  get  '/profile/:id'     => 'profile#show', as: 'profile'
+  get  '/profile/edit'    => 'profile#edit', as: 'edit_profile'
+  post '/profile/edit'    => 'profile#update'
   get  '/password/change' => 'password#edit', as: 'change_password'
   post '/password/change' => 'password#update'
 
@@ -45,8 +46,6 @@ Rails.application.routes.draw do
     resources :members, controller: "experiment_members", only: [ :index, :create, :destroy ]
     resource  :profile, controller: "experiment_profile", only: [ :show, :update ]
   end
-
-  resources :users, only: [ :show ]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
