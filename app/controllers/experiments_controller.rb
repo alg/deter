@@ -60,7 +60,7 @@ class ExperimentsController < ApplicationController
   # showing the new experiment form
   def new
     @profile_descr = deter_lab.get_experiment_profile_description
-    @projects      = deter_lab.get_projects
+    @projects      = deter_lab.get_projects.select { |p| p[:approved] }
     render :new
   end
 
