@@ -18,11 +18,13 @@
         %li= link_to "DETER Project", "http://deter-project.org/"
         %li= link_to "Contact", "http://info.deterlab.net/contact_deterlab"
 
-- if logged_in?
-  .submenu
-    .container
-      .navbar.navbar-inverse{ role: 'navigation' }
-        %ul.nav.navbar-nav
+.submenu.navbar-fixed-top
+  .container
+    .navbar.navbar-inverse{ role: 'navigation' }
+      %ul.nav.navbar-nav
+        - unless logged_in?
+          %li &nbsp;
+        - else
           = submenu_item :profile, "Profile", my_profile_path
           = dropdown_submenu_item [ :my_projects, :new_project, :join_project, :manage_project ], t("submenu.projects") do
             = submenu_item :my_projects, t("submenu.my_projects"), projects_path

@@ -40,6 +40,7 @@ class ProfileController < ApplicationController
   def show_profile(uid = @app_session.current_user_id)
     @uid     = uid
     @profile = deter_lab.get_profile(uid)
+    render :show
   end
 
 end
