@@ -1,5 +1,17 @@
 en:
   layouts:
     sidebar:
-      not_logged_in: Not logged in
-      logged_in_as:  "Logged in as %{user_id}"
+      logged_in:      Logged In
+      logged_in_as:  "User %{name}: %{dash_link}"
+      
+      tech_support:
+        about:
+          label: "About Technical Support for DeterLab User"
+          link:  "http://info.deterlab.net/support"
+        before_ticket:
+          label: "Before Opening a Ticket &hellip;"
+          link:  "http://info.deterlab.net"
+        open_ticket:
+          label: "Open a Ticket for Technical Support"
+          link:  "http://info.deterlab.net"
+

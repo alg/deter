@@ -1,10 +1,9 @@
-.box
-  - if app_session.logged_in?
-    = raw t '.logged_in_as', user_id: app_session.current_user_id
+- if app_session.logged_in?
+  .box
+    %h4= t '.logged_in'
     %ul
-      %li= link_to "Log out", :logout
-  - else
-    = raw t '.not_logged_in'
+      %li= raw t '.logged_in_as', name: current_user_name, dash_link: link_to("Dashboard", :dashboard)
+      %li= link_to "Logout", :logout
 
 .box
   %h4 Documentation
@@ -13,7 +12,12 @@
     %li= link_to "Documentation for DeterLab Educators and Students", "http://www.deter-project.org/deterlab-cyber-security-education"
 
 .box
-  = link_to "Technical Support", "http://info.deterlab.net/support"
+  %h4 Technical Support
+  %ul
+    %li= link_to t(".tech_support.about.label").html_safe, t(".tech_support.about.link")
+    - if logged_in?
+      %li= link_to t(".tech_support.before_ticket.label").html_safe, t(".tech_support.before_ticket.link")
+      %li= link_to t(".tech_support.open_ticket.label").html_safe, t(".tech_support.open_ticket.link")
 
 .box
   %h4 Important Information
@@ -21,6 +25,10 @@
     %li= link_to "Current Usage Statistics", :usage
     %li= link_to "Recent Announcements from DeterLab Operations", :news
 
-  %p Scheduled Downtime:
-  %p
-    %em Wednesdays: 5PM-7PM, Saturdays: 10AM-1PM Pacific Time.
+- if logged_in?
+  .box
+    %h4 Scheduled Downtime
+    %p
+      %em
+        Wednesdays: 5PM-7PM,<br/>
+        Saturdays: 10AM-1PM Pacific Time

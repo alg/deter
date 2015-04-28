@@ -6,25 +6,23 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to :root, class: 'navbar-brand' do
+      = link_to (logged_in? ? :dashboard : :root), class: 'navbar-brand' do
         = image_tag "logo.png"
 
     .navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
         - if logged_in?
-          %li= link_to "Log out", :logout
+          %li= link_to "Logout", :logout
         - else
-          %li= link_to "Log in", :login
-        %li= link_to "DETER Project", "http://deter-project.org/"
-        %li= link_to "Contact", "http://info.deterlab.net/contact_deterlab"
+          %li= link_to "Login", :login
+        %li= link_to "DETER Project", AppConfig['deter_project_link']
+        %li= link_to "Contact", AppConfig['contact_link']
 
-.submenu.navbar-fixed-top
-  .container
-    .navbar.navbar-inverse{ role: 'navigation' }
-      %ul.nav.navbar-nav
-        - unless logged_in?
-          %li &nbsp;
-        - else
+- if logged_in?
+  .submenu.navbar-fixed-top
+    .container
+      .navbar.navbar-inverse{ role: 'navigation' }
+        %ul.nav.navbar-nav
           = submenu_item :profile, "Profile", my_profile_path
           = dropdown_submenu_item [ :my_projects, :new_project, :join_project, :manage_project ], t("submenu.projects") do
             = submenu_item :my_projects, t("submenu.my_projects"), projects_path

@@ -2,6 +2,10 @@ body {
   padding-top: 117px + 20px + 48px;
 }
 
+body.loggedout {
+  padding-top: 117px + 20px;
+}
+
 .spinner {
   display: inline-block;
   width: 32px;

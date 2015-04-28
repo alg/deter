@@ -38,4 +38,10 @@ class ApplicationController < ActionController::Base
     @deter_lab ||= CachedDeterLab.new(deter_cache, app_session.current_user_id)
   end
   helper_method :deter_lab
+
+  # returns the user name
+  def current_user_name
+    logged_in? ? deter_lab.get_profile.try(:[], "name") : nil
+  end
+  helper_method :current_user_name
 end
