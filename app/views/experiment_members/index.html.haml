@@ -38,11 +38,22 @@
 
 .row
   .col-sm-12
-    %h4= t(".new_member")
+    %h4= t(".add_user.title")
     = form_for @new_member, as: :member, url: experiment_members_path(@experiment.id), html: { class: 'form-horizontal' } do |f|
       .form-group
-        = f.label :circle_id, t(".name"), class: "control-label col-sm-2"
+        = f.label :circle_id, t(".add_user.label"), class: "control-label col-sm-2"
         .col-sm-4
-          = f.text_field :circle_id, class: "form-control"
+          = f.text_field :circle_id, class: "form-control", placeholder: t(".add_user.hint")
         .col-sm-4
-          = f.submit t(".submit"), class: "btn btn-default"
+          = f.submit t(".add_user.submit"), class: "btn btn-default"
+
+.row
+  .col-sm-12
+    %h4= t(".add_group.title")
+    = form_for @new_member, as: :member, url: experiment_members_path(@experiment.id), html: { class: 'form-horizontal' } do |f|
+      .form-group
+        = f.label :circle_id, t(".add_group.label"), class: "control-label col-sm-2"
+        .col-sm-4
+          = f.text_field :circle_id, class: "form-control", placeholder: t(".add_group.hint")
+        .col-sm-4
+          = f.submit t(".add_group.submit"), class: "btn btn-default"

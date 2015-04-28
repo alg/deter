@@ -3,13 +3,21 @@ en:
     owner_only: Experiment owners only
 
     index:
-      title: Experiment Members
-      info: "The list of all groups and users having access to the experiment"
-      delete: "Delete"
+      title:   Experiment Members
+      info:    "The list of all groups and users having access to the experiment"
+      delete:  "Delete"
 
-      new_member: "New Member"
-      name: "User or Group"
-      submit: "Add Member"
+      add_user:
+        title:    "Add a User"
+        label:    "User Name"
+        hint:     "user"
+        submit:   "Add User"
+
+      add_group:
+        title:    "Add a Group"
+        label:    "Group Name"
+        hint:     "group:group"
+        submit:   "Add Group"
 
     create:
       success: "Record created"
