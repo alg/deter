@@ -1,11 +1,11 @@
 class SeedTestData
 
   PROJECT_DEFAULTS = {
-    website: 'http://uso.edu/research',
-    org_type: 'Academic',
-    research_focus: 'Malware',
-    funding: 'Academic Institution Support',
-    listing: true
+    website:         'http://uso.edu/research',
+    org_type:        'Academic',
+    research_focus:  'Malware',
+    funding:         'Academic Institution Support',
+    listing:         true
   }
 
   PROJECTS = {
@@ -15,40 +15,42 @@ class SeedTestData
   }
 
   USER_DEFAULTS = {
-    phone: '301/123-4567',
-    title: 'Research Staff',
-    affiliation: 'University of South Otago',
-    affiliation_abbrev: 'USO',
-    URL: 'http://uso.edu',
-    address1: '123 Main St.',
-    address2: '',
-    city: 'South Ontago',
-    state: 'Farallon',
-    zip: '12345',
-    country: 'US'
+    phone:               '301/123-4567',
+    title:               'Research Staff',
+    affiliation:         'University of South Otago',
+    affiliation_abbrev:  'USO',
+    URL:                 'http://uso.edu',
+    address1:            '123 Main St.',
+    address2:            '',
+    city:                'South Ontago',
+    state:               'Farallon',
+    zip:                 '12345',
+    country:             'US'
   }
 
   USERS = [
-    { name: 'Abigail Adams', email: 'aadams@uso.edu', password: 'Abigail', owns_projects: [ 'Alfa-Romeo' ]  },
-    { name: 'Arthur Ashe', email: 'aashe@uso.edu', password: 'Arthur', owns_projects: [] },
-    { name: 'Ambrose Bierce', email: 'abierce@uso.edu', password: 'Ambrose', owns_projects: [] },
-    { name: 'Buzzby Berkley', email: 'bberkley@uso.edu', password: 'Buzzby', owns_projects: [ 'Beta-Test' ] },
-    { name: 'Britt Greer', email: 'bgreer@uso.edu', password: 'Britt', owns_projects: [] },
-    { name: 'Gerta Grein', email: 'ggrein@uso.edu', password: 'Gerta', owns_projects: [ 'Gamma-Ray' ] }
+    { name: 'Abigail Adams',    email: 'aadams@uso.edu',          password: 'Abigail',   owns_projects: [ 'Alfa-Romeo' ]  },
+    { name: 'Arthur Ashe',      email: 'aashe@uso.edu',           password: 'Arthur',    owns_projects: [] },
+    { name: 'Ambrose Bierce',   email: 'abierce@uso.edu',         password: 'Ambrose',   owns_projects: [] },
+    { name: 'Buzzby Berkley',   email: 'bberkley@uso.edu',        password: 'Buzzby',    owns_projects: [ 'Beta-Test' ] },
+    { name: 'Britt Greer',      email: 'bgreer@uso.edu',          password: 'Britt',     owns_projects: [] },
+    { name: 'Gerta Grein',      email: 'ggrein@uso.edu',          password: 'Gerta',     owns_projects: [ 'Gamma-Ray' ] },
+    { name: 'John Sebes',       email: 'john@sebes.com',          password: 'John',      owns_projects: [] },
+    { name: 'Aleksey Gureiev',  email: 'spyromus@noizeramp.com',  password: 'Aleksey',   owns_projects: [] }
   ]
 
   PROJECT_USERS = {
     'Alfa-Romeo' => [ 'Arthur Ashe', 'Ambrose Bierce' ],
-    'Beta-Test'  => [ 'Abigail Adams', 'Ambrose Bierce', 'Britt Greer' ],
+    'Beta-Test'  => [ 'Abigail Adams', 'Ambrose Bierce', 'Britt Greer', 'John Sebes', 'Aleksey Gureiev' ],
     'Gamma-Ray'  => [ 'Abigail Adams', 'Britt Greer' ]
   }
 
   PROJECT_PROFILE_ATTRS = [
-    { name: "website", type: "STRING", optional: true, access: "READ_WRITE", description: "Project Web Site", sequence: 100, value: 0 },
-    { name: "org_type", type: "STRING", optional: true, access: "READ_WRITE", description: "Project Organization Type", sequence: 200, value: 0 },
-    { name: "research_focus", type: "STRING", optional: true, access: "READ_WRITE", description: "Project Research Focus", sequence: 300, value: 0 },
-    { name: "funding", type: "STRING", optional: true, access: "READ_WRITE", description: "Project Funding or Support", sequence: 400, value: 0 },
-    { name: "listing", type: "STRING", optional: true, access: "READ_WRITE", description: "Project Listing", sequence: 500, value: 0 }
+    { name: "website",         type: "STRING",  optional: true,  access: "READ_WRITE",  description: "Project Web Site",            sequence: 100,  value: 0 },
+    { name: "org_type",        type: "STRING",  optional: true,  access: "READ_WRITE",  description: "Project Organization Type",   sequence: 200,  value: 0 },
+    { name: "research_focus",  type: "STRING",  optional: true,  access: "READ_WRITE",  description: "Project Research Focus",      sequence: 300,  value: 0 },
+    { name: "funding",         type: "STRING",  optional: true,  access: "READ_WRITE",  description: "Project Funding or Support",  sequence: 400,  value: 0 },
+    { name: "listing",         type: "STRING",  optional: true,  access: "READ_WRITE",  description: "Project Listing",             sequence: 500,  value: 0 }
   ]
 
   USER_EXPERIMENTS = {

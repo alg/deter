@@ -25,7 +25,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Wed, 01 Apr 2015 20:20:36 GMT
+      - Tue, 28 Apr 2015 11:05:34 GMT
     body:
       encoding: UTF-8
       string: |
@@ -102,184 +102,6 @@ http_interactions:
                             </xs:extension>
                         </xs:complexContent>
                     </xs:complexType>
-                    <xs:element name="getProfileDescription">
-                        <xs:complexType>
-                            <xs:sequence/>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="getProfileDescriptionResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:complexType name="Profile">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="attributes" nillable="true" type="ns:Attribute"/>
-                                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                    <xs:complexType name="Attribute">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="dataType" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="formatDescription" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="lengthHint" type="xs:int"/>
-                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
-                                    <xs:element minOccurs="0" name="orderingHint" type="xs:int"/>
-                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                    <xs:element name="changePasswordChallenge">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="challengeID" type="xs:long"/>
-                                <xs:element minOccurs="0" name="newPass" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="changePasswordChallengeResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="createUser">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                                <xs:element maxOccurs="unbounded" minOccurs="0" name="profile" nillable="true" type="ns:Attribute"/>
-                                <xs:element minOccurs="0" name="urlPrefix" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="createUserResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:CreateUserResult"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:complexType name="CreateUserResult">
-                        <xs:sequence>
-                            <xs:element minOccurs="0" name="identity" nillable="true" type="xs:base64Binary"/>
-                            <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                    <xs:element name="removeUser">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="removeUserResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="logout">
-                        <xs:complexType>
-                            <xs:sequence/>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="logoutResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="markNotifications">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                                <xs:element maxOccurs="unbounded" minOccurs="0" name="ids" type="xs:long"/>
-                                <xs:element maxOccurs="unbounded" minOccurs="0" name="flags" nillable="true" type="ns:NotificationFlag"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="markNotificationsResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="createUserAttribute">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
-                                <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="formatdescription" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="order" type="xs:int"/>
-                                <xs:element minOccurs="0" name="length" type="xs:int"/>
-                                <xs:element minOccurs="0" name="def" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="createUserAttributeResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="modifyUserAttribute">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
-                                <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="formatdescription" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="order" type="xs:int"/>
-                                <xs:element minOccurs="0" name="length" type="xs:int"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="modifyUserAttributeResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="removeUserAttribute">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="removeUserAttributeResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
                     <xs:element name="requestChallenge">
                         <xs:complexType>
                             <xs:sequence>
@@ -336,6 +158,34 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
+                    <xs:complexType name="Profile">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="attributes" nillable="true" type="ns:Attribute"/>
+                                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                    <xs:complexType name="Attribute">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="dataType" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="formatDescription" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="lengthHint" type="xs:int"/>
+                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
+                                    <xs:element minOccurs="0" name="orderingHint" type="xs:int"/>
+                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
                     <xs:element name="changeUserProfile">
                         <xs:complexType>
                             <xs:sequence>
@@ -418,6 +268,156 @@ http_interactions:
                         <xs:complexType>
                             <xs:sequence>
                                 <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="markNotifications">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="ids" type="xs:long"/>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="flags" nillable="true" type="ns:NotificationFlag"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="markNotificationsResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="createUserAttribute">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
+                                <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="formatdescription" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="order" type="xs:int"/>
+                                <xs:element minOccurs="0" name="length" type="xs:int"/>
+                                <xs:element minOccurs="0" name="def" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="createUserAttributeResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="modifyUserAttribute">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
+                                <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="formatdescription" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="order" type="xs:int"/>
+                                <xs:element minOccurs="0" name="length" type="xs:int"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="modifyUserAttributeResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="removeUserAttribute">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="removeUserAttributeResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="changePasswordChallenge">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="challengeID" type="xs:long"/>
+                                <xs:element minOccurs="0" name="newPass" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="changePasswordChallengeResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="logout">
+                        <xs:complexType>
+                            <xs:sequence/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="logoutResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="createUser">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="profile" nillable="true" type="ns:Attribute"/>
+                                <xs:element minOccurs="0" name="urlPrefix" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="createUserResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:CreateUserResult"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:complexType name="CreateUserResult">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="identity" nillable="true" type="xs:base64Binary"/>
+                            <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                    <xs:element name="removeUser">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="removeUserResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProfileDescription">
+                        <xs:complexType>
+                            <xs:sequence/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProfileDescriptionResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
@@ -516,17 +516,17 @@ http_interactions:
             <wsdl:message name="getProfileDescriptionResponse">
                 <wsdl:part name="parameters" element="ns:getProfileDescriptionResponse"/>
             </wsdl:message>
-            <wsdl:message name="removeUserAttributeRequest">
-                <wsdl:part name="parameters" element="ns:removeUserAttribute"/>
-            </wsdl:message>
-            <wsdl:message name="removeUserAttributeResponse">
-                <wsdl:part name="parameters" element="ns:removeUserAttributeResponse"/>
-            </wsdl:message>
             <wsdl:message name="changePasswordChallengeRequest">
                 <wsdl:part name="parameters" element="ns:changePasswordChallenge"/>
             </wsdl:message>
             <wsdl:message name="changePasswordChallengeResponse">
                 <wsdl:part name="parameters" element="ns:changePasswordChallengeResponse"/>
+            </wsdl:message>
+            <wsdl:message name="removeUserAttributeRequest">
+                <wsdl:part name="parameters" element="ns:removeUserAttribute"/>
+            </wsdl:message>
+            <wsdl:message name="removeUserAttributeResponse">
+                <wsdl:part name="parameters" element="ns:removeUserAttributeResponse"/>
             </wsdl:message>
             <wsdl:message name="markNotificationsRequest">
                 <wsdl:part name="parameters" element="ns:markNotifications"/>
@@ -610,15 +610,15 @@ http_interactions:
                     <wsdl:output message="tns:getProfileDescriptionResponse" wsaw:Action="urn:getProfileDescriptionResponse"/>
                     <wsdl:fault message="tns:UsersDeterFault" name="UsersDeterFault" wsaw:Action="urn:getProfileDescriptionUsersDeterFault"/>
                 </wsdl:operation>
-                <wsdl:operation name="removeUserAttribute">
-                    <wsdl:input message="tns:removeUserAttributeRequest" wsaw:Action="urn:removeUserAttribute"/>
-                    <wsdl:output message="tns:removeUserAttributeResponse" wsaw:Action="urn:removeUserAttributeResponse"/>
-                    <wsdl:fault message="tns:UsersDeterFault" name="UsersDeterFault" wsaw:Action="urn:removeUserAttributeUsersDeterFault"/>
-                </wsdl:operation>
                 <wsdl:operation name="changePasswordChallenge">
                     <wsdl:input message="tns:changePasswordChallengeRequest" wsaw:Action="urn:changePasswordChallenge"/>
                     <wsdl:output message="tns:changePasswordChallengeResponse" wsaw:Action="urn:changePasswordChallengeResponse"/>
                     <wsdl:fault message="tns:UsersDeterFault" name="UsersDeterFault" wsaw:Action="urn:changePasswordChallengeUsersDeterFault"/>
+                </wsdl:operation>
+                <wsdl:operation name="removeUserAttribute">
+                    <wsdl:input message="tns:removeUserAttributeRequest" wsaw:Action="urn:removeUserAttribute"/>
+                    <wsdl:output message="tns:removeUserAttributeResponse" wsaw:Action="urn:removeUserAttributeResponse"/>
+                    <wsdl:fault message="tns:UsersDeterFault" name="UsersDeterFault" wsaw:Action="urn:removeUserAttributeUsersDeterFault"/>
                 </wsdl:operation>
                 <wsdl:operation name="markNotifications">
                     <wsdl:input message="tns:markNotificationsRequest" wsaw:Action="urn:markNotifications"/>
@@ -808,8 +808,8 @@ http_interactions:
                         <soap:fault use="literal" name="UsersDeterFault"/>
                     </wsdl:fault>
                 </wsdl:operation>
-                <wsdl:operation name="changePasswordChallenge">
-                    <soap:operation soapAction="urn:changePasswordChallenge" style="document"/>
+                <wsdl:operation name="removeUserAttribute">
+                    <soap:operation soapAction="urn:removeUserAttribute" style="document"/>
                     <wsdl:input>
                         <soap:body use="literal"/>
                     </wsdl:input>
@@ -820,8 +820,8 @@ http_interactions:
                         <soap:fault use="literal" name="UsersDeterFault"/>
                     </wsdl:fault>
                 </wsdl:operation>
-                <wsdl:operation name="removeUserAttribute">
-                    <soap:operation soapAction="urn:removeUserAttribute" style="document"/>
+                <wsdl:operation name="changePasswordChallenge">
+                    <soap:operation soapAction="urn:changePasswordChallenge" style="document"/>
                     <wsdl:input>
                         <soap:body use="literal"/>
                     </wsdl:input>
@@ -1027,8 +1027,8 @@ http_interactions:
                         <soap12:fault use="literal" name="UsersDeterFault"/>
                     </wsdl:fault>
                 </wsdl:operation>
-                <wsdl:operation name="changePasswordChallenge">
-                    <soap12:operation soapAction="urn:changePasswordChallenge" style="document"/>
+                <wsdl:operation name="removeUserAttribute">
+                    <soap12:operation soapAction="urn:removeUserAttribute" style="document"/>
                     <wsdl:input>
                         <soap12:body use="literal"/>
                     </wsdl:input>
@@ -1039,8 +1039,8 @@ http_interactions:
                         <soap12:fault use="literal" name="UsersDeterFault"/>
                     </wsdl:fault>
                 </wsdl:operation>
-                <wsdl:operation name="removeUserAttribute">
-                    <soap12:operation soapAction="urn:removeUserAttribute" style="document"/>
+                <wsdl:operation name="changePasswordChallenge">
+                    <soap12:operation soapAction="urn:changePasswordChallenge" style="document"/>
                     <wsdl:input>
                         <soap12:body use="literal"/>
                     </wsdl:input>
@@ -1201,8 +1201,8 @@ http_interactions:
                         <mime:content type="application/xml" part="parameters"/>
                     </wsdl:output>
                 </wsdl:operation>
-                <wsdl:operation name="changePasswordChallenge">
-                    <http:operation location="changePasswordChallenge"/>
+                <wsdl:operation name="removeUserAttribute">
+                    <http:operation location="removeUserAttribute"/>
                     <wsdl:input>
                         <mime:content type="application/xml" part="parameters"/>
                     </wsdl:input>
@@ -1210,8 +1210,8 @@ http_interactions:
                         <mime:content type="application/xml" part="parameters"/>
                     </wsdl:output>
                 </wsdl:operation>
-                <wsdl:operation name="removeUserAttribute">
-                    <http:operation location="removeUserAttribute"/>
+                <wsdl:operation name="changePasswordChallenge">
+                    <http:operation location="changePasswordChallenge"/>
                     <wsdl:input>
                         <mime:content type="application/xml" part="parameters"/>
                     </wsdl:input>
@@ -1242,7 +1242,7 @@ http_interactions:
             </wsdl:service>
         </wsdl:definitions>
     http_version: 
-  recorded_at: Wed, 01 Apr 2015 20:20:37 GMT
+  recorded_at: Tue, 28 Apr 2015 11:05:35 GMT
 - request:
     method: post
     uri: https://spidev.isi.deterlab.net:52323/axis2/services/Users.UsersHttpsSoap11Endpoint/
@@ -1250,14 +1250,14 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://api.testbed.deterlab.net/xsd"
-        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:requestChallenge><tns:uid>aadams2</tns:uid><tns:types>clear</tns:types></tns:requestChallenge></env:Body></env:Envelope>
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:requestChallenge><tns:uid>aadams</tns:uid><tns:types>clear</tns:types></tns:requestChallenge></env:Body></env:Envelope>
     headers:
       Soapaction:
       - '"urn:requestChallenge"'
       Content-Type:
       - application/soap+xml;charset=UTF-8
       Content-Length:
-      - '386'
+      - '385'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -1276,15 +1276,15 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Wed, 01 Apr 2015 20:20:38 GMT
+      - Tue, 28 Apr 2015 11:05:36 GMT
     body:
       encoding: UTF-8
       string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:requestChallengeResponse
         xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:type="ns:UserChallenge"><ns:challengeID>-3566537496241793966</ns:challengeID><ns:data
-        xsi:nil="true" /><ns:type>clear</ns:type><ns:validity>20150401T202238Z</ns:validity></ns:return></ns:requestChallengeResponse></soapenv:Body></soapenv:Envelope>
+        xsi:type="ns:UserChallenge"><ns:challengeID>-619971319948275437</ns:challengeID><ns:data
+        xsi:nil="true" /><ns:type>clear</ns:type><ns:validity>20150428T110736Z</ns:validity></ns:return></ns:requestChallengeResponse></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Wed, 01 Apr 2015 20:20:39 GMT
+  recorded_at: Tue, 28 Apr 2015 11:05:37 GMT
 - request:
     method: post
     uri: https://spidev.isi.deterlab.net:52323/axis2/services/Users.UsersHttpsSoap11Endpoint/
@@ -1292,14 +1292,14 @@ http_interactions:
       encoding: UTF-8
       string: |-
         <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://api.testbed.deterlab.net/xsd" xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:challengeResponse><tns:responseData>QWJpZ2FpbA==
-        </tns:responseData><tns:challengeID>-3566537496241793966</tns:challengeID></tns:challengeResponse></env:Body></env:Envelope>
+        </tns:responseData><tns:challengeID>-619971319948275437</tns:challengeID></tns:challengeResponse></env:Body></env:Envelope>
     headers:
       Soapaction:
       - '"urn:challengeResponse"'
       Content-Type:
       - application/soap+xml;charset=UTF-8
       Content-Length:
-      - '439'
+      - '438'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -1318,13 +1318,13 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Wed, 01 Apr 2015 20:20:39 GMT
+      - Tue, 28 Apr 2015 11:05:38 GMT
     body:
       encoding: UTF-8
       string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:challengeResponseResponse
-        xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNhakNDQVZJQ0JnRk1kcVNVaWpBTkJna3Foa2lHOXcwQkFRc0ZBREJqTVFzd0NRWURWUVFHRXdKVlV6RUwKTUFrR0ExVUVDQk1DUTBFeEREQUtCZ05WQkFjVEEwMWtVakVSTUE4R0ExVUVDaE1JUkVWVVJWSk1ZV0l4RURBTwpCZ05WQkFzVEIxVnVhMjV2ZDI0eEZEQVNCZ05WQkFNVEMzWnBiUzVwYzJrdVpXUjFNQjRYRFRFMU1EUXdNVEl3Ck1qQXpPVm9YRFRJMU1ETXlPVEl3TWpBek9Wb3dFakVRTUE0R0ExVUVBeE1IWVdGa1lXMXpNakNCbnpBTkJna3EKaGtpRzl3MEJBUUVGQUFPQmpRQXdnWWtDZ1lFQXU4dFI3cjc1eUZFbTFwaDNrWGFVQ09IRUlQcGUrS3d3K2RCMwo4R1RieG9tQnY1UFVBWHhIM3Q3UTJZZUpHUVRYMVBpY3BycGdKbUloUjhEYWVuT1hnMGZEcnFndVZ5RUJyWWJTCmQydHM0VTMwVmF5YmhMcTU1cEx0cjZqUml3SU1sR3VydUJqak9tRVpyWkhFQytSZ3AyRFgyWWY4YXUrMGdxMmkKTWxremhBRUNBd0VBQVRBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQWVyUVU4a2JYeDQrS1dKMWpzZld0NlpjUQpwanN0ajNLOTgwNE5QeWhLYWFqSWt3c1FtZTlMbXlIMzNVcmFLL0JrV2k5b2ZZSFFNTm96bGp4TUxjKzJ5aTJQCko1M1VWRit0Qk1XdXluTlI3NjFxS1d5Rm9waGJlZjRWY0NnRmZTMnNYZEl2SjZBeWF0dmVxb09iSGVWamV2UmkKOUQva0NmNU84MzBHaGxyTmFBMVUwZVZiWDBpTTNDT0VFOFNOTDFKMEZEU3B6bFJ5YzNiczZEaCtGemh1d0JCTAo2WCtacUx2WHBhR3l4eVd6V1dha0szcVRXb0dta3FsWm5uTjFMWHdTWUNha0w0enlKZVY0Yk9zRkxzOWxQVkxMCjJtYXZTSCtKSllFaHhEb1RqckViQ3hQazhNd3ZvNEVXWU5kYTQ4cnNKMWhVc204dm81bE1BL2Y1Qi9tY0t3PT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQotLS0tLUJFR0lOIFJTQSBQUklWQVRFIEtFWS0tLS0tCk1JSUNYZ0lCQUFLQmdRQzd5MUh1dnZuSVVTYldtSGVSZHBRSTRjUWcrbDc0ckRENTBIZndaTnZHaVlHL2s5UUIKZkVmZTN0RFpoNGtaQk5mVStKeW11bUFtWWlGSHdOcDZjNWVEUjhPdXFDNVhJUUd0aHRKM2EyemhUZlJWckp1RQp1cm5ta3UydnFOR0xBZ3lVYTZ1NEdPTTZZUm10a2NRTDVHQ25ZTmZaaC94cTc3U0NyYUl5V1RPRUFRSURBUUFCCkFvR0JBSTZDSTJIZXNPUnZtTjUrZ3pYeTJ6SEdTYlNRNnVNZ29HWGk2akdXQ0NXb2ticVU3dXhWcUtDYlM3ZlgKbjVWSjFKTzhPZnhZTU1EUDlOdGpvU2dOY2VxUStiTjNBUmh0US92N0pOUE5VQ2RaaUZUMWRiZ000WHgyMGRpMwppR1FhODl6bzlsbFZVZFNaZXNxUjZrZVM4ZjJRVFJlbzZuOFJ4MjQ0bThYc0lMRWxBa0VBKzBtTXA3SEhVbGVwCkpkNWpyS2pnM1kwc0xpTnNpcjhoWmFDQWtHUTdjWGxvQUNZTzZjVHdlZktYa2wyOFg1V2hWYkNVY0tsZGJ0UEYKYkZOMFpKTWJld0pCQUw5UTcybjErbnl5MVY4SGZSUFdvSWNOdGkrc1REUndqdk9sNWUxVTZJNTloaDJxUDJqNApWNEdUUm91TkV1YVhxTXVhc29XQmJvTDF4WnY1dDkzWjE3TUNRUUNnMURVU3kwVFFIY3pqc005SW5abTJFdm00CjJmRkphQVRlLzNmcGNrMWRWaC9MSUpDZzYrd2hrTE9UK1N4c1hOOHljZDYvc0paZExXc0k1dXp5eGZockFrRUEKcmhjRUJUUGtQOXlyOU5GbnE4bStRYWJraGZVUFV4aXB2R1RXR1dVT1NidEhjMjhjVEhUUGpBVnNTRWlUVG1ucgpHM3Nsdi83TGhUZ0lIYXJhK1hIbHFRSkFZY1U2ODZEYzkxSEF2Tkc5MUpzc3dSZGJUcW5sM09mUWxnMTVzbE0yCkR0ZkVhZExXNXR4ajlnTGZKZWRUYlV4b01RNEg1VWpKN2dZQ1FxZlFhYmkyNnc9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=</ns:return></ns:challengeResponseResponse></soapenv:Body></soapenv:Envelope>
+        xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNhVENDQVZFQ0JnRk0vN1FtdWpBTkJna3Foa2lHOXcwQkFRc0ZBREJqTVFzd0NRWURWUVFHRXdKVlV6RUwKTUFrR0ExVUVDQk1DUTBFeEREQUtCZ05WQkFjVEEwMWtVakVSTUE4R0ExVUVDaE1JUkVWVVJWSk1ZV0l4RURBTwpCZ05WQkFzVEIxVnVhMjV2ZDI0eEZEQVNCZ05WQkFNVEMzWnBiUzVwYzJrdVpXUjFNQjRYRFRFMU1EUXlPREV4Ck1EVXpPRm9YRFRJMU1EUXlOVEV4TURVek9Gb3dFVEVQTUEwR0ExVUVBeE1HWVdGa1lXMXpNSUdmTUEwR0NTcUcKU0liM0RRRUJBUVVBQTRHTkFEQ0JpUUtCZ1FERFYzQzc2eUhEWFBtZHJQN2FDYnR4U3dNOXRHc3E3ZGxLTThoVQpEbGk5aW1qYVFRaUZBcitCUUhlZ1hGUjZLakI1emdUT1A5NXZaQ0x6YmZ6LzBzdXZNNzQrZXRFd1BCYWRKTHZhCjY0UzBCMEk2bDJkdWRYLytkZkhkRjdQSW0wTlZ4UGt4ZDVTY2lNMU9wVmJmVWMxaTAwSG14eTE3Y0tieGdkUE4KM3c0a2tRSURBUUFCTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFCaHpTR3lCNDkwQXR4c21VcmsrNnBHVG5USgpockFBOXpoVzBRNE5uYUUwUkp4UEt1SCs2VnlzN2RUYURSNVpxanV5dzNYN2hkeis4aFBUWWFXUm9lbmVtYUpwCkRjTWRhN2JCMklBR3J6QU52dEs3UjA5cGRvaVVzd0VIU3hGZmxtQ1FkWWdkbTRyaWZ4YUEwd3hjVVA2ZEtwUm0KWUhLcENreDBJRWYrWHE3VU5EdjM1QVpkL0hjNlBLVkdsaEVSY0dkbWx4VGhEQ0hmdXIzdjdmTTl1WmhGaVJxOApoRnZqd0ZycnlYbkhTbUt6NWxBNVUxbXA1R0NURWdhRFZKMzgrdUVhWk8xMWErUURYTFN0SnFub3FxNzhyUExVCjIrOGJGYnV3alBwUGxQdUJOTDd0Y3FQUDZ5SnJrOExHUGVibW9tSmJOSldSTmhkUmxVMVV4dTRBVTJVVgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCi0tLS0tQkVHSU4gUlNBIFBSSVZBVEUgS0VZLS0tLS0KTUlJQ1d3SUJBQUtCZ1FERFYzQzc2eUhEWFBtZHJQN2FDYnR4U3dNOXRHc3E3ZGxLTThoVURsaTlpbWphUVFpRgpBcitCUUhlZ1hGUjZLakI1emdUT1A5NXZaQ0x6YmZ6LzBzdXZNNzQrZXRFd1BCYWRKTHZhNjRTMEIwSTZsMmR1CmRYLytkZkhkRjdQSW0wTlZ4UGt4ZDVTY2lNMU9wVmJmVWMxaTAwSG14eTE3Y0tieGdkUE4zdzRra1FJREFRQUIKQW9HQUdLeDB5dWU2VGdqeVpwNHhXcTBjQmdWcGxXT3luYXVKWkx3QnM4eFVIU3pjYmFVRlJIZkNaTHNWNFNXSQpiaDNpSGFDT0x0Y1dhNCtFY3FjVDYrUmVZYnh6TnU3RTRjNm96amJWaXJ6bDJ6NzlPSENuWGV1QllNenNwQWFQCnRTaGhCTmRZVytpVno0T0Jlc0VuYkhXTlRpSEVKWXJTU0NqMFEyQTJkQytyV0prQ1FRRGdUQnY1UnF5elRkTzgKcnVLVGJnRWlwaU1kRS9WQzJjUzRyUWVDS29yT0YxZnlVTm9tS2wxdDhUQk9rMjMvbEplSkxCamJ4RjBNWWZzVQplM1RmNEg1WEFrRUEzdk9iZklseHpCN3E4TTloU29abGpiSHhVZUcyVjFrMlJDNjVaNmF3NXlUSGNlTFFKU044CmUyREh1bllVVkZVQi9uNjVlcG16K0dPQnN6M2MrM3RUVndKQVU0SUNxRHgzOEFuNTJ6WUJoWUpmU2RjeEc1SmkKcmhFRi9QdnUzN2VYRmtQNnFtMFB5MFhhb3lRNUtBZ2IzQndtanh1cjVhYW1QZ1g4eFJOeDRDaGs0UUpBVnIrNgoxQzQybFJIQ29JaFFkc3JzWU1ISC8vQXZIcldibzlQNldCWkg1dWdzb21kNlRia05Db1NSc2orWGtXaXlLZS90CkE0TWl2NWNZTkVIeDVmZ0thUUpBSEFPb2pnZzlnSjF4UHUvQUNaSWpuVEJiVndPcDIwRUFMUFZCcU9FUlZDOEYKM0g4M1N6emY4U2NSUkE5SFByUjl1RXVBaTJxa2x5MUNLUnBNdU9CY2J3PT0KLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K</ns:return></ns:challengeResponseResponse></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Wed, 01 Apr 2015 20:20:40 GMT
+  recorded_at: Tue, 28 Apr 2015 11:05:39 GMT
 - request:
     method: get
     uri: https://spidev.isi.deterlab.net:52323/axis2/services/Projects?wsdl
@@ -1350,7 +1350,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Wed, 01 Apr 2015 20:20:41 GMT
+      - Tue, 28 Apr 2015 11:05:40 GMT
     body:
       encoding: UTF-8
       string: |
@@ -1388,49 +1388,6 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
-                    <xs:element name="getProfileDescription">
-                        <xs:complexType>
-                            <xs:sequence/>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="getProfileDescriptionResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:complexType name="ApiObject">
-                        <xs:sequence/>
-                    </xs:complexType>
-                    <xs:complexType name="Profile">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="attributes" nillable="true" type="ns:Attribute"/>
-                                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                    <xs:complexType name="Attribute">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="dataType" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="formatDescription" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="lengthHint" type="xs:int"/>
-                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
-                                    <xs:element minOccurs="0" name="orderingHint" type="xs:int"/>
-                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
                     <xs:element name="addUsers">
                         <xs:complexType>
                             <xs:sequence>
@@ -1448,6 +1405,9 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
+                    <xs:complexType name="ApiObject">
+                        <xs:sequence/>
+                    </xs:complexType>
                     <xs:complexType name="ChangeResult">
                         <xs:complexContent>
                             <xs:extension base="ns:ApiObject">
@@ -1588,6 +1548,24 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
+                    <xs:complexType name="Attribute">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="dataType" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="formatDescription" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="lengthHint" type="xs:int"/>
+                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
+                                    <xs:element minOccurs="0" name="orderingHint" type="xs:int"/>
+                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
                     <xs:element name="createProjectResponse">
                         <xs:complexType>
                             <xs:sequence>
@@ -1623,6 +1601,16 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
+                    <xs:complexType name="Profile">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="attributes" nillable="true" type="ns:Attribute"/>
+                                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
                     <xs:element name="changeProjectProfile">
                         <xs:complexType>
                             <xs:sequence>
@@ -1725,6 +1713,18 @@ http_interactions:
                         <xs:complexType>
                             <xs:sequence>
                                 <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProfileDescription">
+                        <xs:complexType>
+                            <xs:sequence/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProfileDescriptionResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
@@ -2549,7 +2549,7 @@ http_interactions:
             </wsdl:service>
         </wsdl:definitions>
     http_version: 
-  recorded_at: Wed, 01 Apr 2015 20:20:43 GMT
+  recorded_at: Tue, 28 Apr 2015 11:05:41 GMT
 - request:
     method: post
     uri: https://spidev.isi.deterlab.net:52323/axis2/services/Projects.ProjectsHttpsSoap11Endpoint/
@@ -2557,14 +2557,14 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://api.testbed.deterlab.net/xsd"
-        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:viewProjects><tns:uid>aadams2</tns:uid></tns:viewProjects></env:Body></env:Envelope>
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:viewProjects><tns:uid>aadams</tns:uid></tns:viewProjects></env:Body></env:Envelope>
     headers:
       Soapaction:
       - '"urn:viewProjects"'
       Content-Type:
       - application/soap+xml;charset=UTF-8
       Content-Length:
-      - '350'
+      - '349'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -2583,24 +2583,26 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Wed, 01 Apr 2015 20:20:43 GMT
+      - Tue, 28 Apr 2015 11:05:42 GMT
     body:
       encoding: UTF-8
       string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:viewProjectsResponse
         xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:type="ns:ProjectDescription"><ns:approved>true</ns:approved><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:uid>aashe2</ns:uid></ns:members><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>aadams2</ns:uid></ns:members><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:uid>abierce2</ns:uid></ns:members><ns:owner>aadams2</ns:owner><ns:projectId>Alfa-Romeo</ns:projectId></ns:return><ns:return
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>aashe</ns:uid></ns:members><ns:members
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>abierce</ns:uid></ns:members><ns:members
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>aadams</ns:uid></ns:members><ns:owner>aadams</ns:owner><ns:projectId>Alfa-Romeo</ns:projectId></ns:return><ns:return
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns:ProjectDescription"><ns:approved>true</ns:approved><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:uid>bgreer2</ns:uid></ns:members><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:uid>aadams2</ns:uid></ns:members><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:uid>abierce2</ns:uid></ns:members><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>bberkley2</ns:uid></ns:members><ns:owner>bberkley2</ns:owner><ns:projectId>Beta-Test</ns:projectId></ns:return><ns:return
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>bgreer</ns:uid></ns:members><ns:members
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>john</ns:uid></ns:members><ns:members
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>abierce</ns:uid></ns:members><ns:members
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>bberkley</ns:uid></ns:members><ns:members
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>spyromus</ns:uid></ns:members><ns:members
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>aadams</ns:uid></ns:members><ns:owner>bberkley</ns:owner><ns:projectId>Beta-Test</ns:projectId></ns:return><ns:return
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns:ProjectDescription"><ns:approved>true</ns:approved><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:uid>bgreer2</ns:uid></ns:members><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:uid>aadams2</ns:uid></ns:members><ns:members
-        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>ggrein2</ns:uid></ns:members><ns:owner>ggrein2</ns:owner><ns:projectId>Gamma-Ray</ns:projectId></ns:return></ns:viewProjectsResponse></soapenv:Body></soapenv:Envelope>
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>ggrein</ns:uid></ns:members><ns:members
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>bgreer</ns:uid></ns:members><ns:members
+        xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>aadams</ns:uid></ns:members><ns:owner>ggrein</ns:owner><ns:projectId>Gamma-Ray</ns:projectId></ns:return></ns:viewProjectsResponse></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Wed, 01 Apr 2015 20:20:44 GMT
+  recorded_at: Tue, 28 Apr 2015 11:05:42 GMT
 recorded_with: VCR 2.9.3
