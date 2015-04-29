@@ -25,7 +25,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 28 Apr 2015 11:05:34 GMT
+      - Wed, 29 Apr 2015 04:28:07 GMT
     body:
       encoding: UTF-8
       string: |
@@ -102,6 +102,46 @@ http_interactions:
                             </xs:extension>
                         </xs:complexContent>
                     </xs:complexType>
+                    <xs:element name="getProfileDescription">
+                        <xs:complexType>
+                            <xs:sequence/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProfileDescriptionResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:complexType name="Profile">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="attributes" nillable="true" type="ns:Attribute"/>
+                                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                    <xs:complexType name="Attribute">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="dataType" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="formatDescription" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="lengthHint" type="xs:int"/>
+                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
+                                    <xs:element minOccurs="0" name="orderingHint" type="xs:int"/>
+                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
                     <xs:element name="requestChallenge">
                         <xs:complexType>
                             <xs:sequence>
@@ -158,34 +198,6 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
-                    <xs:complexType name="Profile">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="attributes" nillable="true" type="ns:Attribute"/>
-                                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                    <xs:complexType name="Attribute">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="dataType" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="formatDescription" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="lengthHint" type="xs:int"/>
-                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
-                                    <xs:element minOccurs="0" name="orderingHint" type="xs:int"/>
-                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
                     <xs:element name="changeUserProfile">
                         <xs:complexType>
                             <xs:sequence>
@@ -346,33 +358,6 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
-                    <xs:element name="changePasswordChallenge">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="challengeID" type="xs:long"/>
-                                <xs:element minOccurs="0" name="newPass" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="changePasswordChallengeResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="logout">
-                        <xs:complexType>
-                            <xs:sequence/>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="logoutResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
                     <xs:element name="createUser">
                         <xs:complexType>
                             <xs:sequence>
@@ -409,15 +394,30 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
-                    <xs:element name="getProfileDescription">
+                    <xs:element name="logout">
                         <xs:complexType>
                             <xs:sequence/>
                         </xs:complexType>
                     </xs:element>
-                    <xs:element name="getProfileDescriptionResponse">
+                    <xs:element name="logoutResponse">
                         <xs:complexType>
                             <xs:sequence>
-                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="changePasswordChallenge">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="challengeID" type="xs:long"/>
+                                <xs:element minOccurs="0" name="newPass" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="changePasswordChallengeResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
@@ -1242,7 +1242,7 @@ http_interactions:
             </wsdl:service>
         </wsdl:definitions>
     http_version: 
-  recorded_at: Tue, 28 Apr 2015 11:05:35 GMT
+  recorded_at: Wed, 29 Apr 2015 04:28:08 GMT
 - request:
     method: post
     uri: https://spidev.isi.deterlab.net:52323/axis2/services/Users.UsersHttpsSoap11Endpoint/
@@ -1276,15 +1276,15 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 28 Apr 2015 11:05:36 GMT
+      - Wed, 29 Apr 2015 04:28:10 GMT
     body:
       encoding: UTF-8
       string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:requestChallengeResponse
         xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:type="ns:UserChallenge"><ns:challengeID>-619971319948275437</ns:challengeID><ns:data
-        xsi:nil="true" /><ns:type>clear</ns:type><ns:validity>20150428T110736Z</ns:validity></ns:return></ns:requestChallengeResponse></soapenv:Body></soapenv:Envelope>
+        xsi:type="ns:UserChallenge"><ns:challengeID>8118720372093589127</ns:challengeID><ns:data
+        xsi:nil="true" /><ns:type>clear</ns:type><ns:validity>20150429T043010Z</ns:validity></ns:return></ns:requestChallengeResponse></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Tue, 28 Apr 2015 11:05:37 GMT
+  recorded_at: Wed, 29 Apr 2015 04:28:10 GMT
 - request:
     method: post
     uri: https://spidev.isi.deterlab.net:52323/axis2/services/Users.UsersHttpsSoap11Endpoint/
@@ -1292,7 +1292,7 @@ http_interactions:
       encoding: UTF-8
       string: |-
         <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://api.testbed.deterlab.net/xsd" xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:challengeResponse><tns:responseData>QWJpZ2FpbA==
-        </tns:responseData><tns:challengeID>-619971319948275437</tns:challengeID></tns:challengeResponse></env:Body></env:Envelope>
+        </tns:responseData><tns:challengeID>8118720372093589127</tns:challengeID></tns:challengeResponse></env:Body></env:Envelope>
     headers:
       Soapaction:
       - '"urn:challengeResponse"'
@@ -1318,13 +1318,13 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 28 Apr 2015 11:05:38 GMT
+      - Wed, 29 Apr 2015 04:28:11 GMT
     body:
       encoding: UTF-8
       string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:challengeResponseResponse
-        xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNhVENDQVZFQ0JnRk0vN1FtdWpBTkJna3Foa2lHOXcwQkFRc0ZBREJqTVFzd0NRWURWUVFHRXdKVlV6RUwKTUFrR0ExVUVDQk1DUTBFeEREQUtCZ05WQkFjVEEwMWtVakVSTUE4R0ExVUVDaE1JUkVWVVJWSk1ZV0l4RURBTwpCZ05WQkFzVEIxVnVhMjV2ZDI0eEZEQVNCZ05WQkFNVEMzWnBiUzVwYzJrdVpXUjFNQjRYRFRFMU1EUXlPREV4Ck1EVXpPRm9YRFRJMU1EUXlOVEV4TURVek9Gb3dFVEVQTUEwR0ExVUVBeE1HWVdGa1lXMXpNSUdmTUEwR0NTcUcKU0liM0RRRUJBUVVBQTRHTkFEQ0JpUUtCZ1FERFYzQzc2eUhEWFBtZHJQN2FDYnR4U3dNOXRHc3E3ZGxLTThoVQpEbGk5aW1qYVFRaUZBcitCUUhlZ1hGUjZLakI1emdUT1A5NXZaQ0x6YmZ6LzBzdXZNNzQrZXRFd1BCYWRKTHZhCjY0UzBCMEk2bDJkdWRYLytkZkhkRjdQSW0wTlZ4UGt4ZDVTY2lNMU9wVmJmVWMxaTAwSG14eTE3Y0tieGdkUE4KM3c0a2tRSURBUUFCTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFCaHpTR3lCNDkwQXR4c21VcmsrNnBHVG5USgpockFBOXpoVzBRNE5uYUUwUkp4UEt1SCs2VnlzN2RUYURSNVpxanV5dzNYN2hkeis4aFBUWWFXUm9lbmVtYUpwCkRjTWRhN2JCMklBR3J6QU52dEs3UjA5cGRvaVVzd0VIU3hGZmxtQ1FkWWdkbTRyaWZ4YUEwd3hjVVA2ZEtwUm0KWUhLcENreDBJRWYrWHE3VU5EdjM1QVpkL0hjNlBLVkdsaEVSY0dkbWx4VGhEQ0hmdXIzdjdmTTl1WmhGaVJxOApoRnZqd0ZycnlYbkhTbUt6NWxBNVUxbXA1R0NURWdhRFZKMzgrdUVhWk8xMWErUURYTFN0SnFub3FxNzhyUExVCjIrOGJGYnV3alBwUGxQdUJOTDd0Y3FQUDZ5SnJrOExHUGVibW9tSmJOSldSTmhkUmxVMVV4dTRBVTJVVgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCi0tLS0tQkVHSU4gUlNBIFBSSVZBVEUgS0VZLS0tLS0KTUlJQ1d3SUJBQUtCZ1FERFYzQzc2eUhEWFBtZHJQN2FDYnR4U3dNOXRHc3E3ZGxLTThoVURsaTlpbWphUVFpRgpBcitCUUhlZ1hGUjZLakI1emdUT1A5NXZaQ0x6YmZ6LzBzdXZNNzQrZXRFd1BCYWRKTHZhNjRTMEIwSTZsMmR1CmRYLytkZkhkRjdQSW0wTlZ4UGt4ZDVTY2lNMU9wVmJmVWMxaTAwSG14eTE3Y0tieGdkUE4zdzRra1FJREFRQUIKQW9HQUdLeDB5dWU2VGdqeVpwNHhXcTBjQmdWcGxXT3luYXVKWkx3QnM4eFVIU3pjYmFVRlJIZkNaTHNWNFNXSQpiaDNpSGFDT0x0Y1dhNCtFY3FjVDYrUmVZYnh6TnU3RTRjNm96amJWaXJ6bDJ6NzlPSENuWGV1QllNenNwQWFQCnRTaGhCTmRZVytpVno0T0Jlc0VuYkhXTlRpSEVKWXJTU0NqMFEyQTJkQytyV0prQ1FRRGdUQnY1UnF5elRkTzgKcnVLVGJnRWlwaU1kRS9WQzJjUzRyUWVDS29yT0YxZnlVTm9tS2wxdDhUQk9rMjMvbEplSkxCamJ4RjBNWWZzVQplM1RmNEg1WEFrRUEzdk9iZklseHpCN3E4TTloU29abGpiSHhVZUcyVjFrMlJDNjVaNmF3NXlUSGNlTFFKU044CmUyREh1bllVVkZVQi9uNjVlcG16K0dPQnN6M2MrM3RUVndKQVU0SUNxRHgzOEFuNTJ6WUJoWUpmU2RjeEc1SmkKcmhFRi9QdnUzN2VYRmtQNnFtMFB5MFhhb3lRNUtBZ2IzQndtanh1cjVhYW1QZ1g4eFJOeDRDaGs0UUpBVnIrNgoxQzQybFJIQ29JaFFkc3JzWU1ISC8vQXZIcldibzlQNldCWkg1dWdzb21kNlRia05Db1NSc2orWGtXaXlLZS90CkE0TWl2NWNZTkVIeDVmZ0thUUpBSEFPb2pnZzlnSjF4UHUvQUNaSWpuVEJiVndPcDIwRUFMUFZCcU9FUlZDOEYKM0g4M1N6emY4U2NSUkE5SFByUjl1RXVBaTJxa2x5MUNLUnBNdU9CY2J3PT0KLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K</ns:return></ns:challengeResponseResponse></soapenv:Body></soapenv:Envelope>
+        xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNhVENDQVZFQ0JnRk5BMjZneFRBTkJna3Foa2lHOXcwQkFRc0ZBREJqTVFzd0NRWURWUVFHRXdKVlV6RUwKTUFrR0ExVUVDQk1DUTBFeEREQUtCZ05WQkFjVEEwMWtVakVSTUE4R0ExVUVDaE1JUkVWVVJWSk1ZV0l4RURBTwpCZ05WQkFzVEIxVnVhMjV2ZDI0eEZEQVNCZ05WQkFNVEMzWnBiUzVwYzJrdVpXUjFNQjRYRFRFMU1EUXlPVEEwCk1qZ3hNVm9YRFRJMU1EUXlOakEwTWpneE1Wb3dFVEVQTUEwR0ExVUVBeE1HWVdGa1lXMXpNSUdmTUEwR0NTcUcKU0liM0RRRUJBUVVBQTRHTkFEQ0JpUUtCZ1FDajBiTFlTUUw0YmJrcjZCVVpZOEYyU3hLdlZpYXEzZkJNdGhEYgpibVNENnhSRlhSVlRSME1tODJaSWQrbElCcDNBcnE5NnpkQlk4ZFhJWklZSGNBL1Nub3ZOVlozS2xPNkRSRy9sCmdWQVlrVHY2bXR5bTluWmE4UjNQS3V3L1VUano4cGVUMkZQc2RsckRQbU9Nbm5PYWduSDZCUDhwQldiU2Z0djgKL3NuQUxRSURBUUFCTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFBYUR5Yno5WTBia2FzSGgrVEZMbDJMUGZpaAorN01wZ3ROQjliMjBvVCtRREhVemQzQlJqZ0pFb2hvSUJ6bDZxOGJmaHVLb3ZMNURkYytWQzZjMWZmNktjZ3VkClFGSHhGUUNKbElHTldINis5R0h3RE5rZXpHR04xWUJJTjdabXpjeCtpMXJuY3psVmE0dnlUUjdsYWlOODVwTDMKSXFCQkN6bHM3ZmliVnFyaFk5ZWUyczdlcnZwbENRS0ZYdzh2Tm5lL0FTMmtTZnE1V1FBNWliaDgwMExvaG94cQppSGg5MDMwQ1ZYSVM1OERhL1hOWXVudmh1dmszTFByVWwxK0xhNS9KOVNUM0hBeExGK3ZaVUptQnFKNGhaN0t6CmY0elVYTEJHS1d0dyt1SnJST1Z5Rjd5cWVHQ1l4VFdyOWtnNlY3ckpiKytvcktZMC8zbkRBRW4renFXYQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCi0tLS0tQkVHSU4gUlNBIFBSSVZBVEUgS0VZLS0tLS0KTUlJQ1d3SUJBQUtCZ1FDajBiTFlTUUw0YmJrcjZCVVpZOEYyU3hLdlZpYXEzZkJNdGhEYmJtU0Q2eFJGWFJWVApSME1tODJaSWQrbElCcDNBcnE5NnpkQlk4ZFhJWklZSGNBL1Nub3ZOVlozS2xPNkRSRy9sZ1ZBWWtUdjZtdHltCjluWmE4UjNQS3V3L1VUano4cGVUMkZQc2RsckRQbU9Nbm5PYWduSDZCUDhwQldiU2Z0djgvc25BTFFJREFRQUIKQW9HQkFKdzEwUUdYRllNSk5lS2RTc2xNSzJWK2p0R3RKL0FVOUJoaUlFN3R4R0ZhbjVqSSt4WFBSVVIySXBtRgo1bWd0RHU1MlpKU0lmMXpoTmtjQlBDRUpoYnQ5VUNFL0dJZ05CWnZQellZWjV1S2JEcDVaS1JyemtiZXJOU2F2CnBpbzlvRzRHcEFlSUYrZG5wK0c0bU1TaVFxejJzOVdRcnM1MnBHTGwyMU9SK0VaTkFrRUExZXNvbXlIVnFPOG4KWWxXYmtQVDFlbCtSRUY3Z0hPZlZkcVpJWDBRSEljRnFzdEF4TDZRdGNFaUoyNXBES3dZQ0JTVWtrN3pzR0UyNAo3ZDA4Yml1Y2x3SkJBTVFMamYzL3ROak5pZGtQZUhDdGVVdWdaY0c2N3ExTHZHRWltRmg0S2hQOE1vQ1NndjNsCktYYThJNzhWNzAveWlZREliMk9xU0ltc2F5bXFSZlgxN2RzQ1FFRXBONTVCcVM2allyRE9lT3VuNGxxYlg3bkgKM0thUmEvR1BaejQxbjZLRm96WEN1eWpTN3RCa0dESWZoRlJIcVRmZC80MU5IL0dyUXlpWm1uM0lwUk1DUUJHZwp6RnJMbEhKdVFQZndxUzdRbW5pUGFyYjUzUjVlRWdsVitBYjBmeXdlNEZlcFZQZ0psQ25tRHZ6T3R4OGtPdk1HCmt1V09XVWx2NUk3eGphcnBPME1DUDA0Rmwxcm5HWCtKd3dqYWQ2MWxXS0E4cTdVcjZsODhNaU5ESEJXcUFPR00KYVlrOFJ5MzlneEJWT2lpbnp2TW1FQTFocWFnR2pVVmlSdmp0RFZrc3lRPT0KLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K</ns:return></ns:challengeResponseResponse></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Tue, 28 Apr 2015 11:05:39 GMT
+  recorded_at: Wed, 29 Apr 2015 04:28:11 GMT
 - request:
     method: get
     uri: https://spidev.isi.deterlab.net:52323/axis2/services/Projects?wsdl
@@ -1350,7 +1350,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 28 Apr 2015 11:05:40 GMT
+      - Wed, 29 Apr 2015 04:28:12 GMT
     body:
       encoding: UTF-8
       string: |
@@ -1388,6 +1388,209 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
+                    <xs:element name="createProject">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="owner" nillable="true" type="xs:string"/>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="profile" nillable="true" type="ns:Attribute"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:complexType name="ApiObject">
+                        <xs:sequence/>
+                    </xs:complexType>
+                    <xs:complexType name="Attribute">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="dataType" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="formatDescription" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="lengthHint" type="xs:int"/>
+                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
+                                    <xs:element minOccurs="0" name="orderingHint" type="xs:int"/>
+                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                    <xs:element name="createProjectResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="removeProject">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="removeProjectResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProjectProfile">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProjectProfileResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:complexType name="Profile">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="attributes" nillable="true" type="ns:Attribute"/>
+                                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                    <xs:element name="changeProjectProfile">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="changes" nillable="true" type="ns:ChangeAttribute"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:complexType name="ChangeAttribute">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="delete" type="xs:boolean"/>
+                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                    <xs:element name="changeProjectProfileResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ns:ChangeResult"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:complexType name="ChangeResult">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="reason" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="success" type="xs:boolean"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                    <xs:element name="joinProject">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="urlPrefix" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="joinProjectResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="joinProjectConfirm">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="challengeId" type="xs:long"/>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="perms" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="joinProjectConfirmResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="viewProjects">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="regex" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="viewProjectsResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ns:ProjectDescription"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:complexType name="ProjectDescription">
+                        <xs:complexContent>
+                            <xs:extension base="ns:ApiObject">
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="approved" type="xs:boolean"/>
+                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="members" nillable="true" type="ns:Member"/>
+                                    <xs:element minOccurs="0" name="owner" nillable="true" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="projectId" nillable="true" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                    <xs:complexType name="Member">
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="permissions" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                    <xs:element name="approveProject">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
+                                <xs:element minOccurs="0" name="approved" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="approveProjectResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProfileDescription">
+                        <xs:complexType>
+                            <xs:sequence/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="getProfileDescriptionResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
                     <xs:element name="addUsers">
                         <xs:complexType>
                             <xs:sequence>
@@ -1405,20 +1608,6 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
-                    <xs:complexType name="ApiObject">
-                        <xs:sequence/>
-                    </xs:complexType>
-                    <xs:complexType name="ChangeResult">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="reason" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="success" type="xs:boolean"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
                     <xs:element name="addUserConfirm">
                         <xs:complexType>
                             <xs:sequence>
@@ -1536,195 +1725,6 @@ http_interactions:
                         <xs:complexType>
                             <xs:sequence>
                                 <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="createProject">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="owner" nillable="true" type="xs:string"/>
-                                <xs:element maxOccurs="unbounded" minOccurs="0" name="profile" nillable="true" type="ns:Attribute"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:complexType name="Attribute">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element minOccurs="0" name="access" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="dataType" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="format" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="formatDescription" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="lengthHint" type="xs:int"/>
-                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="optional" type="xs:boolean"/>
-                                    <xs:element minOccurs="0" name="orderingHint" type="xs:int"/>
-                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                    <xs:element name="createProjectResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="removeProject">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="removeProjectResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="getProjectProfile">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="getProjectProfileResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:complexType name="Profile">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="attributes" nillable="true" type="ns:Attribute"/>
-                                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                    <xs:element name="changeProjectProfile">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
-                                <xs:element maxOccurs="unbounded" minOccurs="0" name="changes" nillable="true" type="ns:ChangeAttribute"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:complexType name="ChangeAttribute">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element minOccurs="0" name="delete" type="xs:boolean"/>
-                                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                    <xs:element name="changeProjectProfileResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ns:ChangeResult"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="joinProject">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="urlPrefix" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="joinProjectResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="joinProjectConfirm">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="challengeId" type="xs:long"/>
-                                <xs:element maxOccurs="unbounded" minOccurs="0" name="perms" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="joinProjectConfirmResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="viewProjects">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="regex" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="viewProjectsResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ns:ProjectDescription"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:complexType name="ProjectDescription">
-                        <xs:complexContent>
-                            <xs:extension base="ns:ApiObject">
-                                <xs:sequence>
-                                    <xs:element minOccurs="0" name="approved" type="xs:boolean"/>
-                                    <xs:element maxOccurs="unbounded" minOccurs="0" name="members" nillable="true" type="ns:Member"/>
-                                    <xs:element minOccurs="0" name="owner" nillable="true" type="xs:string"/>
-                                    <xs:element minOccurs="0" name="projectId" nillable="true" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:extension>
-                        </xs:complexContent>
-                    </xs:complexType>
-                    <xs:complexType name="Member">
-                        <xs:sequence>
-                            <xs:element maxOccurs="unbounded" minOccurs="0" name="permissions" nillable="true" type="xs:string"/>
-                            <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                    <xs:element name="approveProject">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="projectid" nillable="true" type="xs:string"/>
-                                <xs:element minOccurs="0" name="approved" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="approveProjectResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="getProfileDescription">
-                        <xs:complexType>
-                            <xs:sequence/>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="getProfileDescriptionResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:Profile"/>
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
@@ -2549,7 +2549,7 @@ http_interactions:
             </wsdl:service>
         </wsdl:definitions>
     http_version: 
-  recorded_at: Tue, 28 Apr 2015 11:05:41 GMT
+  recorded_at: Wed, 29 Apr 2015 04:28:14 GMT
 - request:
     method: post
     uri: https://spidev.isi.deterlab.net:52323/axis2/services/Projects.ProjectsHttpsSoap11Endpoint/
@@ -2583,7 +2583,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 28 Apr 2015 11:05:42 GMT
+      - Wed, 29 Apr 2015 04:28:15 GMT
     body:
       encoding: UTF-8
       string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:viewProjectsResponse
@@ -2604,5 +2604,5 @@ http_interactions:
         xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>bgreer</ns:uid></ns:members><ns:members
         xsi:type="ns:Member"><ns:permissions>CREATE_EXPERIMENT</ns:permissions><ns:permissions>CREATE_LIBRARY</ns:permissions><ns:permissions>REMOVE_USER</ns:permissions><ns:permissions>CREATE_CIRCLE</ns:permissions><ns:permissions>ADD_USER</ns:permissions><ns:uid>aadams</ns:uid></ns:members><ns:owner>ggrein</ns:owner><ns:projectId>Gamma-Ray</ns:projectId></ns:return></ns:viewProjectsResponse></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Tue, 28 Apr 2015 11:05:42 GMT
+  recorded_at: Wed, 29 Apr 2015 04:28:15 GMT
 recorded_with: VCR 2.9.3
