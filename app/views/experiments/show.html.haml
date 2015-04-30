@@ -90,12 +90,16 @@
               - aspects.each_with_index do |a, i|
                 %tr
                   %td= a.name
-                  %td #{a.type} / #{a.sub_type}
+                  %td
+                    #{a.type}
+                    - unless a.sub_type.blank?
+                      \/ #{a.sub_type}
                   %td.text-right
+                    - if is_owner && a.sub_type.blank?
+                      = link_to t(".delete"), experiment_aspect_path(@experiment.id, a.name, type: a.type), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
                     = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-default more'
                     = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-default less hide'
                     = link_to t(".modify"), "#", class: 'btn btn-xs btn-default'
-                    = link_to t(".delete"), "#", class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
                 %tr{ data: { more_id: i }, class: 'hide' }
                   %td{ colspan: 3 }
                     %pre= a.formatted_data

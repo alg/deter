@@ -54,6 +54,7 @@ en:
       view: View
       hide: Hide
       modify: Modify
+      delete: Delete
 
     new:
       title: New experiment

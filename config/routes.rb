@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
     resources :members, controller: "experiment_members", only: [ :index, :create, :destroy ]
     resource  :profile, controller: "experiment_profile", only: [ :show, :update ]
+    resources :aspects, controller: "experiment_aspects", only: [ :destroy ]
   end
 
   # Example of regular route:

@@ -36,18 +36,25 @@ class ApplicationController < ActionController::Base
 
   # Returns the instance of cache configured for the current user
   def deter_cache
-    @deter_cache ||= DeterCache.new(app_session.current_user_id)
+    @deter_cache ||= DeterCache.new(current_user_id)
   end
 
   # returns the cached deter lab access layer
   def deter_lab
-    @deter_lab ||= CachedDeterLab.new(deter_cache, app_session.current_user_id)
+    @deter_lab ||= CachedDeterLab.new(deter_cache, current_user_id)
   end
   helper_method :deter_lab
 
   # returns the user name
   def current_user_name
-    logged_in? ? (deter_lab.get_profile.try(:[], "name") || app_session.current_user_id) : nil
+    logged_in? ? (deter_lab.get_profile.try(:[], "name") || current_user_id) : nil
   end
   helper_method :current_user_name
+
+  # returns currently logged in user id
+  def current_user_id
+    app_session.current_user_id
+  end
+  helper_method :current_user_id
+
 end

@@ -1,0 +1,5 @@
+en:
+  experiment_aspects:
+    destroy:
+      success: "Records deleted"
+      failure: "Failed to delete the record"

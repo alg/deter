@@ -89,6 +89,28 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
     end
   end
 
+  test "removing aspects from experiment" do
+    VCR.use_cassette "deterlab/experiments/remove-experiment-aspects" do
+      eid = "TestAspects12"
+
+      login
+      assert create_experiment("SPIdev", eid), "Could not create an experiment"
+
+      res = DeterLab.add_experiment_aspects(@username, "SPIdev:#{eid}", [ { type: 'layout', data: LAYOUT } ])
+      aspect = res.find { |a| a[:name] !~ %r{.*/.*} }
+
+      res = DeterLab.remove_experiment_aspects(@username, "SPIdev:#{eid}", [ { name: aspect[:name], type: 'layout' } ])
+      assert_equal({
+        "layout000"                    => true,
+        "layout000/full_layout"        => true,
+        "layout000/fragment/fragment1" => true,
+        "layout000/namemap/R/R-0"      => true,
+        "layout000/namemap/R"          => true,
+        "layout000/minimal_layout"     => true
+      }, res)
+    end
+  end
+
   test "run experiment" do
     VCR.use_cassette "deterlab/experiments/run-experiment" do
       login
