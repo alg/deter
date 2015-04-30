@@ -2,7 +2,7 @@
   #footer
     .row
       .col-md-2.visible-md.visible-lg
-        = link_to "https://www.isi.deterlab.net/" do
+        = link_to (logged_in? ? :dashboard : :root) do
           = image_tag "logo.png", class: 'logo'
 
       .col-md-8

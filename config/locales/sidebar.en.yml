@@ -2,8 +2,8 @@ en:
   layouts:
     sidebar:
       logged_in:      Logged In
-      logged_in_as:  "User %{name}: %{dash_link}"
-      
+      logged_in_as:  "User <strong>%{name}</strong>: %{dash_link}"
+
       tech_support:
         about:
           label: "About Technical Support for DeterLab User"
