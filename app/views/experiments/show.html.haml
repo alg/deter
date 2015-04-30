@@ -71,23 +71,33 @@
       .col-sm-12
         TBD
 
-    - unless @experiment.aspects.blank?
-      %h4= t ".aspects"
-      %table.table
-        %thead
-          %tr
-            %th.col-sm-7= t ".name"
-            %th.col-sm-3= t ".type"
-            %th.col-sm-2.text-right= t ".value"
-        - @experiment.aspects.each_with_index do |a, i|
-          %tr
-            %td= a.name
-            %td #{a.type} / #{a.sub_type}
-            %td.text-right
-              = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-default more'
-              = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-default less hide'
-              = link_to t(".modify"), "#", class: 'btn btn-xs btn-default'
-          %tr{ data: { more_id: i }, class: 'hide' }
-            %td{ colspan: 3 }
-              %pre= a.formatted_data
+    .row
+      .col-sm-12
+        %h4= t ".aspects"
+        - groupped_aspects = @experiment.aspects.group_by(&:type)
+        - %w{ layout orchestration visualization }.each do |type|
+          - aspects = groupped_aspects[type]
+          %h5= type.capitalize
+          - if aspects.blank?
+            %p 0 Layouts
+          - else
+            %table.table
+              %thead
+                %tr
+                  %th.col-sm-6= t ".name"
+                  %th.col-sm-3= t ".type"
+                  %th.col-sm-3.text-right= t ".value"
+              - aspects.each_with_index do |a, i|
+                %tr
+                  %td= a.name
+                  %td #{a.type} / #{a.sub_type}
+                  %td.text-right
+                    = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-default more'
+                    = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-default less hide'
+                    = link_to t(".modify"), "#", class: 'btn btn-xs btn-default'
+                    = link_to t(".delete"), "#", class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
+                %tr{ data: { more_id: i }, class: 'hide' }
+                  %td{ colspan: 3 }
+                    %pre= a.formatted_data
+          = link_to t(".add_aspect"), "#", class: 'btn btn-default'
 

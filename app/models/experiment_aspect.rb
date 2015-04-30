@@ -10,10 +10,12 @@ class ExperimentAspect < Struct.new(:name, :type, :sub_type, :data, :data_refere
     doc.to_xml.gsub(' ', '&nbsp;')
 
     require 'rexml/document'
-doc = REXML::Document.new( decoded)
-formatter = REXML::Formatters::Pretty.new
-formatter.compact = true
-formatter.write(doc, targetstr = "")
+    doc = REXML::Document.new( decoded)
+    formatter = REXML::Formatters::Pretty.new
+    formatter.compact = true
+    formatter.write(doc, targetstr = "")
+
     targetstr
   end
+
 end
