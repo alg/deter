@@ -40,15 +40,17 @@ class ExperimentMembersController < ApplicationController
 
   # removes the member record
   def destroy
-    if params[:id] == "#{@experiment.owner}:#{@experiment.owner}"
+    member = ExperimentMember.new(circle_id: params[:id])
+
+    if member.full_circle_id == "#{@experiment.owner}:#{@experiment.owner}"
       redirect_to experiment_members_path(@experiment.id), alert: t('.deleting_self')
       return
     end
 
     res = DeterLab.change_experiment_acl(@app_session.current_user_id, @experiment.id, [
-      ExperimentACL.new(params[:id], ExperimentACL::DELETE) ])
+      ExperimentACL.new(member.full_circle_id, ExperimentACL::DELETE) ])
 
-    success = res[params[:id]]
+    success = res[member.full_circle_id]
     deter_lab.invalidate_experiment(@experiment.id) if success
 
     options = {}
