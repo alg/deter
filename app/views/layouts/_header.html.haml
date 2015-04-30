@@ -31,7 +31,7 @@
             %li.dropdown-submenu{ class: @submenu == :manage_project ? 'active' : nil }
               = link_to t("submenu.manage_projects"), "#", tabindex: -1
               %ul.dropdown-menu
-                - projects = deter_lab.get_managed_projects
+                - projects = deter_lab.get_managed_projects.reject(&:admin?)
                 - if projects.blank?
                   %li= link_to t("submenu.no_managed_projects"), "#"
                 - else

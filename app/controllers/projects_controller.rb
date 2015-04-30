@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # Projects list
   def index
     uid = app_session.current_user_id
-    projects = SummaryLoader.user_projects(uid)
+    projects = SummaryLoader.user_projects(uid).reject { |p| p[:project_id].downcase == 'admin' }
 
     @approved = projects.select { |p| p[:approved] }.sort do |p1, p2|
       o1 = p1[:leader][:uid] == uid
