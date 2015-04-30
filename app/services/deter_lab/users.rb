@@ -13,6 +13,12 @@ module DeterLab
       return false
     end
 
+    # true if the user is in the admin project circle
+    def admin?(uid)
+      circle = DeterLab.view_circles(uid, "admin:admin").first
+      return circle && !circle.members.find { |m| m.uid == uid }.nil?
+    end
+
     # Logs the user out
     def logout(uid)
       cl = client("Users", uid)

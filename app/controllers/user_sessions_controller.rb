@@ -8,7 +8,8 @@ class UserSessionsController < ApplicationController
     password = params[:password]
 
     if username.present? && password.present? && DeterLab.valid_credentials?(username, password)
-      app_session.logged_in_as(params[:username])
+      admin = DeterLab.admin?(username)
+      app_session.logged_in_as(params[:username], admin)
       redirect_to :dashboard, notice: t(".success")
     else
       flash.now[:alert] = t(".failure")

@@ -11,3 +11,10 @@ en:
     experiments:      Experiments
     my_experiments:   My Experiments
     new_experiment:   Create New Experiment
+
+    administration:   Administration
+    project_requests: Project Requests
+    user_admin:       User Administration
+    project_admin:    Project Administration
+    privilege_admin:  Privilege Administration
+

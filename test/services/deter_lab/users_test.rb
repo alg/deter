@@ -101,6 +101,20 @@ class DeterLab::UsersTest < DeterLab::AbstractTest
     end
   end
 
+  test "should verify the user is admin" do
+    VCR.use_cassette "deterlab/users/admin_true" do
+      login 'admin_user'
+      assert DeterLab.admin?(@username)
+    end
+  end
+
+  test "should verify the user is not admin" do
+    VCR.use_cassette "deterlab/users/admin_false" do
+      login
+      assert !DeterLab.admin?(@username)
+    end
+  end
+
   private
 
   def user_profile

@@ -44,3 +44,9 @@
             = submenu_item :my_experiments, t("submenu.my_experiments"), experiments_path
             = submenu_item :new_experiment, t("submenu.new_experiment"), new_experiment_path
           <li><a href="#">Notifications</a></li>
+          - if admin?
+            = dropdown_submenu_item [ :project_requests, :user_admin, :project_admin, :privilege_admin ], t("submenu.administration") do
+              = submenu_item :project_requets, t("submenu.project_requests"), "#TBD"
+              = submenu_item :user_admin, t("submenu.user_admin"), "#TBD"
+              = submenu_item :project_admin, t("submenu.project_admin"), "#TBD"
+              = submenu_item :privilege_admin, t("submenu.privilege_admin"), "#TBD"

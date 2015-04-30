@@ -9,12 +9,14 @@ class UserSessionsControllerTest < ActionController::TestCase
 
   test "logs in as a user" do
     DeterLab.stubs(:valid_credentials?).returns(true)
+    DeterLab.stubs(:admin?).returns(false)
     @app_session = AppSession.new(@controller.session)
 
     post :create, username: 'user_id', password: 'pass'
     assert_redirected_to :dashboard
     assert_equal I18n.t("user_sessions.create.success"), flash.notice
     assert @app_session.logged_in?
+    assert !@app_session.admin?
   end
 
   test "doesn't login" do
@@ -29,7 +31,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     DeterLab.stubs(:logout).returns(true)
 
     @app_session = AppSession.new(@controller.session)
-    @app_session.logged_in_as "user"
+    @app_session.logged_in_as "user", false
 
     delete :destroy
     assert_equal I18n.t("user_sessions.destroy.success"), flash.notice
@@ -42,7 +44,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     DeterLab.expects(:logout).raises(DeterLab::NotLoggedIn)
 
     @app_session = AppSession.new(@controller.session)
-    @app_session.logged_in_as "user"
+    @app_session.logged_in_as "user", false
 
     delete :destroy
     assert_redirected_to :login
