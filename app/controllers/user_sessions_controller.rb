@@ -4,7 +4,7 @@ class UserSessionsController < ApplicationController
 
   # Logs the user in
   def create
-    username = params[:username]
+    username = params[:username].try(:downcase)
     password = params[:password]
 
     if username.present? && password.present? && DeterLab.valid_credentials?(username, password)
