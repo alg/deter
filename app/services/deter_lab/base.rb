@@ -34,6 +34,9 @@ module DeterLab
     def process_error(e)
       code = error_code(e)
 
+      Rails.logger.error e.inspect
+      Rails.logger.error "Codeeeeee: #{code}"
+
       if code == "5"
         raise NotLoggedIn
       elsif code == "2"
@@ -43,6 +46,8 @@ module DeterLab
         else
           raise RequestError, msg
         end
+      elsif code == "1"
+        raise AccessDenied
       else
         if Rails.env.test?
           puts e.to_hash.inspect
@@ -69,6 +74,7 @@ module DeterLab
       fault   = detail.try(:[], :users_deter_fault)
       fault ||= detail.try(:[], :projects_deter_fault)
       fault ||= detail.try(:[], :experiments_deter_fault)
+      fault ||= detail.try(:[], :circles_deter_fault)
       fault.try(:[], :deter_fault)
     end
 

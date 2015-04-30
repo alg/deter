@@ -17,8 +17,8 @@ module DeterLab
 
         Circle.new(i[:circle_id], i[:owner], members)
       end
-    rescue Savon::SOAPFault, Error
-      return false
+    rescue Savon::SOAPFault => e
+      process_error e
     end
 
   end

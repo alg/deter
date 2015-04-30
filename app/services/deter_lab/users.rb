@@ -17,6 +17,8 @@ module DeterLab
     def admin?(uid)
       circle = DeterLab.view_circles(uid, "admin:admin").first
       return circle && !circle.members.find { |m| m.uid == uid }.nil?
+    rescue DeterLab::AccessDenied
+      return false
     end
 
     # Logs the user out

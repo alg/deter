@@ -9,6 +9,9 @@ module DeterLab
   # General request error (see the message)
   class RequestError < Error; end
 
+  # Access denied error
+  class AccessDenied < Error; end
+
   extend DeterLab::Base
   extend DeterLab::ApiInfo
   extend DeterLab::Users
