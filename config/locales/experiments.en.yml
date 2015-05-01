@@ -44,6 +44,11 @@ en:
 
       not_found: Experiment is missing
 
+      experiment_profile: Experiment Profile
+      access_control: Access Control
+      recent_activity: Recent Activity
+      aspects: Aspects
+
       field: Field
       value: Value
 

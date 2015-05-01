@@ -81,7 +81,7 @@
           - if aspects.blank?
             %p 0 Layouts
           - else
-            %table.table
+            %table.table.table-striped
               %thead
                 %tr
                   %th.col-sm-6= t ".name"
@@ -100,6 +100,8 @@
                     = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-default more'
                     = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-default less hide'
                     = link_to t(".modify"), "#", class: 'btn btn-xs btn-default'
+                %tr{ class: 'hide' }
+                  %td{ colspan: 3 } &nbsp;
                 %tr{ data: { more_id: i }, class: 'hide' }
                   %td{ colspan: 3 }
                     %pre= a.formatted_data
