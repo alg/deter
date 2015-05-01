@@ -82,28 +82,22 @@
             %p 0 Layouts
           - else
             %table.table.table-striped
-              %thead
-                %tr
-                  %th.col-sm-6= t ".name"
-                  %th.col-sm-3= t ".type"
-                  %th.col-sm-3.text-right= t ".value"
               - aspects.each_with_index do |a, i|
                 %tr
-                  %td= a.name
                   %td
-                    #{a.type}
-                    - unless a.sub_type.blank?
-                      \/ #{a.sub_type}
-                  %td.text-right
-                    - if is_owner && a.sub_type.blank?
-                      = link_to t(".delete"), experiment_aspect_path(@experiment.id, a.name, type: a.type), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
-                    = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-default more'
-                    = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-default less hide'
-                    = link_to t(".modify"), "#", class: 'btn btn-xs btn-default'
-                %tr{ class: 'hide' }
-                  %td{ colspan: 3 } &nbsp;
-                %tr{ data: { more_id: i }, class: 'hide' }
-                  %td{ colspan: 3 }
-                    %pre= a.formatted_data
+                    = link_to a.name, '#', data: { id: i }, class: 'more-less'
+                    %p
+                      <strong>Type</strong>: #{a.type}
+                      - unless a.sub_type.blank?
+                        \/ #{a.sub_type}
+                    %p
+                      = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-info more'
+                      = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-info less hide'
+                      = link_to t(".modify"), "#", class: 'btn btn-xs btn-default'
+                      - if is_owner && a.sub_type.blank?
+                        = link_to t(".delete"), experiment_aspect_path(@experiment.id, a.name, type: a.type), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
+                    %div.hide{ data: { more_id: i } }
+                      %pre= a.formatted_data
+
           = link_to t(".add_aspect"), "#", class: 'btn btn-default'
 
