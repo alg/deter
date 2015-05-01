@@ -42,7 +42,8 @@ class SeedTestData
   PROJECT_USERS = {
     'Alfa-Romeo' => [ 'Arthur Ashe', 'Ambrose Bierce' ],
     'Beta-Test'  => [ 'Abigail Adams', 'Ambrose Bierce', 'Britt Greer', 'John Sebes', 'Aleksey Gureiev' ],
-    'Gamma-Ray'  => [ 'Abigail Adams', 'Britt Greer' ]
+    'Gamma-Ray'  => [ 'Abigail Adams', 'Britt Greer' ],
+    'admin'      => [ 'John Sebes', 'Aleksey Gureiev' ]
   }
 
   PROJECT_PROFILE_ATTRS = [
