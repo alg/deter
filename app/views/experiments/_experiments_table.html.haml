@@ -18,5 +18,3 @@
               - if e[:owner][:uid] == @app_session.current_user_id
                 = link_to t(".manage"), manage_experiment_path(eid), class: 'btn btn-xs btn-info'
               = link_to t(".view"), experiment_path(eid), class: 'btn btn-xs btn-info'
-
-              -# = link_to t(".delete"), experiment_path(e.id), method: :delete, data: { confirm: t(".confirm_delete") }, class: 'btn btn-xs btn-danger'

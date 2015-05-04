@@ -18,8 +18,6 @@ class ExperimentsController < ApplicationController
         1
       end
     end
-
-    gon.getProfileUrl = profile_experiment_path(':id')
   end
 
   # shows experiment details

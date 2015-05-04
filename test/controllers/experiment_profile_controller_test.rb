@@ -9,8 +9,8 @@ class ExperimentProfileControllerTest < ActionController::TestCase
   test 'should show the form' do
     @controller.deter_lab.expects(:get_experiment_profile_description).returns([])
     @controller.deter_lab.expects(:get_experiment_profile).returns([])
-    get :show, experiment_id: 'Project:Experiment'
-    assert_template :show
+    get :edit, experiment_id: 'Project:Experiment'
+    assert_template :edit
     assert_not_nil assigns[:profile]
     assert_not_nil assigns[:profile_description]
   end
