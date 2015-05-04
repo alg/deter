@@ -21,9 +21,9 @@ Rails.application.routes.draw do
   get '/dashboard'        => 'dashboard#show', as: 'dashboard'
 
   get  '/profile'         => 'profile#show_my_profile', as: 'my_profile'
-  get  '/profile/:id'     => 'profile#show', as: 'profile'
   get  '/profile/edit'    => 'profile#edit', as: 'edit_profile'
   post '/profile/edit'    => 'profile#update'
+  get  '/profile/:id'     => 'profile#show', as: 'profile'
   get  '/password/change' => 'password#edit', as: 'change_password'
   post '/password/change' => 'password#update'
 
