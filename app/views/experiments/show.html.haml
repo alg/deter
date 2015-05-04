@@ -71,9 +71,11 @@
       .col-sm-12
         TBD
 
-    .row
+    .row.section-row
       .col-sm-12
         %h4= t ".aspects"
+    .row
+      .col-sm-12
         - groupped_aspects = @experiment.aspects.group_by(&:type)
         - %w{ layout orchestration visualization }.each do |type|
           - aspects = groupped_aspects[type]
