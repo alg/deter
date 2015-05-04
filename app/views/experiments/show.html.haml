@@ -19,7 +19,7 @@
     .row#profile-section.section.collapse
       .col-sm-12
         - if is_owner
-          %p= link_to t('.edit'), experiment_profile_path(@experiment.id), class: 'btn btn-xs btn-default'
+          %p= link_to t('.edit'), edit_experiment_profile_path(@experiment.id), class: 'btn btn-xs btn-default'
         %table.table.table-bordered
           - @profile.each do |f|
             - k = f.name

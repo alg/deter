@@ -38,13 +38,12 @@ Rails.application.routes.draw do
   resources :circles,     only: [ :index, :new, :create, :destroy ]
   resources :experiments, only: [ :index, :new, :create, :destroy, :show ] do
     member do
-      get :profile
       post :run
       get :manage
     end
 
     resources :members, controller: "experiment_members", only: [ :index, :create, :destroy ]
-    resource  :profile, controller: "experiment_profile", only: [ :show, :update ]
+    resource  :profile, controller: "experiment_profile", only: [ :show, :edit, :update ]
     resources :aspects, controller: "experiment_aspects", only: [ :destroy ]
   end
 

@@ -51,12 +51,6 @@ class ExperimentsController < ApplicationController
     end
   end
 
-  # returns experiment profile
-  def profile
-    @profile = deter_lab.get_experiment_profile(params[:id])
-    render 'shared/profile'
-  end
-
   # runs the experiment
   def run
     uid = @app_session.current_user_id

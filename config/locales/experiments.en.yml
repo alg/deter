@@ -60,6 +60,7 @@ en:
       hide: Hide
       modify: Modify
       delete: Delete
+      edit: Edit
 
     new:
       title: New experiment
