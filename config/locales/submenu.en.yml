@@ -18,3 +18,8 @@ en:
     project_admin:    Project Administration
     privilege_admin:  Privilege Administration
 
+    notifications:    Notifications
+    new_notifications: New Notifications
+    current_notifications: Current Notifications
+    archived_notifications: Archived Notifications
+

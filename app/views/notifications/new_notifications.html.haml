@@ -1,0 +1,26 @@
+- @submenu = :new_notifications
+.page-header
+  %h1= raw t '.title'
+  = raw t '.info'
+
+.row
+  .col-sm-12
+    - if @notifications.blank?
+      %p You have no notifications
+    - else
+      %table.table.table-striped
+        - @notifications.each do |n|
+          %tr
+            %td
+              .row
+                .col-sm-10
+                  - if n.read?
+                    #{n.sent_on_formatted}
+                  - else
+                    <strong>#{n.sent_on_formatted}</strong>
+                .col-sm-2.text-right
+                  - if n.urgent?
+                    Urgent
+              .row
+                .col-sm-12 #{n.body}
+

@@ -46,6 +46,12 @@ Rails.application.routes.draw do
     resource  :profile, controller: "experiment_profile", only: [ :show, :edit, :update ]
     resources :aspects, controller: "experiment_aspects", only: [ :destroy ]
   end
+  resources :notifications do
+    collection do
+      get :current
+      get :archived
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
