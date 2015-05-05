@@ -18,4 +18,21 @@ class DeterLab::LibrariesTest < DeterLab::AbstractTest
     end
   end
 
+  test "creating library" do
+    VCR.use_cassette "deterlab/libraries/create-library" do
+      login
+
+      libid = "#{@username}:TestLibrary3"
+      assert DeterLab.create_library(@username, libid, access_lists: [
+        LibraryMember.new('system:world', [ LibraryMember::READ_LIBRARY ])
+      ], description: "Some library")
+
+      libs = DeterLab.view_libraries(@username)
+      lib  = libs.find { |l| l.libid == libid }
+
+      assert_not_nil lib
+      assert_equal   @username, lib.owner
+      assert_equal   [ LibraryMember.new("system:world", [ LibraryMember::READ_LIBRARY ]) ], lib.members
+    end
+  end
 end
