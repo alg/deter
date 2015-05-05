@@ -2,4 +2,10 @@ en:
   dashboard:
     show:
       title: Dashboard
-      info: Lorem ipsum
+      info: >
+        <p>
+          You have <a href="%{notifications_link}">%{label}</a>
+        </p>
+        <p>
+          Lorem ipsum
+        </p>
