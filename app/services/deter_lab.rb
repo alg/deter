@@ -15,6 +15,7 @@ module DeterLab
   extend DeterLab::Base
   extend DeterLab::ApiInfo
   extend DeterLab::Users
+  extend DeterLab::Notifications
   extend DeterLab::Projects
   extend DeterLab::Circles
   extend DeterLab::Experiments
