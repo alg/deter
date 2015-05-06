@@ -44,7 +44,7 @@ Rails.application.routes.draw do
 
     resources :members, controller: "experiment_members", only: [ :index, :create, :destroy ]
     resource  :profile, controller: "experiment_profile", only: [ :show, :edit, :update ]
-    resources :aspects, controller: "experiment_aspects", only: [ :destroy ]
+    resources :aspects, controller: "experiment_aspects", only: [ :edit, :update, :destroy ]
   end
   resources :notifications do
     collection do

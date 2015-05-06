@@ -1,0 +1,20 @@
+- @submenu = :my_experiments
+.page-header
+  %h1= raw t '.title', id: @aspect.name
+  = raw t '.info', full_type: @aspect.full_type
+
+.row
+  .col-sm-12
+    = form_for @aspect, as: :aspect, url: experiment_aspect_path(@experiment.id, @aspect.name), method: :put, html: { class: 'aspect_form' } do |f|
+      .form-group
+        = f.label :data, class: "control-label"
+        = f.hidden_field :data
+        #data_editor><
+          :preserve
+            #{render partial: 'data', object: @aspect.data}
+
+      .form-group
+        = f.submit t(".submit"), class: "btn btn-default"
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js" type="text/javascript" charset="utf-8"></script>

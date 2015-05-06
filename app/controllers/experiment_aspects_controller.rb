@@ -2,7 +2,20 @@ class ExperimentAspectsController < ApplicationController
 
   before_filter :require_login
   before_filter :load_experiment
-  before_filter :require_owner
+  before_filter :require_owner, only: :destroy
+
+  # edits the aspect
+  def edit
+    @aspect = @experiment.aspects.find { |a| a.name == params[:id] }
+    if @aspect.nil?
+      redirect_to experiment_path(@experiment.id), alert: ".not_found"
+    end
+  end
+
+  # updates the aspect data
+  def update
+    redirect_to experiment_path(@experiment.id), notice: t(".success")
+  end
 
   # removes the member record
   def destroy

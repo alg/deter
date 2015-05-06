@@ -1,5 +1,15 @@
 en:
   experiment_aspects:
+    edit:
+      not_found: "Aspect not found"
+      title: "Manage Aspect: %{id}"
+      info: >
+        <p>Type: %{full_type}</p>
+      submit: Save Changes
+
+    update:
+      success: "Record is updated"
+
     destroy:
       success: "Records deleted"
       failure: "Failed to delete the record"
