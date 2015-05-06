@@ -1,5 +1,10 @@
 class ExperimentAspect < Struct.new(:name, :type, :sub_type, :data, :data_reference)
 
+  include Concerns::WithExtendedAttributes
+
+  # extended attributes key
+  alias_method :xa_key, :name
+
   def formatted_data
     return nil unless self.data
 

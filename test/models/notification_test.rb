@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProfileFieldsTest < ActiveSupport::TestCase
+class NotificationTest < ActiveSupport::TestCase
 
   test "urgent flag" do
     assert !Notification.new(nil, nil, [ { tag: "URGENT", is_set: false } ], nil).urgent?
