@@ -2,12 +2,12 @@ require 'test_helper'
 
 class SeedTestDataTest < ActiveSupport::TestCase
 
-  setup do
-    VCR.use_cassette "seeding/setup" do
-      load_user 'admin_user'
-      @res = SeedTestData.new(@username, @password).perform
-    end
-  end
+  # setup do
+  #   VCR.use_cassette "seeding/setup" do
+  #     load_user 'admin_user'
+  #     @res = SeedTestData.new(@username, @password).perform
+  #   end
+  # end
 
   test 'users should be added' do
     VCR.use_cassette "seeding/testing-users" do

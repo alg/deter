@@ -7,30 +7,34 @@ module DeterLab
     end
 
     # Returns the list of user libraries
-    def view_libraries(uid)
+    def view_libraries(uid, owner = uid)
       cl = client("Libraries", uid)
-      response = cl.call(:view_libraries, message: { uid: uid })
+      response = cl.call(:view_libraries, message: { uid: owner })
 
       return [response.to_hash[:view_libraries_response][:return] || []].flatten.map do |l|
         members = [ l[:acl] ].flatten.reject(&:blank?).map do |a|
           LibraryMember.new(a[:circle_id], [ a[:permissions] ].flatten)
         end
-        Library.new(l[:library_id], l[:owner], l[:perms], l[:experiments] || [], members)
+        Library.new(l[:library_id], l[:owner], l[:perms], [ l[:experiments] ].flatten.reject(&:blank?), members)
       end
     rescue Savon::SOAPFault => e
       process_error e
     end
 
     # creates the library
-    def create_library(uid, name, options = nil)
+    def create_library(uid, name, options = nil, owner = uid)
       options ||= {}
       cl = client("Libraries", uid)
 
-      msg = { libid: name, owner: uid }
+      msg = { libid: name, owner: owner }
       if (acl = options.delete(:access_lists)).present?
         msg[:access_lists] = acl.map do |l|
           { circle_id: l.uid, permissions: l.permissions }
         end
+      end
+
+      if (experiments = options.delete(:experiments)).present?
+        msg[:eids] = experiments
       end
 
       if options.present?

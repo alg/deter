@@ -49,16 +49,28 @@ module DeterLab
     end
 
     # creates an experiment
-    def create_experiment(uid, project_id, name, profile, owner = uid)
+    def create_experiment(uid, parent_id, name, profile, owner = uid)
       cl = client("Experiments", uid)
+
+      access_lists = profile.delete(:access_lists)
+      if access_lists
+        access_lists = access_lists.map do |l|
+          { circle_id: l.circle_id, permissions: l.permissions }
+        end
+      else
+        access_lists = [
+          { circleId: "#{parent_id}:#{parent_id}", permissions: 'ALL_PERMS' },
+        ]
+        if parent_id != owner
+          access_lists << { circleId: "#{owner}:#{owner}", permissions: 'ALL_PERMS' }
+        end
+      end
+
       response = cl.call(:create_experiment, message: {
-        eid: "#{project_id}:#{name}",
-        owner: owner,
-        accessLists: [
-          { circleId: "#{project_id}:#{project_id}", permissions: 'ALL_PERMS' },
-          { circleId: "#{owner}:#{owner}", permissions: 'ALL_PERMS' }
-        ],
-        profile: profile.map { |n, v| { name: n, value: v } }
+        eid:          "#{parent_id}:#{name}",
+        owner:        owner,
+        access_lists: access_lists,
+        profile:      profile.map { |n, v| { name: n, value: v } }
       })
 
       return response.to_hash[:create_experiment_response][:return]

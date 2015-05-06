@@ -73,6 +73,18 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
     end
   end
 
+  test "creating user experiments" do
+    VCR.use_cassette "deterlab/experiments/create-experiment-user" do
+      login
+
+      eid = "UserExperiment"
+      assert DeterLab.create_experiment(@username, @username, eid, { description: "Custom description" })
+
+      ex = DeterLab.view_experiments(@username).find { |e| e.id == "#{@username}:#{eid}" }
+      assert_not_nil ex
+    end
+  end
+
   test "getting experiments profile description" do
     VCR.use_cassette "deterlab/experiments/get-profile-description" do
       fields = DeterLab.get_experiment_profile_description

@@ -79,6 +79,11 @@ class SeedTestData
     ]
   }
 
+  LIBRARIES = [
+    { name: 'MainLibrary',       owner: 'John Sebes',    experiments: [ 'HelloWorld1', 'HelloWorld2' ] },
+    { name: 'AlexandriaLibrary', owner: 'Abigail Adams', experiments: [ 'HelloAlexandria' ] }
+  ]
+
   def initialize(admin_user, admin_pass)
     @admin_user = admin_user
     @admin_pass = admin_pass
@@ -101,7 +106,11 @@ class SeedTestData
     puts "Creating experiments:"
     USER_EXPERIMENTS.each { |user_name, experiments| create_experiments(@user_ids[user_name], user_name.split(' ')[0], experiments) }
 
+    puts "Creating requests:"
     create_requests
+
+    # puts "Creating libraries:"
+    # LIBRARIES.each { |l| create_library(l) }
 
     return {
       user_ids: @user_ids
@@ -183,7 +192,6 @@ class SeedTestData
   end
 
   def create_requests
-    puts "Creating requests:"
     # The following are unauthenticated requests (not made in the context of a user session)
     # * New account request for Dirk Pitt, dpitt@uso.edu, same other attributes as users above
     dirk = DeterLab.create_user(USER_DEFAULTS.merge(name: 'Dirk Pitt', email: 'dpitt@uso.edu'))
@@ -204,6 +212,28 @@ class SeedTestData
     DeterLab.valid_credentials?(ambrose, 'Ambrose')
     ensure_create_project(ambrose, "Devils-Dictionary", "Compile a corpus of clever snark")
     puts "  - New project Devils-Dictionary request by Ambrose Bierce (#{ambrose})"
+  end
+
+  def create_library(l)
+    owner_uid = @user_ids[l[:owner]]
+    puts "  - #{owner_uid}:#{l[:name]}"
+
+    password = l[:owner].split(' ')[0]
+    experiment_ids = l[:experiments].map do |ename|
+      DeterLab.create_experiment(@admin_user, owner_uid, ename, { description: "Library experiment" }, owner_uid)
+      "#{owner_uid}:#{ename}"
+    end
+
+    puts "    - Experiment IDs: #{experiment_ids.inspect}"
+
+    DeterLab.create_library(@admin_user, "#{owner_uid}:#{l[:name]}", {
+      experiments:  [ experiment_ids.first ],
+      access_lists: [
+        LibraryMember.new("#{owner_uid}:#{owner_uid}", LibraryMember::ALL_PERMS),
+        LibraryMember.new('system:world', [ LibraryMember::READ_LIBRARY ]),
+      ],
+      description:  "Seeded library"
+    }, owner_uid)
   end
 
   def ensure_create_project(uid, pid, descr)
