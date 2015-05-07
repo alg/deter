@@ -15,7 +15,7 @@ module DeterLab
 
       response = cl.call(:get_notifications, message: msg)
 
-      return [ response.to_hash[:get_notifications_response][:return] ].flatten.map do |r|
+      return [ response.to_hash[:get_notifications_response][:return] ].flatten.reject(&:blank?).map do |r|
         Notification.new(r[:id], r[:body], r[:flags], r[:sent])
       end
     rescue Savon::SOAPFault => e
