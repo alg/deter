@@ -29,6 +29,11 @@ class ExperimentAspect < Struct.new(:name, :type, :sub_type, :raw_data, :data_re
     @data
   end
 
+  def data=(v)
+    @data = v
+    self.raw_data = v.nil? ? nil : Base64.encode64(v)
+  end
+
   def full_type
     [ self.type, self.sub_type ].reject(&:blank?).join(" / ")
   end

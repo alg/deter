@@ -14,6 +14,19 @@ class ExperimentAspectsController < ApplicationController
 
   # updates the aspect data
   def update
+    # @aspect = @experiment.aspects.find { |a| a.name == params[:id] }
+    # if @aspect.present?
+    #   new_data = params[:aspect][:data]
+    #   if @aspect.data != new_data
+    #     if DeterLab.update_aspect(current_user_id, @experiment.id, @aspect.name, @aspect.raw_data)
+
+    #     else
+    #     end
+    #   end
+    #   @aspect.xa['change_control_url'] = params[:change_control_url]
+
+    # end
+
     redirect_to experiment_path(@experiment.id), notice: t(".success")
   end
 

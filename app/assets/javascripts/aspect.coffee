@@ -5,6 +5,8 @@ $ ->
   editor.setTheme("ace/theme/xcode")
   editor.getSession().setMode("ace/mode/xml")
 
+  $("#data_editor").show()
+
   form = $("form.aspect_form")
   form.on "submit", (e) ->
     e.preventDefault()

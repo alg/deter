@@ -13,8 +13,15 @@
           :preserve
             #{render partial: 'data', object: @aspect.data}
 
+      .form-group.change-control
+        = label_tag "change_control_url", "Change Control URL", class: "control-label"
+        .row
+          .col-sm-11
+            = text_field_tag "change_control_url", @aspect.xa['change_control_url'], class: 'form-control'
+          .col-sm-1.text-right
+            = button_tag "Pull", class: "btn btn-default"
+
       .form-group
         = f.submit t(".submit"), class: "btn btn-default"
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js" type="text/javascript" charset="utf-8"></script>
