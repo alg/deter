@@ -20,8 +20,10 @@ class ProfileController < ApplicationController
 
   # updating own profile
   def update
-    @errors = DeterLab.change_user_profile(app_session.current_user_id, form_fields)
+    @errors = DeterLab.change_user_profile(current_user_id, form_fields)
     if @errors.blank?
+      ActivityLog.for_user(current_user_id).add(:profile_update, current_user_id)
+
       deter_lab.invalidate_profile
       redirect_to :my_profile, notice: t(".success")
     else
@@ -37,7 +39,7 @@ class ProfileController < ApplicationController
     params[:profile].permit(ProfileFields::FORM_FIELDS)
   end
 
-  def show_profile(uid = @app_session.current_user_id)
+  def show_profile(uid = current_user_id)
     @uid     = uid
     @profile = deter_lab.get_profile(uid)
     render :show

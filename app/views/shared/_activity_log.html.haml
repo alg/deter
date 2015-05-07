@@ -1,0 +1,6 @@
+%table.table
+  - activity_log.records.each do |r|
+    %tr
+      %td.col-sm-3= Time.at(r[:ts]).strftime("%B %d, %Y %l:%M%P")
+      %td.col-sm-2= r[:action]
+      %td.col-sm-7= r[:uid]

@@ -69,7 +69,8 @@
 
     .row.section#activity-section.collapse
       .col-sm-12
-        TBD
+        - log = ActivityLog.for_experiment(@experiment.id)
+        = render partial: 'shared/activity_log', object: log
 
     .row.section-row
       .col-sm-12

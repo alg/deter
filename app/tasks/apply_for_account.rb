@@ -20,17 +20,23 @@ class ApplyForAccount
   private
 
   def self.create_project(params)
-    user_id = DeterLab.create_user(params[:user])
-    pp = params[:project]
-    name = pp[:name]
+    user_id = create_user(params[:user])
+    pp      = params[:project]
+    name    = pp[:name]
     return DeterLab.create_project(user_id, name, user_id, pp.except(:name))
   end
 
   def self.join_project(params)
-    user_id = DeterLab.create_user(params[:user])
-    pp = params[:project]
-    name = pp[:name]
+    user_id = create_user(params[:user])
+    pp      = params[:project]
+    name    = pp[:name]
     return DeterLab.join_project(user_id, name)
+  end
+
+  def self.create_user(user_params)
+    user_id = DeterLab.create_user(user_params)
+    ActivityLog.for_user(user_id).add(:create, nil) if user_id
+    user_id
   end
 
 end

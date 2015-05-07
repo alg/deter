@@ -9,6 +9,9 @@ class UserSessionsController < ApplicationController
 
     if username.present? && password.present? && DeterLab.valid_credentials?(username, password)
       admin = DeterLab.admin?(username)
+
+      ActivityLog.for_user(username).add(:login, username)
+
       app_session.logged_in_as(params[:username], admin)
       redirect_to :dashboard, notice: t(".success")
     else
@@ -24,6 +27,8 @@ class UserSessionsController < ApplicationController
     app_session.logged_out
     DeterLab.logout(user_id)
     SslKeyStorage.delete(user_id)
+
+    ActivityLog.for_user(user_id).add(:logout, user_id)
   rescue DeterLab::NotLoggedIn
     # That's ok. We are logging out anyway
   ensure

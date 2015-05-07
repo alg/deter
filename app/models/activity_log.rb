@@ -4,6 +4,18 @@ class ActivityLog
     @key = "activity_log:#{base}"
   end
 
+  def self.for_user(user_id)
+    new("user:#{user_id}")
+  end
+
+  def self.for_project(id)
+    new("project:#{id}")
+  end
+
+  def self.for_experiment(id)
+    new("experiment:#{id}")
+  end
+
   # clears the log
   def clear
     REDIS.del @key

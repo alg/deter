@@ -51,4 +51,5 @@
 
     .row.section#activity-section.collapse
       .col-sm-12
-        TBD
+        - log = ActivityLog.for_project(@project.project_id)
+        = render partial: 'shared/activity_log', object: log

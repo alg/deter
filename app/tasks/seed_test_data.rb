@@ -143,7 +143,10 @@ class SeedTestData
     puts "  - New user #{up[:name]} (#{user_id})"
     @user_ids[up[:name]] = user_id
 
+    ActivityLog.for_user(user_id).add(:create, @admin_user)
+
     up[:owns_projects].each do |project_id|
+      ActivityLog.for_project(project_id).clear
       pp = PROJECTS[project_id] or raise("Project attributes for #{project_id} not found")
       puts "  - New project #{project_id} for #{user_id}"
       begin
@@ -162,31 +165,44 @@ class SeedTestData
   def create_project(user_id, project_id, pp)
     DeterLab.create_project(@admin_user, project_id, user_id, PROJECT_DEFAULTS.merge(description: pp[:description]))
     DeterLab.approve_project(@admin_user, project_id)
+
+    ActivityLog.for_project(project_id).add(:create, user_id)
   end
 
   def join_project(project_id, users)
     uids = users.map { |name| @user_ids[name] }
     DeterLab.add_users_no_confirm(@admin_user, project_id, uids, [ "ALL_PERMS" ])
     puts "  - Added users #{uids.inspect} to #{project_id}"
+
+    uids.each do |uid|
+      ActivityLog.for_project(project_id).add(:user_joined, uid)
+    end
   end
 
   def create_experiments(user_id, password, experiments)
     DeterLab.valid_credentials?(user_id, password)
     experiments.each do |e|
       created = false
+      eid = "#{e[:project]}:#{e[:name]}"
+      ActivityLog.for_experiment(eid).clear
       begin
         DeterLab.create_experiment(user_id, e[:project], e[:name], { description: "Custom experiment" })
         created = true
       rescue DeterLab::RequestError => ex
         raise ex unless ex.message =~ /exists/
-        DeterLab.remove_experiment(@admin_user, "#{e[:project]}:#{e[:name]}")
+        DeterLab.remove_experiment(@admin_user, eid)
         DeterLab.create_experiment(user_id, e[:project], e[:name], { description: "Custom experiment" })
       end
-      puts " - New experiment #{e[:project]}:#{e[:name]} by #{user_id}"
+      puts " - New experiment #{eid} by #{user_id}"
+
+      log = ActivityLog.for_experiment(eid)
+      log.add(:create, user_id)
 
       if created && !e[:layout].nil?
         puts "    - Adding layout aspect"
         DeterLab.add_experiment_aspects(@admin_user, "#{e[:project]}:#{e[:name]}", [ { type: 'layout', data: e[:layout] } ])
+
+        log.add("new-aspect-layout", @admin_user)
       end
     end
   end
@@ -196,12 +212,16 @@ class SeedTestData
     # * New account request for Dirk Pitt, dpitt@uso.edu, same other attributes as users above
     dirk = DeterLab.create_user(USER_DEFAULTS.merge(name: 'Dirk Pitt', email: 'dpitt@uso.edu'))
 
+    ActivityLog.for_user(dirk).add(:create, nil)
+
     # * New project request with owner uid being that returned from the Dirk Pitt create-user call; project name Delta-Blues summary "Get down, get funky", same attributes as above projects
     ensure_create_project(dirk, "Delta-Blues", "Get down, get funky")
     puts "  - New project Delta-Blues request by Dirk Pitt (#{dirk})"
 
     # * New account request for Andreas Ackermann, aackermann@uso.edu, same other attributes as users above
     andreas = DeterLab.create_user(USER_DEFAULTS.merge(name: 'Andreas Ackermann', email: 'aackermann@uso.edu'))
+
+    ActivityLog.for_user(andreas).add(:create, nil)
 
     # * Join project request with owner uid being that returned from the Andreas Ackermann create-user call; request to join project Alfa-Romeo
     DeterLab.join_project(andreas, 'Alfa-Romeo')
@@ -247,6 +267,8 @@ class SeedTestData
         raise e
       end
     end
+
+    ActivityLog.for_project(pid).add(:create, uid)
   end
 
 end
