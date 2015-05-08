@@ -7,21 +7,31 @@
   .col-sm-12
     = form_for @aspect, as: :aspect, url: experiment_aspect_path(@experiment.id, @aspect.name), method: :put, html: { class: 'aspect_form' } do |f|
       .form-group
+        = f.label :name, class: "control-label"
+        = f.text_field :name, class: "form-control", disabled: true
+      .form-group
         = f.label :data, class: "control-label"
         = f.hidden_field :data
         #data_editor><
           :preserve
             #{render partial: 'data', object: @aspect.data}
 
+      .checkbox
+        %label
+          = hidden_field_tag "change_control_enabled", '0'
+          = check_box_tag "change_control_enabled", '1', @change_control_enabled == '1', id: "js-change-control"
+          Enable change control
+
       .form-group.change-control
         = label_tag "change_control_url", "Change Control URL", class: "control-label"
         .row
           .col-sm-11
-            = text_field_tag "change_control_url", @aspect.xa['change_control_url'], class: 'form-control'
+            = text_field_tag "change_control_url", @change_control_url, class: 'form-control'
           .col-sm-1.text-right
-            = button_tag "Pull", class: "btn btn-default"
+            = button_tag "Pull", class: "btn btn-default", id: "change_control_pull"
 
       .form-group
         = f.submit t(".submit"), class: "btn btn-default"
+        = link_to t(".cancel"), experiment_path(@experiment.id), class: "btn btn-default", id: "cancel", data: { confirm: "Are you sure to leave the editor?" }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js" type="text/javascript" charset="utf-8"></script>

@@ -1,7 +1,8 @@
 en:
   experiment_aspects:
+    not_found: "Aspect not found"
+
     edit:
-      not_found: "Aspect not found"
       title: "Manage Aspect: %{id}"
       info: >
         <p>Type: %{full_type}</p>
@@ -9,6 +10,8 @@ en:
 
     update:
       success: "Record is updated"
+      unknown_error: "Unknown error"
+      unimplemented: "Updating is unimplemented"
 
     destroy:
       success: "Records deleted"

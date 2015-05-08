@@ -6,7 +6,11 @@ class ExperimentAspectsControllerTest < ActionController::TestCase
     @controller.app_session.logged_in_as "mark"
 
     @eid = 'Project:Experiment'
-    @controller.deter_lab.expects(:get_experiment).returns(Experiment.new(@eid, 'mark', [], []))
+    @aspects = [
+      ExperimentAspect.new("layout000", "layout", nil, "layout", "ref"),
+      ExperimentAspect.new("layout000/namemap/R", "layout", "namemap", "names", "ref-2")
+    ]
+    @controller.deter_lab.expects(:get_experiment).returns(Experiment.new(@eid, 'mark', [], @aspects))
   end
 
   test 'deleting aspects successfully' do
@@ -21,6 +25,32 @@ class ExperimentAspectsControllerTest < ActionController::TestCase
     delete :destroy, experiment_id: @eid, id: "layout000", type: 'type'
     assert_redirected_to experiment_path(@eid)
     assert_equal I18n.t("experiment_aspects.destroy.failure"), flash.alert
+  end
+
+  test 'successful updating aspects' do
+    DeterLab.expects(:change_experiment_aspects).with('mark', @eid, @aspects).returns({ "layout000" => { success: true }, "layout000/namemap/R" => { success: true } })
+    put :update, experiment_id: @eid, id: 'layout000', change_control_enabled: true, change_control_url: "http://cc_url", aspect: { data: "new data" }
+    assert_redirected_to experiment_path(@eid)
+    assert_equal I18n.t("experiment_aspects.update.success"), flash.notice
+  end
+
+  test 'handling missing aspect on update' do
+    put :update, experiment_id: @eid, id: 'missing'
+    assert_redirected_to experiment_path(@eid)
+    assert_equal I18n.t("experiment_aspects.not_found"), flash.alert
+  end
+
+  test 'not changing data on update' do
+    DeterLab.expects(:change_experiment_aspects).never
+    put :update, experiment_id: @eid, id: 'layout000', change_control_enabled: true, change_control_url: "http://cc_url", aspect: { data: "layout" }
+    assert_redirected_to experiment_path(@eid)
+  end
+
+  test 'handling failure on update' do
+    DeterLab.expects(:change_experiment_aspects).with('mark', @eid, @aspects).returns({ "layout000" => { success: false, error: "error reason" }, "layout000/namemap/R" => { success: true } })
+    put :update, experiment_id: @eid, id: 'layout000', change_control_enabled: true, change_control_url: "http://cc_url", aspect: { data: "new data" }
+    assert_template :edit
+    assert_equal "error reason", assigns(:error)
   end
 
 end

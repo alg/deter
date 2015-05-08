@@ -3,6 +3,9 @@ module DeterLab
   # Standard DeterLab interface error
   class Error < StandardError; end
 
+  # Unimplemented
+  class Unimplemented < Error; end
+
   # Not logged in error
   class NotLoggedIn < Error; end
 

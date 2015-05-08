@@ -127,6 +127,18 @@ module DeterLab
       process_error e
     end
 
+    def change_experiment_aspects(uid, eid, aspects)
+      cl = client("Experiments", uid)
+      response = cl.call(:change_experiment_aspects, message: {
+        eid: eid,
+        aspects: aspects.map(&:to_hash)
+      })
+
+      return response.to_hash[:change_experiment_aspects_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
     # removes an aspect from an experiment
     def remove_experiment_aspects(uid, eid, aspects)
       cl = client("Experiments", uid)

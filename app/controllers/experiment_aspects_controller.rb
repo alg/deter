@@ -8,26 +8,43 @@ class ExperimentAspectsController < ApplicationController
   def edit
     @aspect = @experiment.aspects.find { |a| a.name == params[:id] }
     if @aspect.nil?
-      redirect_to experiment_path(@experiment.id), alert: ".not_found"
+      redirect_to experiment_path(@experiment.id), alert: t("experiment_aspects.not_found")
+    else
+      @change_control_enabled = @aspect.xa['change_control_enabled']
+      @change_control_url     = @aspect.xa['change_control_url']
     end
   end
 
   # updates the aspect data
   def update
-    # @aspect = @experiment.aspects.find { |a| a.name == params[:id] }
-    # if @aspect.present?
-    #   new_data = params[:aspect][:data]
-    #   if @aspect.data != new_data
-    #     if DeterLab.update_aspect(current_user_id, @experiment.id, @aspect.name, @aspect.raw_data)
+    @aspect = @experiment.aspects.find { |a| a.name == params[:id] }
+    @change_control_url     = params[:change_control_url]
+    @change_control_enabled = params[:change_control_enabled]
 
-    #     else
-    #     end
-    #   end
-    #   @aspect.xa['change_control_url'] = params[:change_control_url]
+    if @aspect.nil?
+      redirect_to experiment_path(@experiment.id), alert: t("experiment_aspects.not_found")
+    else
+      success = false
+      new_data = params[:aspect][:data]
+      if @aspect.raw_data != new_data
+        # res = DeterLab.change_experiment_aspects(current_user_id, @experiment.id, @experiment.aspects)[params[:id]]
+        res = { success: true }
+        if success = res[:success]
+          redirect_to experiment_path(@experiment.id), notice: t(".unimplemented")
+        else
+          @error = res[:error] || t(".unknown_error")
+          render :edit
+        end
+      else
+        success = true
+        redirect_to experiment_path(@experiment.id), notice: t(".success")
+      end
 
-    # end
-
-    redirect_to experiment_path(@experiment.id), notice: t(".success")
+      if success
+        @aspect.xa['change_control_enabled'] = @change_control_enabled
+        @aspect.xa['change_control_url']     = @change_control_url
+      end
+    end
   end
 
   # removes the member record

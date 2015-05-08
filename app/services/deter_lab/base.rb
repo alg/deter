@@ -42,6 +42,8 @@ module DeterLab
 
       if code == "5"
         raise NotLoggedIn
+      elsif code == "6"
+        raise Unimplemented
       elsif code == "2"
         msg = detail_message(e)
         if msg =~ /not logged in/i

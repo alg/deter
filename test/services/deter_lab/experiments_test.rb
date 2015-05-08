@@ -163,6 +163,28 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
     end
   end
 
+  test "updating aspect" do
+    VCR.use_cassette "deterlab/experiments/change-experiment-aspects", record: :all do
+      ename = "TestAspects16"
+
+      login
+      assert create_experiment("SPIdev", ename), "Could not create an experiment"
+
+      eid = "SPIdev:#{ename}"
+      DeterLab.add_experiment_aspects(@username, eid, [ { type: 'layout', data: LAYOUT } ])
+
+      ex = DeterLab.view_experiments(@username).find { |e| e.id == eid }
+      aspects = ex.aspects
+
+      ex.aspects.find { |a| a.name == "layout000" }.raw_data = "new_data"
+
+      res = DeterLab.change_experiment_aspects(@username, eid, ex.aspects)
+      puts res.inspect
+
+      res = DeterLab.remove_experiment_aspects(@username, eid, [ { name: aspect[:name], type: 'layout' } ])
+    end
+  end
+
   private
 
   def create_experiment(pid = "SPIdev", eid = "Test")

@@ -5,6 +5,14 @@ class ExperimentAspect < Struct.new(:name, :type, :sub_type, :raw_data, :data_re
   # extended attributes key
   alias_method :xa_key, :name
 
+  def to_hash
+    { name:            self.name,
+      type:            self.type,
+      sub_type:        self.sub_type,
+      data:            self.raw_data,
+      data_reference:  self.data_reference }
+  end
+
   def data
     unless defined? @data
       unless self.raw_data
