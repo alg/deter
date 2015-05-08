@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :password_reset_requests, only: [ :new, :create ]
   get  '/password_reset'  => 'password_resets#new', as: 'new_password_reset'
-  get  '/password_reset/:challenge' => 'password_resets#new'
+  get  '/password_reset/:challenge' => 'password_resets#new', as: 'password_reset_with_challenge'
   post '/password_reset'  => 'password_resets#create', as: 'password_reset'
 
   get '/login'            => 'user_sessions#new', as: 'login'

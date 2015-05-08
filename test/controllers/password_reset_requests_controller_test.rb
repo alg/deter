@@ -8,7 +8,7 @@ class PasswordResetRequestsControllerTest < ActionController::TestCase
   end
 
   test "submitting valid request" do
-    DeterLab.expects(:request_password_reset).returns(true)
+    DeterLab.expects(:request_password_reset).with("user", password_reset_with_challenge_url(challenge: '')).returns(true)
     post :create, username: "user"
     assert_redirected_to :root
     assert_equal I18n.t("password_reset_requests.create.success"), flash.notice
