@@ -1,10 +1,12 @@
+require 'wsdl_caching_adapter'
+
 module DeterLab
   module Base
 
     # returns the client instance
     def client(service, uid = nil)
       options = {
-        wsdl:             AppConfig['deter_lab']['wsdl'] % service,
+        wsdl:             WsdlCachingAdapter.service_url(service),
         log_level:        :debug,
         log:              !Rails.env.test?,
         pretty_print_xml: true,
@@ -12,7 +14,8 @@ module DeterLab
         namespace:        'http://api.testbed.deterlab.net/xsd',
         logger:           Rails.logger,
         filters:          :password,
-        ssl_verify_mode:  :none }
+        ssl_verify_mode:  :none,
+        adapter:          :wsdl_caching_adapter }
 
       # optionally user user certs from the storage
       if uid.present?
