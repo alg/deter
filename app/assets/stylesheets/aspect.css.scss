@@ -1,5 +1,9 @@
-#data_editor {
+#data-editor {
   height: 300px;
   border: 1px solid #ccc;
   display: none;
+
+  &.read-only {
+    background-color: whitesmoke;
+  }
 }

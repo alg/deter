@@ -6,16 +6,19 @@ isValidData = (data) ->
 $ ->
   return if $("#experiment_aspects_edit, #experiment_aspects_update").length == 0
 
-  editor = ace.edit("data_editor")
+  editor = ace.edit("data-editor")
   editor.setTheme("ace/theme/xcode")
   editor.getSession().setMode("ace/mode/xml")
   editor.setShowPrintMargin(false)
 
-  $("#data_editor").show()
+  ccEnabledControl  = $("#js-change-control")
+  ccUrlField        = $("#change_control_url")
+  ccPullButton      = $("#change_control_pull")
+  ccPanel           = $(".change-control")
+  ccState           = $("#js-state")
+  ccEditor          = $("#data-editor")
 
-  ccEnabledControl = $("#js-change-control")
-  ccUrlField       = $("#change_control_url")
-  ccPullButton     = $("#change_control_pull")
+  ccEditor.show()
 
   initial =
     data:    editor.getValue()
@@ -33,6 +36,14 @@ $ ->
     editor.setReadOnly(ccEnabled)
     ccUrlField.attr('readonly', !ccEnabled).attr('disabled', !ccEnabled)
     ccPullButton.attr('disabled', !ccEnabled)
+    if ccEnabled
+      ccPanel.removeClass('hide')
+      ccEditor.addClass('read-only')
+    else
+      ccPanel.addClass('hide')
+      ccEditor.removeClass('read-only')
+      $("#data_editor").css("background-color", "#fff")
+    ccState.text(if ccEnabled then "(view)" else "(edit)")
     
   updateControls()
   ccEnabledControl.on "change", updateControls

@@ -7,6 +7,7 @@ en:
       info: >
         <p>Type: %{full_type}</p>
       submit: Save Changes
+      cc_prompt: "Enter the URL to pull the %{type} data from a change control system:"
 
     update:
       success: "Record is updated"
