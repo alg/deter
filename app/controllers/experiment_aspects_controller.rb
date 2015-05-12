@@ -12,6 +12,7 @@ class ExperimentAspectsController < ApplicationController
     else
       @change_control_enabled = @aspect.xa['change_control_enabled']
       @change_control_url     = @aspect.xa['change_control_url']
+      configure_gon
     end
   end
 
@@ -37,6 +38,7 @@ class ExperimentAspectsController < ApplicationController
           redirect_to experiment_path(@experiment.id), notice: t(".success") #, notice: t(".unimplemented")
         else
           @error = res[:error] || t(".unknown_error")
+          configure_gon
           render :edit
         end
       else
@@ -45,8 +47,10 @@ class ExperimentAspectsController < ApplicationController
       end
 
       if success
-        @aspect.xa['change_control_enabled'] = @change_control_enabled
-        @aspect.xa['change_control_url']     = @change_control_url
+        @aspect.change_control_enabled = @change_control_enabled
+        @aspect.change_control_url     = @change_control_url
+        @aspect.last_updated_at        = Time.now
+        @aspect.last_updated_by        = current_user_id
       end
     end
   end
@@ -78,6 +82,13 @@ class ExperimentAspectsController < ApplicationController
     unless @experiment.owner == @app_session.current_user_id
       redirect_to experiment_path(params[:experiment_id]), alert: t("experiment_members.owner_only")
     end
+  end
+
+  def configure_gon
+    last_updated_by   = @aspect.last_updated_by
+    gon.updated_by    = last_updated_by.present? ? "#{last_updated_by} (#{user_name(last_updated_by)})" : nil
+    gon.updated_at    = @aspect.last_updated_at
+    gon.user_name     = "#{current_user_id} (#{current_user_name})"
   end
 
 end

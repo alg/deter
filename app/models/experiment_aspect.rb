@@ -10,12 +10,45 @@ class ExperimentAspect < Struct.new(:eid, :name, :type, :sub_type, :raw_data, :d
     @xa_key
   end
 
+  def last_updated_at
+    v = self.xa['last_updated_at']
+    v.present? ? Time.at(v.to_f) : nil
+  end
+
+  def last_updated_at=(v)
+    self.xa['last_updated_at']= v.present? ? v.to_f.to_s : ""
+  end
+
+  def last_updated_by
+    self.xa['last_updated_by']
+  end
+
+  def last_updated_by=(v)
+    self.xa['last_updated_by']= v.present? ? v : ""
+  end
+
   def custom_data=(v)
     self.xa['custom_data'] = v
   end
 
   def custom_data
     self.xa['custom_data']
+  end
+
+  def change_control_enabled?
+    self.xa['change_control_enabled'] == '1'
+  end
+
+  def change_control_enabled=(v)
+    self.xa['change_control_enabled'] = v == '1'
+  end
+
+  def change_control_url
+    self.xa['change_control_url']
+  end
+
+  def change_control_url=(v)
+    self.xa['change_control_url'] = v.present? ? v : ""
   end
 
   def root?

@@ -51,7 +51,8 @@ class SummaryLoader
     end
   end
 
-  def self.member_profile(cache, uid, member_id)
+  def self.member_profile(cache, uid, member_id = uid)
+    cache ||= DeterCache.new(uid)
     cache.fetch_global "profile:#{member_id}", 30.minutes do
       DeterLab.get_user_profile(uid, member_id)
     end

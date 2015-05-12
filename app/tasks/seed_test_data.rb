@@ -210,8 +210,10 @@ class SeedTestData
 
           if (cc_url = e[:change_control_url]).present?
             asp = ExperimentAspect.new(eid, res.first[:name], :type, :sub_type, :raw_data, :data_reference)
-            asp.xa['change_control_enabled'] = '1'
-            asp.xa['change_control_url'] = cc_url
+            asp.last_updated_at        = Time.now
+            asp.last_updated_by        = user_id
+            asp.change_control_enabled = '1'
+            asp.change_control_url     = cc_url
             puts "      with CC URL: #{cc_url}"
           end
         end

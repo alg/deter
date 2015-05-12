@@ -1,0 +1,2 @@
+var I18n = I18n || {};
+I18n.translations = {"en":{"experiment_aspects":{"edit":{"last_updated":"Last updated at %time by %name","last_pulled":"Last pulled at %time by %name","pulled_not_saved":"\u003cstrong\u003ePulled data not yet saved\u003c/strong\u003e","edited":"Edited by %name","edited_not_saved":"\u003cstrong\u003eModified data not yet saved\u003c/strong\u003e"}}}};

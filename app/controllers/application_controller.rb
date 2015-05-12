@@ -46,8 +46,14 @@ class ApplicationController < ActionController::Base
   helper_method :deter_lab
 
   # returns the user name
+  def user_name(uid)
+    deter_lab.get_profile(uid).try(:[], "name")
+  end
+  helper_method :user_name
+
+  # returns the user name
   def current_user_name
-    logged_in? ? (deter_lab.get_profile.try(:[], "name") || current_user_id) : nil
+    logged_in? ? (user_name(current_user_id) || current_user_id) : nil
   end
   helper_method :current_user_name
 

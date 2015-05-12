@@ -37,3 +37,11 @@ translations:
       - "*.page_project_info.sponsor.errors"
       - "*.page_user_type.errors"
       - "*.user_form.errors"
+
+  - file: "app/assets/javascripts/i18n/aspect-status.js"
+    only:
+      - "en.experiment_aspects.edit.last_updated"
+      - "en.experiment_aspects.edit.last_pulled"
+      - "en.experiment_aspects.edit.pulled_not_saved"
+      - "en.experiment_aspects.edit.edited"
+      - "en.experiment_aspects.edit.edited_not_saved"

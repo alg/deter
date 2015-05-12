@@ -25,10 +25,41 @@ $ ->
     enabled: ccEnabledControl.is(":checked")
     url:     ccUrlField.val()
 
+  pulledOn = null
+
   hasChanged = =>
     initial.data != editor.getValue() or
     initial.enabled != ccEnabledControl.is(":checked") or
     initial.url != ccUrlField.val()
+
+  generateStatus = (template, name, time) ->
+    template = template.replace("%name", name) if name
+    template = template.replace("%time", moment(time).format('MMMM Do YYYY, h:mm a')) if time
+    template
+
+  statusLastUpdated    = generateStatus(I18n.t("experiment_aspects.edit.last_updated"), gon.updated_by, gon.updated_at)
+  statusEdited         = generateStatus(I18n.t("experiment_aspects.edit.edited"), gon.user_name, null)
+  statusEditedNotSaved = I18n.t("experiment_aspects.edit.edited_not_saved")
+  statusPulledNotSaved = I18n.t("experiment_aspects.edit.pulled_not_saved")
+  statusPulled         = null
+
+  updateStatus = =>
+    status = null
+    notSaved = null
+
+    if hasChanged()
+      if ccEnabledControl.is(":checked") and pulledOn
+        status   = statusPulled
+        notSaved = statusPulledNotSaved
+      else
+        status   = statusEdited
+        notSaved = statusEditedNotSaved
+    else
+      status   = statusLastUpdated
+      notSaved = null
+
+    $("p.status").html(status)
+    $("p.not-saved").html(notSaved)
 
   # update controls state
   updateControls = =>
@@ -44,9 +75,12 @@ $ ->
       ccEditor.removeClass('read-only')
       $("#data_editor").css("background-color", "#fff")
     ccState.text(if ccEnabled then "(view)" else "(edit)")
+
+    updateStatus()
     
   updateControls()
   ccEnabledControl.on "change", updateControls
+  editor.on "change", updateStatus
 
   # submitting form
   form = $("form.aspect_form")
@@ -64,9 +98,12 @@ $ ->
     e.preventDefault()
     $.ajax
       url: ccUrlField.val()
-      success: (data) ->
+      success: (data) =>
         if isValidData(data)
+          pulledOn = new Date()
+          statusPulled = generateStatus(I18n.t("experiment_aspects.edit.last_pulled"), gon.user_name, pulledOn)
           editor.setValue(data)
+          updateStatus()
         else
           alert "Pulled data has invalid format"
       error: (xhr, status, error) ->

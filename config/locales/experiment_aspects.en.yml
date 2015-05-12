@@ -9,6 +9,12 @@ en:
       submit: Save Changes
       cc_prompt: "Enter the URL to pull the %{type} data from a change control system:"
 
+      last_updated: "Last updated at %time by %name"
+      last_pulled: "Last pulled at %time by %name"
+      pulled_not_saved: "<strong>Pulled data not yet saved</strong>"
+      edited_not_saved: "<strong>Modified data not yet saved</strong>"
+      edited: "Edited by %name"
+
     update:
       success: "Record is updated"
       unknown_error: "Unknown error"
