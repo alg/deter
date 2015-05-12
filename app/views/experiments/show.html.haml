@@ -93,6 +93,7 @@
               - else
                 %table.table.table-striped
                   - aspects.each_with_index do |a, i|
+                    = a.name
                     - next unless a.root?
                     %tr
                       %td

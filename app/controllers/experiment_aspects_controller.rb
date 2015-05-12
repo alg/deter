@@ -30,10 +30,11 @@ class ExperimentAspectsController < ApplicationController
 
         # Saving custom data as XA
         @aspect.custom_data = new_data
+
         # res = DeterLab.change_experiment_aspects(current_user_id, @experiment.id, @experiment.aspects)[params[:id]]
         res = { success: true }
         if success = res[:success]
-          redirect_to experiment_path(@experiment.id), notice: t(".unimplemented")
+          redirect_to experiment_path(@experiment.id), notice: t(".success") #, notice: t(".unimplemented")
         else
           @error = res[:error] || t(".unknown_error")
           render :edit

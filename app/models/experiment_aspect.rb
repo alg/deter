@@ -1,9 +1,13 @@
-class ExperimentAspect < Struct.new(:name, :type, :sub_type, :raw_data, :data_reference)
+class ExperimentAspect < Struct.new(:eid, :name, :type, :sub_type, :raw_data, :data_reference)
 
   include Concerns::WithExtendedAttributes
 
   # extended attributes key
-  alias_method :xa_key, :name
+  def xa_key
+    unless defined? @xa_key
+      @xa_key = "#{eid}:#{name}"
+    end
+  end
 
   def custom_data=(v)
     self.xa['custom_data'] = v

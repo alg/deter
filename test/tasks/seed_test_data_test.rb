@@ -11,7 +11,7 @@ class SeedTestDataTest < ActiveSupport::TestCase
 
   test 'users should be added' do
     VCR.use_cassette "seeding/testing-users" do
-      user = @res[:user_ids].first
+      user = 'aadams'
       login = user[1]
       pass = user[0].split(' ').first
       assert DeterLab.valid_credentials?(login, pass)
@@ -20,7 +20,7 @@ class SeedTestDataTest < ActiveSupport::TestCase
 
   test 'user should own a project' do
     VCR.use_cassette "seeding/owning-project" do
-      user_id = @res[:user_ids]['Abigail Adams']
+      user_id = 'aadamss'
       assert DeterLab.valid_credentials?(user_id, 'Abigail')
 
       project_ids = DeterLab.view_projects(user_id).map(&:project_id)
@@ -30,7 +30,7 @@ class SeedTestDataTest < ActiveSupport::TestCase
 
   test 'user should be added to a project' do
     VCR.use_cassette "seeding/joining-project" do
-      user_id = @res[:user_ids]['Abigail Adams']
+      user_id = 'aadams'
       assert DeterLab.valid_credentials?(user_id, 'Abigail')
 
       project = DeterLab.view_projects(user_id).select { |p| p.project_id == 'Beta-Test' }.first

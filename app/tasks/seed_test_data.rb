@@ -68,7 +68,10 @@ class SeedTestData
         "CiAgICA8YXR0cmlidXRlPnR5cGU8L2F0dHJpYnV0ZT4KICAgIDx2YWx1ZT5wYzwvdmFsdWU+CiAgIDwvYXR0cmlidXRlPgogICA8YXR0cmlidXRlPgogICAgPGF0dHJpYnV0ZT50ZXN0YmVkPC9hdHRyaWJ1dGU+CiAgICA8dmFsdWU+ZGVza3RvcDwvdmFsdWU+CiAgIDwvYXR0cmlidXRlPgogICA8YXR0cmlidXRlPgogICAgPGF0dHJpYnV0ZT5mYWlsdXJlYWN0aW9uPC9hdHRyaWJ1dGU+CiAgICA8dmFsdWU+ZmF0YWw8L3ZhbHVlPgogICA8L2F0dHJpYnV0ZT4KICA8L2NvbXB1dGVyPgogPC9lbGVtZW50cz4KIDxlbGVtZW50cz4KICA8Y29tcHV0ZXI+CiAgIDxuYW1lPmI8L25hbWU+CiAgIDxpbnRlcmZhY2U+CiAgICA8c3Vic3RyYXRlPmxpbmswPC9zdWJzdHJhdGU+CiAgICA8bmFtZT5pbmYwMDA8L25hbWU+CiAgICA8Y2FwYWNpdHk+CiAgICAgPHJhdGU+MTAwMDAwLjAwMDAwMDwvcmF0ZT4KICAgICA8a2luZD5tYXg8L2tpbmQ+CiAgICA8L2NhcGFjaXR5PgogICA8L2ludGVyZmFjZT4KICAgPGludGVyZmFjZT4KICAgIDxzdWJzdHJhdGU+bGluazE8L3N1YnN0cmF0ZT4KICAgIDxuYW1lPmluZjAwMTwvbmFtZT4KICAgIDxjYXBhY2l0eT4KICAgICA8cmF0ZT4xMDAwMDAuMDAwMDAwPC9yYXRlPgogICAgIDxraW5kPm1heDwva2luZD4KICAgIDwvY2FwYWNpdHk+CiAgIDwvaW50ZXJmYWNlPgogICA8YXR0cmlidXRlPgogICAgPGF0dHJpYnV0ZT50eXBlPC9hdHRyaWJ1dGU+CiAgICA8dmFsdWU+" +
         "cGM8L3ZhbHVlPgogICA8L2F0dHJpYnV0ZT4KICAgPGF0dHJpYnV0ZT4KICAgIDxhdHRyaWJ1dGU+dGVzdGJlZDwvYXR0cmlidXRlPgogICAgPHZhbHVlPmRldGVyPC92YWx1ZT4KICAgPC9hdHRyaWJ1dGU+CiAgIDxhdHRyaWJ1dGU+CiAgICA8YXR0cmlidXRlPmZhaWx1cmVhY3Rpb248L2F0dHJpYnV0ZT4KICAgIDx2YWx1ZT5mYXRhbDwvdmFsdWU+CiAgIDwvYXR0cmlidXRlPgogIDwvY29tcHV0ZXI+CiA8L2VsZW1lbnRzPgogPGVsZW1lbnRzPgogIDxjb21wdXRlcj4KICAgPG5hbWU+YzwvbmFtZT4KICAgPGludGVyZmFjZT4KICAgIDxzdWJzdHJhdGU+bGluazI8L3N1YnN0cmF0ZT4KICAgIDxuYW1lPmluZjAwMDwvbmFtZT4KICAgIDxjYXBhY2l0eT4KICAgICA8cmF0ZT4xMDAwMDAuMDAwMDAwPC9yYXRlPgogICAgIDxraW5kPm1heDwva2luZD4KICAgIDwvY2FwYWNpdHk+CiAgIDwvaW50ZXJmYWNlPgogICA8aW50ZXJmYWNlPgogICAgPHN1YnN0cmF0ZT5saW5rMTwvc3Vic3RyYXRlPgogICAgPG5hbWU+aW5mMDAxPC9uYW1lPgogICAgPGNhcGFjaXR5PgogICAgIDxyYXRlPjEwMDAwMC4wMDAwMDA8L3JhdGU+CiAgICAgPGtpbmQ+bWF4PC9raW5kPgogICAgPC9jYXBhY2l0eT4KICAgPC9pbnRlcmZhY2U+CiAgIDxhdHRyaWJ1dGU+CiAgICA8YXR0cmlidXRlPnR5cGU8L2F0dHJpYnV0ZT4KICAgIDx2YWx1ZT5wYzwvdmFsdWU+" +
         "CiAgIDwvYXR0cmlidXRlPgogICA8YXR0cmlidXRlPgogICAgPGF0dHJpYnV0ZT50ZXN0YmVkPC9hdHRyaWJ1dGU+CiAgICA8dmFsdWU+ZGV0ZXI8L3ZhbHVlPgogICA8L2F0dHJpYnV0ZT4KICAgPGF0dHJpYnV0ZT4KICAgIDxhdHRyaWJ1dGU+ZmFpbHVyZWFjdGlvbjwvYXR0cmlidXRlPgogICAgPHZhbHVlPmZhdGFsPC92YWx1ZT4KICAgPC9hdHRyaWJ1dGU+CiA8L2NvbXB1dGVyPgo8L2VsZW1lbnRzPgo8ZWxlbWVudHM+CiAgPHJlZ2lvbj4KICAgIDxuYW1lPlI8L25hbWU+CiAgIDxpbnRlcmZhY2U+CiAgICA8c3Vic3RyYXRlPmxpbmsyPC9zdWJzdHJhdGU+CiAgICA8bmFtZT5pbmYwMDA8L25hbWU+CiAgICA8Y2FwYWNpdHk+CiAgICAgPHJhdGU+MTAwMDAwLjAwMDAwMDwvcmF0ZT4KICAgICA8a2luZD5tYXg8L2tpbmQ+CiAgICA8L2NhcGFjaXR5PgogICA8L2ludGVyZmFjZT4KICAgPGludGVyZmFjZT4KICAgIDxzdWJzdHJhdGU+bGluazE8L3N1YnN0cmF0ZT4KICAgIDxuYW1lPmluZjAwMTwvbmFtZT4KICAgIDxjYXBhY2l0eT4KICAgICA8cmF0ZT4xMDAwMDAuMDAwMDAwPC9yYXRlPgogICAgIDxraW5kPm1heDwva2luZD4KICAgIDwvY2FwYWNpdHk+CiAgIDwvaW50ZXJmYWNlPgogICAgPGxldmVsPjI8L2xldmVsPgogICAgPGZyYWduYW1lPmZyYWdtZW50MTwvZnJhZ25hbWU+CiAgPC9yZWdpb24+CjwvZWxlbWVudHM+CjwvdG9wb2xvZ3k+" +
-        "CjxpZm1hcD48aW5uZXI+YTwvaW5uZXI+PG91dGVyPmluZjAwMDwvb3V0ZXI+PC9pZm1hcD4KPGlmbWFwPjxpbm5lcj5kPC9pbm5lcj48b3V0ZXI+aW5mMDAxPC9vdXRlcj48L2lmbWFwPgo8L2ZyYWdtZW50cz4KPC9leHBlcmltZW50Pgo=" }
+        "CjxpZm1hcD48aW5uZXI+YTwvaW5uZXI+PG91dGVyPmluZjAwMDwvb3V0ZXI+PC9pZm1hcD4KPGlmbWFwPjxpbm5lcj5kPC9pbm5lcj48b3V0ZXI+aW5mMDAxPC9vdXRlcj48L2lmbWFwPgo8L2ZyYWdtZW50cz4KPC9leHBlcmltZW50Pgo=",
+        change_control_enabled: true,
+        change_control_url: "https://gist.githubusercontent.com/alg/f5e024268f7dd37744e1/raw/7118814662145937968e13c0ef95abb08be528d5/layout.xml"
+      }
     ],
     'Buzzby Berkley' => [
       { name: 'Beta-Dyne', project: 'Beta-Test' },
@@ -195,14 +198,18 @@ class SeedTestData
       end
       puts " - New experiment #{eid} by #{user_id}"
 
-      log = ActivityLog.for_experiment(eid)
-      log.add(:create, user_id)
+      if created
+        log = ActivityLog.for_experiment(eid)
+        log.add(:create, user_id)
 
-      if created && !e[:layout].nil?
-        puts "    - Adding layout aspect"
-        DeterLab.add_experiment_aspects(@admin_user, "#{e[:project]}:#{e[:name]}", [ { type: 'layout', data: e[:layout] } ])
+        if !e[:layout].nil?
+          puts "    - Adding layout aspect"
+          DeterLab.add_experiment_aspects(@admin_user, "#{e[:project]}:#{e[:name]}", [ { type: 'layout', data: e[:layout] } ])
 
-        log.add("new-aspect-layout", @admin_user)
+          log.add("new-aspect-layout", @admin_user)
+
+          # ExperimentAspect.new(
+        end
       end
     end
   end

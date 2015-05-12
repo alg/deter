@@ -38,11 +38,12 @@ module DeterLab
           ExperimentACL.new(a[:circle_id], a[:permissions])
         end
 
+        eid = ex[:experiment_id]
         aspects = [ex[:aspects] || []].flatten.map do |a|
-          ExperimentAspect.new(a[:name], a[:type], a[:sub_type], a[:data], a[:data_reference])
+          ExperimentAspect.new(eid, a[:name], a[:type], a[:sub_type], a[:data], a[:data_reference])
         end
 
-        Experiment.new(ex[:experiment_id], ex[:owner], acl, aspects)
+        Experiment.new(eid, ex[:owner], acl, aspects)
       end
     rescue Savon::SOAPFault => e
       process_error e
