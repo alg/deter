@@ -62,6 +62,8 @@ en:
       delete: Delete
       edit: Edit
 
+      add_aspect: "Add %{type}"
+
     new:
       title: New experiment
       info: >
