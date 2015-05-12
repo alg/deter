@@ -86,6 +86,7 @@
           - else
             %table.table.table-striped
               - aspects.each_with_index do |a, i|
+                - next unless a.root?
                 %tr
                   %td
                     = link_to a.name, '#', data: { id: i }, class: 'more-less'

@@ -13,6 +13,10 @@ class ExperimentAspect < Struct.new(:name, :type, :sub_type, :raw_data, :data_re
     self.xa['custom_data']
   end
 
+  def root?
+    self.sub_type.blank?
+  end
+
   def to_hash
     { name:            self.name,
       type:            self.type,

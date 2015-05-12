@@ -16,4 +16,9 @@ class ExperimentAspectTest < ActiveSupport::TestCase
     assert_not_nil '123', @a.xa['key']
   end
 
+  test "#root?" do
+    { "" => true, " " => true, nil => true, "full" => false }.each do |sub_type, root|
+      assert_equal root, ExperimentAspect.new("x:a", "layout", sub_type, "data", "ref").root?
+    end
+  end
 end
