@@ -7,6 +7,7 @@ class ExperimentAspect < Struct.new(:eid, :name, :type, :sub_type, :raw_data, :d
     unless defined? @xa_key
       @xa_key = "#{eid}:#{name}"
     end
+    @xa_key
   end
 
   def custom_data=(v)
