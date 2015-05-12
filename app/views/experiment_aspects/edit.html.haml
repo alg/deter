@@ -11,10 +11,10 @@
         = f.text_field :name, class: "form-control", disabled: true
       .form-group
         = f.label :data, class: "control-label"
-        = f.hidden_field :data
+        = hidden_field_tag "aspect[data]", @aspect.custom_data
         #data_editor><
           :preserve
-            #{render partial: 'data', object: @aspect.data}
+            #{render partial: 'data', object: @aspect.custom_data}
 
       .checkbox
         %label

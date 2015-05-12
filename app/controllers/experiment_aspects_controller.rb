@@ -27,6 +27,9 @@ class ExperimentAspectsController < ApplicationController
       success = false
       new_data = params[:aspect][:data]
       if @aspect.raw_data != new_data
+
+        # Saving custom data as XA
+        @aspect.custom_data = new_data
         # res = DeterLab.change_experiment_aspects(current_user_id, @experiment.id, @experiment.aspects)[params[:id]]
         res = { success: true }
         if success = res[:success]

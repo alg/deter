@@ -5,6 +5,14 @@ class ExperimentAspect < Struct.new(:name, :type, :sub_type, :raw_data, :data_re
   # extended attributes key
   alias_method :xa_key, :name
 
+  def custom_data=(v)
+    self.xa['custom_data'] = v
+  end
+
+  def custom_data
+    self.xa['custom_data']
+  end
+
   def to_hash
     { name:            self.name,
       type:            self.type,

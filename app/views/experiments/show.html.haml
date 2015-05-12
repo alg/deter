@@ -98,7 +98,7 @@
                       - if is_owner && a.sub_type.blank?
                         = link_to t(".delete"), experiment_aspect_path(@experiment.id, a.name, type: a.type), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
                     %div.hide{ data: { more_id: i } }
-                      %pre= a.data
+                      %pre= aspect_data(a)
 
           = link_to t(".add_aspect"), "#", class: 'btn btn-default'
 
