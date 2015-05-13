@@ -112,8 +112,8 @@ class SeedTestData
     puts "Creating requests:"
     create_requests
 
-    # puts "Creating libraries:"
-    # LIBRARIES.each { |l| create_library(l) }
+    puts "Creating libraries:"
+    create_libraries
 
     return {
       user_ids: @user_ids
@@ -248,6 +248,12 @@ class SeedTestData
     puts "  - New project Devils-Dictionary request by Ambrose Bierce (#{ambrose})"
   end
 
+  def create_libraries
+    LIBRARIES.each do |l|
+      create_library(l)
+    end
+  end
+
   def create_library(l)
     owner_uid = @user_ids[l[:owner]]
     puts "  - #{owner_uid}:#{l[:name]}"
@@ -260,14 +266,20 @@ class SeedTestData
 
     puts "    - Experiment IDs: #{experiment_ids.inspect}"
 
-    DeterLab.create_library(@admin_user, "#{owner_uid}:#{l[:name]}", {
-      experiments:  [ experiment_ids.first ],
+    lib_name = "#{owner_uid}:#{l[:name]}"
+    DeterLab.create_library(@admin_user, lib_name, {
       access_lists: [
         LibraryMember.new("#{owner_uid}:#{owner_uid}", LibraryMember::ALL_PERMS),
         LibraryMember.new('system:world', [ LibraryMember::READ_LIBRARY ]),
       ],
       description:  "Seeded library"
     }, owner_uid)
+
+    res = DeterLab.add_library_experiments(@admin_user, lib_name, experiment_ids)
+    failed = res.select { |k, v| !v }.keys
+    if !failed.empty?
+      raise "Failed to add experiments #{failed.inspect} to the library #{lib_name}"
+    end
   end
 
   def ensure_create_project(uid, pid, descr)

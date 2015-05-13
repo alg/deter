@@ -48,5 +48,22 @@ module DeterLab
       process_error e
     end
 
+    # adds experiments to the library
+    def add_library_experiments(uid, name, experiment_ids)
+      cl = client("Libraries", uid)
+
+      response = cl.call(:add_library_experiments, message: {
+        libid: name,
+        eids:  experiment_ids
+      })
+
+      return [ response.to_hash[:add_library_experiments_response][:return] || [] ].flatten.reject(&:blank?).inject({}) do |m, r|
+        m[r[:name]] = r[:success]
+        m
+      end
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
   end
 end
