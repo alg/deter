@@ -89,7 +89,7 @@
           .row
             .col-sm-12
               - if aspects.blank?
-                %p 0 Layouts
+                %p 0 #{type.capitalize}
               - else
                 %table.table.table-striped
                   - aspects.each_with_index do |a, i|
