@@ -204,9 +204,9 @@ class SeedTestData
 
         if !e[:layout].nil?
           puts "    - Adding layout aspect"
-          res = DeterLab.add_experiment_aspects(@admin_user, "#{e[:project]}:#{e[:name]}", [ { type: 'layout', data: e[:layout] } ])
+          res = DeterLab.add_experiment_aspects(user_id, "#{e[:project]}:#{e[:name]}", [ { type: 'layout', data: e[:layout] } ])
 
-          log.add("new-aspect-layout", @admin_user)
+          log.add("new-aspect-layout", user_id)
 
           if (cc_url = e[:change_control_url]).present?
             asp = ExperimentAspect.new(eid, res.first[:name], :type, :sub_type, :raw_data, :data_reference)
