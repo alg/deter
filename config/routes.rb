@@ -52,6 +52,11 @@ Rails.application.routes.draw do
       get :archived
     end
   end
+  resources :libraries do
+    member do
+      get :details
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

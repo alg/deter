@@ -36,6 +36,12 @@ module DeterLab
 
     # Returns complete user profile in key-value form
     def get_user_profile(uid, user_id = uid)
+      if user_id == "system"
+        profile = Profile.new
+        profile["name"] = "World"
+        return profile
+      end
+
       cl = client("Users", uid)
       response = cl.call(:get_user_profile, "message" => { "uid" => user_id })
       raise Error unless response.success?

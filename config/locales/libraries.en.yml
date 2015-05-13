@@ -1,0 +1,10 @@
+en:
+  libraries:
+    show:
+      title: "Library: %{id}"
+      info: >
+        <p>
+          Library owner: %{owner}
+        </p>
+      not_found: Library is not found
+      experiments: Experiments

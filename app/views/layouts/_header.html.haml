@@ -39,7 +39,9 @@
                     %li{ class: p.project_id == params[:id] ? 'active' : nil }
                       = link_to t("submenu.manage_project", id: p.project_id), manage_project_path(p.project_id)
 
-          <li><a href="#">Libraries</a></li>
+          = dropdown_submenu_item [ :main_library, :my_libraries ], t("submeny.libraries") do
+            = submenu_item :main_library, main_library_name, library_path(main_library_id)
+            -# TODO add My Libraries submenu if there are libraries
           = dropdown_submenu_item [ :my_experiments, :new_experiment ], t("submenu.experiments") do
             = submenu_item :my_experiments, t("submenu.my_experiments"), experiments_path
             = submenu_item :new_experiment, t("submenu.new_experiment"), new_experiment_path

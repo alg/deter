@@ -260,8 +260,19 @@ class SeedTestData
 
     password = l[:owner].split(' ')[0]
     experiment_ids = l[:experiments].map do |ename|
-      DeterLab.create_experiment(@admin_user, owner_uid, ename, { description: "Library experiment" }, owner_uid)
-      "#{owner_uid}:#{ename}"
+      DeterLab.create_experiment(@admin_user, owner_uid, ename, {
+        description: "Library experiment",
+        access_lists: [
+          ExperimentACL.new('system:world', ExperimentACL::READ_EXPERIMENT),
+          ExperimentACL.new("#{owner_uid}:#{owner_uid}", 'ALL_PERMS')
+        ]
+      }, owner_uid)
+
+      eid = "#{owner_uid}:#{ename}"
+      log = ActivityLog.for_experiment(eid)
+      log.add(:create, owner_uid)
+
+      eid
     end
 
     puts "    - Experiment IDs: #{experiment_ids.inspect}"

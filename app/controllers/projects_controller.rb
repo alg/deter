@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
 
     render json: {
       team_html:        render_to_string(partial: "details_team"),
-      experiments_html: render_to_string(partial: "details_experiments") }
+      experiments_html: render_to_string(partial: "shared/details_experiments") }
   end
 
   def manage

@@ -58,6 +58,16 @@ class CachedDeterLab
     end
   end
 
+  # -----------------------------------------------------------------------------------------------
+  # Libraries
+  # -----------------------------------------------------------------------------------------------
+
+  # returns the list of libraries
+  def view_libraries
+    @deter_cache.fetch "libraries", 30.minutes do
+      DeterLab.view_libraries(@current_uid)
+    end
+  end
 
   # -----------------------------------------------------------------------------------------------
   # Experiments

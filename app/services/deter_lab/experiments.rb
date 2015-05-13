@@ -10,6 +10,7 @@ module DeterLab
     def view_experiments(uid, options = nil)
       options ||= {}
       project_id = options[:project_id]
+      library_id = options[:library_id]
       regex      = options[:regex]
       list_only  = options.has_key?(:list_only) ? options[:list_only] : true
       query_aspects = options[:query_aspects]
@@ -19,6 +20,9 @@ module DeterLab
       if project_id.present?
         message[:regex] = "^#{project_id}:.*"
         order << :regex
+      elsif library_id.present?
+        message[:lib] = library_id
+        order << :lib
       elsif regex.present?
         message[:regex] = regex
         order << :regex
@@ -35,7 +39,7 @@ module DeterLab
 
       return [response.to_hash[:view_experiments_response][:return] || []].flatten.map do |ex|
         acl = [ex[:acl] || []].flatten.map do |a|
-          ExperimentACL.new(a[:circle_id], a[:permissions])
+          ExperimentACL.new(a[:circle_id], [ a[:permissions] ].flatten)
         end
 
         eid = ex[:experiment_id]

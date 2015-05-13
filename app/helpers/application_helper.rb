@@ -15,4 +15,12 @@ module ApplicationHelper
     content_tag(:li, li_content, class: codes.include?(@submenu) ? 'active' : nil)
   end
 
+  def main_library_name
+    "Main Library"
+  end
+
+  def main_library_id
+    "john:MainLibrary"
+  end
+
 end

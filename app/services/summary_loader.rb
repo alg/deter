@@ -63,4 +63,11 @@ class SummaryLoader
       DeterLab.view_experiments(uid, project_id: project_id)
     end
   end
+
+  def self.library_experiments(cache, uid, library_id)
+    cache.fetch_global "library:#{library_id}:experiments", 30.minutes do
+      DeterLab.view_experiments(uid, library_id: library_id)
+    end
+  end
+
 end
