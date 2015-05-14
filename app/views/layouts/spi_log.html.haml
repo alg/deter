@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %title DeterLab Experimenter's Console
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
+    = stylesheet_link_tag 'application', media: 'all'
+    = csrf_meta_tags
+
+  %body{ id: "#{params[:controller]}_#{params[:action]}", class: (logged_in? ? "loggedin" : "loggedout") }
+    .container
+      .row
+        .col-sm-12= yield
+
+    = include_gon
+    = javascript_include_tag 'application'

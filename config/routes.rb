@@ -63,6 +63,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/spi_log' => 'spi_log#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

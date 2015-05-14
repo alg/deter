@@ -25,8 +25,14 @@ class WsdlCachingAdapter < HTTPI::Adapter::NetHTTP
         end
       end
     else
+      Rails.logger.info "------------- LOGGING ---------------"
+      REDIS.lpush("spi_log", { time: Time.now.to_f, type: 'request', xml: @request.body }.to_json)
+
       # data request
       res = super(method)
+
+      REDIS.lpush("spi_log", { time: Time.now.to_f, type: 'response', xml: res.raw_body }.to_json)
+      REDIS.ltrim("spi_log", 0, 99)
     end
 
     res
