@@ -1,5 +1,8 @@
 en:
   libraries:
+    libraries_table:
+      nothing: "You don't have such libraries"
+
     my:
       title: "My Libraries"
       info: >

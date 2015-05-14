@@ -43,8 +43,6 @@
             = submenu_item :main_library, main_library_name, library_path(main_library_id)
             = submenu_item :my_libraries, t("submenu.my_libraries"), my_libraries_path
             = submenu_item :other_libraries, t("submenu.other_libraries"), other_libraries_path
-
-            -# TODO add My Libraries submenu if there are libraries
           = dropdown_submenu_item [ :my_experiments, :new_experiment ], t("submenu.experiments") do
             = submenu_item :my_experiments, t("submenu.my_experiments"), experiments_path
             = submenu_item :new_experiment, t("submenu.new_experiment"), new_experiment_path
