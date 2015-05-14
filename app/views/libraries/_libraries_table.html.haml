@@ -11,7 +11,7 @@
           #{link_to lid, library_path(lid)}
           %p
             <strong>Library Owner</strong>: #{link_to l[:owner][:name], profile_path(l[:owner][:uid])} (#{l[:owner][:uid]})<br/>
-            <strong>Project Members</strong>: #{l[:members]}<br/>
+            <strong>Library Members</strong>: #{l[:members]}<br/>
             <strong>Experiments</strong>: #{l[:experiments]}<br/>
           %p
             - if l[:owner] == current_user_id
