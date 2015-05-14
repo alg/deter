@@ -8,6 +8,14 @@ class SummaryLoader
     end
   end
 
+  # Loads the summary of libraries for the given user.
+  def self.user_libraries(uid)
+    cache = DeterCache.new(uid)
+    cache.fetch "libraries_summary", 30.minutes do
+      get_user_libraries(uid, cache)
+    end
+  end
+
   # Loads the summary of user experiments.
   def self.user_experiments(uid)
     cache = DeterCache.new(uid)
@@ -26,6 +34,25 @@ class SummaryLoader
         owner: { uid: ex.owner, name: user_profile["name"] },
         description: ex_profile['description'].value
       }
+
+      m
+    end
+  end
+
+  def self.get_user_libraries(uid, cache)
+    DeterLab.view_libraries(uid).inject([]) do |m, library|
+      # owner
+      user_profile = member_profile(cache, uid, library.owner)
+      owner = { uid: library.owner, name: user_profile["name"] }
+
+      # experiments
+      experiments_count = library_experiments(cache, uid, library.libid).size
+
+      m << {
+        library_id:   library.libid,
+        owner:        owner,
+        members:      library.members.size,
+        experiments:  experiments_count }
 
       m
     end

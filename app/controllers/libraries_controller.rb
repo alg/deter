@@ -2,8 +2,15 @@ class LibrariesController < ApplicationController
 
   before_filter :require_login
 
-  # lists libraries
-  def index
+  # lists user own libraries
+  def my
+    puts get_libraries.inspect
+    @libraries = get_libraries.select { |l| l[:owner][:uid] == current_user_id }
+  end
+
+  # other's libraries user has access to
+  def other
+    @libraries = get_libraries.select { |l| l[:owner][:uid] != current_user_id }
   end
 
   # shows the library
@@ -38,6 +45,10 @@ class LibrariesController < ApplicationController
         status: 'TBD'
       }
     end
+  end
+
+  def get_libraries
+    SummaryLoader.user_libraries(current_user_id)
   end
 
 end

@@ -23,3 +23,7 @@ en:
     current_notifications: Current Notifications
     archived_notifications: Archived Notifications
 
+    libraries:        Libraries
+    my_libraries:     My Libraries
+    other_libraries:  Other Libraries
+

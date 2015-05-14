@@ -1,5 +1,19 @@
 en:
   libraries:
+    my:
+      title: "My Libraries"
+      info: >
+        <p>
+          Libraries you are managing
+        </p>
+
+    other:
+      title: "Other Libraries"
+      info: >
+        <p>
+          Other libraries you have access to
+        </p>
+
     show:
       title: "Library: %{id}"
       info: >

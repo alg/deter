@@ -1,0 +1,20 @@
+- libs = libraries_table
+%table.table.libraries.table-striped
+  - if libs.blank?
+    %tr
+      %td= t '.nothing'
+  - else
+    - libs.each do |l|
+      - lid = l[:library_id]
+      %tr
+        %td
+          #{link_to lid, library_path(lid)}
+          %p
+            <strong>Library Owner</strong>: #{link_to l[:owner][:name], profile_path(l[:owner][:uid])} (#{l[:owner][:uid]})<br/>
+            <strong>Project Members</strong>: #{l[:members]}<br/>
+            <strong>Experiments</strong>: #{l[:experiments]}<br/>
+          %p
+            - if l[:owner] == current_user_id
+              = link_to t(".manage"), "#TBD", class: 'btn btn-xs btn-info'
+            = link_to t(".view"), library_path(lid), class: 'btn btn-xs btn-info'
+
