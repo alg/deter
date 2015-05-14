@@ -270,6 +270,7 @@ class SeedTestData
 
       eid = "#{owner_uid}:#{ename}"
       log = ActivityLog.for_experiment(eid)
+      log.clear
       log.add(:create, owner_uid)
 
       eid
