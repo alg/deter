@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get  '/profile/:id'     => 'profile#show', as: 'profile'
   get  '/password/change' => 'password#edit', as: 'change_password'
   post '/password/change' => 'password#update'
+  post '/cc-pull'         => 'change_control#pull', as: 'cc_pull'
 
   resources :projects, only: [ :index, :new, :create, :destroy, :show ] do
     member do

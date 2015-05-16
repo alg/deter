@@ -89,6 +89,7 @@ class ExperimentAspectsController < ApplicationController
     gon.updated_by    = last_updated_by.present? ? "#{last_updated_by} (#{user_name(last_updated_by)})" : nil
     gon.updated_at    = @aspect.last_updated_at
     gon.user_name     = "#{current_user_id} (#{current_user_name})"
+    gon.pull_url      = cc_pull_url
   end
 
 end

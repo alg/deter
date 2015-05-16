@@ -77,7 +77,7 @@ $ ->
     ccState.text(if ccEnabled then "(view)" else "(edit)")
 
     updateStatus()
-    
+
   updateControls()
   ccEnabledControl.on "change", updateControls
   editor.on "change", updateStatus
@@ -97,7 +97,10 @@ $ ->
   ccPullButton.on "click", (e) ->
     e.preventDefault()
     $.ajax
-      url: ccUrlField.val()
+      url: gon.pull_url
+      method: "post"
+      data:
+        url: ccUrlField.val()
       success: (data) =>
         if isValidData(data)
           pulledOn = new Date()
@@ -107,6 +110,4 @@ $ ->
         else
           alert "Pulled data has invalid format"
       error: (xhr, status, error) ->
-        alert "There was a problem pulling data:\n#{error}"
-        # console.log error
-        # alert 'error'
+        alert "There was a problem pulling data:\n#{xhr.responseText}"
