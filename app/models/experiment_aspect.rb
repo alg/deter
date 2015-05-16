@@ -40,7 +40,7 @@ class ExperimentAspect < Struct.new(:eid, :name, :type, :sub_type, :raw_data, :d
   end
 
   def change_control_enabled=(v)
-    self.xa['change_control_enabled'] = v == '1'
+    self.xa['change_control_enabled'] = v
   end
 
   def change_control_url
