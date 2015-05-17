@@ -10,7 +10,7 @@
 
       .form-group
         = f.label :name, class: "control-label"
-        = f.text_field :name, class: "form-control"
+        = f.text_field :name, class: "form-control", required: true
 
       .form-group
         %label Change Control
@@ -23,10 +23,8 @@
       .form-group.change-control.info{ class: @change_control_enabled == '1' ? nil : 'hide' }
         %p= t '.cc_prompt', type: @aspect.type
         .row
-          .col-sm-11
+          .col-sm-12
             = text_field_tag "change_control_url", @change_control_url, class: 'form-control'
-          .col-sm-1.text-right
-            = button_tag "Pull", class: "btn btn-default", id: "change_control_pull"
 
       .form-group
         %p

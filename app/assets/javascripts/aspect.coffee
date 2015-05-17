@@ -72,7 +72,9 @@ $ ->
     if ccEnabled
       ccPanel.removeClass('hide')
       ccEditor.addClass('read-only')
+      ccEditor.addClass('hide') if creatingAspect
     else
+      ccEditor.removeClass('hide') if creatingAspect
       ccPanel.addClass('hide')
       ccEditor.removeClass('read-only')
       $("#data_editor").css("background-color", "#fff")
@@ -84,10 +86,7 @@ $ ->
   ccEnabledControl.on "change", updateControls
   editor.on "change", updateStatus
 
-  # submitting form
-  form = $("form.aspect_form")
-  form.on "submit", (e) ->
-    e.preventDefault()
+  submitForm = ->
     $("input#aspect_data").val(editor.getValue())
 
     if updatingAspect && !hasChanged()
@@ -95,9 +94,20 @@ $ ->
 
     form[0].submit()
 
-  # on pull, update editor
-  ccPullButton.on "click", (e) ->
+  pullAndSubmitForm = ->
+
+  # submitting form
+  form = $("form.aspect_form")
+  form.on "submit", (e) ->
     e.preventDefault()
+    if creatingAspect
+      pull
+        success: ->
+          submitForm()
+    else
+      submitForm()
+
+  pull = (options = {}) ->
     $.ajax
       url: gon.pull_url
       method: "post"
@@ -109,7 +119,12 @@ $ ->
           statusPulled = generateStatus(I18n.t("experiment_aspects.edit.last_pulled"), gon.user_name, pulledOn)
           editor.setValue(data)
           updateStatus()
+          options.success() if options.success
         else
           alert "Pulled data has invalid format"
       error: (xhr, status, error) ->
         alert "There was a problem pulling data:\n#{xhr.responseText}"
+
+  # on pull, update editor
+  ccPullButton.on "click", (e) ->
+    e.preventDefault()
