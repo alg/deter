@@ -57,8 +57,8 @@ namespace :deter do
       within current_path do
         with rails_env: :production do
           puts "Seeding database. Please wait..."
-          c = capture :rake, 'deter:seed', "ADMIN=\"#{ENV['admin']}\" PASS=\"#{ENV['pass']}\""
-          puts c.gsub(/^D,.*net_http\)$\n/, '')
+          c = capture :rake, 'deter:seed', "PASS=\"#{ENV['PASS']}\""
+          puts c.gsub(/^DHTTPI$\n/, '')
         end
       end
     end
