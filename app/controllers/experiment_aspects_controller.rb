@@ -34,6 +34,8 @@ class ExperimentAspectsController < ApplicationController
       deter_lab.invalidate_experiment(@experiment.id)
       ActivityLog.for_experiment(@experiment.id).add("new-aspect-#{@aspect.type}", current_user_id)
 
+      set_aspect_xa(@aspect)
+
       redirect_to experiment_path(@experiment.id), notice: t('.success')
     else
       flash.now.alert = res[:reason]
@@ -147,4 +149,13 @@ class ExperimentAspectsController < ApplicationController
   def aspect_params
     params[:aspect].permit(:name, :type, :data).symbolize_keys
   end
+
+  def set_aspect_xa(aspect)
+    asp = ExperimentAspect.new(@experiment.id, aspect.name, :type, :sub_type, :raw_data, :data_reference)
+    asp.last_updated_at        = Time.now
+    asp.last_updated_by        = current_user_id
+    asp.change_control_enabled = @change_control_enabled
+    asp.change_control_url     = @change_control_url
+  end
+
 end
