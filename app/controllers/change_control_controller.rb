@@ -5,7 +5,14 @@ class ChangeControlController < ApplicationController
   # pulls data from the remote link
   def pull
     require 'open-uri'
-    render text: open(params[:url]).read
+
+    url = params[:url]
+    if url !~ /^http/
+      render text: "Only HTTP URLs are supported", status: 400
+      return
+    end
+
+    render text: open(url).read
   rescue OpenURI::HTTPError => e
     Rails.logger.error "Failed to pull CC resource '#{params[:url]}': #{e}"
     render text: e.message, status: 500
