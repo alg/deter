@@ -4,7 +4,9 @@ isValidData = (data) ->
   true
 
 $ ->
-  return if $("#experiment_aspects_edit, #experiment_aspects_update").length == 0
+  creatingAspect = $("#experiment_aspects_new, #experiment_aspects_create").length > 0
+  updatingAspect = $("#experiment_aspects_edit, #experiment_aspects_update").length > 0
+  return if !creatingAspect && !updatingAspect
 
   editor = ace.edit("data-editor")
   editor.setTheme("ace/theme/xcode")
@@ -88,7 +90,7 @@ $ ->
     e.preventDefault()
     $("input#aspect_data").val(editor.getValue())
 
-    if !hasChanged()
+    if updatingAspect && !hasChanged()
       alert("The aspect is unchanged")
 
     form[0].submit()

@@ -209,7 +209,7 @@ class SeedTestData
           log.add("new-aspect-layout", user_id)
 
           if (cc_url = e[:change_control_url]).present?
-            asp = ExperimentAspect.new(eid, res.first[:name], :type, :sub_type, :raw_data, :data_reference)
+            asp = ExperimentAspect.new(eid, res.first[0], :type, :sub_type, :raw_data, :data_reference)
             asp.last_updated_at        = Time.now
             asp.last_updated_by        = user_id
             asp.change_control_enabled = '1'

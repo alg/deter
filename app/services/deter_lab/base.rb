@@ -58,7 +58,7 @@ module DeterLab
           puts e.to_hash.inspect
         end
 
-        raise Error
+        raise Error, detail_message(e)
       end
     end
 

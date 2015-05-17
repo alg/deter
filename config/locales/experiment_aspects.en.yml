@@ -8,6 +8,7 @@ en:
         <p>Creating new experiment %{type}</p>
       
       submit: Add Record
+      cc_prompt: "Enter the URL to pull the %{type} data from a change control system:"
 
     create:
       success: Record was created

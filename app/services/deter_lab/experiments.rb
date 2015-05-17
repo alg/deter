@@ -127,7 +127,12 @@ module DeterLab
         aspects: aspects
       })
 
-      return response.to_hash[:add_experiment_aspects_response][:return]
+      res = [ response.to_hash[:add_experiment_aspects_response][:return] || [] ].flatten
+      Rails.logger.info res.inspect
+      return res.inject({}) do |m, r|
+        m[r[:name]] = { success: r[:success], reason: r[:reason] }
+        m
+      end
     rescue Savon::SOAPFault => e
       process_error e
     end

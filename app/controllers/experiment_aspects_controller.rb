@@ -6,30 +6,42 @@ class ExperimentAspectsController < ApplicationController
 
   class Aspect < Hashie::Dash
     property :name
-    property :type
+    property :type, default: 'layout'
     property :data
 
-    def custom_data
-      ""
-    end
-
     def to_spi_data
-      { name: self.name, type: self.type, data: self.data }
+      { name: self.name, type: self.type, data: self.data.nil? ? nil : Base64.encode64(self.data) }
     end
   end
 
   # new aspect form
   def new
-    @change_control_enabled = '0'
-    @change_control_url = ''
-    @aspect = Aspect.new(type: params[:type])
+    @change_control_enabled ||= '0'
+    @change_control_url     ||= ''
+    @aspect                 ||= Aspect.new(type: params[:type])
+    configure_new_gon
+    render :new
   end
 
   # creates the aspect and adds it to the experiment
   def create
     @aspect = Aspect.new(aspect_params)
-    res = DeterLab.add_experiment_aspects(current_user_id, @experiment.id, [ @aspect.to_spi_data ])
-    redirect_to experiment_path(@experiment.id), notice: t('.success')
+    @change_control_enabled = params['change_control_enabled']
+    @change_control_url = params['change_control_url']
+
+    res = DeterLab.add_experiment_aspects(current_user_id, @experiment.id, [ @aspect.to_spi_data ]).first[1]
+    if res[:success]
+      deter_lab.invalidate_experiment(@experiment.id)
+      ActivityLog.for_experiment(@experiment.id).add("new-aspect-#{@aspect.type}", current_user_id)
+
+      redirect_to experiment_path(@experiment.id), notice: t('.success')
+    else
+      flash.now.alert = res[:reason]
+      new
+    end
+  rescue DeterLab::Error => e
+    flash.now.alert = e.message
+    new
   end
 
   # edits the aspect
@@ -40,7 +52,7 @@ class ExperimentAspectsController < ApplicationController
     else
       @change_control_enabled = @aspect.xa['change_control_enabled']
       @change_control_url     = @aspect.xa['change_control_url']
-      configure_gon
+      configure_edit_gon
     end
   end
 
@@ -63,10 +75,11 @@ class ExperimentAspectsController < ApplicationController
         # res = DeterLab.change_experiment_aspects(current_user_id, @experiment.id, @experiment.aspects)[params[:id]]
         res = { success: true }
         if success = res[:success]
+          ActivityLog.for_experiment(@experiment.id).add("updated-aspect-#{@aspect.type}", current_user_id)
           redirect_to experiment_path(@experiment.id), notice: t(".success") #, notice: t(".unimplemented")
         else
           @error = res[:error] || t(".unknown_error")
-          configure_gon
+          configure_edit_gon
           render :edit
         end
       else
@@ -92,6 +105,7 @@ class ExperimentAspectsController < ApplicationController
     options = {}
     if res[params[:id]]
       options[:notice] = t(".success")
+      ActivityLog.for_experiment(@experiment.id).add("deleted-aspect-#{params[:type]}", current_user_id)
       deter_lab.invalidate_experiment(@experiment.id)
     else
       options[:alert] = t(".failure")
@@ -112,10 +126,20 @@ class ExperimentAspectsController < ApplicationController
     end
   end
 
-  def configure_gon
+  def configure_new_gon
+    gon.updated_by    = nil
+    gon.updated_at    = nil
+    configure_gon
+  end
+
+  def configure_edit_gon
     last_updated_by   = @aspect.last_updated_by
     gon.updated_by    = last_updated_by.present? ? "#{last_updated_by} (#{user_name(last_updated_by)})" : nil
     gon.updated_at    = @aspect.last_updated_at
+    configure_gon
+  end
+
+  def configure_gon
     gon.user_name     = "#{current_user_id} (#{current_user_name})"
     gon.pull_url      = cc_pull_url
   end

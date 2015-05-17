@@ -28,15 +28,6 @@ class ExperimentsController < ApplicationController
       return
     end
 
-    # @experiment.aspects = [
-    #   ExperimentAspect.new(@experiment.id, "layout000", "layout", "", nil, "ref"),
-    #   ExperimentAspect.new(@experiment.id, "layout000", "layout", "full", nil, "ref"),
-    #   ExperimentAspect.new(@experiment.id, "layout000", "layout", "template", nil, "ref"),
-    #   ExperimentAspect.new(@experiment.id, "layout000", "layout", "full", nil, "ref"),
-    #   ExperimentAspect.new(@experiment.id, "layout000", "layout", "asda", nil, "ref"),
-    #   ExperimentAspect.new(@experiment.id, "layout000", "layout", "full", nil, "ref")
-    # ]
-
     @profile = deter_lab.get_experiment_profile(@experiment.id)
   end
 
