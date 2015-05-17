@@ -2,6 +2,16 @@ en:
   experiment_aspects:
     not_found: "Aspect not found"
 
+    new:
+      title: "New %{type}"
+      info: >
+        <p>Creating new experiment %{type}</p>
+      
+      submit: Add Record
+
+    create:
+      success: Record was created
+
     edit:
       title: "Manage Aspect: %{id}"
       info: >

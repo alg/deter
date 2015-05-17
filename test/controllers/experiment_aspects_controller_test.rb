@@ -54,4 +54,11 @@ class ExperimentAspectsControllerTest < ActionController::TestCase
   #   assert_equal "error reason", assigns(:error)
   # end
 
+  test 'should add experiment aspect' do
+    DeterLab.expects(:add_experiment_aspects).with('mark', @eid, [ { name: "name", type: "layout", data: "<xml/>" } ]).returns(true)
+    post :create, experiment_id: @eid, aspect: { name: "name", type: "layout", data: "<xml/>" }
+    assert_redirected_to experiment_path(@eid)
+    assert_equal I18n.t("experiment_aspects.create.success"), flash.notice
+  end
+
 end

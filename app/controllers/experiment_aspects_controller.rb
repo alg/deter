@@ -4,6 +4,34 @@ class ExperimentAspectsController < ApplicationController
   before_filter :load_experiment
   before_filter :require_owner, only: :destroy
 
+  class Aspect < Hashie::Dash
+    property :name
+    property :type
+    property :data
+
+    def custom_data
+      ""
+    end
+
+    def to_spi_data
+      { name: self.name, type: self.type, data: self.data }
+    end
+  end
+
+  # new aspect form
+  def new
+    @change_control_enabled = '0'
+    @change_control_url = ''
+    @aspect = Aspect.new(type: params[:type])
+  end
+
+  # creates the aspect and adds it to the experiment
+  def create
+    @aspect = Aspect.new(aspect_params)
+    res = DeterLab.add_experiment_aspects(current_user_id, @experiment.id, [ @aspect.to_spi_data ])
+    redirect_to experiment_path(@experiment.id), notice: t('.success')
+  end
+
   # edits the aspect
   def edit
     @aspect = @experiment.aspects.find { |a| a.name == params[:id] }
@@ -92,4 +120,7 @@ class ExperimentAspectsController < ApplicationController
     gon.pull_url      = cc_pull_url
   end
 
+  def aspect_params
+    params[:aspect].permit(:name, :type, :data).symbolize_keys
+  end
 end

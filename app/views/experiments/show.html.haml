@@ -85,7 +85,7 @@
             .col-sm-10
               %h5= type.capitalize
             .col-sm-2.text-right.action
-              = link_to t(".add_aspect", type: type.capitalize), "#", class: 'btn btn-xs btn-default'
+              = link_to t(".add_aspect", type: type.capitalize), new_experiment_aspect_path(@experiment.id, type: type), class: 'btn btn-xs btn-default'
           .row
             .col-sm-12
               - if aspects.blank?
