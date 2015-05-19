@@ -80,7 +80,7 @@ class ExperimentAspect < Struct.new(:eid, :name, :type, :sub_type, :raw_data, :d
         formatter.compact = true
         formatter.write(doc, targetstr = "")
 
-        @data = targetstr
+        @data = targetstr.blank? ? decoded : targetstr
       end
     end
 

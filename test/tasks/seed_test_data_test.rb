@@ -2,28 +2,13 @@ require 'test_helper'
 
 class SeedTestDataTest < ActiveSupport::TestCase
 
-  # setup do
-  #   VCR.use_cassette "seeding/setup" do
-  #     load_user 'admin_user'
-  #     @res = SeedTestData.new(@username, @password).perform
-  #   end
-  # end
-
-  test 'users should be added' do
-    VCR.use_cassette "seeding/testing-users" do
-      user = 'aadams'
-      login = user[1]
-      pass = user[0].split(' ').first
-      assert DeterLab.valid_credentials?(login, pass)
-    end
-  end
-
   test 'user should own a project' do
     VCR.use_cassette "seeding/owning-project" do
-      user_id = 'aadamss'
+      user_id = 'aadams'
       assert DeterLab.valid_credentials?(user_id, 'Abigail')
 
       project_ids = DeterLab.view_projects(user_id).map(&:project_id)
+      puts project_ids.inspect
       assert project_ids.include?('Alfa-Romeo')
     end
   end
@@ -39,16 +24,33 @@ class SeedTestDataTest < ActiveSupport::TestCase
     end
   end
 
-  # test 'user should create experiments' do
-  #   VCR.use_cassette "seeding/create-experiment" do
-  #     user_id = @res[:user_ids]['Abigail Adams']
-  #     assert DeterLab.valid_credentials?(user_id, 'Abigail')
+  test "orchestration should be added to ExperimentOne" do
+    VCR.use_cassette "seeding/aspect-orchestration" do
+      assert DeterLab.valid_credentials?("abierce", "Ambrose")
 
-  #     experiment = DeterLab.view_experiments(user_id, project_id: "Alfa-Romeo").select { |e| e.id == "Alfa-Romeo:HelloWorld" }.first
-  #     assert_not_nil experiment
-  #     assert_equal user_id, experiment.owner
-  #   end
-  # end
+      eid = "Alfa-Romeo:ExperimentOne"
+      exp = DeterLab.view_experiments("abierce", list_only: false, regex: eid, query_aspects: { }).first
+      assert_not_nil exp
+
+      aspect = exp.aspects.find { |a| a.type == 'orchestration' }
+      assert_not_nil aspect
+      assert_equal "AAL TBD", aspect.data
+    end
+  end
+
+  test "visualization should be added to ExperimentOne" do
+    VCR.use_cassette "seeding/aspect-visualization" do
+      assert DeterLab.valid_credentials?("abierce", "Ambrose")
+
+      eid = "Alfa-Romeo:ExperimentOne"
+      exp = DeterLab.view_experiments("abierce", list_only: false, regex: eid, query_aspects: { }).first
+      assert_not_nil exp
+
+      aspect = exp.aspects.find { |a| a.type == 'visualization' }
+      assert_not_nil aspect
+      assert_equal "http://tau.isi.edu/magi-viz/smartamerica/CA/", aspect.data
+    end
+  end
 
   private
 

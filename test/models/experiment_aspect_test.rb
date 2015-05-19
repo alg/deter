@@ -6,6 +6,16 @@ class ExperimentAspectTest < ActiveSupport::TestCase
     @a = ExperimentAspect.new("p:e", "layout000", "layout", "", "some data", "ref")
   end
 
+  test 'formatting xml' do
+    @a.raw_data = Base64.encode64("<a><b>test</b></a>")
+    assert_equal "<a>\n  <b>test</b>\n</a>", @a.data
+  end
+
+  test 'not formatting non-xml' do
+    @a.raw_data = Base64.encode64("test")
+    assert_equal "test", @a.data
+  end
+
   test 'extended attributes' do
     assert_equal   "p:e:layout000", @a.xa_key
     assert_not_nil @a.xa

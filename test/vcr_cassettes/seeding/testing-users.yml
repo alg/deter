@@ -25,7 +25,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 05 May 2015 16:05:20 GMT
+      - Tue, 19 May 2015 06:27:30 GMT
     body:
       encoding: UTF-8
       string: |
@@ -102,6 +102,18 @@ http_interactions:
                             </xs:extension>
                         </xs:complexContent>
                     </xs:complexType>
+                    <xs:element name="logout">
+                        <xs:complexType>
+                            <xs:sequence/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="logoutResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
                     <xs:element name="getProfileDescription">
                         <xs:complexType>
                             <xs:sequence/>
@@ -142,6 +154,57 @@ http_interactions:
                             </xs:extension>
                         </xs:complexContent>
                     </xs:complexType>
+                    <xs:element name="createUser">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="profile" nillable="true" type="ns:Attribute"/>
+                                <xs:element minOccurs="0" name="urlPrefix" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="createUserResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:CreateUserResult"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:complexType name="CreateUserResult">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="identity" nillable="true" type="xs:base64Binary"/>
+                            <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                    <xs:element name="removeUser">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="removeUserResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="changePasswordChallenge">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="challengeID" type="xs:long"/>
+                                <xs:element minOccurs="0" name="newPass" nillable="true" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="changePasswordChallengeResponse">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
                     <xs:element name="requestChallenge">
                         <xs:complexType>
                             <xs:sequence>
@@ -358,69 +421,6 @@ http_interactions:
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
-                    <xs:element name="createUser">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                                <xs:element maxOccurs="unbounded" minOccurs="0" name="profile" nillable="true" type="ns:Attribute"/>
-                                <xs:element minOccurs="0" name="urlPrefix" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="createUserResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" nillable="true" type="ns:CreateUserResult"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:complexType name="CreateUserResult">
-                        <xs:sequence>
-                            <xs:element minOccurs="0" name="identity" nillable="true" type="xs:base64Binary"/>
-                            <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                    <xs:element name="removeUser">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="uid" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="removeUserResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="logout">
-                        <xs:complexType>
-                            <xs:sequence/>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="logoutResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="changePasswordChallenge">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="challengeID" type="xs:long"/>
-                                <xs:element minOccurs="0" name="newPass" nillable="true" type="xs:string"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="changePasswordChallengeResponse">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element minOccurs="0" name="return" type="xs:boolean"/>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
                 </xs:schema>
             </wsdl:types>
             <wsdl:message name="logoutRequest">
@@ -516,17 +516,17 @@ http_interactions:
             <wsdl:message name="getProfileDescriptionResponse">
                 <wsdl:part name="parameters" element="ns:getProfileDescriptionResponse"/>
             </wsdl:message>
-            <wsdl:message name="changePasswordChallengeRequest">
-                <wsdl:part name="parameters" element="ns:changePasswordChallenge"/>
-            </wsdl:message>
-            <wsdl:message name="changePasswordChallengeResponse">
-                <wsdl:part name="parameters" element="ns:changePasswordChallengeResponse"/>
-            </wsdl:message>
             <wsdl:message name="removeUserAttributeRequest">
                 <wsdl:part name="parameters" element="ns:removeUserAttribute"/>
             </wsdl:message>
             <wsdl:message name="removeUserAttributeResponse">
                 <wsdl:part name="parameters" element="ns:removeUserAttributeResponse"/>
+            </wsdl:message>
+            <wsdl:message name="changePasswordChallengeRequest">
+                <wsdl:part name="parameters" element="ns:changePasswordChallenge"/>
+            </wsdl:message>
+            <wsdl:message name="changePasswordChallengeResponse">
+                <wsdl:part name="parameters" element="ns:changePasswordChallengeResponse"/>
             </wsdl:message>
             <wsdl:message name="markNotificationsRequest">
                 <wsdl:part name="parameters" element="ns:markNotifications"/>
@@ -610,15 +610,15 @@ http_interactions:
                     <wsdl:output message="tns:getProfileDescriptionResponse" wsaw:Action="urn:getProfileDescriptionResponse"/>
                     <wsdl:fault message="tns:UsersDeterFault" name="UsersDeterFault" wsaw:Action="urn:getProfileDescriptionUsersDeterFault"/>
                 </wsdl:operation>
-                <wsdl:operation name="changePasswordChallenge">
-                    <wsdl:input message="tns:changePasswordChallengeRequest" wsaw:Action="urn:changePasswordChallenge"/>
-                    <wsdl:output message="tns:changePasswordChallengeResponse" wsaw:Action="urn:changePasswordChallengeResponse"/>
-                    <wsdl:fault message="tns:UsersDeterFault" name="UsersDeterFault" wsaw:Action="urn:changePasswordChallengeUsersDeterFault"/>
-                </wsdl:operation>
                 <wsdl:operation name="removeUserAttribute">
                     <wsdl:input message="tns:removeUserAttributeRequest" wsaw:Action="urn:removeUserAttribute"/>
                     <wsdl:output message="tns:removeUserAttributeResponse" wsaw:Action="urn:removeUserAttributeResponse"/>
                     <wsdl:fault message="tns:UsersDeterFault" name="UsersDeterFault" wsaw:Action="urn:removeUserAttributeUsersDeterFault"/>
+                </wsdl:operation>
+                <wsdl:operation name="changePasswordChallenge">
+                    <wsdl:input message="tns:changePasswordChallengeRequest" wsaw:Action="urn:changePasswordChallenge"/>
+                    <wsdl:output message="tns:changePasswordChallengeResponse" wsaw:Action="urn:changePasswordChallengeResponse"/>
+                    <wsdl:fault message="tns:UsersDeterFault" name="UsersDeterFault" wsaw:Action="urn:changePasswordChallengeUsersDeterFault"/>
                 </wsdl:operation>
                 <wsdl:operation name="markNotifications">
                     <wsdl:input message="tns:markNotificationsRequest" wsaw:Action="urn:markNotifications"/>
@@ -808,8 +808,8 @@ http_interactions:
                         <soap:fault use="literal" name="UsersDeterFault"/>
                     </wsdl:fault>
                 </wsdl:operation>
-                <wsdl:operation name="removeUserAttribute">
-                    <soap:operation soapAction="urn:removeUserAttribute" style="document"/>
+                <wsdl:operation name="changePasswordChallenge">
+                    <soap:operation soapAction="urn:changePasswordChallenge" style="document"/>
                     <wsdl:input>
                         <soap:body use="literal"/>
                     </wsdl:input>
@@ -820,8 +820,8 @@ http_interactions:
                         <soap:fault use="literal" name="UsersDeterFault"/>
                     </wsdl:fault>
                 </wsdl:operation>
-                <wsdl:operation name="changePasswordChallenge">
-                    <soap:operation soapAction="urn:changePasswordChallenge" style="document"/>
+                <wsdl:operation name="removeUserAttribute">
+                    <soap:operation soapAction="urn:removeUserAttribute" style="document"/>
                     <wsdl:input>
                         <soap:body use="literal"/>
                     </wsdl:input>
@@ -1027,8 +1027,8 @@ http_interactions:
                         <soap12:fault use="literal" name="UsersDeterFault"/>
                     </wsdl:fault>
                 </wsdl:operation>
-                <wsdl:operation name="removeUserAttribute">
-                    <soap12:operation soapAction="urn:removeUserAttribute" style="document"/>
+                <wsdl:operation name="changePasswordChallenge">
+                    <soap12:operation soapAction="urn:changePasswordChallenge" style="document"/>
                     <wsdl:input>
                         <soap12:body use="literal"/>
                     </wsdl:input>
@@ -1039,8 +1039,8 @@ http_interactions:
                         <soap12:fault use="literal" name="UsersDeterFault"/>
                     </wsdl:fault>
                 </wsdl:operation>
-                <wsdl:operation name="changePasswordChallenge">
-                    <soap12:operation soapAction="urn:changePasswordChallenge" style="document"/>
+                <wsdl:operation name="removeUserAttribute">
+                    <soap12:operation soapAction="urn:removeUserAttribute" style="document"/>
                     <wsdl:input>
                         <soap12:body use="literal"/>
                     </wsdl:input>
@@ -1201,8 +1201,8 @@ http_interactions:
                         <mime:content type="application/xml" part="parameters"/>
                     </wsdl:output>
                 </wsdl:operation>
-                <wsdl:operation name="removeUserAttribute">
-                    <http:operation location="removeUserAttribute"/>
+                <wsdl:operation name="changePasswordChallenge">
+                    <http:operation location="changePasswordChallenge"/>
                     <wsdl:input>
                         <mime:content type="application/xml" part="parameters"/>
                     </wsdl:input>
@@ -1210,8 +1210,8 @@ http_interactions:
                         <mime:content type="application/xml" part="parameters"/>
                     </wsdl:output>
                 </wsdl:operation>
-                <wsdl:operation name="changePasswordChallenge">
-                    <http:operation location="changePasswordChallenge"/>
+                <wsdl:operation name="removeUserAttribute">
+                    <http:operation location="removeUserAttribute"/>
                     <wsdl:input>
                         <mime:content type="application/xml" part="parameters"/>
                     </wsdl:input>
@@ -1242,7 +1242,7 @@ http_interactions:
             </wsdl:service>
         </wsdl:definitions>
     http_version: 
-  recorded_at: Tue, 05 May 2015 16:05:23 GMT
+  recorded_at: Tue, 19 May 2015 06:27:31 GMT
 - request:
     method: post
     uri: https://spidev.isi.deterlab.net:52323/axis2/services/Users.UsersHttpsSoap11Endpoint/
@@ -1250,14 +1250,14 @@ http_interactions:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://api.testbed.deterlab.net/xsd"
-        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:requestChallenge><tns:uid>aadams1</tns:uid><tns:types>clear</tns:types></tns:requestChallenge></env:Body></env:Envelope>
+        xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:requestChallenge><tns:uid>a</tns:uid><tns:types>clear</tns:types></tns:requestChallenge></env:Body></env:Envelope>
     headers:
       Soapaction:
       - '"urn:requestChallenge"'
       Content-Type:
       - application/soap+xml;charset=UTF-8
       Content-Length:
-      - '386'
+      - '380'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -1266,63 +1266,27 @@ http_interactions:
       - Ruby
   response:
     status:
-      code: 200
-      message: OK
+      code: 500
+      message: Internal Server Error
     headers:
       Server:
       - Apache-Coyote/1.1
       Content-Type:
-      - application/soap+xml; action="urn:requestChallengeResponse";charset=UTF-8
+      - application/soap+xml; action="urn:requestChallengeUsersDeterFault";charset=UTF-8
       Transfer-Encoding:
       - chunked
       Date:
-      - Tue, 05 May 2015 16:05:25 GMT
+      - Tue, 19 May 2015 06:27:32 GMT
+      Connection:
+      - close
     body:
       encoding: UTF-8
-      string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:requestChallengeResponse
-        xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:type="ns:UserChallenge"><ns:challengeID>2453845950502962197</ns:challengeID><ns:data
-        xsi:nil="true" /><ns:type>clear</ns:type><ns:validity>20150505T160725Z</ns:validity></ns:return></ns:requestChallengeResponse></soapenv:Body></soapenv:Envelope>
+      string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><soapenv:Fault><soapenv:Code><soapenv:Value>soapenv:Receiver</soapenv:Value></soapenv:Code><soapenv:Reason><soapenv:Text
+        xml:lang="en-US">unknown</soapenv:Text></soapenv:Reason><soapenv:Detail><ns:UsersDeterFault
+        xmlns:ns="http://api.testbed.deterlab.net/xsd"><DeterFault xmlns="http://api.testbed.deterlab.net/xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns:DeterFault"><ns:detailMessage>No
+        such user a</ns:detailMessage><ns:errorCode>2</ns:errorCode><ns:errorMessage>Badly
+        Formed Request</ns:errorMessage></DeterFault></ns:UsersDeterFault></soapenv:Detail></soapenv:Fault></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Tue, 05 May 2015 16:05:25 GMT
-- request:
-    method: post
-    uri: https://spidev.isi.deterlab.net:52323/axis2/services/Users.UsersHttpsSoap11Endpoint/
-    body:
-      encoding: UTF-8
-      string: |-
-        <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://api.testbed.deterlab.net/xsd" xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Body><tns:challengeResponse><tns:responseData>QWJpZ2FpbA==
-        </tns:responseData><tns:challengeID>2453845950502962197</tns:challengeID></tns:challengeResponse></env:Body></env:Envelope>
-    headers:
-      Soapaction:
-      - '"urn:challengeResponse"'
-      Content-Type:
-      - application/soap+xml;charset=UTF-8
-      Content-Length:
-      - '438'
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - Apache-Coyote/1.1
-      Content-Type:
-      - application/soap+xml; action="urn:challengeResponseResponse";charset=UTF-8
-      Transfer-Encoding:
-      - chunked
-      Date:
-      - Tue, 05 May 2015 16:05:27 GMT
-    body:
-      encoding: UTF-8
-      string: <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns:challengeResponseResponse
-        xmlns:ns="http://api.testbed.deterlab.net/xsd"><ns:return>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNhakNDQVZJQ0JnRk5KTk1udGpBTkJna3Foa2lHOXcwQkFRc0ZBREJqTVFzd0NRWURWUVFHRXdKVlV6RUwKTUFrR0ExVUVDQk1DUTBFeEREQUtCZ05WQkFjVEEwMWtVakVSTUE4R0ExVUVDaE1JUkVWVVJWSk1ZV0l4RURBTwpCZ05WQkFzVEIxVnVhMjV2ZDI0eEZEQVNCZ05WQkFNVEMzWnBiUzVwYzJrdVpXUjFNQjRYRFRFMU1EVXdOVEUyCk1EVXlOMW9YRFRJMU1EVXdNakUyTURVeU4xb3dFakVRTUE0R0ExVUVBeE1IWVdGa1lXMXpNVENCbnpBTkJna3EKaGtpRzl3MEJBUUVGQUFPQmpRQXdnWWtDZ1lFQW1FK0VieFh3YjFmYzlVWVBROHZ1NkV2Q3NSVUYyRjNMdXlXcgpKWkdaZ1NrUnpoYTY5L2RKeU0rV3kwa3lzNGtWRGdLZFpuMzhDYXdzNmJoUGNHdzlsc0lqcHBLSHd1MGtTK1htClhlbHlvdGk5RGplenlubG9CQ3VOZU9GcFJMUHZrM2VqdjhjamcwMXJTNUwzbzBtY3R2UHNVcm85VjRlLy8vcVAKd1JoUkpxTUNBd0VBQVRBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQWdFVENHd1FPcFN5N3VuSDlvNVI2bHBBcAphNU5TQmgwOUllTW5sUUd1TEhqM2pINjU4dmQ3VG00U01DdW00ZUoxUzN3bUZxRWtPRTNxellHTzdDOHNKdHZyCmJ2UUJCNU9xZmFhbXhzaC91M3g5aHhERmFmTUNpOUE0WXVwR1EyMCtuOUZDQncwUTJWVS9SQW1CTUhTSWFCU00KRENGSFhGa1NpT3I1ek1wYWd3QWExZTF2bnFsM0pjRXV5SEQwb3d0N3ZLNjJkZ1l0QlE2YUdud29WeDlTdWlIQgpGQURLQ3I5VzdtSU54aGNqUjJvQUhsQVdxRW1RakVZVFB6NVJ1K2J3dHhnVURYbFBINzJWVjBzUjRpbEJOaXJUCldkclFEZjBPNmRkV0oybnc0T20vWnpaOHpiZWpvUkpRak51aTRoeVRYWHF5WFV3RVdsS2hydE9SN2NwejhnPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQotLS0tLUJFR0lOIFJTQSBQUklWQVRFIEtFWS0tLS0tCk1JSUNYQUlCQUFLQmdRQ1lUNFJ2RmZCdlY5ejFSZzlEeSs3b1M4S3hGUVhZWGN1N0phc2xrWm1CS1JIT0ZycjMKOTBuSXo1YkxTVEt6aVJVT0FwMW1mZndKckN6cHVFOXdiRDJXd2lPbWtvZkM3U1JMNWVaZDZYS2kyTDBPTjdQSwplV2dFSzQxNDRXbEVzKytUZDZPL3h5T0RUV3RMa3ZlalNaeTI4K3hTdWoxWGg3Ly8rby9CR0ZFbW93SURBUUFCCkFvR0FhY0tWWUJsbzJiZTEreTVKdlRiblRyQUVvYmZLVmtKVERFR014TXFFUDdhSDRZWFJFQXZMVlVBb0lrSlMKalczN2k3M3ZFOU1aWnBJQ29jdlVoV2p6bmlBd1JaVEduaUVnQS9RdUFNZ3ltNmZRT1dmWGJlTG5DUG5VM00zYQpiM05wL2kxQ2ZRckpkN2k0NTg5ZUhwVnJMUVgwbm11MjZQb1gyWlNxTWNyNDZiRUNRUURJWDNoWThGYTZrMFZnCkhUMDVERWpNMlFEUkwySkkrSTVjczgrRmZsVXpCN1c2SkJ6UHE2RjhMNGs0Y0VOVzlkZGdTb0VESkJyRlBKQlYKTitUejN5d3BBa0VBd3BoQWxLclhxYjM1REdTZllVZk02VXpkbHNIQ284OHpqcUZlZ0lRVHVoN0tVYzVFcTV4dgpETjJzMmZWTm1aelhNRFY1dFRreWxWQTlmZGVYRTdwVjZ3SkJBTVBaRk8rUmtxUHd1Sm1XV3JYOC9OZEVyOWpICkFNRWtPVG9CQXJDUFo4Vm1Ic2tlN1E1S3lwOXdjeVk0REluZDV6TVYvMzNMZDJNYnJGT3ZPMWptNU9rQ1FCangKQ3RZRFQ4RWg2Rm4rUzY5Y1ZKZFNrdFJQNFhLOWpBNHNBTURZTE84ZUl6QjVEN1F2U015TlhTcFNscStwdXFzagpMNFphM25EazUvekpOVVFDRGlFQ1FHTjZXMEtLdStwbTJ5Qm9qU1k4NndKWXFXZUhvT3hLeFBackdHVEVuN051CnZROUw4d2dtS0tMV08zd09ZQVBoNWZkcUFvK0doRnZQdjlwSkRYZ0pRWjQ9Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==</ns:return></ns:challengeResponseResponse></soapenv:Body></soapenv:Envelope>
-    http_version: 
-  recorded_at: Tue, 05 May 2015 16:05:28 GMT
+  recorded_at: Tue, 19 May 2015 06:27:32 GMT
 recorded_with: VCR 2.9.3

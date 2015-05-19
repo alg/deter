@@ -14,8 +14,11 @@ module DeterLab
         namespace:        'http://api.testbed.deterlab.net/xsd',
         logger:           Rails.logger,
         filters:          :password,
-        ssl_verify_mode:  :none,
-        adapter:          :wsdl_caching_adapter }
+        ssl_verify_mode:  :none }
+
+      unless Rails.env.test?
+        options[:adapter] = :wsdl_caching_adapter
+      end
 
       # optionally user user certs from the storage
       if uid.present?
