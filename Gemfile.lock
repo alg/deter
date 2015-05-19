@@ -40,6 +40,12 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     arel (5.0.1.20140414130214)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.2.2)
     capistrano (3.2.1)
       i18n
@@ -64,11 +70,14 @@ GEM
     colorize (0.7.3)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    debug_inspector (0.0.2)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
     erubis (2.7.0)
     execjs (2.2.2)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
     foreman (0.75.0)
       dotenv (~> 0.11.1)
@@ -129,6 +138,7 @@ GEM
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.11.0)
+    multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
@@ -243,9 +253,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  better_errors
+  binding_of_caller
   bootstrap-sass!
   capistrano-rails
   coffee-rails (~> 4.0.0)
+  faraday
   foreman
   gon
   guard-minitest

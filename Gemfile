@@ -18,6 +18,9 @@ gem 'redis-rails'
 gem 'savon'
 gem 'gon'
 gem 'hashie'
+gem 'faraday'
+gem 'better_errors'
+gem 'binding_of_caller'
 
 group :development do
   gem 'spring'
