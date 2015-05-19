@@ -128,3 +128,4 @@ $ ->
   # on pull, update editor
   ccPullButton.on "click", (e) ->
     e.preventDefault()
+    pull()
