@@ -94,13 +94,11 @@ $ ->
 
     form[0].submit()
 
-  pullAndSubmitForm = ->
-
   # submitting form
   form = $("form.aspect_form")
   form.on "submit", (e) ->
     e.preventDefault()
-    if creatingAspect
+    if creatingAspect && ccEnabledControl.is(":checked")
       pull
         success: ->
           submitForm()
