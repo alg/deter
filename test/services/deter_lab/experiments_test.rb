@@ -97,7 +97,7 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
       login
       assert create_experiment("SPIdev", "TestAspects3"), "Could not create an experiment"
       res = DeterLab.add_experiment_aspects(@username, "SPIdev:TestAspects3", [ { type: 'layout', data: LAYOUT } ])
-      assert_equal "layout000", res.first[:name]
+      assert_equal "layout000", res.first[0]
     end
   end
 
@@ -109,9 +109,9 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
       assert create_experiment("SPIdev", eid), "Could not create an experiment"
 
       res = DeterLab.add_experiment_aspects(@username, "SPIdev:#{eid}", [ { type: 'layout', data: LAYOUT } ])
-      aspect = res.find { |a| a[:name] !~ %r{.*/.*} }
+      aspect = res.find { |a| a[0] !~ %r{.*/.*} }[0]
 
-      res = DeterLab.remove_experiment_aspects(@username, "SPIdev:#{eid}", [ { name: aspect[:name], type: 'layout' } ])
+      res = DeterLab.remove_experiment_aspects(@username, "SPIdev:#{eid}", [ { name: aspect, type: 'layout' } ])
       assert_equal({
         "layout000"                    => true,
         "layout000/full_layout"        => true,
