@@ -45,3 +45,7 @@ translations:
       - "en.experiment_aspects.edit.pulled_not_saved"
       - "en.experiment_aspects.edit.edited"
       - "en.experiment_aspects.edit.edited_not_saved"
+
+  - file: "app/assets/javascripts/i18n/experiments.js"
+    only:
+      - "en.experiments.realize.completed"

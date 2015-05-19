@@ -16,6 +16,5 @@
 //= require knockoutjs-3.2.0
 //= require moment
 //= require i18n
-//= require i18n/errors
-//= require i18n/aspect-status
+//= require_tree ./i18n
 //= require_tree .

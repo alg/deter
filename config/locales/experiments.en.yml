@@ -63,6 +63,21 @@ en:
       edit: Edit
 
       add_aspect: "Add %{type}"
+      
+      realizations: Realizations
+      no_realizations: "0 Realizations"
+      realize: Realize
+
+    realize:
+      title: "Realization of experiment: %{id}"
+      info: >
+        <p>
+        </p>
+
+      started: "Realization started at %{time} by %{user}"
+      completed: "Realization completed at {{time}}"
+      status: Status
+      visualization: Visualization
 
     new:
       title: New experiment

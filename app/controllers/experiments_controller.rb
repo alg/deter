@@ -29,6 +29,22 @@ class ExperimentsController < ApplicationController
     end
 
     @profile = deter_lab.get_experiment_profile(@experiment.id)
+    @realizations = []
+  end
+
+  # shows the realization page
+  def realize
+    @experiment = deter_lab.get_experiment(params[:id])
+    if @experiment.nil?
+      redirect_to :experiments, alert: t(".not_found")
+      return
+    end
+
+    @visualizations = @experiment.aspects.select do |a|
+      a.type == 'visualization' && a.sub_type.blank?
+    end
+
+    ActivityLog.for_experiment(@experiment.id).add("realized", current_user_id)
   end
 
   # opens the management page
@@ -38,15 +54,6 @@ class ExperimentsController < ApplicationController
       redirect_to :experiments, alert: t(".not_found")
       return
     end
-  end
-
-  # runs the experiment
-  def run
-    uid = @app_session.current_user_id
-    DeterLab.realize_experiment(uid, uid, params[:id])
-    redirect_to :experiments, notice: t(".success")
-  rescue DeterLab::RequestError => e
-    redirect_to :experiments, alert: t(".failure", error: e.message).html_safe
   end
 
   # showing the new experiment form

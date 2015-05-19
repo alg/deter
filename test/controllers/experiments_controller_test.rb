@@ -86,18 +86,4 @@ class ExperimentsControllerTest < ActionController::TestCase
     assert_equal I18n.t("experiments.destroy.failure", error: error), flash.alert
   end
 
-  test "successful run" do
-    DeterLab.expects(:realize_experiment).with("mark", "mark", "eid").returns(true)
-    post :run, id: "eid"
-    assert_redirected_to :experiments
-    assert_equal I18n.t("experiments.run.success"), flash.notice
-  end
-
-  test "failed run" do
-    error = "some error"
-    DeterLab.expects(:realize_experiment).raises(DeterLab::RequestError.new(error))
-    post :run, id: "eid"
-    assert_redirected_to :experiments
-    assert_equal I18n.t("experiments.run.failure", error: error), flash.alert
-  end
 end
