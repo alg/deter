@@ -8,10 +8,15 @@ $ ->
   updatingAspect = $("#experiment_aspects_edit, #experiment_aspects_update").length > 0
   return if !creatingAspect && !updatingAspect
 
-  editor = ace.edit("data-editor")
-  editor.setTheme("ace/theme/xcode")
-  editor.getSession().setMode("ace/mode/xml")
-  editor.setShowPrintMargin(false)
+  if $("#data-editor").length > 0
+    editor = ace.edit("data-editor")
+    editor.setTheme("ace/theme/xcode")
+    editor.getSession().setMode("ace/mode/xml")
+    editor.setShowPrintMargin(false)
+  else
+    editor = $("#aspect_data")
+    editor.setValue = (v) -> this.val(v)
+    editor.getValue = -> this.val()
 
   ccEnabledControl  = $("#js-change-control")
   ccUrlField        = $("#change_control_url")
@@ -66,7 +71,7 @@ $ ->
   # update controls state
   updateControls = =>
     ccEnabled = ccEnabledControl.is(":checked")
-    editor.setReadOnly(ccEnabled)
+    editor.setReadOnly(ccEnabled) if editor.setReadOnly
     ccUrlField.attr('readonly', !ccEnabled).attr('disabled', !ccEnabled)
     ccPullButton.attr('disabled', !ccEnabled)
     if ccEnabled

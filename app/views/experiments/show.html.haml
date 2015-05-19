@@ -103,7 +103,7 @@
                           .col-sm-4.text-right
                             = link_to t(".view"), "#", data: { id: aid }, class: 'btn btn-xs btn-info more'
                             = link_to t(".hide"), "#", data: { id: aid }, class: 'btn btn-xs btn-info less hide'
-                            = link_to t(".modify"), edit_experiment_aspect_path(@experiment.id, a.name), class: 'btn btn-xs btn-default'
+                            = link_to t(".modify"), edit_experiment_aspect_path(@experiment.id, a.name, type: a.type), class: 'btn btn-xs btn-default'
                             - if is_owner && a.sub_type.blank?
                               = link_to t(".delete"), experiment_aspect_path(@experiment.id, a.name, type: a.type), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
                         .row.hide{ data: { more_id: aid } }

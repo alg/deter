@@ -76,7 +76,7 @@ class ExperimentAspectsController < ApplicationController
 
   # edits the aspect
   def edit
-    @aspect = @experiment.aspects.find { |a| a.name == params[:id] }
+    @aspect = @experiment.aspects.find { |a| a.name == params[:id] && a.type == params[:type] }
     if @aspect.nil?
       redirect_to experiment_path(@experiment.id), alert: t("experiment_aspects.not_found")
     else
