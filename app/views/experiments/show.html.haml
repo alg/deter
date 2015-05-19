@@ -108,5 +108,5 @@
                               = link_to t(".delete"), experiment_aspect_path(@experiment.id, a.name, type: a.type), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
                         .row.hide{ data: { more_id: aid } }
                           .col-sm-12
-                            %pre= aspect_data(a)
+                            %pre.view= aspect_data(a)
 

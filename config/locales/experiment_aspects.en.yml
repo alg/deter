@@ -10,6 +10,13 @@ en:
       submit: Add Record
       cc_prompt: "Enter the URL to pull the %{type} data from a change control system:"
 
+    new_visualization:
+      title: "New %{type}"
+      info: >
+        <p>Creating new experiment %{type}</p>
+      
+      submit: Add Record
+
     create:
       success: Record was created
 
@@ -23,6 +30,16 @@ en:
       last_updated: "Last updated at %time by %name"
       last_pulled: "Last pulled at %time by %name"
       pulled_not_saved: "<strong>Pulled data not yet saved</strong>"
+      edited_not_saved: "<strong>Modified data not yet saved</strong>"
+      edited: "Edited by %name"
+
+    edit_visualization:
+      title: "Manage Aspect: %{id}"
+      info: >
+        <p>Type: %{full_type}</p>
+      submit: Save Changes
+
+      last_updated: "Last updated at %time by %name"
       edited_not_saved: "<strong>Modified data not yet saved</strong>"
       edited: "Edited by %name"
 

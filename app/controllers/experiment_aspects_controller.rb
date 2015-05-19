@@ -20,7 +20,7 @@ class ExperimentAspectsController < ApplicationController
     @change_control_url     ||= ''
     @aspect                 ||= Aspect.new(type: params[:type])
     configure_new_gon
-    render :new
+    render @aspect.type == 'visualization' ? :new_visualization : :new
   end
 
   # creates the aspect and adds it to the experiment
@@ -55,6 +55,7 @@ class ExperimentAspectsController < ApplicationController
       @change_control_enabled = @aspect.xa['change_control_enabled']
       @change_control_url     = @aspect.xa['change_control_url']
       configure_edit_gon
+      render @aspect.type == 'visualization' ? :edit_visualization : :edit
     end
   end
 
@@ -82,7 +83,7 @@ class ExperimentAspectsController < ApplicationController
         else
           @error = res[:error] || t(".unknown_error")
           configure_edit_gon
-          render :edit
+          render @aspect.type == 'visualization' ? :edit_visualization : :edit
         end
       else
         success = true
