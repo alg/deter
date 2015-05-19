@@ -8,7 +8,6 @@ class SeedTestDataTest < ActiveSupport::TestCase
       assert DeterLab.valid_credentials?(user_id, 'Abigail')
 
       project_ids = DeterLab.view_projects(user_id).map(&:project_id)
-      puts project_ids.inspect
       assert project_ids.include?('Alfa-Romeo')
     end
   end
