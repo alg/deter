@@ -94,18 +94,19 @@
                 %table.table.table-striped
                   - aspects.each_with_index do |a, i|
                     - next unless a.root?
+                    - aid = "#{type}-#{i}"
                     %tr
                       %td
                         .row
                           .col-sm-8
-                            = link_to a.name, '#', data: { id: i }, class: 'more-less'
+                            = link_to a.name, '#', data: { id: aid }, class: 'more-less'
                           .col-sm-4.text-right
-                            = link_to t(".view"), "#", data: { id: i }, class: 'btn btn-xs btn-info more'
-                            = link_to t(".hide"), "#", data: { id: i }, class: 'btn btn-xs btn-info less hide'
+                            = link_to t(".view"), "#", data: { id: aid }, class: 'btn btn-xs btn-info more'
+                            = link_to t(".hide"), "#", data: { id: aid }, class: 'btn btn-xs btn-info less hide'
                             = link_to t(".modify"), edit_experiment_aspect_path(@experiment.id, a.name), class: 'btn btn-xs btn-default'
                             - if is_owner && a.sub_type.blank?
                               = link_to t(".delete"), experiment_aspect_path(@experiment.id, a.name, type: a.type), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
-                        .row.hide{ data: { more_id: i } }
+                        .row.hide{ data: { more_id: aid } }
                           .col-sm-12
                             %pre= aspect_data(a)
 
