@@ -14,7 +14,7 @@ class DeterLab::LibrariesTest < DeterLab::AbstractTest
       login
 
       # create library
-      n = 1
+      n = 2
       libid = "#{@username}:Library3Test#{n}"
       assert DeterLab.create_library(@username, libid, {
         description: "Test"
@@ -29,7 +29,7 @@ class DeterLab::LibrariesTest < DeterLab::AbstractTest
     VCR.use_cassette "deterlab/libraries/create-library" do
       login 'admin_user'
 
-      n = 1
+      n = 3
       owner = "john"
       libid = "#{owner}:LibraryTest#{n}"
       assert DeterLab.create_library(@username, libid, {
