@@ -9,9 +9,33 @@ class ExperimentAspectsController < ApplicationController
     property :type, default: 'layout'
     property :data
 
+    attr_reader :aspect_errors
+
     def to_spi_data
       { name: self.name, type: self.type, data: self.data.nil? ? nil : Base64.encode64(self.data) }
     end
+
+    def valid_aspect?
+      if self.type == 'visualization' && !valid_url?
+        @aspect_errors = [ "Invalid URL. Please verify." ]
+        false
+      else
+        @aspect_errors = []
+        true
+      end
+    end
+
+    def valid_url?
+      uri = URI.parse(self.data)
+      return false unless uri.kind_of?(URI::HTTP)
+
+      Faraday.head(self.data).status != 404
+    rescue URI::InvalidURIError
+      false
+    rescue Faraday::Error
+      false
+    end
+
   end
 
   # new aspect form
@@ -28,6 +52,10 @@ class ExperimentAspectsController < ApplicationController
     @aspect = Aspect.new(aspect_params)
     @change_control_enabled = params['change_control_enabled']
     @change_control_url = params['change_control_url']
+
+    if !@aspect.valid_aspect?
+      raise DeterLab::Error, @aspect.aspect_errors.join(",")
+    end
 
     res = DeterLab.add_experiment_aspects(current_user_id, @experiment.id, [ @aspect.to_spi_data ]).first[1]
     if res[:success]

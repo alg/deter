@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: http://googleeeee.com/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 19 May 2015 07:28:04 GMT
+      Content-Type:
+      - text/html
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=20
+      Server:
+      - DOSarrest
+      P3p:
+      - CP="NON DSP COR ADMa OUR IND UNI COM NAV INT"
+      Cache-Control:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 19 May 2015 07:28:04 GMT
+recorded_with: VCR 2.9.3

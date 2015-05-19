@@ -10,7 +10,7 @@ class ExperimentAspectsControllerTest < ActionController::TestCase
       ExperimentAspect.new(@ied, "layout000", "layout", nil, "layout", "ref"),
       ExperimentAspect.new(@ied, "layout000/namemap/R", "layout", "namemap", "names", "ref-2")
     ]
-    @controller.deter_lab.expects(:get_experiment).returns(Experiment.new(@eid, 'mark', [], @aspects))
+    @controller.deter_lab.stubs(:get_experiment).returns(Experiment.new(@eid, 'mark', [], @aspects))
     SummaryLoader.stubs(:member_profile).returns({ "name" => "Mark" })
   end
 
@@ -77,5 +77,36 @@ class ExperimentAspectsControllerTest < ActionController::TestCase
     post :create, experiment_id: @eid, aspect: { name: "name" }
     assert_template :new
     assert_equal reason, flash.now[:alert]
+  end
+
+  test 'aspect object should pass valid URLs' do
+    VCR.use_cassette 'aspects/valid-url' do
+      a = ExperimentAspectsController::Aspect.new(data: 'http://google.com')
+      assert a.valid_url?
+    end
+  end
+
+  test 'aspect object should catch badly formed URLs' do
+    a = ExperimentAspectsController::Aspect.new(data: 'htt://google.com')
+    assert !a.valid_url?
+  end
+
+  test 'aspect object should catch invalid URLs' do
+    VCR.use_cassette 'aspects/invalid-url', record: :all do
+      a = ExperimentAspectsController::Aspect.new(data: 'http://google.coma')
+      assert !a.valid_url?
+    end
+  end
+
+  test 'aspect handling invalid visualization data' do
+    a = ExperimentAspectsController::Aspect.new(data: 'invalid_url', type: 'visualization')
+    a.stubs(:valid_url?).returns(false)
+    assert !a.valid_aspect?
+    assert_equal [ "Invalid URL. Please verify." ], a.aspect_errors
+  end
+
+  test 'aspect handling non-URL data for layouts' do
+    a = ExperimentAspectsController::Aspect.new(data: 'invalid_url', type: 'layout')
+    assert a.valid_aspect?
   end
 end
