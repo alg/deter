@@ -21,6 +21,7 @@ gem 'hashie'
 gem 'faraday'
 gem 'better_errors'
 gem 'binding_of_caller'
+gem 'react-rails'
 
 group :development do
   gem 'spring'

@@ -16,5 +16,8 @@
 //= require knockoutjs-3.2.0
 //= require moment
 //= require i18n
+// require react
+// require react_ujs
+//= require components
 //= require_tree ./i18n
 //= require_tree .

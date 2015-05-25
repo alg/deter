@@ -68,6 +68,7 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     colorize (0.7.3)
+    connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     debug_inspector (0.0.2)
@@ -176,6 +177,13 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.1.2)
       json (~> 1.4)
+    react-rails (1.0.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      rails (>= 3.1)
+      react-source (~> 0.13)
+    react-source (0.13.3)
     redis (3.1.0)
     redis-actionpack (4.0.0)
       actionpack (~> 4)
@@ -271,6 +279,7 @@ DEPENDENCIES
   pg
   quiet_assets
   rails (= 4.1.6)
+  react-rails
   redis-rails
   sass-rails (~> 4.0.3)
   savon
