@@ -4,7 +4,7 @@ en:
       title: Welcome to DeterLab
       info: Login to access your DeterLab account
       password_reset: "If you've received your password reset email, you can complete the reset <a href='%{url}'>here</a>."
-      password_reset_request: "Forgot password? Start reset recovery <a href='%{url}'>here</a>."
+      password_reset_request: "Forgot password?<br/>Start reset recovery <a href='%{url}'>here</a>."
 
       username: Username
       password: Password
@@ -18,6 +18,56 @@ en:
           <li><a href="http://www.isi.edu/deter/docs/DETER_Tutorial-TF-Jan2011.pdf" target="_blank">Introduction to DeterLab</a></li>
           <li><a href="%{new_application_path}">Applying for a DeterLab Account</a></li>
         </ul>
+
+      register:
+        label: Register
+        body: >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt lectus id arcu
+            pretium facilisis. Proin ligula ligula, dignissim eget nisl vitae, suscipit viverra quam.
+            Phasellus tincidunt, eros id venenatis efficitur, diam urna convallis tellus, sed congue
+            diam massa eget mauris. Aliquam lobortis tellus vitae mi vulputate, interdum tristique 
+            velit posuere. Integer magna arcu, porta convallis rutrum at, dignissim congue massa. 
+            Quisque varius erat sit amet nisl dignissim dictum. Praesent ac accumsan lectus. Nulla ut
+            augue libero. Suspendisse semper velit ante, sit amet tempus magna rhoncus et. In hac
+            habitasse platea dictumst. Donec scelerisque sed dolor at varius.
+          </p>
+
+          <p>
+            Maecenas porttitor leo urna. Fusce sodales libero odio, eget efficitur turpis ullamcorper
+            in. In cursus imperdiet ipsum non pellentesque. Curabitur non venenatis elit. Donec
+            molestie dolor at ligula congue, non auctor ante hendrerit. Curabitur eget efficitur elit.
+            Suspendisse eget sem nisi. Vestibulum in nisl non dui pulvinar tempor consequat eget leo.
+          </p>
+
+        button: Register
+
+      about:
+        label: About
+        body: >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt lectus id arcu
+            pretium facilisis. Proin ligula ligula, dignissim eget nisl vitae, suscipit viverra quam.
+            Phasellus tincidunt, eros id venenatis efficitur, diam urna convallis tellus, sed congue
+            diam massa eget mauris. Aliquam lobortis tellus vitae mi vulputate, interdum tristique 
+            velit posuere. Integer magna arcu, porta convallis rutrum at, dignissim congue massa. 
+            Quisque varius erat sit amet nisl dignissim dictum. Praesent ac accumsan lectus. Nulla ut
+            augue libero. Suspendisse semper velit ante, sit amet tempus magna rhoncus et. In hac
+            habitasse platea dictumst. Donec scelerisque sed dolor at varius.
+          </p>
+
+          <p>
+            Maecenas porttitor leo urna. Fusce sodales libero odio, eget efficitur turpis ullamcorper
+            in. In cursus imperdiet ipsum non pellentesque. Curabitur non venenatis elit. Donec
+            molestie dolor at ligula congue, non auctor ante hendrerit. Curabitur eget efficitur elit.
+            Suspendisse eget sem nisi. Vestibulum in nisl non dui pulvinar tempor consequat eget leo.
+          </p>
+        button: About
+        link: http://google.com/about
+
+      login:
+        label:
+        body:
 
     create:
       failure: Failed to log in

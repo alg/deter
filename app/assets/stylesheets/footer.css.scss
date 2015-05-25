@@ -1,8 +1,12 @@
-#footer {
+#footer-container {
   margin-top: 20px;
   background-color: #000;
+}
+
+#footer {
   color: #666;
   padding: 10px;
+  height: 60px;
 
   .logo { height: 40px; }
   .emulab { height: 40px; }

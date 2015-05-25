@@ -3,26 +3,43 @@
 
 %p= raw t '.info'
 
-= form_tag :user_sessions, method: 'post', class: 'form-horizontal' do
-  .form-group
-    = label_tag :username, t('.username'), class: 'col-sm-2 control-label'
-    .col-sm-6
-      = text_field_tag :username, "", class: "form-control"
+%div{ role: 'tabpanel' }
+  %ul.nav.nav-tabs{ role: 'tablist' }
+    %li{ role: 'presentation' }= link_to t(".register.label"), '#register', { 'aria-controls' => 'register', 'role' => 'tab', 'data' => { toggle: 'tab' } }
+    %li.active{ role: 'presentation' }= link_to "Login", '#login', { 'aria-controls' => 'login', 'role' => 'tab', 'data' => { toggle: 'tab' } }
+    %li{ role: 'presentation' }= link_to t(".about.label"), '#about', { 'aria-controls' => 'about', 'role' => 'tab', 'data' => { toggle: 'tab' } }
 
-  .form-group
-    = label_tag :password, t('.password'), class: 'col-sm-2 control-label'
-    .col-sm-6
-      = password_field_tag :password, "", class: "form-control"
+  .tab-content
+    #register.tab-pane{ role: 'tabpanel' }
+      = raw t('.register.body')
+      %p.text-center
+        = link_to t('.register.button'), new_application_path, class: 'btn btn-primary'
 
-  .form-group
-    .col-sm-offset-2.col-sm-10
-      = submit_tag "Login", class: "btn btn-primary"
+    #login.tab-pane.active{ role: 'tabpanel' }
+      = form_tag :user_sessions, method: 'post', class: 'form col-sm-offset-4 col-sm-4' do
+        .form-group
+          = label_tag :username, t('.username'), class: 'control-label'
+          = text_field_tag :username, "", class: "form-control"
 
-  .row
-    .col-sm-offset-2.col-sm-10
-      %p= raw t('.password_reset', url: new_password_reset_path)
-      %p= raw t(".password_reset_request", url: new_password_reset_request_path)
+        .form-group
+          = label_tag :password, t('.password'), class: 'control-label'
+          = password_field_tag :password, "", class: "form-control"
 
-%hr
+        .form-group
+          .col-sm-12.text-center
+            = submit_tag "Login", class: "btn btn-primary"
 
-= raw t ".no_account", new_application_path: new_application_path
+        .form-group
+          .col-sm-12.text-center
+            -# %p= raw t('.password_reset', url: new_password_reset_path)
+            %p= raw t(".password_reset_request", url: new_password_reset_request_path)
+
+    #about.tab-pane{ role: 'tabpanel' }
+      = raw t('.about.body')
+      %p.text-center
+        = link_to t('.about.button'), t('.about.link'), class: 'btn btn-primary'
+
+
+-# %hr
+
+-# = raw t ".no_account", new_application_path: new_application_path

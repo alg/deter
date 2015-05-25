@@ -9,11 +9,12 @@
 
   %body{ id: "#{params[:controller]}_#{params[:action]}", class: (logged_in? ? "loggedin" : "loggedout") }
     = render "layouts/header"
-    = render "layouts/messages"
-    .container
-      .row
-        .col-sm-9= yield
-        .col-sm-3#sidebar= render "layouts/sidebar"
+    #main-wrapper
+      = render "layouts/messages"
+      #middle.container
+        .row
+          .col-sm-9= yield
+          .col-sm-3#sidebar= render "layouts/sidebar"
 
     = render "layouts/footer"
 

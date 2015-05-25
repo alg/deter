@@ -1,13 +1,18 @@
 body {
-  padding-top: 117px + 20px + 48px;
+  padding-top: 0;
 }
 
 body#spi_log_index {
   padding-top: 0;
 }
 
-body.loggedout {
-  padding-top: 117px + 20px;
+#main-wrapper {
+  min-height: 100vh;
+  margin-top: -80px;
+  padding-top: 117px + 20px + 48px + 80px;
+}
+body.loggedout #main-wrapper {
+  padding-top: 117px + 20px + 80px;
 }
 
 .spinner {
