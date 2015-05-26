@@ -22,14 +22,22 @@ class ExperimentsController < ApplicationController
 
   # shows experiment details
   def show
-    @experiment = deter_lab.get_experiment(params[:id])
+    @experiment ||= deter_lab.get_experiment(params[:id])
     if @experiment.nil?
       redirect_to :experiments, alert: t(".not_found")
       return
     end
 
     @profile = deter_lab.get_experiment_profile(@experiment.id)
+
+    if @experiment.belongs_to_library?
+      @profile_descr = deter_lab.get_experiment_profile_description
+      @projects      = deter_lab.get_projects.select { |p| p[:approved] && p[:project_id].downcase != 'admin' }
+    end
+
     @realizations = []
+
+    render :show
   end
 
   # shows the realization page
@@ -65,17 +73,27 @@ class ExperimentsController < ApplicationController
 
   # creating an experiment
   def create
-    project_id = params[:project_id]
-    if project_id.blank?
-      raise DeterLab::RequestError, t(".project_id_required")
-    end
-
-    DeterLab.create_experiment(app_session.current_user_id, project_id, ep.delete(:name), ep)
-    deter_lab.invalidate_experiments(project_id)
+    create_experiment
     redirect_to :experiments, notice: t(".success")
   rescue DeterLab::RequestError => e
     flash.now[:alert] = t(".failure", error: e.message).html_safe
     new
+  end
+
+  # clones an experiment
+  def clone
+    @experiment = deter_lab.get_experiment(params[:id])
+    if @experiment.nil?
+      redirect_to :experiments, alert: t(".not_found")
+      return
+    end
+
+    eid = create_experiment
+    copy_aspects(@experiment, eid)
+    redirect_to :experiments, notice: t(".success")
+  rescue DeterLab::RequestError => e
+    flash.now[:alert] = t(".failure", error: e.message).html_safe
+    show
   end
 
   # deletes the experiment
@@ -91,6 +109,41 @@ class ExperimentsController < ApplicationController
 
   def ep
     params[:experiment]
+  end
+
+  # creates an experiment and returns the id
+  def create_experiment
+    project_id = params[:project_id]
+    if project_id.blank?
+      raise DeterLab::RequestError, t("experiments.project_id_required")
+    end
+
+    name = ep.delete(:name)
+    DeterLab.create_experiment(current_user_id, project_id, name, ep)
+    deter_lab.invalidate_experiments(project_id)
+
+    eid = "#{project_id}:#{name}"
+
+    # log creation
+    log = ActivityLog.for_experiment(eid)
+    log.clear
+    log.add(:create, current_user_id)
+
+    eid
+  end
+
+  # copies aspects from an experiment to the destination
+  def copy_aspects(src, dest_eid)
+    aspects = src.aspects.reject { |a| !a.root? }.map { |asp| { name: asp.name, type: asp.type, data: asp.raw_data, data_reference: asp.data_reference } }
+    if aspects.any?
+      res = DeterLab.add_experiment_aspects(current_user_id, dest_eid, aspects)
+
+      # report failures
+      failed_aspects = res.select { |k, v| !v }.keys
+      if failed_aspects.any?
+        raise DeterLab::RequestError, t(".failure", error: t("experiments.errors.copying_aspecs", aspects: failed_aspects.join(", ")))
+      end
+    end
   end
 
 end

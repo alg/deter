@@ -26,15 +26,26 @@ class ExperimentsControllerTest < ActionController::TestCase
     assert_equal %w( owner-a owner-b member-a member-b ), es.map { |e| e[:id] }
   end
 
-  test "show" do
-    ex1 = Experiment.new("id1", "owner", [], [])
+  test "show project experiment" do
+    ex1 = Experiment.new("Project:id1", "owner", [], [])
     ex2 = Experiment.new("id2", "owner", [], [])
     DeterLab.expects(:view_experiments).returns([ ex1, ex2 ])
-    DeterLab.expects(:get_experiment_profile).with("mark", ex1.id).returns({})
+    @controller.deter_lab.expects(:get_experiment_profile).with(ex1.id).returns({})
     get :show, id: ex1.id
     assert_equal ex1, assigns(:experiment)
     assert_equal({}, assigns(:profile))
     assert_template :show
+  end
+
+  test "show library experiment" do
+    ex = setup_experiment("user:id")
+    @controller.deter_lab.stubs(:get_experiment_profile_description).returns([])
+    @controller.deter_lab.stubs(:get_projects).returns([])
+    @controller.deter_lab.stubs(:get_experiment_profile).with(ex.id).returns({})
+    get :show, id: ex.id
+    assert_template :show
+    assert_not_nil  assigns(:projects)
+    assert_not_nil  assigns(:profile_descr)
   end
 
   test "show missing experiment" do
@@ -71,6 +82,24 @@ class ExperimentsControllerTest < ActionController::TestCase
     assert_equal I18n.t("experiments.create.failure", error: "error message"), flash.now[:alert]
   end
 
+  test "cloning" do
+    ex = setup_experiment
+    @controller.expects(:create_experiment).returns("eid")
+    @controller.expects(:copy_aspects).with(ex, "eid")
+    post :clone, id: ex.id, experiment: { skipped: "data" }
+    assert_redirected_to :experiments
+    assert_equal I18n.t("experiments.clone.success"), flash.notice
+  end
+
+  test "failed cloning" do
+    ex = setup_experiment
+    @controller.expects(:create_experiment).raises(DeterLab::RequestError.new("error message"))
+    DeterLab.expects(:get_experiment_profile).with("mark", ex.id).returns({})
+    post :clone, id: ex.id, experiment: { skipped: "data" }
+    assert_template :show
+    assert_equal I18n.t("experiments.clone.failure", error: "error message"), flash.now[:alert]
+  end
+
   test "deleting" do
     DeterLab.expects(:remove_experiment).with("mark", "eid").returns(true)
     delete :destroy, id: "eid"
@@ -84,6 +113,14 @@ class ExperimentsControllerTest < ActionController::TestCase
     delete :destroy, id: "eid"
     assert_redirected_to :experiments
     assert_equal I18n.t("experiments.destroy.failure", error: error), flash.alert
+  end
+
+  private
+
+  def setup_experiment(eid = "Project:Id1")
+    ex = Experiment.new(eid, "owner", [], [])
+    DeterLab.expects(:view_experiments).returns([ ex ])
+    ex
   end
 
 end

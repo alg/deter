@@ -68,6 +68,17 @@ en:
       no_realizations: "0 Realizations"
       realize: Realize
 
+      library:
+        realization_unavailable: "
+          <p>Library experiments are not available for realization. If you'd like to run one of these experiments, clone it in one of your projects, and run that new experiment.</p>
+          <p>To clone this experiment, fill out the fields below:</p>"
+      submit: Clone
+
+
+    clone:
+      success: Cloned the experiment successfully
+      failure: "Failed to create the experiment:<br/>%{error}"
+
     realize:
       title: "Realization of experiment: %{id}"
       info: >
@@ -86,16 +97,20 @@ en:
           Fill the new experiment form
         </p>
 
+      submit: Create experiment
+
+    new_experiment_fields:
       project: Project
       name: Name
 
-      submit: Create experiment
-
     create:
-      project_id_required: Project is required
       success: Created the experiment successfully
       failure: "Failed to create the experiment:<br/>%{error}"
 
     destroy:
       success: Deleted the experiment successfully
       failure: "Failed to delete the experiment:<br/>%{error}"
+
+    errors:
+      project_id_required: Project is required
+      copying_aspecs: "Failed to copy aspects %{aspects}"
