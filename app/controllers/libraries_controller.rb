@@ -4,7 +4,6 @@ class LibrariesController < ApplicationController
 
   # lists user own libraries
   def my
-    puts get_libraries.inspect
     @libraries = get_libraries.select { |l| l[:owner][:uid] == current_user_id }
   end
 
@@ -35,6 +34,25 @@ class LibrariesController < ApplicationController
     }
   end
 
+  # shows new library form
+  def new
+    @profile_descr = deter_lab.get_library_profile_description
+    render :new
+  end
+
+  # creates the library
+  def create
+    name = lp.delete(:name)
+    lid = "#{current_user_id}:#{name}"
+    if DeterLab.create_library(current_user_id, lid, lp)
+      deter_lab.invalidate_libraries
+      redirect_to :my_libraries, notice: t(".success")
+    else
+      flash.now.alert = t(".failure", error: t("libraries.errors.unknown"))
+      new
+    end
+  end
+
   private
 
   def get_library_experiments_details(lid)
@@ -51,4 +69,7 @@ class LibrariesController < ApplicationController
     SummaryLoader.user_libraries(current_user_id)
   end
 
+  def lp
+    params[:library]
+  end
 end

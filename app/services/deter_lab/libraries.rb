@@ -2,7 +2,7 @@ module DeterLab
   module Libraries
 
     # Returns a library profile description
-    def get_libraries_profile_description
+    def get_library_profile_description
       get_profile_description("Libraries")
     end
 

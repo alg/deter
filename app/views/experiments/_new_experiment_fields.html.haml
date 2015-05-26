@@ -6,7 +6,7 @@
 .form-group
   = label_tag "experiment[name]", t(".name"), class: 'control-label col-sm-2'
   .col-sm-4
-    = text_field_tag "experiment[name]", params[:project].try(:[], :name), required: true, class: 'form-control'
+    = text_field_tag "experiment[name]", params[:experiment].try(:[], :name), required: true, class: 'form-control'
 
 - @profile_descr.each do |pf|
   - name = "experiment[#{pf.name}]"

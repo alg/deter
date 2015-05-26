@@ -69,6 +69,19 @@ class CachedDeterLab
     end
   end
 
+  # returns library profile description
+  def get_library_profile_description
+    @deter_cache.fetch_global "library_profile_description", 1.day do
+      DeterLab.get_library_profile_description
+    end
+  end
+
+  # invalidates libraries
+  def invalidate_libraries
+    @deter_cache.delete_matched_global "libraries:*"
+    @deter_cache.delete_matched_global "libraries_summary:*"
+  end
+
   # -----------------------------------------------------------------------------------------------
   # Experiments
   # -----------------------------------------------------------------------------------------------

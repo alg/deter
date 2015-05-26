@@ -6,3 +6,7 @@
 .row
   .col-sm-12
     = render partial: 'libraries_table', object: @libraries
+
+.row
+  .col-sm-12
+    = link_to t(".new_library"), :new_library, class: "btn btn-default"

@@ -2,6 +2,7 @@ en:
   libraries:
     libraries_table:
       nothing: "You don't have such libraries"
+      view: View
 
     my:
       title: "My Libraries"
@@ -25,3 +26,20 @@ en:
         </p>
       not_found: Library is not found
       experiments: Experiments
+
+    new:
+      title: "New library"
+      info: >
+        <p>
+          Fill the new library form
+        </p>
+
+      name: Name
+      submit: Create library
+
+    create:
+      success: Library is created
+      failure: "Failed to create a library: %{error}"
+
+    errors:
+      unknown: "Unknown error. Please review the form."
