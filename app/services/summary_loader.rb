@@ -46,10 +46,10 @@ class SummaryLoader
       owner = { uid: library.owner, name: user_profile["name"] }
 
       # experiments
-      experiments_count = library_experiments(cache, uid, library.libid).size
+      experiments_count = library_experiments(cache, uid, library.id).size
 
       m << {
-        library_id:   library.libid,
+        library_id:   library.id,
         owner:        owner,
         members:      library.members.size,
         experiments:  experiments_count }

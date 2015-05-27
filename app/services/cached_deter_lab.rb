@@ -97,6 +97,7 @@ class CachedDeterLab
   def invalidate_experiments(project_id = nil)
     @deter_cache.delete "experiments"
     @deter_cache.delete "experiments_summary"
+    @deter_cache.delete_matched_global "library:*:experiments"
 
     if project_id.nil?
       @deter_cache.delete_matched_global "project:*:experiments"

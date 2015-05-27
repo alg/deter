@@ -14,14 +14,16 @@ class LibrariesController < ApplicationController
 
   # shows the library
   def show
-    eid = params[:id]
-    @library = deter_lab.view_libraries.find { |l| l.libid == eid }
+    lid = params[:id]
+    @library = load_library(lid)
     if @library.nil?
       redirect_to :dashboard, alert: t(".not_found")
       return
     end
 
-    gon.libraryDetailsUrl = details_library_path(eid)
+    @project_experiments = get_project_experiments
+
+    gon.libraryDetailsUrl = details_library_path(lid)
   end
 
   # renders details about library experiments
@@ -53,6 +55,23 @@ class LibrariesController < ApplicationController
     end
   end
 
+  # copies an experiment to this library
+  def copy_experiment
+    lid = params[:id]
+    @library = load_library(lid)
+    if @library.nil?
+      redirect_to :dashboard, alert: t(".not_found")
+      return
+    end
+
+    do_copy_experiment(@library, params[:experiment_id])
+    deter_lab.invalidate_experiments
+
+    redirect_to library_path(@library.id), notice: t(".success")
+  rescue DeterLab::RequestError => e
+    redirect_to library_path(@library.id), alert: t(".failure", error: e.message)
+  end
+
   private
 
   def get_library_experiments_details(lid)
@@ -72,4 +91,17 @@ class LibrariesController < ApplicationController
   def lp
     params[:library]
   end
+
+  def get_project_experiments
+    deter_lab.get_experiments.select { |ex| ex.id =~ /^[A-Z]/ }
+  end
+
+  def load_library(eid)
+    deter_lab.view_libraries.find { |l| l.id == eid }
+  end
+
+  def do_copy_experiment(library, experiment_id)
+    DeterLab.add_library_experiments(current_user_id, library.id, [ experiment_id ])
+  end
+
 end

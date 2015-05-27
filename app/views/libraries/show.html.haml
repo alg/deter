@@ -1,6 +1,6 @@
 - @submenu ||= :library
 .page-header
-  %h1= raw t '.title', id: @library.libid
+  %h1= raw t '.title', id: @library.id
   = raw t '.info', owner: @library.owner
 
 .row
@@ -13,5 +13,18 @@
         %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#experiments-section' }, "aria-expanded" => false, "aria-controls" => "experiments-section" } Hide
 
     .row.section#experiments-section.collapse.in
-      .col-sm-12.body
-        %span.spinner Loading. Please wait&hellip;
+      .col-sm-12
+        .body
+          %span.spinner Loading. Please wait&hellip;
+
+        .copy
+          %hr
+          = raw t '.copy_experiment'
+          = form_tag copy_experiment_library_path(@library.id), class: 'form' do
+            .form-group
+              = label_tag "experiment_id", t(".experiment"), class: 'control-label'
+              = select_tag "experiment_id", options_for_select(@project_experiments.map(&:id), params[:source_id]), class: 'form-control'
+            .form-group
+              = submit_tag t(".copy_submit"), class: "btn btn-default"
+
+

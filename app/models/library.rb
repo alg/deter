@@ -1,2 +1,2 @@
-class Library < Struct.new(:libid, :owner, :perms, :experiments, :members)
+class Library < Struct.new(:id, :owner, :perms, :experiments, :members)
 end

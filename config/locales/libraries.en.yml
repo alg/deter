@@ -26,6 +26,12 @@ en:
         </p>
       not_found: Library is not found
       experiments: Experiments
+      copy_experiment: >
+        <p>
+          To add an experiment to this library, select from the list of existing experiments
+          from projects that you are a member of. A copy of that experiment will be add to this library.
+        </p>
+      copy_submit: Copy Experiment to Library
 
     new:
       title: "New library"
@@ -40,6 +46,10 @@ en:
     create:
       success: Library is created
       failure: "Failed to create a library: %{error}"
+
+    copy_experiment:
+      success: Copied the experiment
+      failure: "Failed to copy the experiment:<br/>%{error}"
 
     errors:
       unknown: "Unknown error. Please review the form."

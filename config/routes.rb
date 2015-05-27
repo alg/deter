@@ -61,7 +61,8 @@ Rails.application.routes.draw do
     end
 
     member do
-      get :details
+      get  :details
+      post :copy_experiment
     end
   end
 

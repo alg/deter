@@ -21,7 +21,7 @@ class DeterLab::LibrariesTest < DeterLab::AbstractTest
       })
 
       list = DeterLab.view_libraries(@username)
-      assert_not_nil list.find { |l| l.libid == libid }
+      assert_not_nil list.find { |l| l.id == libid }
     end
   end
 
@@ -41,7 +41,7 @@ class DeterLab::LibrariesTest < DeterLab::AbstractTest
       }, owner)
 
       libs = DeterLab.view_libraries(@username, owner)
-      lib  = libs.find { |l| l.libid == libid }
+      lib  = libs.find { |l| l.id == libid }
       assert_not_nil lib
     end
   end
