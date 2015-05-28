@@ -26,4 +26,5 @@ en:
     libraries:        Libraries
     my_libraries:     My Libraries
     other_libraries:  Other Libraries
+    create_new_library: Create New Library
 

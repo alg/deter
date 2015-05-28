@@ -14,7 +14,8 @@
             <strong>Library Members</strong>: #{l[:members]}<br/>
             <strong>Experiments</strong>: #{l[:experiments]}<br/>
           %p
-            - if l[:owner] == current_user_id
-              = link_to t(".manage"), "#TBD", class: 'btn btn-xs btn-info'
-            = link_to t(".view"), library_path(lid), class: 'btn btn-xs btn-info'
+            - if l[:owner][:uid] == current_user_id
+              = link_to t(".manage"), library_path(lid), class: 'btn btn-xs btn-info'
+            - else
+              = link_to t(".view"), library_path(lid), class: 'btn btn-xs btn-info'
 
