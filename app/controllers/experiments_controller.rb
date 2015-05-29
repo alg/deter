@@ -57,11 +57,8 @@ class ExperimentsController < ApplicationController
 
   # opens the management page
   def manage
-    @experiment = deter_lab.get_experiment(params[:id])
-    if @experiment.nil?
-      redirect_to :experiments, alert: t(".not_found")
-      return
-    end
+    @managing = true
+    show
   end
 
   # showing the new experiment form

@@ -1,12 +1,13 @@
-- uid = @app_session.current_user_id
-- pid = @experiment.id.split(':').first
-- is_owner = @experiment.owner == uid
+- uid                = @app_session.current_user_id
+- pid                = @experiment.id.split(':').first
+- is_owner           = @experiment.owner == uid
+- collapse_class     = @managing ? nil : 'collapse'
+- action_class       = @managing ? 'btn-success' : 'btn-default'
 - belongs_to_project = @experiment.belongs_to_project?
-- @submenu = :my_experiments
+- @submenu           = :my_experiments
 .page-header
   %h1= raw t '.title', id: @experiment.id
   = raw t '.info', owner: @experiment.owner
-
 
 .row
   .col-sm-12
@@ -17,10 +18,10 @@
       .col-sm-1.text-right
         %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#profile-section' }, "aria-expanded" => false, "aria-controls" => "profile-section" } Show
 
-    .row#profile-section.section.collapse
+    .row#profile-section.section{ class: collapse_class }
       .col-sm-12
         - if is_owner
-          %p= link_to t('.edit'), edit_experiment_profile_path(@experiment.id), class: 'btn btn-xs btn-default'
+          %p.text-right= link_to t('.edit'), edit_experiment_profile_path(@experiment.id), class: "btn btn-xs #{action_class}"
         %table.table.table-bordered
           - @profile.each do |f|
             - k = f.name
@@ -37,10 +38,10 @@
         %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#acl-section' }, "aria-expanded" => false, "aria-controls" => "acl-section" } Show
 
     - acl = ExperimentAclPresenter.new(@experiment.acl, @experiment.owner, pid)
-    .row#acl-section.section.collapse
+    .row#acl-section.section{ class: collapse_class }
       .col-sm-12
         - if @experiment.can_modify_experiment_access?
-          %p= link_to t('.edit'), experiment_members_path(@experiment.id), class: 'btn btn-xs btn-default'
+          %p.text-right= link_to t('.edit'), experiment_members_path(@experiment.id), class: "btn btn-xs #{action_class}"
         %table.table.table-bordered
           - unless acl.owner_perms.blank?
             %tr
@@ -69,7 +70,7 @@
       .col-sm-1.text-right
         %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#activity-section' }, "aria-expanded" => false, "aria-controls" => "activity-section" } Show
 
-    .row.section#activity-section.collapse
+    .row.section#activity-section{ class: collapse_class }
       .col-sm-12
         - log = ActivityLog.for_experiment(@experiment.id)
         = render partial: 'shared/activity_log', object: log
@@ -110,7 +111,7 @@
               %h5= type.capitalize
             .col-sm-2.text-right.action
               - if @experiment.can_modify_experiment?
-                = link_to t(".add_aspect", type: type.capitalize), new_experiment_aspect_path(@experiment.id, type: type), class: 'btn btn-xs btn-default'
+                = link_to t(".add_aspect", type: type.capitalize), new_experiment_aspect_path(@experiment.id, type: type), class: "btn btn-xs #{action_class}"
           .row
             .col-sm-12
               - if aspects.blank?
