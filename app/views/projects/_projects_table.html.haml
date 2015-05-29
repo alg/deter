@@ -14,7 +14,7 @@
             <strong>Project Members</strong>: #{p[:members]}<br/>
             <strong>Experiments</strong>: #{p[:experiments]}<br/>
           %p
-            - if p[:leader][:uid] == @app_session.current_user_id
+            - if p[:leader][:uid] == current_user_id
               = link_to t(".manage"), manage_project_path(pid), class: 'btn btn-xs btn-info'
             = link_to t(".view"), project_path(pid), class: 'btn btn-xs btn-info'
 

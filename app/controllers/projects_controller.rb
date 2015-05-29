@@ -37,6 +37,7 @@ class ProjectsController < ApplicationController
     @profile = deter_lab.get_project_profile(@project.project_id)
 
     gon.projectDetailsUrl = details_project_path(pid)
+    render :show
   end
 
   # renders details about project team and experiments
@@ -54,7 +55,8 @@ class ProjectsController < ApplicationController
   end
 
   def manage
-    @project = get_project(params[:id])
+    @managing = true
+    show
   end
 
   # returns project profile

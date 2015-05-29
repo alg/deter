@@ -1,7 +1,8 @@
 - uid                = @app_session.current_user_id
 - pid                = @experiment.id.split(':').first
 - is_owner           = @experiment.owner == uid
-- collapse_class     = @managing ? nil : 'collapse'
+- collapse_class     = @managing ? 'in' : 'collapse'
+- toggle_label       = @managing ? 'Hide' : 'Show'
 - action_class       = @managing ? 'btn-success' : 'btn-default'
 - belongs_to_project = @experiment.belongs_to_project?
 - @submenu           = :my_experiments
@@ -16,7 +17,7 @@
       .col-sm-11
         %h4= t '.experiment_profile'
       .col-sm-1.text-right
-        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#profile-section' }, "aria-expanded" => false, "aria-controls" => "profile-section" } Show
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#profile-section' }, "aria-expanded" => false, "aria-controls" => "profile-section" }= toggle_label
 
     .row#profile-section.section{ class: collapse_class }
       .col-sm-12
@@ -35,7 +36,7 @@
       .col-sm-11
         %h4= t '.access_control'
       .col-sm-1.text-right
-        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#acl-section' }, "aria-expanded" => false, "aria-controls" => "acl-section" } Show
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#acl-section' }, "aria-expanded" => false, "aria-controls" => "acl-section" }= toggle_label
 
     - acl = ExperimentAclPresenter.new(@experiment.acl, @experiment.owner, pid)
     .row#acl-section.section{ class: collapse_class }
@@ -68,7 +69,7 @@
       .col-sm-11
         %h4= t '.recent_activity'
       .col-sm-1.text-right
-        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#activity-section' }, "aria-expanded" => false, "aria-controls" => "activity-section" } Show
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#activity-section' }, "aria-expanded" => false, "aria-controls" => "activity-section" }= toggle_label
 
     .row.section#activity-section{ class: collapse_class }
       .col-sm-12
@@ -82,7 +83,7 @@
         - if belongs_to_project
           = link_to t(".realize"), realize_experiment_path(@experiment.id), class: 'btn btn-xs btn-default'
         - else
-          %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#realization-section' }, "aria-expanded" => false, "aria-controls" => "realization-section" } Show
+          %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#realization-section' }, "aria-expanded" => false, "aria-controls" => "realization-section" }= toggle_label
 
     .row.section#realization-section{ class: belongs_to_project ? nil : 'collapse' }
       .col-sm-12

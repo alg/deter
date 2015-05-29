@@ -9,7 +9,7 @@ $ ->
 
 
 $ ->
-  return if $("body#projects_show").length == 0
+  return if $("body#projects_show, body#projects_manage").length == 0
 
   findButton = (section) ->
     $("button[data-target='#" + $(section)[0].id + "']")

@@ -1,4 +1,7 @@
-- @submenu = :my_projects
+- @submenu       = :my_projects
+- collapse_class = @managing ? 'in' : 'collapse'
+- toggle_label   = @managing ? 'Hide' : 'Show'
+- action_class   = @managing ? 'btn-success' : 'btn-default'
 .page-header
   %h1= raw t '.title', id: @project.project_id
   = raw t '.info', owner: @project.owner
@@ -10,9 +13,9 @@
       .col-sm-11
         %h4= t '.project_profile'
       .col-sm-1.text-right
-        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#profile-section' }, "aria-expanded" => false, "aria-controls" => "profile-section" } Show
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#profile-section' }, "aria-expanded" => false, "aria-controls" => "profile-section" }= toggle_label
 
-    .row#profile-section.section.collapse
+    .row#profile-section.section{ class: collapse_class }
       .col-sm-12
         %table.table.table-bordered
           - @profile.each do |f|
@@ -29,7 +32,7 @@
       .col-sm-1.text-right
         %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#team-section' }, "aria-expanded" => false, "aria-controls" => "team-section" } Hide
 
-    .row.section#team-section.collapse.in
+    .row.section#team-section.in{ class: collapse_class }
       .col-sm-12.body
         %span.spinner Loading. Please wait&hellip;
 
@@ -39,7 +42,7 @@
       .col-sm-1.text-right
         %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#experiments-section' }, "aria-expanded" => false, "aria-controls" => "experiments-section" } Hide
 
-    .row.section#experiments-section.collapse.in
+    .row.section#experiments-section.in{ class: collapse_class }
       .col-sm-12.body
         %span.spinner Loading. Please wait&hellip;
 
@@ -47,9 +50,9 @@
       .col-sm-11
         %h4= t '.recent_activity'
       .col-sm-1.text-right
-        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#activity-section' }, "aria-expanded" => false, "aria-controls" => "activity-section" } Show
+        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#activity-section' }, "aria-expanded" => false, "aria-controls" => "activity-section" }= toggle_label
 
-    .row.section#activity-section.collapse
+    .row.section#activity-section{ class: collapse_class }
       .col-sm-12
         - log = ActivityLog.for_project(@project.project_id)
         = render partial: 'shared/activity_log', object: log
