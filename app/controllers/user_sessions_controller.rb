@@ -13,6 +13,8 @@ class UserSessionsController < ApplicationController
       ActivityLog.for_user(username).add(:login, username)
 
       app_session.logged_in_as(params[:username], admin)
+      current_user_session.register_login
+
       redirect_to :dashboard, notice: t(".success")
     else
       flash.now[:alert] = t(".failure")
@@ -23,6 +25,7 @@ class UserSessionsController < ApplicationController
   # Logs the user out
   def destroy
     user_id = app_session.current_user_id
+    current_user_session.register_logout
 
     app_session.logged_out
     DeterLab.logout(user_id)

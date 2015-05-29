@@ -1,5 +1,6 @@
 deter_project_link: "http://deter-project.org/"
 contact_link: "http://info.deterlab.net/contact_deterlab"
+guide_link: "http://deter-project.org/#guide"
 
 deter_lab:
   # wsdl: "https://users.isi.deterlab.net:52323/axis2/services/%s?wsdl"

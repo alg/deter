@@ -1,11 +1,17 @@
 en:
   dashboard:
     show:
-      title: Dashboard
+      title: Welcome %{name}!
       info: >
         <p>
           You have <a href="%{notifications_link}">%{label}</a>
         </p>
-        <p>
-          Lorem ipsum
-        </p>
+
+      welcome:
+        first_time: >
+          <p>For help getting started in DeterLab, see the <a href="%{guide_link}">DeterLab New Users Guide</a></p>
+        returning:
+          no_logout: >
+            <p>Your last login was %{last_login}.</p>
+          with_logout: >
+            <p>Your last login was %{last_login}, with logout at %{last_logout}.</p>

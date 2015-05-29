@@ -63,4 +63,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user_id
 
+  # returns currently logged in user session
+  def current_user_session
+    @current_user_session ||= UserSession.new(current_user_id)
+  end
+  helper_method :current_user_session
 end
