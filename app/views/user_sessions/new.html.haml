@@ -5,8 +5,8 @@
 
 %div{ role: 'tabpanel' }
   %ul.nav.nav-tabs{ role: 'tablist' }
-    %li{ role: 'presentation' }= link_to t(".register.label"), '#register', { 'aria-controls' => 'register', 'role' => 'tab', 'data' => { toggle: 'tab' } }
     %li.active{ role: 'presentation' }= link_to "Login", '#login', { 'aria-controls' => 'login', 'role' => 'tab', 'data' => { toggle: 'tab' } }
+    %li{ role: 'presentation' }= link_to t(".register.label"), '#register', { 'aria-controls' => 'register', 'role' => 'tab', 'data' => { toggle: 'tab' } }
     %li{ role: 'presentation' }= link_to t(".about.label"), '#about', { 'aria-controls' => 'about', 'role' => 'tab', 'data' => { toggle: 'tab' } }
 
   .tab-content
