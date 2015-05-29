@@ -6,7 +6,7 @@ class ExperimentMembersControllerTest < ActionController::TestCase
     AppSession.new(@controller.session).logged_in_as "mark"
 
     @eid = 'Project:Experiment'
-    @controller.deter_lab.expects(:get_experiment).returns(Experiment.new(@eid, 'mark', [], []))
+    @controller.deter_lab.expects(:get_experiment).returns(Experiment.new(@eid, 'mark', [], [], []))
   end
 
   test 'should show members list' do

@@ -39,7 +39,7 @@
     - acl = ExperimentAclPresenter.new(@experiment.acl, @experiment.owner, pid)
     .row#acl-section.section.collapse
       .col-sm-12
-        - if is_owner
+        - if @experiment.can_modify_experiment_access?
           %p= link_to t('.edit'), experiment_members_path(@experiment.id), class: 'btn btn-xs btn-default'
         %table.table.table-bordered
           - unless acl.owner_perms.blank?
@@ -52,15 +52,16 @@
               %td.col-sm-8= acl[1].join(", ")
 
 
-        %table.table.table-bordered
-          - unless acl.project_perms.blank?
-            %tr
-              %td.col-sm-4 Group:&nbsp;#{pid}
-              %td.col-sm-8= acl.project_perms.join(", ")
-          - acl.groups_acl.each do |acl|
-            %tr
-              %td.col-sm-4 Group:&nbsp;#{acl.circle_id}
-              %td.col-sm-8= acl.permissions.join(", ")
+        - unless acl.project_perms.blank? and acl.groups_acl.blank?
+          %table.table.table-bordered
+            - unless acl.project_perms.blank?
+              %tr
+                %td.col-sm-4 Group:&nbsp;#{pid}
+                %td.col-sm-8= acl.project_perms.join(", ")
+            - acl.groups_acl.each do |acl|
+              %tr
+                %td.col-sm-4 Group:&nbsp;#{acl.circle_id}
+                %td.col-sm-8= acl.permissions.join(", ")
 
     .row.section-row
       .col-sm-11
@@ -108,7 +109,8 @@
             .col-sm-10
               %h5= type.capitalize
             .col-sm-2.text-right.action
-              = link_to t(".add_aspect", type: type.capitalize), new_experiment_aspect_path(@experiment.id, type: type), class: 'btn btn-xs btn-default'
+              - if @experiment.can_modify_experiment?
+                = link_to t(".add_aspect", type: type.capitalize), new_experiment_aspect_path(@experiment.id, type: type), class: 'btn btn-xs btn-default'
           .row
             .col-sm-12
               - if aspects.blank?
@@ -126,9 +128,10 @@
                           .col-sm-4.text-right
                             = link_to t(".view"), "#", data: { id: aid }, class: 'btn btn-xs btn-info more'
                             = link_to t(".hide"), "#", data: { id: aid }, class: 'btn btn-xs btn-info less hide'
-                            = link_to t(".modify"), edit_experiment_aspect_path(@experiment.id, a.name, type: a.type), class: 'btn btn-xs btn-default'
-                            - if is_owner && a.sub_type.blank?
-                              = link_to t(".delete"), experiment_aspect_path(@experiment.id, a.name, type: a.type), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
+                            - if @experiment.can_modify_experiment?
+                              = link_to t(".modify"), edit_experiment_aspect_path(@experiment.id, a.name, type: a.type), class: 'btn btn-xs btn-default'
+                              - if is_owner && a.sub_type.blank?
+                                = link_to t(".delete"), experiment_aspect_path(@experiment.id, a.name, type: a.type), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure?" }
                         .row.hide{ data: { more_id: aid } }
                           .col-sm-12
                             %pre.view= aspect_data(a)

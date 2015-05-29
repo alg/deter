@@ -10,7 +10,7 @@ class ExperimentAspectsControllerTest < ActionController::TestCase
       ExperimentAspect.new(@ied, "layout000", "layout", nil, "layout", "ref"),
       ExperimentAspect.new(@ied, "layout000/namemap/R", "layout", "namemap", "names", "ref-2")
     ]
-    @controller.deter_lab.stubs(:get_experiment).returns(Experiment.new(@eid, 'mark', [], @aspects))
+    @controller.deter_lab.stubs(:get_experiment).returns(Experiment.new(@eid, 'mark', [], @aspects, []))
     SummaryLoader.stubs(:member_profile).returns({ "name" => "Mark" })
   end
 

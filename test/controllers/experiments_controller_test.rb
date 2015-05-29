@@ -27,8 +27,8 @@ class ExperimentsControllerTest < ActionController::TestCase
   end
 
   test "show project experiment" do
-    ex1 = Experiment.new("Project:id1", "owner", [], [])
-    ex2 = Experiment.new("id2", "owner", [], [])
+    ex1 = Experiment.new("Project:id1", "owner", [], [], [])
+    ex2 = Experiment.new("id2", "owner", [], [], [])
     DeterLab.expects(:view_experiments).returns([ ex1, ex2 ])
     @controller.deter_lab.expects(:get_experiment_profile).with(ex1.id).returns({})
     get :show, id: ex1.id
@@ -118,7 +118,7 @@ class ExperimentsControllerTest < ActionController::TestCase
   private
 
   def setup_experiment(eid = "Project:Id1")
-    ex = Experiment.new(eid, "owner", [], [])
+    ex = Experiment.new(eid, "owner", [], [], [])
     DeterLab.expects(:view_experiments).returns([ ex ])
     ex
   end

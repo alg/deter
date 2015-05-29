@@ -47,7 +47,7 @@ module DeterLab
           ExperimentAspect.new(eid, a[:name], a[:type], a[:sub_type], a[:data], a[:data_reference])
         end
 
-        Experiment.new(eid, ex[:owner], acl, aspects)
+        Experiment.new(eid, ex[:owner], acl, aspects, ex[:perms])
       end
     rescue Savon::SOAPFault => e
       process_error e

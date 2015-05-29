@@ -25,8 +25,25 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
         Experiment.new("SPIdev:Test", @username, [
           ExperimentACL.new("SPIdev:SPIdev", [ "MODIFY_EXPERIMENT_ACCESS", "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ]),
           ExperimentACL.new("bfdh:bfdh", [ "MODIFY_EXPERIMENT_ACCESS", "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ])
-        ], [])
+        ], [], [ "MODIFY_EXPERIMENT_ACCESS", "READ_EXPERIMENT", "MODIFY_EXPERIMENT" ])
       ], list
+    end
+  end
+
+  test "permissions" do
+    VCR.use_cassette "deterlab/experiments/view-experiments-permissions" do
+      user_id = 'aadams'
+      assert DeterLab.valid_credentials?(user_id, 'Abigail')
+
+      list = DeterLab.view_experiments('aadams')
+      alexandria = list.find { |e| e.id == 'aadams:HelloAlexandria' }
+      assert alexandria.can_modify_experiment?
+      assert alexandria.can_modify_experiment_access?
+
+      main_lib_ex = list.find { |e| e.id == 'john:HelloWorld1' }
+      assert !main_lib_ex.can_modify_experiment?
+      assert !main_lib_ex.can_modify_experiment_access?
+      assert main_lib_ex.can_read_experiment?
     end
   end
 
