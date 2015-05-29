@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/login'            => 'user_sessions#new', as: 'login'
   get '/logout'           => 'user_sessions#destroy', as: 'logout'
   get '/dashboard'        => 'dashboard#show', as: 'dashboard'
+  get '/dashboard/resources' => 'dashboard#resources', as: 'resources_dashboard'
 
   get  '/profile'         => 'profile#show_my_profile', as: 'my_profile'
   get  '/profile/edit'    => 'profile#edit', as: 'edit_profile'

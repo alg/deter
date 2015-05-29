@@ -1,7 +1,7 @@
 en:
   dashboard:
     show:
-      title: Welcome %{name}!
+      title: Dashboard
       info: >
         <p>
           You have <a href="%{notifications_link}">%{label}</a>
@@ -9,9 +9,23 @@ en:
 
       welcome:
         first_time: >
-          <p>For help getting started in DeterLab, see the <a href="%{guide_link}">DeterLab New Users Guide</a></p>
+          <p>Welcome <strong>%{name}</strong>! For help getting started in DeterLab, see the <a href="%{guide_link}">DeterLab New Users Guide</a></p>
         returning:
           no_logout: >
-            <p>Your last login was %{last_login}.</p>
+            <p>Welcome <strong>%{name}</strong>! Your last login was %{last_login}.</p>
           with_logout: >
-            <p>Your last login was %{last_login}, with logout at %{last_logout}.</p>
+            <p>Welcome <strong>%{name}</strong>! Your last login was %{last_login}, with logout at %{last_logout}.</p>
+
+      refreshing: Refreshing your dashboard with the latest status.
+
+    resources:
+      resources:
+        title: Resources
+        before: "Your DeterLab resources:"
+        after: "More information is available via the main navigation bar above."
+
+      notifications:
+        title: "Notifications: %{unread} Unread"
+
+      activity:
+        title: Recent Activity

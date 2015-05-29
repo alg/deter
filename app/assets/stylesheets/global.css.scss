@@ -16,8 +16,15 @@ body.loggedout #main-wrapper {
 }
 
 .spinner {
-  display: inline-block;
   width: 32px;
   height: 32px;
   background: image-url('preloader-32x32.gif') transparent 0 0 no-repeat;
+}
+.spinner.with-text {
+  width: auto;
+  padding-left: 42px;
+  line-height: 32px;
+}
+span.spinner {
+  display: inline-block;
 }

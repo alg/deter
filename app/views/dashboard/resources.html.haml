@@ -1,0 +1,53 @@
+- unread_notifications = 0
+= section_row t('.resources.title'), 'resources-section', :opened
+.row#resources-section.section.in
+  .col-sm-12
+    %p= t '.resources.before'
+    %ul
+      %li
+        You have access to #{pluralize(@resources.accessible_experiments_count, 'experiment')} total,
+        across #{pluralize(@resources.member_of_projects_count, 'project')} that you are a member of.
+      %li
+        There are 0 of these experiments currently running:
+        -#  list of experiment names each a link
+      - own_project_count = 0
+      %li
+        You are the project leader for #{own_project_count == 1 ? 'project' : 'projects'} &hellip;
+        -# project names are links
+      - joined_project_count = 0
+      %li
+        You are a member of #{joined_project_count == 1 ? 'project' : 'projects'} &hellip;
+        -# project names are links
+      %li
+        You have read access to N experiments via libraries &hellip;
+        -# list of library names that the user has access to
+        -# names are links
+        -# for now, just "Main Library" which is a no-op link
+
+    %p= t '.resources.after'
+
+
+= section_row t('.notifications.title', unread: unread_notifications), 'notifications-section'
+.row#notifications-section.section.collapse
+  -# load on open, cache on close
+  %ul
+    %li You have 1 <a href="#unread_notifications">unread notifications</a> or 2 <a href="#total_notifications">total notifications</a>.
+    %li
+      You have N pending new project requests and 1 pending join project request
+      -# or if 0 "no pending"
+
+
+= section_row t('.activity.title'), 'activity-section'
+.row#activity-section.section.collapse
+  -# load on open, cache on close
+  -# config item for N of events (default 5)
+  -# events from the event log of all projects and project experiments (not library experiments) that the user has access to, and users in these projects.
+
+  %ul
+    %li Abigail Adams updated the description of experiment HelloWorld at T
+    %li Ambrose Beirce added a layout aspect to experiment ExperimentOne at T
+    %li Gerta Grein did a profile update at T
+
+  %p Your last profile update was at T
+  %p Your last password change was at T, via password reset
+

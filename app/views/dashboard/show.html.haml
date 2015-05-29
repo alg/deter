@@ -1,15 +1,20 @@
+- name = current_user_name
 .page-header
-  %h1= raw t '.title', name: current_user_name
+  %h1= raw t '.title'
   = raw t '.info', notifications_count: @notifications.size, label: pluralize(@notifications.size, 'notification'), notifications_link: notifications_path
+  - if current_user_session.first_login?
+    = raw t '.welcome.first_time', name: name, guide_link: AppConfig['guide_link']
+  - else
+    - last_login  = current_user_session.last_login_at.strftime("%B %d, %Y %l:%M%P")
+    - last_logout = current_user_session.last_logout_at.try(:strftime, "%B %d, %Y %l:%M%P")
+    - if last_logout.blank?
+      = raw t '.welcome.returning.no_logout', name: current_user_name, last_login: last_login
+    - else
+      = raw t '.welcome.returning.with_logout', name: current_user_name, last_login: last_login, last_logout: last_logout
 
 .row
-  .col-sm-12
-    - if current_user_session.first_login?
-      = raw t '.welcome.first_time', guide_link: AppConfig['guide_link']
-    - else
-      - last_login  = current_user_session.last_login_at.strftime("%B %d, %Y %l:%M%P")
-      - last_logout = current_user_session.last_logout_at.try(:strftime, "%B %d, %Y %l:%M%P")
-      - if last_logout.blank?
-        = raw t '.welcome.returning.no_logout', last_login: last_login
-      - else
-        = raw t '.welcome.returning.with_logout', last_login: last_login, last_logout: last_logout
+  .col-sm-12.resources
+    .loading
+      = t '.refreshing'
+      .spinner.with-text Loading. Please wait&hellip;
+
