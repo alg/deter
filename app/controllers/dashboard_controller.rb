@@ -10,7 +10,7 @@ class DashboardController < ApplicationController
 
   # resources details
   def resources
-    @resources = DashboardResources.new(current_user_id)
+    @resources = DashboardResources.new(current_user_id, deter_lab)
     render :resources, layout: false
   end
 

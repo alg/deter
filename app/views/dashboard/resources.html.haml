@@ -10,19 +10,33 @@
       %li
         There are 0 of these experiments currently running:
         -#  list of experiment names each a link
-      - own_project_count = 0
+
+      - ids = @resources.owned_project_ids
+      - own_project_count = ids.count
       %li
         You are the project leader for #{own_project_count == 1 ? 'project' : 'projects'} &hellip;
-        -# project names are links
-      - joined_project_count = 0
+        - unless ids.blank?
+          %ul
+            - ids.each do |pid|
+              %li= link_to pid, project_path(pid)
+
+      - ids = @resources.joined_project_ids
+      - joined_project_count = ids.count
       %li
         You are a member of #{joined_project_count == 1 ? 'project' : 'projects'} &hellip;
-        -# project names are links
+        - unless ids.blank?
+          %ul
+            - ids.each do |pid|
+              %li= link_to pid, project_path(pid)
+
+      - ex = @resources.accessible_library_experiments
+      - libs = @resources.libraries
       %li
-        You have read access to N experiments via libraries &hellip;
-        -# list of library names that the user has access to
-        -# names are links
-        -# for now, just "Main Library" which is a no-op link
+        You have read access to #{pluralize(ex.count, 'experiment')} via libraries &hellip;
+        - unless libs.blank?
+          %ul
+            - libs.each do |l|
+              %li= link_to l.id, library_path(l.id)
 
     %p= t '.resources.after'
 
