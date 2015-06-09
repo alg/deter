@@ -15,6 +15,6 @@
               <strong>Description</strong>: #{e[:description]}<br/>
               <strong>Status</strong>: TBD<br/>
             %p
-              - if e[:owner][:uid] == @app_session.current_user_id
+              - if e[:owner][:uid] == current_user_id
                 = link_to t(".manage"), manage_experiment_path(eid), class: 'btn btn-xs btn-info'
               = link_to t(".view"), experiment_path(eid), class: 'btn btn-xs btn-info'

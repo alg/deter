@@ -12,6 +12,8 @@
     = section_row t('.project_profile'), 'profile-section', @managing ? :opened : :closed
     .row#profile-section.section{ class: collapse_class }
       .col-sm-12
+        - if @project.can_modify?(current_user_id)
+          %p.text-right= link_to t('.edit'), "#TBD", class: "btn btn-xs #{action_class}"
         %table.table.table-bordered
           - @profile.each do |f|
             - k = f.name
@@ -23,6 +25,9 @@
 
     = section_row t('.project_team'), 'team-section', @managing ? :opened : :closed
     .row.section#team-section{ class: collapse_class }
+      .col-sm-12
+        - if @project.can_modify_access?(current_user_id)
+          %p.text-right= link_to t('.edit'), "#TBD", class: "btn btn-xs #{action_class}"
       .col-sm-12.body
         %span.spinner Loading. Please wait&hellip;
 
