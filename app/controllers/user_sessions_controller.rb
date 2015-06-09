@@ -12,7 +12,7 @@ class UserSessionsController < ApplicationController
 
       ActivityLog.for_user(username).add(:login, username)
 
-      app_session.logged_in_as(params[:username], admin)
+      app_session.logged_in_as(username, admin)
       current_user_session.register_login
 
       redirect_to :dashboard, notice: t(".success")
