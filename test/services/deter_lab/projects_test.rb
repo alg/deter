@@ -127,8 +127,7 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
       login 'admin_user'
       pid = "unit-test-add-user"
       user_id = DeterLab.create_user(user_profile)
-      DeterLab.create_project(@username, pid, @username, { description: "descr" })
-      DeterLab.approve_project(@username, pid)
+      create_and_approve_project(pid)
       assert DeterLab.add_users(@username, pid, [ user_id ])
     end
   end
@@ -143,6 +142,37 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
 
       assert_equal "Invalid projectid", err.message
     end
+  end
+
+  test "successful removal of users" do
+    VCR.use_cassette "deterlab/projects/remove-users-success" do
+      login 'admin_user'
+      pid = 'unit-test-remove-user'
+      user_id = DeterLab.create_user(user_profile)
+      create_and_approve_project(pid)
+      assert DeterLab.add_users_no_confirm(@username, pid, [ user_id ])
+
+      res = DeterLab.remove_users(@username, pid, [ user_id ])
+      assert_equal 1, res.size
+      assert_equal({ success: true, name: user_id, reason: nil }, res.first.extract!(:success, :name, :reason))
+    end
+  end
+
+  test "failed removal of users" do
+    VCR.use_cassette "deterlab/projects/remove-users-failure" do
+      login 'admin_user'
+      pid = 'unit-test-remove-user-failure'
+      create_and_approve_project(pid)
+
+      res = DeterLab.remove_users(@username, pid, [ 'unknown' ])
+      assert_equal 1, res.size
+      assert_equal({ success: false, name: 'unknown', reason: 'Could not remove user - not present' }, res.first.extract!(:success, :name, :reason))
+    end
+  end
+
+  def create_and_approve_project(pid)
+    DeterLab.create_project(@username, pid, @username, { description: "descr" })
+    DeterLab.approve_project(@username, pid)
   end
 
   def user_profile

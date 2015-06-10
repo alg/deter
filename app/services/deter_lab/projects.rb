@@ -111,7 +111,7 @@ module DeterLab
         perms: perms
       })
 
-      return response.to_hash[:add_users_response][:return]
+      return [ response.to_hash[:add_users_response][:return] || [] ].flatten
     rescue Savon::SOAPFault => e
       process_error e
     end
@@ -129,6 +129,17 @@ module DeterLab
       return response.to_hash[:add_users_no_confirm_response][:return]
     rescue Savon::SOAPFault => e
       process_error e
+    end
+
+    # removes users from the project
+    def remove_users(admin_uid, project_id, uids)
+      cl = client("Projects", admin_uid)
+      response = cl.call(:remove_users, message: {
+        projectid: project_id,
+        uids: uids
+      })
+
+      return [ response.to_hash[:remove_users_response][:return] || [] ].flatten
     end
 
     # Deletes the project

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AddUserToProjectTest < ActiveSupport::TestCase
+class ProjectMembersTest < ActiveSupport::TestCase
 
   test 'successful adding a user' do
     VCR.use_cassette 'tasks/add-user-to-project-success' do
@@ -10,7 +10,7 @@ class AddUserToProjectTest < ActiveSupport::TestCase
 
       aadams = login 'aadams'
       deter_lab.expect(:invalidate_projects, true)
-      AddUserToProject.new(aadams, deter_lab).perform(pid, addee)
+      ProjectMembers.new(aadams, deter_lab, pid).add_user(addee)
       deter_lab.verify
 
       john = login 'john'
@@ -26,10 +26,32 @@ class AddUserToProjectTest < ActiveSupport::TestCase
 
       abierce = login 'abierce'
       err = assert_raise DeterLab::RequestError do
-        AddUserToProject.new(abierce, nil).perform(pid, 'john')
+        ProjectMembers.new(abierce, nil, pid).add_user('john')
       end
       assert_equal "Project is not yet approved", err.message
     end
+  end
+
+  test 'successful removing users' do
+    owner = 'owner'
+    pid   = 'pid'
+    uid   = 'john'
+    deter_lab = MiniTest::Mock.new
+    deter_lab.expect(:invalidate_projects, true)
+    DeterLab.expects(:remove_users).with(owner, pid, [ uid ]).returns([ { success: true } ])
+    ProjectMembers.new(owner, deter_lab, pid).remove_user(uid)
+    deter_lab.verify
+  end
+
+  test 'failed removing users' do
+    owner = 'owner'
+    pid   = 'pid'
+    uid   = 'john'
+    DeterLab.expects(:remove_users).returns([ { success: false, reason: 'error reason' } ])
+    err = assert_raise do
+      ProjectMembers.new(owner, nil, pid).remove_user(uid)
+    end
+    assert_equal "error reason", err.message
   end
 
   private

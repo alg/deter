@@ -12,7 +12,7 @@ class ProjectMembersController < ApplicationController
   # creates a new member record
   def create
     options = {}
-    AddUserToProject.new(current_user_id, deter_lab).perform(@project.project_id, member_params[:uid])
+    ProjectMembers.new(current_user_id, deter_lab, @project.project_id).add_user(member_params[:uid])
     options[:notice] = t('.success')
   rescue DeterLab::RequestError => e
     options[:alert] = t('.failure', error: e.message)
@@ -22,22 +22,12 @@ class ProjectMembersController < ApplicationController
 
   # removes the member record
   def destroy
-    # member = ExperimentMember.new(circle_id: params[:id])
-
-    # if member.full_circle_id == "#{@experiment.owner}:#{@experiment.owner}"
-    #   redirect_to experiment_members_path(@experiment.id), alert: t('.deleting_self')
-    #   return
-    # end
-
-    # res = DeterLab.change_experiment_acl(@app_session.current_user_id, @experiment.id, [
-    #   ExperimentACL.new(member.full_circle_id, ExperimentACL::DELETE) ])
-
-    # success = res[member.full_circle_id]
-    # deter_lab.invalidate_experiment(@experiment.id) if success
-
     options = {}
-    # options[success ? :notice : :alert] = t(success ? ".success" : ".failure")
-
+    ProjectMembers.new(current_user_id, deter_lab, @project.project_id).remove_user(params[:id])
+    options[:notice] = t('.success')
+  rescue DeterLab::RequestError => e
+    options[:alert] = t('.failure', error: e.message)
+  ensure
     redirect_to project_members_path(@project.project_id), options
   end
 
