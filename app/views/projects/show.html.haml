@@ -13,7 +13,7 @@
     .row#profile-section.section{ class: collapse_class }
       .col-sm-12
         - if @project.can_modify?(current_user_id)
-          %p.text-right= link_to t('.edit'), "#TBD", class: "btn btn-xs #{action_class}"
+          %p.text-right= link_to t('.edit'), edit_project_profile_path(@project.project_id), class: "btn btn-xs #{action_class}"
         %table.table.table-bordered
           - @profile.each do |f|
             - k = f.name

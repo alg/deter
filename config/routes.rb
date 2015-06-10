@@ -35,7 +35,10 @@ Rails.application.routes.draw do
       get :manage
       get :details
     end
+
+    resource  :profile, controller: "project_profile", only: [ :show, :edit, :update ]
   end
+
   resources :project_joins, only: [ :new, :create ]
   resources :circles,     only: [ :index, :new, :create, :destroy ]
   resources :experiments, only: [ :index, :new, :create, :destroy, :show ] do
@@ -49,6 +52,7 @@ Rails.application.routes.draw do
     resource  :profile, controller: "experiment_profile", only: [ :show, :edit, :update ]
     resources :aspects, controller: "experiment_aspects", only: [ :new, :create, :edit, :update, :destroy ]
   end
+
   resources :notifications do
     collection do
       get :current
