@@ -3,7 +3,6 @@
     %tr
       %td
         #{link_to (m['name'] or "<unnamed>"), profile_path(m['uid'])} (#{m['uid']})
-        - if m['leader']
-          \- Project Leader
+        #{"<br/> Project Leader".html_safe if m['leader']}
       %td
         = m['perms'].join(', ')
