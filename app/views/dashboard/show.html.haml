@@ -7,7 +7,7 @@
   - else
     - last_login  = current_user_session.last_login_at.strftime("%B %d, %Y %l:%M%P")
     - last_logout = current_user_session.last_logout_at.try(:strftime, "%B %d, %Y %l:%M%P")
-    - if last_logout.blank?
+    - if last_logout.blank? or current_user_session.last_logout_at < current_user_session.last_login_at
       = raw t '.welcome.returning.no_logout', name: current_user_name, last_login: last_login
     - else
       = raw t '.welcome.returning.with_logout', name: current_user_name, last_login: last_login, last_logout: last_logout
