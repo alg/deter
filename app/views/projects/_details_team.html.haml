@@ -5,3 +5,5 @@
         #{link_to (m['name'] or "<unnamed>"), profile_path(m['uid'])} (#{m['uid']})
         - if m['leader']
           \- Project Leader
+      %td
+        = m['perms'].join(', ')

@@ -119,10 +119,12 @@ class ProjectsController < ApplicationController
   def get_project_member_details(project)
     members = {}
 
+
     team = project.members.map do |m|
       profile = SummaryLoader.member_profile(deter_cache, @app_session.current_user_id, m.uid)
       profile['uid'] = m.uid
       profile['leader'] = m.uid == project.owner
+      profile['perms'] = m.permissions
       members[m.uid] = profile
       profile
     end

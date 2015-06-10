@@ -13,12 +13,7 @@
 .row
   .col-sm-12
 
-    .row.section-row
-      .col-sm-11
-        %h4= t '.experiment_profile'
-      .col-sm-1.text-right
-        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#profile-section' }, "aria-expanded" => false, "aria-controls" => "profile-section" }= toggle_label
-
+    = section_row t('.experiment_profile'), 'profile-section', @managing ? :opened : :closed
     .row#profile-section.section{ class: collapse_class }
       .col-sm-12
         - if is_owner
@@ -32,13 +27,8 @@
               %td.col-sm-4= k.capitalize
               %td.col-sm-8= v
 
-    .row.section-row
-      .col-sm-11
-        %h4= t '.access_control'
-      .col-sm-1.text-right
-        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#acl-section' }, "aria-expanded" => false, "aria-controls" => "acl-section" }= toggle_label
-
     - acl = ExperimentAclPresenter.new(@experiment.acl, @experiment.owner, pid)
+    = section_row t('.access_control'), 'acl-section', @managing ? :opened : :closed
     .row#acl-section.section{ class: collapse_class }
       .col-sm-12
         - if @experiment.can_modify_experiment_access?
@@ -65,12 +55,7 @@
                 %td.col-sm-4 Group:&nbsp;#{acl.circle_id}
                 %td.col-sm-8= acl.permissions.join(", ")
 
-    .row.section-row
-      .col-sm-11
-        %h4= t '.recent_activity'
-      .col-sm-1.text-right
-        %button.btn.btn-xs.btn-default{ type: 'button', data: { toggle: 'collapse', target: '#activity-section' }, "aria-expanded" => false, "aria-controls" => "activity-section" }= toggle_label
-
+    = section_row t('.recent_activity'), 'activity-section', @managing ? :opened : :closed
     .row.section#activity-section{ class: collapse_class }
       .col-sm-12
         - log = ActivityLog.for_experiment(@experiment.id)
