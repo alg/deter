@@ -101,6 +101,21 @@ module DeterLab
       process_error e
     end
 
+    # Adds users to the project with confirmation
+    def add_users(admin_uid, project_id, uids, perms = nil)
+      perms ||= []
+      cl = client("Projects", admin_uid)
+      response = cl.call(:add_users, message: {
+        projectid: project_id,
+        uids: uids,
+        perms: perms
+      })
+
+      return response.to_hash[:add_users_response][:return]
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
     # Adds users to the project without confirmation
     def add_users_no_confirm(admin_uid, project_id, uids, perms = nil)
       perms ||= []

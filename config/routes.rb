@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     end
 
     resource  :profile, controller: "project_profile", only: [ :show, :edit, :update ]
+    resources :members, controller: "project_members", only: [ :index, :create, :destroy ]
   end
 
   resources :project_joins, only: [ :new, :create ]

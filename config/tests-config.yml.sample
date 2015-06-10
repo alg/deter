@@ -17,3 +17,16 @@ user_with_multiple_projects:
 admin_user:
   username:
   password:
+
+# aadams
+aadams:
+  username:
+  password:
+
+john:
+  username:
+  password:
+
+abierce:
+  username:
+  password:

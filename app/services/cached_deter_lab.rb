@@ -33,6 +33,11 @@ class CachedDeterLab
     end
   end
 
+  # returns the project or nil
+  def get_project(pid)
+    get_projects.find { |p| p.project_id == pid }
+  end
+
   # the list of projects managed by this user directly
   def get_managed_projects
     get_projects.select { |p| p.owner == @current_uid }

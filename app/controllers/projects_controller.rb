@@ -103,7 +103,7 @@ class ProjectsController < ApplicationController
   end
 
   def get_project(pid)
-    deter_lab.get_projects.find { |p| p.project_id == pid }
+    deter_lab.get_project(pid)
   end
 
   def get_project_experiments_details(pid, members)

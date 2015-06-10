@@ -1,0 +1,21 @@
+en:
+  project_members:
+    owner_only: Project owner only
+
+    index:
+      title:   Project Members
+      info:    "The list of all users having access to the project"
+      delete:  "Delete"
+
+      add_user:
+        title:    "Add a User"
+        label:    "User Name"
+        hint:     "user"
+        submit:   "Add User"
+
+    create:
+      success: "Notification is sent"
+      failure: "Failed to create the record:<br/>%{error}"
+
+    destroy:
+      success: "Record deleted"

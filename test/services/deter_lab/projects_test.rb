@@ -122,6 +122,29 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
     end
   end
 
+  test "add users" do
+    VCR.use_cassette "deterlab/projects/add-users" do
+      login 'admin_user'
+      pid = "unit-test-add-user"
+      user_id = DeterLab.create_user(user_profile)
+      DeterLab.create_project(@username, pid, @username, { description: "descr" })
+      DeterLab.approve_project(@username, pid)
+      assert DeterLab.add_users(@username, pid, [ user_id ])
+    end
+  end
+
+  test "failed add users" do
+    VCR.use_cassette "deterlab/projects/add-users-failed" do
+      login 'admin_user'
+
+      err = assert_raises DeterLab::RequestError do
+        DeterLab.add_users(@username, "pid", [ "unknown" ])
+      end
+
+      assert_equal "Invalid projectid", err.message
+    end
+  end
+
   def user_profile
     { name: "Mark Smith",
       email: "mark@smith.com",

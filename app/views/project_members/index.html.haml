@@ -1,0 +1,27 @@
+- @submenu = :my_projects
+.page-header
+  %h1= raw t '.title'
+  = raw t '.info'
+
+.row
+  .col-sm-12
+    %table.table.table-bordered
+      - @project.members.each do |m|
+        %tr
+          %td.col-sm-4= m.uid
+          %td.col-sm-7= m.permissions.join(', ')
+          %td.col-sm-1
+            - if m.uid == current_user_id
+              &nbsp;
+            - else
+              = link_to t(".delete"), project_member_path(@project.project_id, m.uid), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Are you sure?' }
+.row
+  .col-sm-12
+    %h4= t(".add_user.title")
+    = form_for @new_member, as: :member, url: project_members_path(@project.project_id), html: { class: 'form-horizontal' } do |f|
+      .form-group
+        = f.label :uid, t(".add_user.label"), class: "control-label col-sm-2"
+        .col-sm-4
+          = f.text_field :uid, class: "form-control", placeholder: t(".add_user.hint")
+        .col-sm-4
+          = f.submit t(".add_user.submit"), class: "btn btn-default"
