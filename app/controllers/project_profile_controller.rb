@@ -2,12 +2,6 @@ class ProjectProfileController < ApplicationController
 
   before_filter :require_login
 
-  # returns project profile
-  def show
-    @profile = deter_lab.get_project_profile(params[:id])
-    render 'shared/profile'
-  end
-
   # shows the profile edit form
   def edit
     @profile_description = deter_lab.get_project_profile_description
