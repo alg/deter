@@ -8,4 +8,12 @@ class ProjectProfileController < ApplicationController
     @profile = deter_lab.get_project_profile(params[:project_id])
   end
 
+  # updates project profile data
+  def update
+    res = DeterLab.change_project_profile(current_user_id, params[:project_id], params[:profile])
+    redirect_to project_path(params[:project_id]), notice: t('.success')
+  rescue DeterLab::RequestError => e
+    redirect_to project_path(params[:project_id]), alert: t(".failure", error: e.message).html_safe
+  end
+
 end

@@ -56,6 +56,25 @@ module DeterLab
       process_error e
     end
 
+    # changes project profile
+    # Changes should include { name, value, delete }
+    def change_project_profile(uid, pid, changes)
+      cl = client("Projects", uid)
+      changes = changes.inject([]) do |m, c|
+        m << { name: c[0], value: c[1] }
+        m
+      end
+      response = cl.call(:change_project_profile, message: { projectid: pid, changes: changes })
+
+      res = response.to_hash[:change_project_profile_response][:return]
+      return res.inject({}) do |m, r|
+        m[r[:name]] = { success: r[:success], reason: r[:reason] }
+        m
+      end
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
     # Creates a project with the given profile for approval.
     # Returns #true if created, or #false if not.
     def create_project(uid, name, owner, project_profile)

@@ -170,6 +170,25 @@ class DeterLab::ProjectsTest < DeterLab::AbstractTest
     end
   end
 
+  test "change project profile" do
+    VCR.use_cassette "deterlab/projects/change-project-profile" do
+      login 'aadams'
+      pid = 'Alfa-Romeo'
+
+      res = DeterLab.change_project_profile(@username, pid, {
+        'URL'     => "http://new.url/#{Time.now.to_i}",
+        'funders' => "new funders",
+        'unknown' => "value"
+      })
+
+      assert_equal({
+        "URL"     => { success: true,  reason: nil },
+        "funders" => { success: true,  reason: nil },
+        "unknown" => { success: false, reason: 'No such attribute' }
+      }, res)
+    end
+  end
+
   def create_and_approve_project(pid)
     DeterLab.create_project(@username, pid, @username, { description: "descr" })
     DeterLab.approve_project(@username, pid)

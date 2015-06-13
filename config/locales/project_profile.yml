@@ -6,3 +6,7 @@ en:
 
       save: Save Changes
       cancel: Cancel
+
+    update:
+      success: Updated project profile
+      failure: "Failed to update the profile:<br/>%{error}"
