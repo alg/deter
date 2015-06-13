@@ -180,7 +180,7 @@ class SeedTestData
 
   def join_project(project_id, users)
     uids = users.map { |name| @user_ids[name] }
-    DeterLab.add_users_no_confirm(@admin_user, project_id, uids, [ "ALL_PERMS" ])
+    DeterLab.add_users_no_confirm(@admin_user, project_id, uids)
     puts "  - Added users #{uids.inspect} to #{project_id}"
 
     uids.each do |uid|

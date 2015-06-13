@@ -102,7 +102,7 @@ module DeterLab
     end
 
     # Adds users to the project with confirmation
-    def add_users(admin_uid, project_id, uids, perms = nil)
+    def add_users(admin_uid, project_id, uids, perms = ProjectMember::DEFAULT_NEW_USER_PERMS)
       perms ||= []
       cl = client("Projects", admin_uid)
       response = cl.call(:add_users, message: {
@@ -117,7 +117,7 @@ module DeterLab
     end
 
     # Adds users to the project without confirmation
-    def add_users_no_confirm(admin_uid, project_id, uids, perms = nil)
+    def add_users_no_confirm(admin_uid, project_id, uids, perms = ProjectMember::DEFAULT_NEW_USER_PERMS)
       perms ||= []
       cl = client("Projects", admin_uid)
       response = cl.call(:add_users_no_confirm, message: {

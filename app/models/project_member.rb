@@ -9,6 +9,9 @@ class ProjectMember < Struct.new(:uid, :permissions)
   # All permissions
   ALL_PERMS         = [ CREATE_EXPERIMENT, CREATE_LIBRARY, CREATE_CIRCLE, ADD_USER, REMOVE_USER ]
 
+  # Default new user permissions
+  DEFAULT_NEW_USER_PERMS = [ CREATE_EXPERIMENT, CREATE_LIBRARY, CREATE_CIRCLE ]
+
   # no permissions. Used to delete records.
   DELETE            = []
 
