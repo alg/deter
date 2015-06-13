@@ -6,3 +6,7 @@ en:
 
       save: Save Changes
       cancel: Cancel
+
+    update:
+      success: Updated experiment profile
+      failure: "Failed to update experiment profile:<br/>%{error}"

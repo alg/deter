@@ -57,7 +57,6 @@ module DeterLab
     end
 
     # changes project profile
-    # Changes should include { name, value, delete }
     def change_project_profile(uid, pid, changes)
       cl = client("Projects", uid)
       changes = changes.inject([]) do |m, c|
@@ -66,7 +65,7 @@ module DeterLab
       end
       response = cl.call(:change_project_profile, message: { projectid: pid, changes: changes })
 
-      res = response.to_hash[:change_project_profile_response][:return]
+      res = [ response.to_hash[:change_project_profile_response][:return] || [] ].flatten
       return res.inject({}) do |m, r|
         m[r[:name]] = { success: r[:success], reason: r[:reason] }
         m

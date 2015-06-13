@@ -202,6 +202,20 @@ class DeterLab::ExperimentsTest < DeterLab::AbstractTest
   #   end
   # end
 
+  test "change experiment profile" do
+    VCR.use_cassette "deterlab/experiments/change-experiment-profile" do
+      login 'aadams'
+      eid = 'Alfa-Romeo:HelloWorld'
+
+      res = DeterLab.change_experiment_profile(@username, eid, { description: 'new', unknown: 'field' })
+
+      assert_equal({
+        'description' => { success: true,  reason: nil },
+        'unknown'     => { success: false, reason: 'No such attribute' }
+      }, res)
+    end
+  end
+
   private
 
   def create_experiment(pid = "SPIdev", eid = "Test")

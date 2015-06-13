@@ -47,6 +47,7 @@ class CachedDeterLab
   def invalidate_projects
     @deter_cache.delete "projects"
     @deter_cache.delete "projects_summary"
+    @deter_cache.delete_matched_global "project_profile:*"
   end
 
   # returns the project profile
@@ -102,6 +103,7 @@ class CachedDeterLab
   def invalidate_experiments(project_id = nil)
     @deter_cache.delete "experiments"
     @deter_cache.delete "experiments_summary"
+    @deter_cache.delete_matched_global "experiment_profile:*"
     @deter_cache.delete_matched_global "library:*:experiments"
 
     if project_id.nil?
@@ -123,6 +125,7 @@ class CachedDeterLab
   # invalidates the experiment cache
   def invalidate_experiment(eid)
     @deter_cache.delete_global "experiment:#{eid}"
+    @deter_cache.delete_global "experiment_profile:#{eid}"
   end
 
   # returns experiment profile

@@ -107,6 +107,25 @@ module DeterLab
       process_error e
     end
 
+    # changes experiment profile
+    def change_experiment_profile(uid, eid, changes)
+      cl = client("Experiments", uid)
+      changes = changes.inject([]) do |m, c|
+        m << { name: c[0], value: c[1] }
+        m
+      end
+
+      response = cl.call(:change_experiment_profile, message: { eid: eid, changes: changes })
+
+      res = [ response.to_hash[:change_experiment_profile_response][:return] || [] ].flatten
+      return res.inject({}) do |m, r|
+        m[r[:name]] = { success: r[:success], reason: r[:reason] }
+        m
+      end
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
     # realizes the experiment
     def realize_experiment(uid, owner, eid)
       cl = client("Experiments", uid)

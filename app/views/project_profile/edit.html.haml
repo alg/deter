@@ -1,4 +1,5 @@
 - @submenu = :my_projects
+- @errors ||= {}
 .page-header
   %h1= raw t '.title'
   = raw t '.info'
@@ -8,15 +9,18 @@
     .col-sm-12
       %table.table.table-bordered
         - @profile_description.each do |pd|
-          %tr
+          - error = @errors[pd.name]
+          %tr{ class: error.nil? ? nil : "has-error" }
             %td.col-sm-3= label_tag "profile[#{pd.name}]", pd.description
             %td.col-sm-9
               - if pd.access == "READ_WRITE"
                 = text_field_tag "profile[#{pd.name}]", @profile[pd.name].try(:value), class: 'form-control'
               - else
                 = @profile[pd.name].value
+              - if error.present?
+                .helpBlock= error
 
   .row
     .col-sm-12
-      = button_tag t('.save'), class: 'btn btn-default'
+      = submit_tag t('.save'), class: 'btn btn-default'
       = link_to t('.cancel'), project_path(params[:project_id]), class: 'btn btn-default'
