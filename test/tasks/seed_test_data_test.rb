@@ -2,6 +2,18 @@ require 'test_helper'
 
 class SeedTestDataTest < ActiveSupport::TestCase
 
+  test "when joining projects user don't have ADD_USER and REMOVE_USER perms" do
+    VCR.use_cassette "seeding/joining-project-perms" do
+      user_id = 'abierce'
+      assert DeterLab.valid_credentials?(user_id, 'Ambrose')
+
+      project = DeterLab.view_projects(user_id).select { |p| p.project_id == 'Beta-Test' }.first
+      member  = project.members.find { |m| m.uid == user_id }
+      assert_not member.permissions.include?(ProjectMember::ADD_USER)
+      assert_not member.permissions.include?(ProjectMember::REMOVE_USER)
+    end
+  end
+
   test 'user should own a project' do
     VCR.use_cassette "seeding/owning-project" do
       user_id = 'aadams'
