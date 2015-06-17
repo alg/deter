@@ -14,7 +14,10 @@
             %td.col-sm-3= label_tag "profile[#{pd.name}]", pd.description
             %td.col-sm-9
               - if pd.access == "READ_WRITE"
-                = text_field_tag "profile[#{pd.name}]", @profile[pd.name].try(:value), class: 'form-control'
+                - if %w{ org_type research_focus funding listing }.include?(pd.name)
+                  = select_tag "profile[#{pd.name}]", options_for_select(t("page_project_info.project_leader.project_#{pd.name}.options"), @profile[pd.name].try(:value)), class: 'form-control'
+                - else
+                  = text_field_tag "profile[#{pd.name}]", @profile[pd.name].try(:value), class: 'form-control'
               - else
                 = @profile[pd.name].value
               - if error.present?
