@@ -56,8 +56,7 @@ Rails.application.routes.draw do
 
   resources :notifications do
     collection do
-      get :current
-      get :archived
+      get :new_only
     end
   end
   resources :libraries do

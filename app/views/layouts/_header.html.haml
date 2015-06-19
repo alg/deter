@@ -47,10 +47,9 @@
           = dropdown_submenu_item [ :my_experiments, :new_experiment ], t("submenu.experiments") do
             = submenu_item :my_experiments, t("submenu.my_experiments"), experiments_path
             = submenu_item :new_experiment, t("submenu.new_experiment"), new_experiment_path
-          = dropdown_submenu_item [ :new_notifications, :current_notifications, :archived_notifications ], t("submenu.notifications") do
-            = submenu_item :new_notifications, t("submenu.new_notifications"), notifications_path
-            = submenu_item :current_notifications, t("submenu.current_notifications"), current_notifications_path
-            = submenu_item :archived_notifications, t("submenu.archived_notifications"), archived_notifications_path
+          = dropdown_submenu_item [ :new_notifications, :all_notifications ], t("submenu.notifications") do
+            = submenu_item :new_notifications, t("submenu.new_notifications"), new_only_notifications_path
+            = submenu_item :all_notifications, t("submenu.all_notifications"), notifications_path
           - if admin?
             = dropdown_submenu_item [ :project_requests, :user_admin, :project_admin, :privilege_admin ], t("submenu.administration") do
               = submenu_item :project_requets, t("submenu.project_requests"), "#TBD"

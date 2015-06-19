@@ -7,16 +7,9 @@ en:
           New notifications
         </p>
 
-    current_notifications:
-      title: Current Notifications
+    all_notifications:
+      title: All Notifications
       info: >
         <p>
-          Current notifications
-        </p>
-
-    archived_notifications:
-      title: Archived Notifications
-      info: >
-        <p>
-          Archived notifications
+          All notifications
         </p>
