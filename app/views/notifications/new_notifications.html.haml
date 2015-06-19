@@ -3,5 +3,5 @@
   %h1= raw t '.title'
   = raw t '.info'
 
-= render "notifications"
+= react_component 'NotificationsBox', nothing_text: t('.none'), no_old_hiding: true
 

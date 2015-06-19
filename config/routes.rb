@@ -58,6 +58,9 @@ Rails.application.routes.draw do
     collection do
       get :new_only
     end
+    member do
+      post :mark_as_read
+    end
   end
   resources :libraries do
     collection do
@@ -70,6 +73,10 @@ Rails.application.routes.draw do
       post :copy_experiment
     end
   end
+
+  resources :new_project_requests, only: :index
+  resources :join_project_requests, only: :show
+
 
   get '/spi_log' => 'spi_log#index'
 

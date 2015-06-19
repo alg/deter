@@ -1,0 +1,8 @@
+en:
+  join_project_requests:
+    show:
+      title: Review Request
+      info: >
+        <p>
+          Review and accept or reject the request
+        </p>

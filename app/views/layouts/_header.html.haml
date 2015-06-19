@@ -52,7 +52,7 @@
             = submenu_item :all_notifications, t("submenu.all_notifications"), notifications_path
           - if admin?
             = dropdown_submenu_item [ :project_requests, :user_admin, :project_admin, :privilege_admin ], t("submenu.administration") do
-              = submenu_item :project_requets, t("submenu.project_requests"), "#TBD"
+              = submenu_item :project_requests, t("submenu.project_requests"), new_project_requests_path
               = submenu_item :user_admin, t("submenu.user_admin"), "#TBD"
               = submenu_item :project_admin, t("submenu.project_admin"), "#TBD"
               = submenu_item :privilege_admin, t("submenu.privilege_admin"), "#TBD"

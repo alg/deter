@@ -1,0 +1,15 @@
+- @submenu = :project_requests
+.page-header
+  %h1= raw t '.title'
+  = raw t '.info'
+
+%table.table
+  %tr
+    %th Id:
+    %td= params[:id]
+  %tr
+    %th Type:
+    %td= params[:type]
+  %tr
+    %th Challenge:
+    %td= params[:challenge]

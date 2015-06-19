@@ -22,5 +22,18 @@ module DeterLab
       process_error e
     end
 
+    # marks notifications with specific flags
+    def mark_notifications(uid, ids, flags)
+      cl = client("Users", uid)
+
+      response = cl.call(:mark_notifications, message: {
+        uid: uid,
+        ids: ids,
+        flags: flags
+      })
+    rescue Savon::SOAPFault => e
+      process_error e
+    end
+
   end
 end

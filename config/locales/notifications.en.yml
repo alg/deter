@@ -6,6 +6,7 @@ en:
         <p>
           New notifications
         </p>
+      none: You have no new notifications.
 
     all_notifications:
       title: All Notifications
@@ -13,3 +14,5 @@ en:
         <p>
           All notifications
         </p>
+      none: You have no notifications.
+
