@@ -25,7 +25,26 @@ en:
         after: "More information is available via the main navigation bar above."
 
       notifications:
-        title: "Notifications: %{unread} Unread"
+        title: "Notifications"
+        unread:
+          zero:  "no unread notifications"
+          one:   "1 <a href='%{path}'>unread notification</a>"
+          other: "%{count} <a href='%{path}'>unread notifications</a>"
+        total:
+          zero:  ""
+          one:   "of 1 <a href='%{path}'>total notification</a>"
+          other: "of %{count} <a href='%{path}'>total notifications</a>"
+        totals: "You have %{unread} %{total}"
+
+        new_projects:
+          zero:  "no pending new project requests"
+          one:   "1 pending new project request"
+          other: "%{count} pending new project requests"
+        join_projects:
+          zero:  "no pending join project requests"
+          one:   "1 pending join project request"
+          other: "%{count} pending join project requests"
+        projects: "You have %{new} and %{join}"
 
       activity:
         title: Recent Activity

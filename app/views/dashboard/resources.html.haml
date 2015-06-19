@@ -1,4 +1,3 @@
-- unread_notifications = 0
 = section_row t('.resources.title'), 'resources-section', :opened
 .row#resources-section.section.in
   .col-sm-12
@@ -41,14 +40,21 @@
     %p= t '.resources.after'
 
 
-= section_row t('.notifications.title', unread: unread_notifications), 'notifications-section'
-.row#notifications-section.section.collapse
-  -# load on open, cache on close
+= section_row t('.notifications.title'), 'notifications-section', :opened
+.row#notifications-section.section.in
   %ul
-    %li You have 1 <a href="#unread_notifications">unread notifications</a> or 2 <a href="#total_notifications">total notifications</a>.
     %li
-      You have no pending new project requests and 1 pending join project request
-      -# or if 0 "no pending"
+      - u = @resources.unread_notifications
+      - t = @resources.total_notifications
+      - unread = raw(u == 0 ? t('.notifications.unread.zero') : t('.notifications.unread', count: u, path: new_only_notifications_path))
+      - total  = raw(t == 0 ? t('.notifications.total.zero') : t('.notifications.total', count: t, path: notifications_path))
+      = raw t '.notifications.totals', unread: unread, total: total
+    %li
+      - n = @resources.new_project_notifications_count
+      - j = @resources.join_project_notifications_count
+      - new_prj  = raw(u == 0 ? t('.notifications.new_projects.zero') : t('.notifications.new_projects', count: n))
+      - join_prj = raw(j == 0 ? t('.notifications.join_projects.zero') : t('.notifications.join_projects', count: n))
+      = raw t '.notifications.projects', new: new_prj, join: join_prj
 
 
 = section_row t('.activity.title'), 'activity-section'

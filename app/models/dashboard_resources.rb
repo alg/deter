@@ -37,4 +37,28 @@ class DashboardResources
     @d.view_libraries
   end
 
+  #
+  # Notifications
+  #
+
+  def notifications
+    @notifications ||= DeterLab.get_notifications(@uid)
+  end
+
+  def unread_notifications
+    notifications.count { |n| !n.read? }
+  end
+
+  def total_notifications
+    notifications.size
+  end
+
+  def new_project_notifications_count
+    notifications.count { |n| n.new_project_request? }
+  end
+
+  def join_project_notifications_count
+    notifications.count { |n| n.join_project_request? }
+  end
+
 end
