@@ -53,6 +53,10 @@ class DashboardResources
     notifications.size
   end
 
+  def unread_project_requests_count
+    notifications.count { |n| n.new_project_request? && !n.read? }
+  end
+
   def new_project_notifications_count
     notifications.count { |n| n.new_project_request? }
   end

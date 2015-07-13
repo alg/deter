@@ -30,6 +30,10 @@ en:
           zero:  "no unread notifications"
           one:   "1 <a href='%{path}'>unread notification</a>"
           other: "%{count} <a href='%{path}'>unread notifications</a>"
+        unread_no_link:
+          zero:  "no unread notifications"
+          one:   "1 unread notification"
+          other: "%{count} unread notifications"
         total:
           zero:  ""
           one:   "of 1 <a href='%{path}'>total notification</a>"
@@ -45,6 +49,8 @@ en:
           one:   "1 pending join project request"
           other: "%{count} pending join project requests"
         projects: "You have %{new} and %{join}"
+      
+        unread_projects: "You have %{unread} of new project request. <a href='%{path}'>Click here to view them.</a>"
 
       activity:
         title: Recent Activity

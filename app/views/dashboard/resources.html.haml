@@ -43,6 +43,11 @@
 = section_row t('.notifications.title'), 'notifications-section', :opened
 .row#notifications-section.section.in
   %ul
+    - u = @resources.unread_project_requests_count
+    - if u > 0
+      %li
+        - unread = raw t('.notifications.unread_no_link', count: u)
+        = raw t '.notifications.unread_projects', unread: unread, path: new_only_notifications_path
     %li
       - u = @resources.unread_notifications
       - t = @resources.total_notifications
@@ -53,7 +58,7 @@
       - n = @resources.new_project_notifications_count
       - j = @resources.join_project_notifications_count
       - new_prj  = raw(u == 0 ? t('.notifications.new_projects.zero') : t('.notifications.new_projects', count: n))
-      - join_prj = raw(j == 0 ? t('.notifications.join_projects.zero') : t('.notifications.join_projects', count: n))
+      - join_prj = raw(j == 0 ? t('.notifications.join_projects.zero') : t('.notifications.join_projects', count: j))
       = raw t '.notifications.projects', new: new_prj, join: join_prj
 
 
