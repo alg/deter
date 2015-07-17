@@ -7,6 +7,8 @@ class ProjectsController < ApplicationController
     uid = app_session.current_user_id
     projects = SummaryLoader.user_projects(uid).reject { |p| p[:project_id].downcase == 'admin' }
 
+    Rails.logger.info(projects.inspect)
+
     @approved = projects.select { |p| p[:approved] }.sort do |p1, p2|
       o1 = p1[:leader][:uid] == uid
       o2 = p2[:leader][:uid] == uid
@@ -20,7 +22,8 @@ class ProjectsController < ApplicationController
       end
     end
 
-    @unapproved = projects.select { |p| !p[:approved] && p[:leader][:uid] == uid }
+    @unapproved_new = projects.select { |p| !p[:approved] && p[:leader][:uid] == uid }
+    @unapproved_joins = []
 
     gon.getProfileUrl = profile_project_path(':id')
   end

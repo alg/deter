@@ -10,7 +10,8 @@ class ProjectsControllerTest < ActionController::TestCase
     DeterLab.expects(:view_projects).twice.returns([])
     get :index
     assert_not_nil assigns[:approved]
-    assert_not_nil assigns[:unapproved]
+    assert_not_nil assigns[:unapproved_new]
+    assert_not_nil assigns[:unapproved_joins]
     assert_template :index
   end
 

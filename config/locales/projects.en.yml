@@ -25,8 +25,12 @@ en:
       manage: Manage
 
       unapproved_projects:
-        title: "Pending Projects"
+        title: "Pending New Projects"
         info: "Your DeterLab project requests that have not yet been approved"
+
+      unapproved_joins:
+        title: "Pending Join Project Requests"
+        info: "Your join-project requests that have not yet been approved"
 
     show:
       title: "Project: %{id}"

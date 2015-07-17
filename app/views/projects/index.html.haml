@@ -7,10 +7,10 @@
   .col-sm-12
     = render partial: 'projects_table', object: @approved
 
-    - if @unapproved.any?
+    - if @unapproved_new.any?
       %h3= t ".unapproved_projects.title"
       %p= raw t ".unapproved_projects.info"
-      = render partial: 'projects_table', object: @unapproved
+      = render partial: 'projects_table', object: @unapproved_new
 
 .row
   .col-sm-12
