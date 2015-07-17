@@ -9,7 +9,12 @@
 }
 
 pre.view {
+  padding: 10px;
   margin-top: 8px;
   margin-bottom: 0;
   border: 1px solid #eee;
+  overflow: scroll;
+  max-height: 400px;
+  word-wrap: normal;
+  white-space: pre;
 }

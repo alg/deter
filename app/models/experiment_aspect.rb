@@ -70,17 +70,21 @@ class ExperimentAspect < Struct.new(:eid, :name, :type, :sub_type, :raw_data, :d
       else
         decoded = Base64.decode64(self.raw_data)
 
-        require "nokogiri"
-        doc = Nokogiri::XML(decoded)
-        doc.to_xml.gsub(' ', '&nbsp;')
+        begin
+          require "nokogiri"
+          doc = Nokogiri::XML(decoded)
+          doc.to_xml.gsub(' ', '&nbsp;')
 
-        require 'rexml/document'
-        doc = REXML::Document.new(decoded)
-        formatter = REXML::Formatters::Pretty.new
-        formatter.compact = true
-        formatter.write(doc, targetstr = "")
+          require 'rexml/document'
+          doc = REXML::Document.new(decoded)
+          formatter = REXML::Formatters::Pretty.new
+          formatter.compact = true
+          formatter.write(doc, targetstr = "")
 
-        @data = targetstr.blank? ? decoded : targetstr
+          @data = targetstr.blank? ? decoded : targetstr
+        rescue
+          @data = decoded
+        end
       end
     end
 
