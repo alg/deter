@@ -11,7 +11,7 @@ $ ->
   if $("#data-editor").length > 0
     editor = ace.edit("data-editor")
     editor.setTheme("ace/theme/xcode")
-    editor.getSession().setMode("ace/mode/xml")
+    # editor.getSession().setMode("ace/mode/xml")
     editor.setShowPrintMargin(false)
   else
     editor = $("#aspect_data")
