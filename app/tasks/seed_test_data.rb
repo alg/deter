@@ -11,7 +11,8 @@ class SeedTestData
   PROJECTS = {
     'Alfa-Romeo' => { description: 'Study the speed of malware spread in a closed environment.' },
     'Beta-Test'  => { description: 'Measure the effectiveness bot-net C&C surveillance.' },
-    'Gamma-Ray'  => { description: 'Experiment with new methods of network based malware detection.' }
+    'Gamma-Ray'  => { description: 'Experiment with new methods of network based malware detection.' },
+    'Descartes'  => { description: 'Descartes sample project' }
   }
 
   USER_DEFAULTS = {
@@ -36,14 +37,19 @@ class SeedTestData
     { name: 'Britt Greer',      email: 'bgreer@uso.edu',          password: 'Britt',     owns_projects: [] },
     { name: 'Gerta Grein',      email: 'ggrein@uso.edu',          password: 'Gerta',     owns_projects: [ 'Gamma-Ray' ] },
     { name: 'John Sebes',       email: 'john@sebes.com',          password: 'John',      owns_projects: [] },
-    { name: 'Aleksey Gureiev',  email: 'spyromus@noizeramp.com',  password: 'Aleksey',   owns_projects: [] }
+    { name: 'Aleksey Gureiev',  email: 'spyromus@noizeramp.com',  password: 'Aleksey',   owns_projects: [] },
+    { name: 'Terry',            email: 'terry@uso.edu',           password: 'Terry',     owns_projects: [ 'Descartes' ] },
+    { name: 'Alefiya',          email: 'alefiya@uso.edu',         password: 'Alefiya',   owns_projects: [] },
+    { name: 'Prateek',          email: 'prateek@uso.edu',         password: 'Prateek',   owns_projects: [] },
+    { name: 'Ted',              email: 'ted@uso.edu',             password: 'Ted',       owns_projects: [] }
   ]
 
   PROJECT_USERS = {
     'Alfa-Romeo' => [ 'Arthur Ashe', 'Ambrose Bierce' ],
     'Beta-Test'  => [ 'Abigail Adams', 'Ambrose Bierce', 'Britt Greer', 'John Sebes', 'Aleksey Gureiev' ],
     'Gamma-Ray'  => [ 'Abigail Adams', 'Britt Greer' ],
-    'admin'      => [ 'John Sebes', 'Aleksey Gureiev' ]
+    'admin'      => [ 'John Sebes', 'Aleksey Gureiev' ],
+    'Descartes'  => [ 'Alefiya', 'Prateek', 'Ted', 'John Sebes', 'Aleksey Gureiev' ]
   }
 
   PROJECT_PROFILE_ATTRS = [
